@@ -23,8 +23,8 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import { TournamentsColumns } from "./Tournaments.columns";
 
 const Tournaments = () => {
-  const { strings: Strings } = useContext(StringsContext);
-  const ViewStrings = Strings.Tournaments.AllTournaments;
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.Books.AllBooks;
 
   const request = useRequest();
   const searchParams = useQuery();
@@ -49,18 +49,13 @@ const Tournaments = () => {
     search = searchParams.get("search")
   ) => {
     startFetching();
-    return await request(
-      "get",
-      getEndpoint(Endpoints.Tournaments.allTournaments.getAll),
-      {
-        page,
-        offset,
-        search,
-        org_guid: searchParams.get("org_guid") || "",
-      }
-    )
+    return await request("get", getEndpoint(Endpoints.Books.allBooks.getAll), {
+      page,
+      offset,
+      search,
+    })
       .then((res) => {
-        setData(res.data);
+        setData(res.books);
         setTotalPages(res.totalPages);
       })
       .catch(errorNotification)
@@ -71,8 +66,8 @@ const Tournaments = () => {
     <GeneralLayout
       title={ViewStrings.title}
       rightSection={
-        <Button size="sm" as={Link} to={Paths[Views.new_tournament].path}>
-          {ViewStrings.newTournament}
+        <Button size="sm" as={Link} to={Paths[Views.new_book].path}>
+          {ViewStrings.newBook}
         </Button>
       }
     >

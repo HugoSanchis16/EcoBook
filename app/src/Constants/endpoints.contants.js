@@ -10,11 +10,11 @@ export const Endpoints = {
     resetPassword: "/auth/resetpassword",
     checkUser: "/auth/checkUser",
   },
-  Tournaments: {
-    allTournaments: {
-      getAll: "/tournaments/getAll",
+  Books: {
+    allBooks: {
+      getAll: "/books/getAll",
     },
-    newTournament: {
+    newBook: {
       getAvailableCategories: "/tournaments/getAvailableCategories",
       create: "/tournaments/create",
     },

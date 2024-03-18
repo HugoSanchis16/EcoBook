@@ -22,28 +22,33 @@ const AuthLayout = ({ children }) => {
           >
             <AnimationBalls
               color={`${Colors.lightPurple}75`}
-              style={{ left: "0rem" }}
-              size={75}
+              style={{ left: "-200rem" }}
+              size={200}
+            />
+            <AnimationBalls
+              color={`${Colors.lightPurple}75`}
+              style={{ left: "-150rem", top: "-50rem" }}
+              size={200}
             />
             <AnimationBalls
               color={`${Colors.lightPurple}75`}
               style={{ left: "-40rem" }}
-              size={75}
+              size={300}
             />
             <AnimationBalls
               color={`${Colors.lightPurple}75`}
               style={{ left: "-20rem" }}
-              size={75}
+              size={250}
             />
             <AnimationBalls
               color={`${Colors.lightPurple}75`}
               style={{ left: "20rem" }}
-              size={75}
+              size={150}
             />
             <AnimationBalls
               color={`${Colors.lightPurple}75`}
               style={{ left: "40rem" }}
-              size={75}
+              size={100}
             />
           </div>
         </div>

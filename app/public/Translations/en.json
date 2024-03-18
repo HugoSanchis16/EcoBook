@@ -305,9 +305,9 @@
       }
     }
   },
-  "Tournaments": {
-    "AllTournaments": {
-      "title": "Tournaments",
+  "Books": {
+    "AllBooks": {
+      "title": "Books",
       "newTournament": "+ New Tournament",
       "table": {
         "columns": {

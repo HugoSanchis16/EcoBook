@@ -10,12 +10,12 @@ export const TournamentsColumns = () => {
     {
       Header: "Full Name",
       Cell: (row) =>
-        getColumnValue(row, (item) => <p className="mb-0">{item.fullname}</p>),
+        getColumnValue(row, (item) => <p className="mb-0">{item.name}</p>),
     },
     {
       Header: "Email",
       Cell: (row) =>
-        getColumnValue(row, (item) => <p className="mb-0">{item.email}</p>),
+        getColumnValue(row, (item) => <p className="mb-0">{item.isbn}</p>),
       width: 250,
     },
     {
