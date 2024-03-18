@@ -1,0 +1,400 @@
+{
+  "General": {
+    "App": {
+      "Yes": "Yes",
+      "No": "No",
+      "Save": "Save",
+      "Update": "Update",
+      "Delete": "Delete",
+      "Cancel": "Cancel",
+
+      "Rank": "Rank"
+    },
+    "Tables": {
+      "Actions": "Actions"
+    },
+    "NavBar": {
+      "Sections": {
+        "Management": "Management"
+      }
+    }
+  },
+  "Organisations": {
+    "AllOrganisations": {
+      "title": "Organisations",
+      "newOrganisation": "+ New Organisation",
+      "table": {
+        "columns": {
+          "name": "Name",
+          "description": "Description"
+        }
+      }
+    },
+    "NewOrganisation": {
+      "title": "New Organisation",
+      "inputs": {
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type organisation name..."
+        },
+        "descriptionInput": {
+          "title": "Description:",
+          "placeholder": "Type organisation description..."
+        }
+      },
+      "messages": {
+        "organisationCreated": "Organisation created successfully!"
+      }
+    },
+    "EditOrganisation": {
+      "title": "Edit Organisation",
+      "inputs": {
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type organisation name..."
+        },
+        "descriptionInput": {
+          "title": "Description:",
+          "placeholder": "Type organisation description..."
+        }
+      },
+      "messages": {
+        "organisationUpdated": "Organisation updated successfully!"
+      }
+    }
+  },
+  "Users": {
+    "AllUsers": {
+      "title": "Users",
+      "newUser": "+ New User",
+      "table": {
+        "columns": {
+          "name": "Name",
+          "email": "Email"
+        }
+      }
+    },
+    "NewUser": {
+      "title": "New User",
+      "sections": {
+        "basicSection": "Basic Info",
+        "accountSection": "Account Details"
+      },
+      "inputs": {
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type name..."
+        },
+        "lastNameInput": {
+          "title": "Last name:",
+          "placeholder": "Type last name..."
+        },
+        "emailInput": {
+          "title": "Email:",
+          "placeholder": "Type email..."
+        },
+        "organisationInput": {
+          "title": "Organisation:",
+          "placeholder": "Select organisation..."
+        }
+      },
+      "messages": {
+        "userCreated": "User created successfully!"
+      },
+      "buttons": {
+        "create": "Create"
+      }
+    },
+    "EditUser": {
+      "title": "Edit User",
+      "inputs": {
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type organisation name..."
+        },
+        "lastNameInput": {
+          "title": "Last name:",
+          "placeholder": "Type last name..."
+        },
+        "ageInput": {
+          "title": "Age:",
+          "placeholder": "Type your age..."
+        },
+        "phoneInput": {
+          "title": "Phone:",
+          "placeholder": "Type phone..."
+        },
+        "dniInput": {
+          "title": "ID:",
+          "placeholder": "Type your ID..."
+        },
+        "organisationInput": {
+          "title": "Organisation:",
+          "placeholder": "Select organisation..."
+        }
+      },
+      "messages": {
+        "userUpdated": "User updated successfully!"
+      }
+    }
+  },
+  "Players": {
+    "AllPlayers": {
+      "title": "Players",
+      "newPlayer": "+ New Player",
+      "table": {
+        "columns": {
+          "name": "Name",
+          "email": "Email"
+        }
+      }
+    },
+    "NewPlayer": {
+      "title": "New Player",
+      "sections": {
+        "basicSection": "Basic Info",
+        "accountSection": "Account Details"
+      },
+      "inputs": {
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type name..."
+        },
+        "lastNameInput": {
+          "title": "Last name:",
+          "placeholder": "Type last name..."
+        },
+        "emailInput": {
+          "title": "Email:",
+          "placeholder": "Type email..."
+        }
+      },
+      "messages": {
+        "playerCreated": "Player created successfully!"
+      },
+      "buttons": {
+        "create": "Create"
+      }
+    },
+    "EditPlayer": {
+      "title": "Edit Player",
+      "inputs": {
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type player name..."
+        },
+        "lastNameInput": {
+          "title": "Last name:",
+          "placeholder": "Type last name..."
+        },
+        "ageInput": {
+          "title": "Age:",
+          "placeholder": "Type your age..."
+        },
+        "phoneInput": {
+          "title": "Phone:",
+          "placeholder": "Type phone..."
+        },
+        "dniInput": {
+          "title": "ID:",
+          "placeholder": "Type your ID..."
+        }
+      },
+      "messages": {
+        "playerUpdated": "Player updated successfully!"
+      }
+    }
+  },
+  "Search": {
+    "GeneralView": {
+      "title": "Search",
+      "searchPlaceholder": "Search..."
+    },
+    "Organisations": {
+      "title": "Organisations",
+      "viewMore": "View %items.amount% more..."
+    },
+    "Users": {
+      "title": "Users",
+      "viewMore": "View %items.amount% more..."
+    },
+    "Players": {
+      "title": "Players",
+      "viewMore": "View %items.amount% more..."
+    }
+  },
+  "Home": {
+    "TopSection": {
+      "Organisations": "Organisations",
+      "Users": "Users",
+      "Players": "Players"
+    }
+  },
+  "Administrators": {
+    "AllAdministrators": {
+      "title": "Administrators",
+      "newAdministrator": "+ New Administrator",
+      "table": {
+        "columns": {
+          "name": "Name",
+          "email": "Email"
+        }
+      }
+    },
+    "NewAdministrator": {
+      "title": "New Administrator",
+      "sections": {
+        "basicSection": "Basic Info",
+        "accountSection": "Account Details"
+      },
+      "inputs": {
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type name..."
+        },
+        "lastNameInput": {
+          "title": "Last name:",
+          "placeholder": "Type last name..."
+        },
+        "emailInput": {
+          "title": "Email:",
+          "placeholder": "Type email..."
+        },
+        "organisationInput": {
+          "title": "Organisation:",
+          "placeholder": "Select organisation..."
+        }
+      },
+      "messages": {
+        "administratorCreated": "Administrator created successfully!"
+      },
+      "buttons": {
+        "create": "Create"
+      }
+    },
+    "EditAdministrator": {
+      "title": "Edit Administrator",
+      "inputs": {
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type organisation name..."
+        },
+        "lastNameInput": {
+          "title": "Last name:",
+          "placeholder": "Type last name..."
+        },
+        "ageInput": {
+          "title": "Age:",
+          "placeholder": "Type your age..."
+        },
+        "phoneInput": {
+          "title": "Phone:",
+          "placeholder": "Type phone..."
+        },
+        "dniInput": {
+          "title": "ID:",
+          "placeholder": "Type your ID..."
+        },
+        "organisationInput": {
+          "title": "Organisation:",
+          "placeholder": "Select organisation..."
+        }
+      },
+      "messages": {
+        "administratorUpdated": "Administrator updated successfully!"
+      }
+    }
+  },
+  "Tournaments": {
+    "AllTournaments": {
+      "title": "Tournaments",
+      "newTournament": "+ New Tournament",
+      "table": {
+        "columns": {
+          "name": "Name",
+          "description": "Description"
+        }
+      }
+    },
+    "NewTournament": {
+      "title": "New Tournament",
+      "inputs": {
+        "titleInput": {
+          "title": "Name:",
+          "placeholder": "Type Tournament name..."
+        },
+        "descriptionInput": {
+          "title": "Description:",
+          "placeholder": "Type Tournament description..."
+        }
+      },
+      "messages": {
+        "TournamentCreated": "Tournament created successfully!"
+      },
+      "buttons": { "next": "Next", "create": "Create" }
+    },
+    "EditTournament": {
+      "title": "Edit Tournament",
+      "inputs": {
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type Tournament name..."
+        },
+        "descriptionInput": {
+          "title": "Description:",
+          "placeholder": "Type Tournament description..."
+        }
+      },
+      "messages": {
+        "TournamentUpdated": "Tournament updated successfully!"
+      }
+    }
+  },
+  "Categories": {
+    "AllCategories": {
+      "title": "Categories",
+      "newCategory": "+ New Category",
+      "table": {
+        "columns": {
+          "name": "Name",
+          "email": "Email"
+        }
+      }
+    },
+    "NewCategory": {
+      "title": "New Category",
+      "inputs": {
+        "titleInput": {
+          "title": "Title:",
+          "placeholder": "Type title..."
+        },
+        "descriptionInput": {
+          "title": "Description:",
+          "placeholder": "Type something..."
+        }
+      },
+      "messages": {
+        "categoryCreated": "Category created successfully!"
+      },
+      "buttons": {
+        "create": "Create"
+      }
+    },
+    "EditCategory": {
+      "title": "Edit Category",
+      "inputs": {
+        "titleInput": {
+          "title": "Title:",
+          "placeholder": "Type category title..."
+        },
+        "descriptionInput": {
+          "title": "Description:",
+          "placeholder": "Type description..."
+        }
+      },
+      "messages": {
+        "categoryUpdated": "Category updated successfully!"
+      }
+    }
+  }
+}

@@ -55,10 +55,13 @@ class User
             SET password=:password, updated=:updated, deleted=:deleted, token=:token, expiredate=:expiredate
             WHERE id=:id";
 
+        logAPI("Hola");
+        logAPI($this->deleted);
+
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":password", $this->password);
         $stmt->bindParam(":updated", $this->updated);
-        $stmt->bindParam(":deleted", $this->deleted);
+        $stmt->bindValue(":deleted", $this->deleted);
         $stmt->bindParam(":token", $this->token);
         $stmt->bindParam(":expiredate", $this->expiredate);
         $stmt->bindParam(":id", $this->id);
@@ -87,6 +90,13 @@ class User
 
         $this->token = createToken();
         $this->expiredate = newDate(1, "day");
+        return $this->update();
+    }
+
+    function logout()
+    {
+        $this->token = null;
+        $this->expiredate = null;
         return $this->update();
     }
 
@@ -123,7 +133,7 @@ class User
         createException("User not found");
     }
 
-    public static function getByGuid(PDO $db, string $guid): User
+    public static function getByGuid(PDO $db, string $guid): User|bool
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE guid=:guid AND deleted IS NULL";
 
@@ -134,11 +144,12 @@ class User
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 return self::getMainObject($db, $row);
             }
+            return false;
         }
         createException("User not found");
     }
 
-    public static function getByEmail(PDO $db, string $email): User
+    public static function getByEmail(PDO $db, string $email): User|bool
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE email=:email AND deleted IS NULL";
 
@@ -147,12 +158,32 @@ class User
         $stmt->bindParam(":email", $email);
 
         if ($stmt->execute()) {
+            logAPI("asd");
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 return self::getMainObject($db, $row);
             }
+            return false;
         }
-        createException("Invalid credentials");
+        createException($stmt->errorInfo());
     }
+
+
+    public static function checkToken($db, $token)
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE DATE(expiredate) > DATE(NOW()) AND token=:token AND deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":token", $token);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return  intval($row['id']);
+            }
+        }
+        return null; // Return null if user with token not found
+    }
+
 
     private static function getMainObject(PDO $db, array $row): User
     {
@@ -162,9 +193,9 @@ class User
         $newObj->email = $row['email'];
         $newObj->password = $row['password'];
         $newObj->created = $row['created'];
+        $newObj->token = $row['token'];
         $newObj->updated = $row['updated'];
         $newObj->deleted = $row['deleted'];
-        $newObj->deleted = $row['token'];
         $newObj->expiredate = $row['expiredate'];
         return $newObj;
     }

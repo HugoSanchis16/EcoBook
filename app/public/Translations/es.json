@@ -1,0 +1,14 @@
+{
+  "General": {
+    "NavBar": {
+      "Sections": {
+        "Management": "Mantenimiento"
+      }
+    }
+  },
+  "Organisations": {
+    "AllOrganisations": {
+      "title": "Organisations"
+    }
+  }
+}

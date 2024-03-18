@@ -122,7 +122,9 @@ if (!function_exists('createException')) {
     {
         $error = new CustomException();
 
-        $error->setMessage($message, $code);
+        $msg = $message["message"] ?? $message;
+        logAPI($message);
+        $error->setMessage($msg, $code);
         throw $error;
     }
 }
@@ -178,9 +180,13 @@ if (!function_exists('checkAuth')) {
             $database = new Database();
             $db = $database->getConnection();
             $token = isset($allheaders['Authorization']) ? $allheaders['Authorization'] : false;
-            $adminId = Session::checkToken($db, $token);
+            $adminId = User::checkToken($db, $token);
             $database->conn = null;
-            return $adminId;
+            if ($adminId) {
+                return $adminId;
+            } else {
+                createException("Token Expired", 401);
+            }
         }
     }
 }

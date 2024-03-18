@@ -15,10 +15,11 @@ try {
         'email' => 'required|email',
         'password' => 'required|min:6',
     ]);
+
     //check if user exist
     $user = User::getByEmail($db, $input->email);
 
-    if (password_verify($input->password, $user->password)) {
+    if ($user && password_verify($input->password, $user->password)) {
         $user->createSession();
     } else
         createException("Wrong email or password", 401);

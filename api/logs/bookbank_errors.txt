@@ -1,0 +1,5 @@
+24:03:18 10:05:36E:\Banc-de-Llibres\api\endpoints\auth\forgotpassword.php
+---------------------
+"Invalid credentials"
+---------------------
+
