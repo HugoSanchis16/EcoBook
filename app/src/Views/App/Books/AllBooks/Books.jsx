@@ -20,9 +20,9 @@ import useQuery from "../../../../Hooks/useQuery";
 import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
-import { TournamentsColumns } from "./Tournaments.columns";
+import { BooksColumns } from "./BooksColumns";
 
-const Tournaments = () => {
+const Books = () => {
   const { strings } = useContext(StringsContext);
   const ViewStrings = strings.Books.AllBooks;
 
@@ -67,7 +67,7 @@ const Tournaments = () => {
       title={ViewStrings.title}
       rightSection={
         <Button size="sm" as={Link} to={Paths[Views.new_book].path}>
-          {ViewStrings.newBook}
+          {ViewStrings.addBook}
         </Button>
       }
     >
@@ -77,11 +77,11 @@ const Tournaments = () => {
           fetching={fetching}
           onEventChange={fetchData}
           data={data}
-          columns={TournamentsColumns()}
+          columns={BooksColumns()}
         />
       </PanelLayout>
     </GeneralLayout>
   );
 };
 
-export default Tournaments;
+export default Books;

@@ -5,38 +5,37 @@ import { getColumnValue } from "../../../../Config/GeneralFunctions";
 import { Paths, replacePaths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
 
-export const TournamentsColumns = () => {
+export const BooksColumns = () => {
   const columns = [
     {
-      Header: "Full Name",
+      Header: "Name",
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.name}</p>),
+      width: 100,
     },
     {
-      Header: "Email",
+      Header: "Isbn",
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.isbn}</p>),
-      width: 250,
+      width: 100,
     },
     {
-      Header: "Rank",
+      Header: "Stock",
       Cell: (row) =>
-        getColumnValue(row, (item) => (
-          <p className="mb-0">{item.padelcrownrank}</p>
-        )),
-      width: 50,
+        getColumnValue(row, (item) => <p className="mb-0">{item.stock}</p>),
+      width: 100,
     },
     {
       Header: "Actions",
-      width: 50,
+      width: 10,
       Cell: (row) =>
         getColumnValue(row, (item) => (
           <div className="d-flex align-items-center">
             <IconButton
               Icon={MdEdit}
               as={Link}
-              to={replacePaths(Paths[Views.edit_player].path, [
-                { player_guid: item.guid },
+              to={replacePaths(Paths[Views.edit_book].path, [
+                { book_guid: item.guid },
               ])}
             />
           </div>

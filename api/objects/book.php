@@ -134,11 +134,11 @@ class Book
         }
         createException("Book not found");
     }
-    public static function getAll(PDO $db, int $offset, int $page, string $search = ""): array
+    public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
     {
         $query = "
-        SELECT u.*
-        FROM `" . self::$table_name . "` u 
+        SELECT b.*
+        FROM `" . self::$table_name . "` b
         WHERE deleted IS NULL";
 
         applySearchOnQuery($query);

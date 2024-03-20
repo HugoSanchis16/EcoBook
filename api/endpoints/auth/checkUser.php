@@ -8,10 +8,16 @@ try {
     $db->beginTransaction();
     $userid = checkAuth();
 
+    $user = User::get($db, $userid);
+    $resourceUser = UserResource::getLoginResource($user);
+
     $db->commit();
 
+    logAPI("Hi" . $resourceUser['email']);
+
     Response::sendResponse([
-        "status" => true
+        "status" => true,
+        "data" => $resourceUser
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

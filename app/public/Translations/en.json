@@ -308,7 +308,7 @@
   "Books": {
     "AllBooks": {
       "title": "Books",
-      "newTournament": "+ New Tournament",
+      "addBook": "+ New Book",
       "table": {
         "columns": {
           "name": "Name",

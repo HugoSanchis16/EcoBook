@@ -34,4 +34,12 @@ export const Views = {
   users: "users",
   new_user: "new_user",
   edit_user: "edit_user",
+  //#endregion
+
+
+  //#region Management
+  new_book: "new_book",
+  edit_book: "edit_book",
+  //#endregion
+
 };

@@ -42,6 +42,10 @@ export const Paths = {
   [Views.edit_user]: getPath("/users/edit/:user_guid"),
   //#Management
 
+  //#region books
+  [Views.new_book]: getPath("/boook/new"),
+  [Views.edit_book]: getPath("/boook/edit/:book_guid"),
+  //#endregion
   
   //#region Old views
   [Views.dashboard]: getPath(`/dashboard`, "Dashboard", `e88a`),

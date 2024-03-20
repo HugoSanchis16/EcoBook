@@ -9,7 +9,7 @@ import ResetPassword from "../../Views/Auth/ResetPassword/ResetPassword";
 import InMaintenance from "../../Views/InMaintenance";
 import { HomePath, Paths } from "../paths.constants";
 import { Views } from "../views.constants";
-import Tournaments from "../../Views/App/Books/AllBooks/Tournaments";
+import Tournaments from "../../Views/App/Books/AllBooks/Books";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -44,6 +44,10 @@ export const AppRoutes = [
   getRoute(Paths[Views.users].path, InMaintenance),
   getRoute(Paths[Views.new_user].path, InMaintenance),
   getRoute(Paths[Views.edit_user].path, InMaintenance),
+
+  //#region book
+  getRoute(Paths[Views.new_book].path, InMaintenance),
+  getRoute(Paths[Views.edit_book].path, InMaintenance),
 ];
 
 export const OtherRoutes = [
