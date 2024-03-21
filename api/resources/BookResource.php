@@ -2,7 +2,7 @@
 
 class BookResource
 {
-    private static function getBook(Book $book, array $params)
+    public static function getBook(Book $book, array $params)
     {
         $newItem = new stdClass();
 
@@ -18,7 +18,7 @@ class BookResource
         $itemsArray = [];
         foreach ($books as $book) {
 
-            $newItem = self::getBook($book, ['name', 'isbn', 'stock', 'guid']);
+            $newItem = self::getBook($book, ['name', 'isbn', 'stock', 'guid', 'enabled']);
 
             $itemsArray[] = $newItem;
         }

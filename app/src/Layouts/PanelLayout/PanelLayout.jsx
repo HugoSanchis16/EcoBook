@@ -4,6 +4,7 @@ import Loader from "../../Components/Loader/Loader";
 const PanelLayout = ({
   children,
   loaded = true,
+  cenetered,
   style,
   Tabs,
   className = "p-2 p-xl-3",
@@ -16,8 +17,15 @@ const PanelLayout = ({
     cardClassName
   );
 
+  const contentClassname = classNames(
+    {
+      container: cenetered,
+    },
+    className
+  );
+
   const renderContent = () => (
-    <Card.Body className={className} style={style}>
+    <Card.Body className={contentClassname} style={style}>
       {children}
     </Card.Body>
   );

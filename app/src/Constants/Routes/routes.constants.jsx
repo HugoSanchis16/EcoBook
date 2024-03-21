@@ -10,6 +10,7 @@ import InMaintenance from "../../Views/InMaintenance";
 import { HomePath, Paths } from "../paths.constants";
 import { Views } from "../views.constants";
 import Tournaments from "../../Views/App/Books/AllBooks/Books";
+import EditBook from "../../Views/App/Books/EditBook/EditBook";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -47,7 +48,7 @@ export const AppRoutes = [
 
   //#region book
   getRoute(Paths[Views.new_book].path, InMaintenance),
-  getRoute(Paths[Views.edit_book].path, InMaintenance),
+  getRoute(Paths[Views.edit_book].path, EditBook),
 ];
 
 export const OtherRoutes = [

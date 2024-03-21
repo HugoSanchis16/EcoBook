@@ -13,10 +13,10 @@ export const Endpoints = {
   Books: {
     allBooks: {
       getAll: "/books/getAll",
+      edit: "/books/get",
     },
-    newBook: {
-      getAvailableCategories: "/tournaments/getAvailableCategories",
-      create: "/tournaments/create",
+    editBook: {
+      update: "/books/update",
     },
   },
   Categories: {

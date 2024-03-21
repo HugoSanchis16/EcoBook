@@ -18,22 +18,27 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
+import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
+import { IsbnRegex } from "../../../../Utils/Regex";
 
-const EditPlayer = () => {
+const EditBook = () => {
   const { strings: Strings } = useContext(StringsContext);
   const GeneralStrings = Strings.General.App;
-  const ViewStrings = Strings.Players.EditPlayer;
+  const ViewStrings = Strings.Books.EditBook;
 
   const request = useRequest();
   const { push } = useHistory();
 
-  const { player_guid } = useParams();
+  const { book_guid } = useParams();
 
   const { showNotification: successNotification } = useNotification("success");
   const { showNotification: errorNotification } = useNotification();
 
   const [data, setData] = useState({});
-  const [orgsAvailable, setOrgsAvailable] = useState([]);
+
+  const [errors, setErrors] = useState({
+    isbn: false,
+  });
 
   const [loaded, setLoaded] = useState(false);
 
@@ -42,25 +47,13 @@ const EditPlayer = () => {
   }, []);
 
   const fetchData = async () => {
-    await fetchOrgs();
-    await fetchPlayer();
-    setLoaded(true);
-  };
-
-  const fetchPlayer = async () => {
-    return await request("get", getEndpoint(Endpoints.Players.editPlayer.get), {
-      guid: player_guid,
+    request("get", getEndpoint(Endpoints.Books.allBooks.edit), {
+      guid: book_guid,
     })
-      .then((res) => setData(res.data))
-      .catch((err) => errorNotification(err.message));
-  };
-
-  const fetchOrgs = async () => {
-    return await request(
-      "get",
-      getEndpoint(Endpoints.Organisation.other.getAllSelect)
-    )
-      .then((res) => setOrgsAvailable(res.data))
+      .then((res) => {
+        setData(res.data);
+        setLoaded(true);
+      })
       .catch((err) => errorNotification(err.message));
   };
 
@@ -69,25 +62,33 @@ const EditPlayer = () => {
     setData({ ...data, [id]: value });
   };
 
+  const handleCheck = (e) => {
+    const { id, checked } = e.target;
+    setData({ ...data, [id]: checked });
+  };
+
   const handleSubmit = () => {
     if (checkForm()) {
-      request("post", getEndpoint(Endpoints.Players.editPlayer.update), {
+      console.log({ data });
+      request("post", getEndpoint(Endpoints.Books.editBook.update), {
         ...data,
       })
-        .then(() => successNotification(ViewStrings.messages.playerUpdated))
-        .then(() => push(Paths[Views.players].path))
+        .then(() => {
+          successNotification(ViewStrings.messages.bookUpdated);
+          push(Paths[Views.books].path);
+        })
         .catch((err) => errorNotification(err.message));
     } else errorNotification("Check all input fields");
   };
 
   const checkForm = () => {
-    const { name, lastname } = data;
-    return validateData([name, lastname]);
+    const { name, isbn, stock } = data;
+    return validateData([name, isbn, stock]) && IsbnRegex.test(isbn);
   };
 
   return (
     <GeneralLayout title={ViewStrings.title}>
-      <PanelLayout loaded={loaded}>
+      <PanelLayout cenetered loaded={loaded}>
         <SectionLayout title="Basic Info">
           <FormControl
             controlId="name"
@@ -100,39 +101,22 @@ const EditPlayer = () => {
             onChange={handleInput}
           />
           <FormControl
-            controlId="lastname"
+            controlId="isbn"
             maxLength={200}
             showMaxLength
             vertical={false}
-            value={data.lastname}
-            title={ViewStrings.inputs.lastNameInput.title}
-            placeholder={ViewStrings.inputs.lastNameInput.placeholder}
+            value={data.isbn}
+            title={ViewStrings.inputs.isbnInput.title}
+            placeholder={ViewStrings.inputs.isbnInput.placeholder}
             onChange={handleInput}
           />
-          <FormControl
-            controlId="phone"
+          <FormSwitch
+            controlId="enabled"
+            type="switch"
             vertical={false}
-            value={data.phone}
-            title={ViewStrings.inputs.phoneInput.title}
-            placeholder={ViewStrings.inputs.phoneInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormControl
-            controlId="dni"
-            vertical={false}
-            value={data.dni}
-            title={ViewStrings.inputs.dniInput.title}
-            placeholder={ViewStrings.inputs.dniInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormControl
-            controlId="age"
-            vertical={false}
-            type="number"
-            value={data.age}
-            title={ViewStrings.inputs.ageInput.title}
-            placeholder={ViewStrings.inputs.ageInput.placeholder}
-            onChange={handleInput}
+            value={data.enabled}
+            title={ViewStrings.inputs.enabledCheck.title}
+            onChange={handleCheck}
           />
         </SectionLayout>
         <div className="d-flex justify-content-end w-100 align-items-center">
@@ -145,4 +129,4 @@ const EditPlayer = () => {
   );
 };
 
-export default EditPlayer;
+export default EditBook;

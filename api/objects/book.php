@@ -71,7 +71,7 @@ class Book
     {
         $query = "
             UPDATE `" . self::$table_name . "` 
-            SET name=:name, isbn=:isbn, stock=:stock, enabled:=enabled, updated=:updated, deleted=:deleted, searchdata=:searchdata
+            SET name=:name, isbn=:isbn, stock=:stock, enabled=:enabled, updated=:updated, deleted=:deleted, searchdata=:searchdata
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
@@ -82,13 +82,13 @@ class Book
         $stmt->bindParam(":updated", $this->updated);
         $stmt->bindParam(":deleted", $this->deleted);
         $stmt->bindParam(":id", $this->id);
-        $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
             $stmt->execute();
             return true;
         } catch (\Exception $th) {
-            createException($stmt->errorInfo());
+            createException($th->getMessage());
         }
     }
 

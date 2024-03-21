@@ -12,8 +12,6 @@ const FormSwitch = ({
   vertical = true,
   title,
   controlId,
-  maxLength = 50,
-  showMaxLength = true,
   onChange,
   value = "",
   required,
@@ -24,28 +22,18 @@ const FormSwitch = ({
   const [currentValue, setCurrentValue] = useState(value || "");
 
   const lengthClassName = classNames(
-    "d-flex text-muted justify-content-end align-items-center me-2 fw-bold",
-    {
-      "text-danger": currentValue.length === maxLength,
-      "text-warning": currentValue.length > maxLength - 5,
-    }
+    "d-flex text-muted justify-content-end align-items-center me-2 fw-bold"
   );
 
   const handleValue = (e) => {
-    const { value } = e.target;
-    if (maxLength !== undefined && value.length <= maxLength) {
-      setCurrentValue(value);
-      onChange(e);
-    }
+    const { checked } = e.target;
+    setCurrentValue(checked);
+    onChange(e);
   };
 
   const renderInput = () => {
     const inputClassName = classNames(
-      "w-100 border rounded-3 d-flex ",
-      {
-        "align-items-center": props.as !== "textarea",
-        "align-items-end": props.as === "textarea",
-      },
+      "w-100 rounded-3 d-flex ",
       inputClassname
     );
 
@@ -58,16 +46,10 @@ const FormSwitch = ({
           className={inputEditorClassName}
           style={{
             ...props.style,
-            resize: props.as === "textarea" ? "none" : "vertical",
           }}
-          checked={value || currentValue}
+          checked={value != "" ? value : currentValue}
           onChange={handleValue}
         />
-        {showMaxLength && (
-          <small className={lengthClassName}>
-            {currentValue.length}/{maxLength}
-          </small>
-        )}
       </div>
     );
   };

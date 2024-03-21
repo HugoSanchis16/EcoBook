@@ -333,20 +333,31 @@
       },
       "buttons": { "next": "Next", "create": "Create" }
     },
-    "EditTournament": {
-      "title": "Edit Tournament",
+    "EditBook": {
+      "title": "Edit Book",
+      "sections": {
+        "basicSection": "Basic Info"
+      },
       "inputs": {
         "nameInput": {
           "title": "Name:",
-          "placeholder": "Type Tournament name..."
+          "placeholder": "Type book name..."
         },
-        "descriptionInput": {
-          "title": "Description:",
-          "placeholder": "Type Tournament description..."
+        "isbnInput": {
+          "title": "Isbn:",
+          "placeholder": "Type book ISBN ..."
+        },
+        "enabledCheck": {
+          "title": "Enabled:"
+        },
+        "stockInput": {
+          "title": "Stock:",
+          "placeholder": "Type book stock..."
         }
+
       },
       "messages": {
-        "TournamentUpdated": "Tournament updated successfully!"
+        "bookUpdated": "Book updated successfully!"
       }
     }
   },

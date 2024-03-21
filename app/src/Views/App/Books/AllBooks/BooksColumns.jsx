@@ -4,6 +4,7 @@ import IconButton from "../../../../Components/Buttons/IconButton";
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
 import { Paths, replacePaths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
+import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
 
 export const BooksColumns = () => {
   const columns = [
@@ -24,6 +25,14 @@ export const BooksColumns = () => {
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.stock}</p>),
       width: 100,
+    },
+    {
+      Header: "Enabled",
+      Cell: (row) =>
+        getColumnValue(row, (item) => (
+          <FormSwitch type="switch" value={item.enabled} disabled />
+        )),
+      width: 50,
     },
     {
       Header: "Actions",
