@@ -73,6 +73,7 @@ class Subject
         $stmt->bindParam(":updated", $this->updated);
         $stmt->bindParam(":deleted", $this->deleted);
         $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
+        $stmt->bindParam(":id", $this->id);
 
         try {
             $stmt->execute();

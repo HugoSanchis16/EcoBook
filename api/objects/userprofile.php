@@ -45,15 +45,15 @@ class UserProfile
     {
         $query = "
             UPDATE `" . self::$table_name . "` 
-            SET guid=:guid, name=:name, surnames=:surnames, phone=:phone, updated=:updated
+            SET name=:name, surnames=:surnames, phone=:phone, updated=:updated
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(":guid", createGUID());
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":surnames", $this->surnames);
         $stmt->bindParam(":phone", $this->phone);
         $stmt->bindValue(":updated", newDate());
+        $stmt->bindParam(":id", $this->id);
 
         try {
             $stmt->execute();
