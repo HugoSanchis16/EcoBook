@@ -45,6 +45,7 @@ export const Paths = {
   //#region books
   [Views.new_book]: getPath("/boook/new"),
   [Views.edit_book]: getPath("/boook/edit/:book_guid"),
+  [Views.delete_book]: getPath("/boook/delete/:book_guid"),
   //#endregion
   
   //#region Old views

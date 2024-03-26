@@ -12,16 +12,10 @@ try {
 
     $input = validate($data, [
         'guid' => 'required|string',
-        'name' => 'required|string',
-        'isbn' => 'required|string',
-        'enabled' => 'required|bool',
     ]);
 
     $book = Book::getByGuid($db, $input->guid);
-    $book->name = $input->name;
-    $book->isbn = $input->isbn;
-    $book->enabled = $input->enabled;
-    $book->update();
+    $book->delete();
 
     $db->commit();
 

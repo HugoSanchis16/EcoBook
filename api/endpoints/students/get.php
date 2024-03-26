@@ -12,20 +12,15 @@ try {
     checkAuth();
 
     $input = validate($data, [
-        'page' => 'required|numeric',
-        'offset' => 'required|numeric',
-        'search' => 'sometimes|string'
+        "guid" => "required|string"
     ]);
 
-    $search = isset($input->search) ? $input->search : "";
-
     //check if user exist
-    $books = Book::getAll($db, $input->page, $input->offset, $input->search);
+    $book = Book::getByGuid($db, $input->guid);
 
-    $booksFormat = BookResource::getBooksArray($books);
     $db->commit();
     Response::sendResponse([
-        "books" => $booksFormat
+        "data" => $book
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

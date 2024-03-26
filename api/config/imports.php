@@ -28,5 +28,6 @@ include_once $document_root . '/objects/_media.php';
 //Resources
 include_once $document_root . '/resources/BookResource.php';
 include_once $document_root . '/resources/UserResource.php';
+include_once $document_root . '/resources/StudentResource.php';
 
 //include_once $document_root . '/objects/invitations.php';

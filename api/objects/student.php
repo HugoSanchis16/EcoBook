@@ -123,13 +123,11 @@ class Student
         }
         createException("Student not found");
     }
-    public static function getAll(PDO $db, int $offset, int $page, string $search = ""): array
+    public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
     {
         $query = "
-        SELECT u.*
-        FROM `" . self::$table_name . "` u 
-        INNER JOIN `studentprofile` p  
-        ON p.student_id = u.id
+        SELECT s.*
+        FROM `" . self::$table_name . "` s
         WHERE deleted IS NULL";
 
         applySearchOnQuery($query);
@@ -150,30 +148,31 @@ class Student
     }
 
 
-    public static function getAllCount(PDO $db, string $search = ""): int
-    {
-        $query = "
-        SELECT COUNT(u.*) as total 
-        FROM `" . self::$table_name . "` u
-        INNER JOIN `studentprofile` p  
-        ON p.student_id = u.id
-        WHERE deleted IS NULL";
 
-        applySearchOnQuery($query);
+    // public static function getAllCount(PDO $db, string $search = ""): int
+    // {
+    //     $query = "
+    //     SELECT COUNT(u.*) as total 
+    //     FROM `" . self::$table_name . "` u
+    //     INNER JOIN `studentprofile` p  
+    //     ON p.student_id = u.id
+    //     WHERE deleted IS NULL";
 
-        $stmt = $db->prepare($query);
+    //     applySearchOnQuery($query);
 
-        applySearchOnBindedValue($search, $stmt);
+    //     $stmt = $db->prepare($query);
 
-        if ($stmt->execute()) {
+    //     applySearchOnBindedValue($search, $stmt);
 
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                return intval($row['total']);
-            }
-            return 0;
-        }
-        createException($stmt->errorInfo());
-    }
+    //     if ($stmt->execute()) {
+
+    //         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    //             return intval($row['total']);
+    //         }
+    //         return 0;
+    //     }
+    //     createException($stmt->errorInfo());
+    // }
 
     public static function getByEmail(PDO $db, string $email): Student
     {
@@ -200,7 +199,7 @@ class Student
         $newObj->created = $row['created'];
         $newObj->updated = $row['updated'];
         $newObj->deleted = $row['deleted'];
-        $newObj->createdBy = $row['createdBy'];
+        $newObj->createdBy = intval($row['createdby']);
         return $newObj;
     }
 }

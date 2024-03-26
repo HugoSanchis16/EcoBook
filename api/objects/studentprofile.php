@@ -3,7 +3,7 @@
 class StudentProfile
 {
     private PDO $conn;
-    private static string $table_name = "userprofile";
+    private static string $table_name = "studentprofile";
 
 
     public int $id;

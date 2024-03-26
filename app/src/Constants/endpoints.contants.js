@@ -18,17 +18,20 @@ export const Endpoints = {
     editBook: {
       update: "/books/update",
     },
+    deleteBook: {
+      delete: "/books/delete",
+    },
   },
-  Categories: {
-    allCategories: {
-      getAll: "/category/getAll",
+  Students: {
+    allStudents: {
+      getAll: "/students/getAll",
+      edit: "/books/get",
     },
-    newCategory: {
-      create: "/category/create",
+    editStudent: {
+      update: "/books/update",
     },
-    editCategory: {
-      get: "/category/get",
-      update: "/category/update",
+    deleteStudent: {
+      delete: "/books/delete",
     },
   },
 };

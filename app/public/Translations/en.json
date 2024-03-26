@@ -316,23 +316,6 @@
         }
       }
     },
-    "NewTournament": {
-      "title": "New Tournament",
-      "inputs": {
-        "titleInput": {
-          "title": "Name:",
-          "placeholder": "Type Tournament name..."
-        },
-        "descriptionInput": {
-          "title": "Description:",
-          "placeholder": "Type Tournament description..."
-        }
-      },
-      "messages": {
-        "TournamentCreated": "Tournament created successfully!"
-      },
-      "buttons": { "next": "Next", "create": "Create" }
-    },
     "EditBook": {
       "title": "Edit Book",
       "sections": {
@@ -361,50 +344,42 @@
       }
     }
   },
-  "Categories": {
-    "AllCategories": {
-      "title": "Categories",
-      "newCategory": "+ New Category",
+  "Students": {
+    "AllStudents": {
+      "title": "Students",
+      "addStudent": "+ New Student",
       "table": {
         "columns": {
           "name": "Name",
-          "email": "Email"
+          "description": "Description"
         }
       }
     },
-    "NewCategory": {
-      "title": "New Category",
+    "EditBook": {
+      "title": "Edit Book",
+      "sections": {
+        "basicSection": "Basic Info"
+      },
       "inputs": {
-        "titleInput": {
-          "title": "Title:",
-          "placeholder": "Type title..."
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type book name..."
         },
-        "descriptionInput": {
-          "title": "Description:",
-          "placeholder": "Type something..."
+        "isbnInput": {
+          "title": "Isbn:",
+          "placeholder": "Type book ISBN ..."
+        },
+        "enabledCheck": {
+          "title": "Enabled:"
+        },
+        "stockInput": {
+          "title": "Stock:",
+          "placeholder": "Type book stock..."
         }
+
       },
       "messages": {
-        "categoryCreated": "Category created successfully!"
-      },
-      "buttons": {
-        "create": "Create"
-      }
-    },
-    "EditCategory": {
-      "title": "Edit Category",
-      "inputs": {
-        "titleInput": {
-          "title": "Title:",
-          "placeholder": "Type category title..."
-        },
-        "descriptionInput": {
-          "title": "Description:",
-          "placeholder": "Type description..."
-        }
-      },
-      "messages": {
-        "categoryUpdated": "Category updated successfully!"
+        "bookUpdated": "Book updated successfully!"
       }
     }
   }

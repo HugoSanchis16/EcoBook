@@ -20,12 +20,14 @@ try {
     $search = isset($input->search) ? $input->search : "";
 
     //check if user exist
-    $books = Book::getAll($db, $input->page, $input->offset, $input->search);
+    $students = Student::getAll($db, $input->page, $input->offset, $input->search);
+    logAPI($students);
+    $studentsFormat = StudentResource::getStudentsArray($students);
+    logAPI($studentsFormat);
 
-    $booksFormat = BookResource::getBooksArray($books);
     $db->commit();
     Response::sendResponse([
-        "books" => $booksFormat
+        "students" => $studentsFormat
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

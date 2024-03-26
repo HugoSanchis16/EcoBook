@@ -79,7 +79,7 @@ class Book
         $stmt->bindParam(":isbn", $this->isbn);
         $stmt->bindParam(":stock", $this->stock);
         $stmt->bindParam(":enabled", $this->enabled);
-        $stmt->bindParam(":updated", $this->updated);
+        $stmt->bindValue(":updated", newDate());
         $stmt->bindParam(":deleted", $this->deleted);
         $stmt->bindParam(":id", $this->id);
         $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));

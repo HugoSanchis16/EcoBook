@@ -20,13 +20,13 @@ import useQuery from "../../../../Hooks/useQuery";
 import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
-import { BooksColumns } from "./BooksColumns";
 import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
+import { StudentsColumns } from "./StudentsColumns";
 
-const Books = () => {
+const Students = () => {
   const { strings } = useContext(StringsContext);
-  const ViewStrings = strings.Books.AllBooks;
+  const ViewStrings = strings.Students.AllStudents;
 
   const request = useRequest();
   const searchParams = useQuery();
@@ -58,13 +58,17 @@ const Books = () => {
     search = searchParams.get("search")
   ) => {
     startFetching();
-    return await request("get", getEndpoint(Endpoints.Books.allBooks.getAll), {
-      page,
-      offset,
-      search,
-    })
+    return await request(
+      "get",
+      getEndpoint(Endpoints.Students.allStudents.getAll),
+      {
+        page,
+        offset,
+        search,
+      }
+    )
       .then((res) => {
-        setData(res.books);
+        setData(res.students);
         setTotalPages(res.totalPages);
       })
       .catch(errorNotification)
@@ -90,7 +94,7 @@ const Books = () => {
         title={ViewStrings.title}
         rightSection={
           <Button size="sm" as={Link} to={Paths[Views.new_book].path}>
-            {ViewStrings.addBook}
+            {ViewStrings.addStudent}
           </Button>
         }
       >
@@ -100,7 +104,7 @@ const Books = () => {
             fetching={fetching}
             onEventChange={fetchData}
             data={data}
-            columns={BooksColumns(openDeleteModal)}
+            columns={StudentsColumns(openDeleteModal)}
           />
         </PanelLayout>
       </GeneralLayout>
@@ -108,4 +112,4 @@ const Books = () => {
   );
 };
 
-export default Books;
+export default Students;

@@ -2,15 +2,15 @@ import { Redirect } from "react-router-dom";
 import { getToken } from "../../Config/GeneralFunctions";
 import { NotFound } from "../../Views/404";
 import Dashboard from "../../Views/App/OldViews/Dashboard/Dashboard";
-import NotificationsView from "../../Views/App/OldViews/Notification/NotificationsView";
 import ForgotPassword from "../../Views/Auth/ForgotPassword/ForgotPassword";
 import Login from "../../Views/Auth/Login/Login";
 import ResetPassword from "../../Views/Auth/ResetPassword/ResetPassword";
 import InMaintenance from "../../Views/InMaintenance";
 import { HomePath, Paths } from "../paths.constants";
 import { Views } from "../views.constants";
-import Tournaments from "../../Views/App/Books/AllBooks/Books";
 import EditBook from "../../Views/App/Books/EditBook/EditBook";
+import Books from "../../Views/App/Books/AllBooks/Books";
+import Students from "../../Views/App/Students/AllStudents/Students";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -31,8 +31,8 @@ export const AppRoutes = [
   //#endregion
 
   //#region Administration
-  getRoute(Paths[Views.books].path, Tournaments),
-  getRoute(Paths[Views.students].path, InMaintenance),
+  getRoute(Paths[Views.books].path, Books),
+  getRoute(Paths[Views.students].path, Students),
   getRoute(Paths[Views.courses].path, InMaintenance),
   getRoute(Paths[Views.subjects].path, InMaintenance),
   //#endregion
