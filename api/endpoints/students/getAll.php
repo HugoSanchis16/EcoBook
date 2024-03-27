@@ -21,9 +21,7 @@ try {
 
     //check if user exist
     $students = Student::getAll($db, $input->page, $input->offset, $input->search);
-    logAPI($students);
     $studentsFormat = StudentResource::getStudentsArray($students);
-    logAPI($studentsFormat);
 
     $db->commit();
     Response::sendResponse([

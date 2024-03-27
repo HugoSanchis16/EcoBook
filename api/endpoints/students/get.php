@@ -16,11 +16,12 @@ try {
     ]);
 
     //check if user exist
-    $book = Book::getByGuid($db, $input->guid);
+    $student = Student::getByGuid($db, $input->guid);
+    $studentFormat = StudentResource::getStudentWithProfile($student);
 
     $db->commit();
     Response::sendResponse([
-        "data" => $book
+        "data" => $studentFormat
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

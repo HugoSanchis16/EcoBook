@@ -70,7 +70,7 @@ class Student
         $stmt->bindParam(":nia", $this->nia);
         $stmt->bindParam(":updated", $this->updated);
         $stmt->bindParam(":deleted", $this->deleted);
-        $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
         $stmt->bindParam(":id", $this->id);
 
         try {

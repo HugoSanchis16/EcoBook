@@ -355,31 +355,35 @@
         }
       }
     },
-    "EditBook": {
-      "title": "Edit Book",
+    "EditStudent": {
+      "title": "Edit Student",
       "sections": {
         "basicSection": "Basic Info"
       },
       "inputs": {
+        "niaInput": {
+          "title": "Nia:",
+          "placeholder": "Type Student Nia..."
+        },
         "nameInput": {
           "title": "Name:",
-          "placeholder": "Type book name..."
+          "placeholder": "Type Student Name ..."
         },
-        "isbnInput": {
-          "title": "Isbn:",
-          "placeholder": "Type book ISBN ..."
+        "surnameInput": {
+          "title": "Surnames:",
+          "placeholder": "Type Student Surname ..."
         },
-        "enabledCheck": {
-          "title": "Enabled:"
+        "phoneInput": {
+          "title": "Phone:",
+          "placeholder": "Type Student Phone..."
         },
-        "stockInput": {
-          "title": "Stock:",
-          "placeholder": "Type book stock..."
+        "emailInput": {
+          "title": "Email:",
+          "placeholder": "Type Student Email ..."
         }
-
       },
       "messages": {
-        "bookUpdated": "Book updated successfully!"
+        "studentsUpdated": "Student updated successfully!"
       }
     }
   }

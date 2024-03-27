@@ -25,13 +25,13 @@ export const Endpoints = {
   Students: {
     allStudents: {
       getAll: "/students/getAll",
-      edit: "/books/get",
+      edit: "/students/get",
     },
     editStudent: {
-      update: "/books/update",
+      update: "/students/update",
     },
     deleteStudent: {
-      delete: "/books/delete",
+      delete: "/students/delete",
     },
   },
 };

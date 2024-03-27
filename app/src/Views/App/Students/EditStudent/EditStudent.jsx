@@ -18,22 +18,23 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
+import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
+import { IsbnRegex, NiaRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
 
-const EditPlayer = () => {
+const EditStudent = () => {
   const { strings: Strings } = useContext(StringsContext);
+  const ViewStrings = Strings.Students.EditStudent;
   const GeneralStrings = Strings.General.App;
-  const ViewStrings = Strings.Players.EditPlayer;
 
   const request = useRequest();
   const { push } = useHistory();
 
-  const { player_guid } = useParams();
+  const { student_guid } = useParams();
 
   const { showNotification: successNotification } = useNotification("success");
   const { showNotification: errorNotification } = useNotification();
 
   const [data, setData] = useState({});
-  const [orgsAvailable, setOrgsAvailable] = useState([]);
 
   const [loaded, setLoaded] = useState(false);
 
@@ -42,25 +43,13 @@ const EditPlayer = () => {
   }, []);
 
   const fetchData = async () => {
-    await fetchOrgs();
-    await fetchPlayer();
-    setLoaded(true);
-  };
-
-  const fetchPlayer = async () => {
-    return await request("get", getEndpoint(Endpoints.Players.editPlayer.get), {
-      guid: player_guid,
+    request("get", getEndpoint(Endpoints.Students.allStudents.edit), {
+      guid: student_guid,
     })
-      .then((res) => setData(res.data))
-      .catch((err) => errorNotification(err.message));
-  };
-
-  const fetchOrgs = async () => {
-    return await request(
-      "get",
-      getEndpoint(Endpoints.Organisation.other.getAllSelect)
-    )
-      .then((res) => setOrgsAvailable(res.data))
+      .then((res) => {
+        setData(res.data);
+        setLoaded(true);
+      })
       .catch((err) => errorNotification(err.message));
   };
 
@@ -71,24 +60,42 @@ const EditPlayer = () => {
 
   const handleSubmit = () => {
     if (checkForm()) {
-      request("post", getEndpoint(Endpoints.Players.editPlayer.update), {
+      console.log({ data });
+      request("post", getEndpoint(Endpoints.Students.editStudent.update), {
         ...data,
       })
-        .then(() => successNotification(ViewStrings.messages.playerUpdated))
-        .then(() => push(Paths[Views.players].path))
+        .then(() => {
+          successNotification(ViewStrings.messages.studentsUpdated);
+          push(Paths[Views.students].path);
+        })
         .catch((err) => errorNotification(err.message));
     } else errorNotification("Check all input fields");
   };
 
   const checkForm = () => {
-    const { name, lastname } = data;
-    return validateData([name, lastname]);
+    const { nia, name, surnames, phone, email } = data;
+    return (
+      validateData([nia, name, surnames, phone, email]) &&
+      PhoneRegexSpain.test(phone) &&
+      NiaRegex.test(nia)
+    );
   };
 
   return (
     <GeneralLayout title={ViewStrings.title}>
-      <PanelLayout loaded={loaded}>
+      <PanelLayout cenetered loaded={loaded}>
         <SectionLayout title="Basic Info">
+          <FormControl
+            controlId="nia"
+            maxLength={8}
+            disabled
+            showMaxLength={false}
+            vertical={false}
+            value={data.nia}
+            title={ViewStrings.inputs.niaInput.title}
+            placeholder={ViewStrings.inputs.niaInput.placeholder}
+            onChange={handleInput}
+          />
           <FormControl
             controlId="name"
             maxLength={50}
@@ -100,17 +107,19 @@ const EditPlayer = () => {
             onChange={handleInput}
           />
           <FormControl
-            controlId="lastname"
-            maxLength={200}
+            controlId="surnames"
+            maxLength={50}
             showMaxLength
             vertical={false}
-            value={data.lastname}
-            title={ViewStrings.inputs.lastNameInput.title}
-            placeholder={ViewStrings.inputs.lastNameInput.placeholder}
+            value={data.surnames}
+            title={ViewStrings.inputs.surnameInput.title}
+            placeholder={ViewStrings.inputs.surnameInput.placeholder}
             onChange={handleInput}
           />
           <FormControl
             controlId="phone"
+            maxLength={50}
+            showMaxLength
             vertical={false}
             value={data.phone}
             title={ViewStrings.inputs.phoneInput.title}
@@ -118,20 +127,13 @@ const EditPlayer = () => {
             onChange={handleInput}
           />
           <FormControl
-            controlId="dni"
+            controlId="email"
+            maxLength={50}
+            showMaxLength
             vertical={false}
-            value={data.dni}
-            title={ViewStrings.inputs.dniInput.title}
-            placeholder={ViewStrings.inputs.dniInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormControl
-            controlId="age"
-            vertical={false}
-            type="number"
-            value={data.age}
-            title={ViewStrings.inputs.ageInput.title}
-            placeholder={ViewStrings.inputs.ageInput.placeholder}
+            value={data.email}
+            title={ViewStrings.inputs.emailInput.title}
+            placeholder={ViewStrings.inputs.emailInput.placeholder}
             onChange={handleInput}
           />
         </SectionLayout>
@@ -145,4 +147,4 @@ const EditPlayer = () => {
   );
 };
 
-export default EditPlayer;
+export default EditStudent;

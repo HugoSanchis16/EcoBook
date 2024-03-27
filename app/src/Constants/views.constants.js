@@ -42,4 +42,9 @@ export const Views = {
   edit_book: "edit_book",
   //#endregion
 
+  //#region Management
+  new_student: "new_student",
+  edit_student: "edit_student",
+  //#endregion
+
 };

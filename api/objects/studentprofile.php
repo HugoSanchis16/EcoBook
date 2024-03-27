@@ -49,13 +49,14 @@ class StudentProfile
     {
         $query = "
             UPDATE `" . self::$table_name . "` 
-            SET name=:name, surnames=:surnames, phone=:phone, updated=:updated
+            SET name=:name, surnames=:surnames, phone=:phone, email=:email, updated=:updated
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":surnames", $this->surnames);
         $stmt->bindParam(":phone", $this->phone);
+        $stmt->bindParam(":email", $this->email);
         $stmt->bindValue(":updated", newDate());
         $stmt->bindParam(":id", $this->id);
 

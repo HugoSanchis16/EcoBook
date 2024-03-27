@@ -23,6 +23,7 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
 import { StudentsColumns } from "./StudentsColumns";
+import DeleteStudentModal from "../../../../Modals/Students/DeleteStudentsModal/DeleteStudentModal";
 
 const Students = () => {
   const { strings } = useContext(StringsContext);
@@ -35,7 +36,7 @@ const Students = () => {
     closeModal: closeDeleteModal,
     openModal: openDeleteModal,
     show: showDeleteModal,
-    data: deleteBookData,
+    data: deleteStudentData,
   } = useModalManager();
 
   const { replace } = useHistory();
@@ -83,17 +84,17 @@ const Students = () => {
   return (
     <>
       {/* Modals */}
-      <DeleteBookModal
+      <DeleteStudentModal
         show={showDeleteModal}
         onClose={handleCloseDeleteBook}
-        data={deleteBookData}
+        data={deleteStudentData}
       />
 
       {/* Content */}
       <GeneralLayout
         title={ViewStrings.title}
         rightSection={
-          <Button size="sm" as={Link} to={Paths[Views.new_book].path}>
+          <Button size="sm" as={Link} to={Paths[Views.new_student].path}>
             {ViewStrings.addStudent}
           </Button>
         }

@@ -14,8 +14,8 @@ try {
         'guid' => 'required|string',
     ]);
 
-    $book = Book::getByGuid($db, $input->guid);
-    $book->delete();
+    $student = Student::getByGuid($db, $input->guid);
+    $student->delete();
 
     $db->commit();
 

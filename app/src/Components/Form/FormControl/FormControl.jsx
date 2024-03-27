@@ -27,7 +27,7 @@ const FormControl = ({
     "d-flex text-muted justify-content-end align-items-center me-2 fw-bold",
     {
       "text-danger": currentValue.length === maxLength,
-      "text-warning": currentValue.length > maxLength - 5,
+      "text-warning": currentValue.length >= maxLength - 5,
     }
   );
 
@@ -65,7 +65,7 @@ const FormControl = ({
         />
         {showMaxLength && (
           <small className={lengthClassName}>
-            {currentValue.length}/{maxLength}
+            {`${currentValue}`.length}/{maxLength}
           </small>
         )}
       </div>

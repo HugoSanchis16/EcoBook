@@ -5,7 +5,7 @@ import { getColumnValue } from "../../../../Config/GeneralFunctions";
 import { Paths, replacePaths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
 
-export const StudentsColumns = () => {
+export const StudentsColumns = (openDeleteModal) => {
   const columns = [
     {
       Header: "NIA",
@@ -34,16 +34,13 @@ export const StudentsColumns = () => {
             <IconButton
               Icon={MdEdit}
               as={Link}
-              to={replacePaths(Paths[Views.edit_book].path, [
-                { book_guid: item.guid },
+              to={replacePaths(Paths[Views.edit_student].path, [
+                { student_guid: item.guid },
               ])}
             />
             <IconButton
               Icon={MdDelete}
-              as={Link}
-              to={replacePaths(Paths[Views.delete_book].path, [
-                { book_guid: item.guid },
-              ])}
+              onClick={() => openDeleteModal(item.guid)}
             />
           </div>
         )),

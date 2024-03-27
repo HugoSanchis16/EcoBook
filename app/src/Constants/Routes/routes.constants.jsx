@@ -11,6 +11,7 @@ import { Views } from "../views.constants";
 import EditBook from "../../Views/App/Books/EditBook/EditBook";
 import Books from "../../Views/App/Books/AllBooks/Books";
 import Students from "../../Views/App/Students/AllStudents/Students";
+import EditStudent from "../../Views/App/Students/EditStudent/EditStudent";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -45,10 +46,17 @@ export const AppRoutes = [
   getRoute(Paths[Views.users].path, InMaintenance),
   getRoute(Paths[Views.new_user].path, InMaintenance),
   getRoute(Paths[Views.edit_user].path, InMaintenance),
+  //#endregion
 
   //#region book
   getRoute(Paths[Views.new_book].path, InMaintenance),
   getRoute(Paths[Views.edit_book].path, EditBook),
+  //#endregion
+
+  //#region book
+  getRoute(Paths[Views.new_student].path, InMaintenance),
+  getRoute(Paths[Views.edit_student].path, EditStudent),
+  //#endregion
 ];
 
 export const OtherRoutes = [
