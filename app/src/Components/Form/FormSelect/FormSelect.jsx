@@ -32,6 +32,11 @@ const FormSelect = ({
     onChange(e);
   };
 
+  const handleOnClean = () => {
+    setCurrentValue("default");
+    onClean && onClean();
+  };
+
   const renderInput = () => {
     const inputClassName = classNames("w-100 border rounded-3 d-flex ", {
       "align-items-center": props.as !== "textarea",
@@ -69,7 +74,7 @@ const FormSelect = ({
         </BFormSelect>
         {onClean && (
           <div className="ps-2 border border-0 border-start">
-            <IconButton onClick={onClean} Icon={MdClose} />
+            <IconButton onClick={handleOnClean} Icon={MdClose} />
           </div>
         )}
       </div>

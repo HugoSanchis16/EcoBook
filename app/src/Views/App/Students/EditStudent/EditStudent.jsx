@@ -83,8 +83,8 @@ const EditStudent = () => {
 
   return (
     <GeneralLayout title={ViewStrings.title}>
-      <PanelLayout cenetered loaded={loaded}>
-        <SectionLayout title="Basic Info">
+      <PanelLayout loaded={loaded}>
+        <SectionLayout title="Student's identification">
           <FormControl
             controlId="nia"
             maxLength={8}
@@ -96,6 +96,8 @@ const EditStudent = () => {
             placeholder={ViewStrings.inputs.niaInput.placeholder}
             onChange={handleInput}
           />
+        </SectionLayout>
+        <SectionLayout title="Student's profile">
           <FormControl
             controlId="name"
             maxLength={50}

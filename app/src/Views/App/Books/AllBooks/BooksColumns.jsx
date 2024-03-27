@@ -1,4 +1,4 @@
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import IconButton from "../../../../Components/Buttons/IconButton";
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
@@ -7,7 +7,6 @@ import { Views } from "../../../../Constants/views.constants";
 import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
 
 export const BooksColumns = (openDeleteModal) => {
-
   const columns = [
     {
       Header: "Name",
@@ -40,18 +39,27 @@ export const BooksColumns = (openDeleteModal) => {
       width: 10,
       Cell: (row) =>
         getColumnValue(row, (item) => (
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center gap-3">
             <IconButton
-              Icon={MdEdit}
+              Icon={MdRemoveRedEye}
               as={Link}
-              to={replacePaths(Paths[Views.edit_book].path, [
+              to={replacePaths(Paths[Views.copies].path, [
                 { book_guid: item.guid },
               ])}
             />
-            <IconButton
-              Icon={MdDelete}
-              onClick={() =>openDeleteModal(item.guid)}
-            />
+            <div className="d-flex align-items-center ">
+              <IconButton
+                Icon={MdEdit}
+                as={Link}
+                to={replacePaths(Paths[Views.edit_book].path, [
+                  { book_guid: item.guid },
+                ])}
+              />
+              <IconButton
+                Icon={MdDelete}
+                onClick={() => openDeleteModal(item.guid)}
+              />
+            </div>
           </div>
         )),
     },

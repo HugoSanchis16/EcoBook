@@ -148,6 +148,24 @@ class Subject
         }
         createException($stmt->errorInfo());
     }
+    public static function getAllNames(PDO $db): array
+    {
+        $query = "
+        SELECT s.*
+        FROM `" . self::$table_name . "` s
+        WHERE deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
 
 
     public static function getAllCount(PDO $db, string $search = ""): int

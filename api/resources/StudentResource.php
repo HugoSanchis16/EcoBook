@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Contracts\Support\Arrayable;
-
 class StudentResource
 {
     public static function getStudent(Student $student, array $params)

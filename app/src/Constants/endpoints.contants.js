@@ -21,6 +21,9 @@ export const Endpoints = {
     deleteBook: {
       delete: "/books/delete",
     },
+    createBook: {
+      create: "/books/create",
+    }
   },
   Students: {
     allStudents: {
@@ -32,6 +35,29 @@ export const Endpoints = {
     },
     deleteStudent: {
       delete: "/students/delete",
+    },
+  },
+  Subjects: {
+    allSubjects: {
+      getAllNames: "/subjects/getAllNames",
+      edit: "/subjects/get",
+    },
+    editSubject: {
+      update: "/subjects/update",
+    },
+    deleteSubject: {
+      delete: "/subjects/delete",
+    },
+  },
+  Copies: {
+    allCopies: {
+      getAll: "/copies/getAll",
+    },
+    editSubject: {
+      update: "/subjects/update",
+    },
+    deleteSubject: {
+      delete: "/subjects/delete",
     },
   },
 };

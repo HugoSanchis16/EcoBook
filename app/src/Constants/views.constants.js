@@ -24,6 +24,7 @@ export const Views = {
   students: "students",
   courses: "courses",
   subjects: "subjects",
+  copies: "copies",
   //#administration
 
   //#region profile

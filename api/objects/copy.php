@@ -11,24 +11,17 @@ class Copy
     public string $uniqid;
     public int $state;
     public int $book_id;
-    public int $student_id;
+    public int|null $student_id;
 
     public function __construct(PDO $db)
     {
         $this->conn = $db;
+        $this->state = 5;
     }
 
     private function searchableValues(): array
     {
         return [
-            $this->uniqid,
-            array(
-                "from" => $this->book(),
-                "what" => [
-                    'name',
-                    'isbn',
-                ]
-            ),
             array(
                 "from" => $this->student(),
                 "what" => [
@@ -55,18 +48,19 @@ class Copy
 
 
         $this->guid = createGUID();
+        $this->uniqid = createRandomNumber();
         $stmt->bindValue(":guid", $this->guid);
         $stmt->bindParam(":uniqid", $this->uniqid);
         $stmt->bindParam(":state", $this->state);
         $stmt->bindParam(":book_id", $this->book_id);
         $stmt->bindParam(":student_id", $this->student_id);
-        $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
             $stmt->execute();
             return $this->id = $this->conn->lastInsertId();
         } catch (\Exception $th) {
-            createException($stmt->errorInfo());
+            createException($stmt->errorInfo(), $stmt->errorCode());
         }
     }
 
@@ -94,14 +88,16 @@ class Copy
         return Book::get($this->conn, $this->book_id);
     }
 
-    function student(): Student
+    function student(): Student|null
     {
-        return Student::get($this->conn, $this->student_id);
+        if ($this->student_id)
+            return Student::get($this->conn, $this->student_id);
+        else return null;
     }
 
     public static function get(PDO $db, int $id): Copy
     {
-        $query = "SELECT * FROM `" . self::$table_name . "` WHERE id=:id AND deleted IS NULL";
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE id=:id";
 
         $stmt = $db->prepare($query);
 
@@ -114,6 +110,32 @@ class Copy
         }
         createException("Copy not found");
     }
+
+    public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
+    {
+        $query = "
+        SELECT c.*
+        FROM `" . self::$table_name . "` c
+        WHERE 1 
+        ";
+
+        applySearchOnQuery($query);
+        doPagination($offset, $page, $query);
+
+        $stmt = $db->prepare($query);
+
+        applySearchOnBindedValue($search, $stmt);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
 
     public static function getByBookId(PDO $db, int $book_id): Copy
     {

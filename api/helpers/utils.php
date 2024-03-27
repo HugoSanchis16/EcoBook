@@ -72,6 +72,17 @@ if (!function_exists('createGUID')) {
     }
 }
 
+if (!function_exists('createRandomNumber')) {
+    function createRandomNumber()
+    {
+        $number1 = mt_rand(0, 9);
+        $number2 = str_pad(mt_rand(0, 999999), 6, "0", STR_PAD_LEFT);
+        $number3 = str_pad(mt_rand(0, 999999), 6, "0", STR_PAD_LEFT);
+
+        return "$number1$number2$number3";
+    }
+}
+
 if (!function_exists('getFiles')) {
     function getFiles()
     {
@@ -124,7 +135,7 @@ if (!function_exists('createException')) {
 
         $msg = $message["message"] ?? $message;
         logAPI($message);
-        $error->setMessage($msg, $code);
+        $error->setMessage(json_encode($msg), $code);
         throw $error;
     }
 }
@@ -254,13 +265,15 @@ if (!function_exists('convertSearchValues')) {
                 $from = $value['from'];
                 $what = $value['what'];
                 foreach ($what as $key) {
-                    if (str_contains($key, '.')) {
-                        $split = explode('.', $key);
-                        $function = $split[0];
-                        $column = $split[1];
-                        $string .= $from->{$function}()->{$column} . " ";
-                    } else {
-                        $string .= $from->{$key} . " ";
+                    if ($from) {
+                        if (str_contains($key, '.')) {
+                            $split = explode('.', $key);
+                            $function = $split[0];
+                            $column = $split[1];
+                            $string .= $from->{$function}()->{$column} . " ";
+                        } else {
+                            $string .= $from->{$key} . " ";
+                        }
                     }
                 }
             } else $string .= "$value ";

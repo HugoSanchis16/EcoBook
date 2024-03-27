@@ -6,12 +6,12 @@ const SectionLayout = ({
   subtitle,
   Icon,
   className = "",
-  titleSize = "h5",
+  titleSize = "h6",
   children,
   rightSection,
   loaded = true,
 }) => {
-  const titleClassNames = classNames("mb-0 text-dark ms-2", titleSize);
+  const titleClassNames = classNames("mb-0 text-primarys ms-2", titleSize);
   const mainClassNames = classNames(
     {
       "mb-3": !className.includes("mb-"),

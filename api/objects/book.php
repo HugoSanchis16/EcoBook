@@ -57,7 +57,7 @@ class Book
         $stmt->bindParam(":isbn", $this->isbn);
         $stmt->bindParam(":stock", $this->stock);
         $stmt->bindParam(":subject_id", $this->subject_id);
-        $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
             $stmt->execute();
@@ -134,6 +134,7 @@ class Book
         }
         createException("Book not found");
     }
+
     public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
     {
         $query = "

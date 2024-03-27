@@ -20,11 +20,12 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
 import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
 import { IsbnRegex } from "../../../../Utils/Regex";
+import FormSelect from "../../../../Components/Form/FormSelect/FormSelect";
 
-const EditBook = () => {
+const NewBook = () => {
   const { strings: Strings } = useContext(StringsContext);
   const GeneralStrings = Strings.General.App;
-  const ViewStrings = Strings.Books.EditBook;
+  const ViewStrings = Strings.Books.NewBook;
 
   const request = useRequest();
   const { push } = useHistory();
@@ -40,6 +41,7 @@ const EditBook = () => {
     isbn: false,
   });
 
+  const [subjects, setSubjects] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -47,11 +49,9 @@ const EditBook = () => {
   }, []);
 
   const fetchData = async () => {
-    request("get", getEndpoint(Endpoints.Books.allBooks.edit), {
-      guid: book_guid,
-    })
+    request("get", getEndpoint(Endpoints.Subjects.allSubjects.getAllNames))
       .then((res) => {
-        setData(res.data);
+        setSubjects(res.subjects);
         setLoaded(true);
       })
       .catch((err) => errorNotification(err.message));
@@ -62,15 +62,17 @@ const EditBook = () => {
     setData({ ...data, [id]: value });
   };
 
-  const handleCheck = (e) => {
-    const { id, checked } = e.target;
-    setData({ ...data, [id]: checked });
+  const handleCleanSubject = () => {
+    setData({
+      ...data,
+      subject: null,
+    });
   };
 
   const handleSubmit = () => {
     if (checkForm()) {
       console.log({ data });
-      request("post", getEndpoint(Endpoints.Books.editBook.update), {
+      request("post", getEndpoint(Endpoints.Books.createBook.create), {
         ...data,
       })
         .then(() => {
@@ -82,46 +84,65 @@ const EditBook = () => {
   };
 
   const checkForm = () => {
-    const { name, isbn, stock } = data;
-    return validateData([name, isbn, stock]) && IsbnRegex.test(isbn);
+    const { name, isbn, stock, subject } = data;
+    return (
+      validateData([name, isbn, stock, subject]) &&
+      IsbnRegex.test(isbn) &&
+      stock > 0
+    );
   };
 
   return (
     <GeneralLayout title={ViewStrings.title}>
-      <PanelLayout loaded={loaded}>
+      <PanelLayout cenetered loaded={loaded}>
         <SectionLayout title="Book Info">
           <FormControl
             controlId="name"
             maxLength={50}
             showMaxLength
             vertical={false}
-            value={data.name}
             title={ViewStrings.inputs.nameInput.title}
             placeholder={ViewStrings.inputs.nameInput.placeholder}
             onChange={handleInput}
+            required
           />
           <FormControl
             controlId="isbn"
-            maxLength={200}
+            maxLength={50}
             showMaxLength
             vertical={false}
-            value={data.isbn}
             title={ViewStrings.inputs.isbnInput.title}
             placeholder={ViewStrings.inputs.isbnInput.placeholder}
             onChange={handleInput}
+            required
           />
-          <FormSwitch
-            controlId="enabled"
-            type="switch"
+          <FormSelect
+            options={subjects}
+            controlId="subject"
+            value={data.subject}
             vertical={false}
-            value={data.enabled}
-            title={ViewStrings.inputs.enabledCheck.title}
-            onChange={handleCheck}
+            title={ViewStrings.inputs.subject.title}
+            placeholder={ViewStrings.inputs.subject.placeholder}
+            onChange={handleInput}
+            onClean={handleCleanSubject}
+            required
+          />
+          <FormControl
+            controlId="stock"
+            maxLength={200}
+            showMaxLength={false}
+            vertical={false}
+            title={ViewStrings.inputs.stockInput.title}
+            placeholder={ViewStrings.inputs.stockInput.placeholder}
+            onChange={handleInput}
+            type="number"
+            step={1}
+            required
           />
         </SectionLayout>
         <div className="d-flex justify-content-end w-100 align-items-center">
           <Button disabled={!checkForm()} onClick={handleSubmit}>
-            {GeneralStrings.Update}
+            {GeneralStrings.Create}
           </Button>
         </div>
       </PanelLayout>
@@ -129,4 +150,4 @@ const EditBook = () => {
   );
 };
 
-export default EditBook;
+export default NewBook;
