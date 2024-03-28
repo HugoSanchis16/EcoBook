@@ -163,9 +163,10 @@ class Book
     public static function getAllCount(PDO $db, string $search = ""): int
     {
         $query = "
-        SELECT COUNT(u.*) as total
-        FROM `" . self::$table_name . "` u 
-        WHERE deleted IS NULL";
+        SELECT COUNT(b.id) as total
+        FROM `" . self::$table_name . "` b 
+        WHERE deleted IS NULL
+        ";
 
         applySearchOnQuery($query);
 

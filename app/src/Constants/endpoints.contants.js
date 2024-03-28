@@ -53,12 +53,16 @@ export const Endpoints = {
     allCopies: {
       getAll: "/copies/getAll",
     },
-    editSubject: {
-      update: "/subjects/update",
+    editCopy: {
+      updateState: "/copies/updateState",
+      update: "/copies/update",
     },
-    deleteSubject: {
-      delete: "/subjects/delete",
+    deleteCopy: {
+      delete: "/copies/delete",
     },
+    createCopy: {
+      create: "/copies/create",
+    }
   },
 };
 

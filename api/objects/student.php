@@ -147,32 +147,29 @@ class Student
         createException($stmt->errorInfo());
     }
 
+    public static function getAllCount(PDO $db, string $search = ""): int
+    {
+        $query = "
+        SELECT COUNT(s.id) as total
+        FROM `" . self::$table_name . "` s 
+        WHERE deleted IS NULL
+        ";
 
+        applySearchOnQuery($query);
 
-    // public static function getAllCount(PDO $db, string $search = ""): int
-    // {
-    //     $query = "
-    //     SELECT COUNT(u.*) as total 
-    //     FROM `" . self::$table_name . "` u
-    //     INNER JOIN `studentprofile` p  
-    //     ON p.student_id = u.id
-    //     WHERE deleted IS NULL";
+        $stmt = $db->prepare($query);
 
-    //     applySearchOnQuery($query);
+        applySearchOnBindedValue($search, $stmt);
 
-    //     $stmt = $db->prepare($query);
+        if ($stmt->execute()) {
 
-    //     applySearchOnBindedValue($search, $stmt);
-
-    //     if ($stmt->execute()) {
-
-    //         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    //             return intval($row['total']);
-    //         }
-    //         return 0;
-    //     }
-    //     createException($stmt->errorInfo());
-    // }
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
 
     public static function getByEmail(PDO $db, string $email): Student
     {

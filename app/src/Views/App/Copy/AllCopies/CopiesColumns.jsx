@@ -1,11 +1,10 @@
-import { MdDelete, MdEdit } from "react-icons/md";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import IconButton from "../../../../Components/Buttons/IconButton";
+// En el componente donde defines `StateDropdown`:
+import { useState } from "react";
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
-import { Paths, replacePaths } from "../../../../Constants/paths.constants";
-import { Views } from "../../../../Constants/views.constants";
+import StateDropdown from "../../../../Components/StateDropdown/StateDropdown";
+import { CopyStatus } from "../../../../Utils/CopyStatus";
 
-export const CopiesColumns = (openDeleteModal) => {
+export const CopiesColumns = (updateState) => {
   const columns = [
     {
       Header: "Codigo",
@@ -16,7 +15,16 @@ export const CopiesColumns = (openDeleteModal) => {
     {
       Header: "State",
       Cell: (row) =>
-        getColumnValue(row, (item) => <p className="mb-0">{item.state}</p>),
+        getColumnValue(row, (item) => (
+          <div>
+            <StateDropdown
+              onClick={(selectedOption) =>
+                updateState(item.guid, selectedOption)
+              }
+              statusSelected={item.state}
+            />
+          </div>
+        )),
       width: 100,
     },
     {
@@ -26,26 +34,6 @@ export const CopiesColumns = (openDeleteModal) => {
           <p className="mb-0">{item.fullname || "---"}</p>
         )),
       width: 100,
-    },
-    {
-      Header: "Actions",
-      width: 10,
-      Cell: (row) =>
-        getColumnValue(row, (item) => (
-          <div className="d-flex align-items-center">
-            <IconButton
-              Icon={MdEdit}
-              as={Link}
-              to={replacePaths(Paths[Views.edit_student].path, [
-                { copy_guid: item.guid },
-              ])}
-            />
-            <IconButton
-              Icon={MdDelete}
-              onClick={() => openDeleteModal(item.guid)}
-            />
-          </div>
-        )),
     },
   ];
   return columns;

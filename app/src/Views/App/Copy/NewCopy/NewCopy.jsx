@@ -18,13 +18,14 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
 import { IsbnRegex } from "../../../../Utils/Regex";
+import FormSelect from "../../../../Components/Form/FormSelect/FormSelect";
+import { CopyStatus } from "../../../../Utils/CopyStatus";
 
-const EditBook = () => {
+const NewCopy = () => {
   const { strings: Strings } = useContext(StringsContext);
   const GeneralStrings = Strings.General.App;
-  const ViewStrings = Strings.Books.EditBook;
+  const ViewStrings = Strings.Copies.NewCopy;
 
   const request = useRequest();
   const { push } = useHistory();
@@ -36,10 +37,9 @@ const EditBook = () => {
 
   const [data, setData] = useState({});
 
-  const [errors, setErrors] = useState({
-    isbn: false,
-  });
+  const [errors, setErrors] = useState({});
 
+  const [subjects, setSubjects] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -47,11 +47,9 @@ const EditBook = () => {
   }, []);
 
   const fetchData = async () => {
-    request("get", getEndpoint(Endpoints.Books.allBooks.edit), {
-      guid: book_guid,
-    })
+    request("get", getEndpoint(Endpoints.Subjects.allSubjects.getAllNames))
       .then((res) => {
-        setData(res.data);
+        setSubjects(res.subjects);
         setLoaded(true);
       })
       .catch((err) => errorNotification(err.message));
@@ -62,66 +60,52 @@ const EditBook = () => {
     setData({ ...data, [id]: value });
   };
 
-  const handleCheck = (e) => {
-    const { id, checked } = e.target;
-    setData({ ...data, [id]: checked });
+  const handleCleanState = () => {
+    setData({
+      ...data,
+      subject: null,
+    });
   };
 
   const handleSubmit = () => {
     if (checkForm()) {
       console.log({ data });
-      request("post", getEndpoint(Endpoints.Books.editBook.update), {
+      request("post", getEndpoint(Endpoints.Copies.createCopy.create), {
         ...data,
+        book_guid,
       })
         .then(() => {
-          successNotification(ViewStrings.messages.bookUpdated);
-          push(Paths[Views.books].path);
+          successNotification(ViewStrings.messages.copyCreated);
+          push(Paths[Views.copies].path);
         })
         .catch((err) => errorNotification(err.message));
     } else errorNotification("Check all input fields");
   };
 
   const checkForm = () => {
-    const { name, isbn, stock } = data;
-    return validateData([name, isbn, stock]) && IsbnRegex.test(isbn);
+    const { state } = data;
+    return validateData([state]);
   };
 
   return (
     <GeneralLayout showBackButton title={ViewStrings.title}>
-      <PanelLayout loaded={loaded}>
-        <SectionLayout title="Book Info">
-          <FormControl
-            controlId="name"
-            maxLength={50}
-            showMaxLength
+      <PanelLayout cenetered loaded={loaded}>
+        <SectionLayout title="Copy Info">
+          <FormSelect
+            options={CopyStatus}
+            controlId="state"
+            value={data.state}
             vertical={false}
-            value={data.name}
-            title={ViewStrings.inputs.nameInput.title}
-            placeholder={ViewStrings.inputs.nameInput.placeholder}
+            title={ViewStrings.inputs.stateInput.title}
+            placeholder={ViewStrings.inputs.stateInput.placeholder}
             onChange={handleInput}
-          />
-          <FormControl
-            controlId="isbn"
-            maxLength={200}
-            showMaxLength
-            vertical={false}
-            value={data.isbn}
-            title={ViewStrings.inputs.isbnInput.title}
-            placeholder={ViewStrings.inputs.isbnInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormSwitch
-            controlId="enabled"
-            type="switch"
-            vertical={false}
-            value={data.enabled}
-            title={ViewStrings.inputs.enabledCheck.title}
-            onChange={handleCheck}
+            onClean={handleCleanState}
+            required
           />
         </SectionLayout>
         <div className="d-flex justify-content-end w-100 align-items-center">
           <Button disabled={!checkForm()} onClick={handleSubmit}>
-            {GeneralStrings.Update}
+            {GeneralStrings.Create}
           </Button>
         </div>
       </PanelLayout>
@@ -129,4 +113,4 @@ const EditBook = () => {
   );
 };
 
-export default EditBook;
+export default NewCopy;

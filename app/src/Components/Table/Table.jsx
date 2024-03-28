@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Configuration } from "../../Config/app.config";
 import Searcher from "../Searcher/Searcher";
@@ -9,6 +9,7 @@ import TableComponent from "./Components/TableComponent";
 const ReactTable = ({
   fetching,
   columns,
+  searcherProps = {},
   extraFilters,
   showPageSize = true,
   showSearcher = true,
@@ -49,7 +50,11 @@ const ReactTable = ({
           <div className="d-flex align-items-center justify-content-end">
             {showSearcher && (
               <div className="ms-1 d-flex justify-content-end align-items-center">
-                <Searcher onChange={handleSearcher} />
+                <Searcher
+                  autoFocus={searcherProps?.autoFocus}
+                  placeholder={searcherProps?.placeholder}
+                  onChange={handleSearcher}
+                />
               </div>
             )}
             {showPageSize && (
@@ -63,12 +68,17 @@ const ReactTable = ({
           </div>
         </Col>
       </Row>
-      <TableComponent
-        fetching={fetching}
-        className="mb-2"
-        data={data}
-        columns={columns}
-      />
+      {useMemo(
+        () => (
+          <TableComponent
+            fetching={fetching}
+            className="mb-2"
+            data={data}
+            columns={columns}
+          />
+        ),
+        [data]
+      )}
       <CustomPagination
         totalPages={totalPages}
         page={currentPage}

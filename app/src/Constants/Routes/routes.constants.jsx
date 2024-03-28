@@ -14,6 +14,8 @@ import Students from "../../Views/App/Students/AllStudents/Students";
 import EditStudent from "../../Views/App/Students/EditStudent/EditStudent";
 import NewBook from "../../Views/App/Books/NewBook/NewBook";
 import Copies from "../../Views/App/Copy/AllCopies/copies";
+import NewCopy from "../../Views/App/Copy/NewCopy/NewCopy";
+import NewStudent from "../../Views/App/Students/NewStudent/NewStudent";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -45,7 +47,7 @@ export const AppRoutes = [
   getRoute(Paths[Views.profileView].path, InMaintenance),
   //#endProfile
 
-  //#region Management
+  //#region user
   getRoute(Paths[Views.users].path, InMaintenance),
   getRoute(Paths[Views.new_user].path, InMaintenance),
   getRoute(Paths[Views.edit_user].path, InMaintenance),
@@ -56,9 +58,13 @@ export const AppRoutes = [
   getRoute(Paths[Views.edit_book].path, EditBook),
   //#endregion
 
-  //#region book
-  getRoute(Paths[Views.new_student].path, InMaintenance),
+  //#region student
+  getRoute(Paths[Views.new_student].path, NewStudent),
   getRoute(Paths[Views.edit_student].path, EditStudent),
+  //#endregion
+
+  //#region student
+  getRoute(Paths[Views.new_copy].path, NewCopy),
   //#endregion
 ];
 

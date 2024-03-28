@@ -13,6 +13,7 @@ const Searcher = ({
   onChange,
   borderless,
   label,
+  autoFocus,
   placeholder = "Search...",
 }) => {
   const searchParams = useQuery();
@@ -46,6 +47,7 @@ const Searcher = ({
       style={{ width: isMobileView ? "100%" : "auto" }}
     >
       <FormControl
+        autoFocus={autoFocus}
         showMaxLength={false}
         formGroupProps={{ className: "mb-0 w-100" }}
         title={label}

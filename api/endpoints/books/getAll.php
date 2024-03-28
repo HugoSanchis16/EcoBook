@@ -21,11 +21,16 @@ try {
 
     //check if user exist
     $books = Book::getAll($db, $input->page, $input->offset, $input->search);
+    $booksCount = Book::getAllCount($db, $input->search);
 
     $booksFormat = BookResource::getBooksArray($books);
+
+    $totalPages = ceil($booksCount / $input->offset);
+
     $db->commit();
     Response::sendResponse([
-        "books" => $booksFormat
+        "books" => $booksFormat,
+        "totalPages" => $totalPages
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

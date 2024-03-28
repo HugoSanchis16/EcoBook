@@ -18,8 +18,7 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
-import { IsbnRegex, NiaRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
+import {NiaRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
 
 const EditStudent = () => {
   const { strings: Strings } = useContext(StringsContext);
@@ -82,7 +81,7 @@ const EditStudent = () => {
   };
 
   return (
-    <GeneralLayout title={ViewStrings.title}>
+    <GeneralLayout showBackButton title={ViewStrings.title}>
       <PanelLayout loaded={loaded}>
         <SectionLayout title="Student's identification">
           <FormControl

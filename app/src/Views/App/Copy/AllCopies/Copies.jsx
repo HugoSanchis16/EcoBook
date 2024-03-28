@@ -4,6 +4,7 @@ import {
   Link,
   useHistory,
   useLocation,
+  useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
 import ReactTable from "../../../../Components/Table/Table";
 import { Configuration } from "../../../../Config/app.config";
@@ -32,6 +33,8 @@ const Copies = () => {
   const request = useRequest();
   const searchParams = useQuery();
 
+  const { book_guid } = useParams();
+
   const {
     closeModal: closeDeleteModal,
     openModal: openDeleteModal,
@@ -39,12 +42,12 @@ const Copies = () => {
     data: deleteStudentData,
   } = useModalManager();
 
-  const { replace } = useHistory();
-  const { pathname, search } = useLocation();
+  const { search } = useLocation();
 
   const { showNotification: errorNotification } = useNotification();
+  const { showNotification: successNotification } = useNotification("success");
 
-  const { startFetching, finishFetching, fetching, loaded } = useLoaded();
+  const { startFetching, finishFetching, fetching } = useLoaded();
 
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -76,6 +79,23 @@ const Copies = () => {
       .finally(() => finishFetching());
   };
 
+  const handleUpdateState = async (guid, value) => {
+    return await request(
+      "post",
+      getEndpoint(Endpoints.Copies.editCopy.updateState),
+      {
+        guid,
+        state: value,
+      }
+    )
+      .then((res) => updateStatusOfCopy(guid, value))
+      .catch(errorNotification);
+  };
+
+  const updateStatusOfCopy = (guid, value) => {
+    successNotification("Status updated successfully!");
+  };
+
   const handleCloseDeleteBook = (refresh) => {
     if (refresh) fetchData();
     closeDeleteModal();
@@ -92,20 +112,29 @@ const Copies = () => {
 
       {/* Content */}
       <GeneralLayout
+        showBackButton
         title={ViewStrings.title}
         rightSection={
-          <Button size="sm" as={Link} to={Paths[Views.new_copy].path}>
+          <Button
+            size="sm"
+            as={Link}
+            to={replacePaths(Paths[Views.new_copy].path, [{ book_guid }])}
+          >
             {ViewStrings.addCopy}
           </Button>
         }
       >
         <PanelLayout>
           <ReactTable
+            searcherProps={{
+              placeholder: "Search the code ...",
+              autoFocus: true,
+            }}
             totalPages={totalPages}
             fetching={fetching}
             onEventChange={fetchData}
             data={data}
-            columns={CopiesColumns(openDeleteModal)}
+            columns={CopiesColumns(handleUpdateState)}
           />
         </PanelLayout>
       </GeneralLayout>

@@ -38,8 +38,7 @@ const Books = () => {
     data: deleteBookData,
   } = useModalManager();
 
-  const { replace } = useHistory();
-  const { pathname, search } = useLocation();
+  const { search } = useLocation();
 
   const { showNotification: errorNotification } = useNotification();
 

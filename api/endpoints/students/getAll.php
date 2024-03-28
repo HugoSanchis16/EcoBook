@@ -21,11 +21,17 @@ try {
 
     //check if user exist
     $students = Student::getAll($db, $input->page, $input->offset, $input->search);
+    $studentsCount = Student::getAllCount($db, $input->search);
+
     $studentsFormat = StudentResource::getStudentsArray($students);
+
+    $totalPages = ceil($studentsCount / $input->offset);
 
     $db->commit();
     Response::sendResponse([
-        "students" => $studentsFormat
+        "students" => $studentsFormat,
+        "totalPages" => $totalPages
+
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

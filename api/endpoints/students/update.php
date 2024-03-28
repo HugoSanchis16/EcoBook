@@ -20,8 +20,6 @@ try {
     ]);
 
     $student = Student::getByGuid($db, $input->guid);
-    $student->nia = $input->nia;
-    $student->update();
 
     $profile = $student->profile();
     $profile->name = $input->name;
@@ -29,6 +27,9 @@ try {
     $profile->phone = $input->phone;
     $profile->email = $input->email;
     $profile->update();
+
+    $student->nia = $input->nia;
+    $student->update();
 
     $db->commit();
 

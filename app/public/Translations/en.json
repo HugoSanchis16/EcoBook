@@ -151,7 +151,6 @@
           "title": "Stock:",
           "placeholder": "Type book stock..."
         }
-
       },
       "messages": {
         "bookUpdated": "Book updated successfully!"
@@ -179,7 +178,6 @@
           "title": "Stock:",
           "placeholder": "Type book stock..."
         }
-
       },
       "messages": {
         "bookUpdated": "Book updated successfully!"
@@ -227,21 +225,9 @@
       "messages": {
         "studentsUpdated": "Student updated successfully!"
       }
-    }
-  },
-  "Copies": {
-    "AllCopies": {
-      "title": "Copies",
-      "addCopy": "+ New Copy",
-      "table": {
-        "columns": {
-          "name": "Name",
-          "description": "Description"
-        }
-      }
     },
-    "EditStudent": {
-      "title": "Edit Student",
+    "NewStudent": {
+      "title": "New Student",
       "sections": {
         "basicSection": "Basic Info"
       },
@@ -266,9 +252,30 @@
           "title": "Email:",
           "placeholder": "Type Student Email ..."
         }
+      }
+    }
+  },
+  "Copies": {
+    "AllCopies": {
+      "title": "Copies",
+      "addCopy": "+ New Copy",
+      "table": {
+        "columns": {
+          "name": "Name",
+          "description": "Description"
+        }
+      }
+    },
+    "NewCopy": {
+      "title": "New Copy",
+      "inputs": {
+        "stateInput": {
+          "title": "State",
+          "placeholder": "Select the state ..."
+        }
       },
       "messages": {
-        "studentsUpdated": "Student updated successfully!"
+        "copyCreated": "Copy created successfully!"
       }
     }
   }

@@ -68,12 +68,15 @@ class Copy
     {
         $query = "
             UPDATE `" . self::$table_name . "` 
-            SET state=:state, updated=:updated
+            SET state=:state, student_id=:student_id, updated=:updated, searchdata=:searchdata
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":state", $this->state);
+        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":student_id", $this->student_id);
         $stmt->bindValue(":updated", newDate());
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
             $stmt->execute();
@@ -136,6 +139,21 @@ class Copy
         createException($stmt->errorInfo());
     }
 
+    public static function getByGuid(PDO $db, string $guid): Copy
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE guid=:guid";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":guid", $guid);
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
+        }
+        createException("Copy not found");
+    }
+
 
     public static function getByBookId(PDO $db, int $book_id): Copy
     {
@@ -176,7 +194,7 @@ class Copy
         $newObj = new Copy($db);
         $newObj->id = intval($row['id']);
         $newObj->book_id = intval($row['book_id']);
-        $newObj->student_id = intval($row['student_id']);
+        $newObj->student_id = $row["student_id"] === null ? null : intval($row['student_id']);
         $newObj->guid = $row['guid'];
         $newObj->uniqid = $row['uniqid'];
         $newObj->state = $row['state'];
