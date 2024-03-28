@@ -7,7 +7,7 @@ header("Content-Type: application/x-www-form-urlencoded");
 <?php
 
 //MIDDLEWARE TO CHANGE
-$middleware = '/api';
+$middleware = '/Banc-de-Llibres/api';
 $document_root = $_SERVER['DOCUMENT_ROOT'] . $middleware;
 
 //API Config

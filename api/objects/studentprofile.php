@@ -28,14 +28,15 @@ class StudentProfile
             name=:name,
             surnames=:surnames,
             phone=:phone,
-            email=:email";
+            email=:email
+        ";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(":student_id", $this->student_id);
+        $stmt->bindParam(":student_id", $this->student_id);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":surnames", $this->surnames);
         $stmt->bindParam(":phone", $this->phone);
-        $stmt->bindParam(":phone", $this->phone);
+        $stmt->bindParam(":email", $this->email);
 
         try {
             $stmt->execute();

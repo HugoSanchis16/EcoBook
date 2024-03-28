@@ -9,7 +9,7 @@ import { EmailRegex, PasswordRegex } from "../../../Utils/Regex";
 
 import { StorageKeys } from "../../../Constants/storekeys.constants";
 
-import logo from "../../../Assets/images/Logo/logo-maximised.png";
+import logo from "../../../Assets/images/Logo/logo-maximised-en.png";
 import { UserContext } from "../../../Context/user.context";
 import useNotification from "../../../Hooks/useNotification";
 

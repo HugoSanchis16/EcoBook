@@ -1,14 +1,284 @@
 {
   "General": {
+    "App": {
+      "Yes": "Sí",
+      "No": "No",
+      "Create": "Crear",
+      "Update": "Actualizar",
+      "Delete": "Eliminar",
+      "Cancel": "Cancelar",
+      "Rank": "Rango"
+    },
+    "Tables": {
+      "Actions": "Acciones"
+    },
     "NavBar": {
       "Sections": {
-        "Management": "Mantenimiento"
+        "Management": "Gestión"
       }
     }
   },
-  "Organisations": {
-    "AllOrganisations": {
-      "title": "Organisations"
+  "Users": {
+    "AllUsers": {
+      "title": "Usuarios",
+      "newUser": "+ Nuevo Usuario",
+      "table": {
+        "columns": {
+          "name": "Nombre",
+          "email": "Correo Electrónico"
+        }
+      }
+    },
+    "NewUser": {
+      "title": "Nuevo Usuario",
+      "sections": {
+        "basicSection": "Información Básica",
+        "accountSection": "Detalles de la Cuenta"
+      },
+      "inputs": {
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe el nombre..."
+        },
+        "lastNameInput": {
+          "title": "Apellido:",
+          "placeholder": "Escribe el apellido..."
+        },
+        "emailInput": {
+          "title": "Correo Electrónico:",
+          "placeholder": "Escribe el correo electrónico..."
+        },
+        "organisationInput": {
+          "title": "Organización:",
+          "placeholder": "Selecciona la organización..."
+        }
+      },
+      "messages": {
+        "userCreated": "¡Usuario creado exitosamente!"
+      },
+      "buttons": {
+        "create": "Crear"
+      }
+    },
+    "EditUser": {
+      "title": "Editar Usuario",
+      "inputs": {
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe el nombre de la organización..."
+        },
+        "lastNameInput": {
+          "title": "Apellido:",
+          "placeholder": "Escribe el apellido..."
+        },
+        "ageInput": {
+          "title": "Edad:",
+          "placeholder": "Escribe tu edad..."
+        },
+        "phoneInput": {
+          "title": "Teléfono:",
+          "placeholder": "Escribe el teléfono..."
+        },
+        "dniInput": {
+          "title": "ID:",
+          "placeholder": "Escribe tu ID..."
+        },
+        "organisationInput": {
+          "title": "Organización:",
+          "placeholder": "Selecciona la organización..."
+        }
+      },
+      "messages": {
+        "userUpdated": "¡Usuario actualizado exitosamente!"
+      }
+    }
+  },
+  "Search": {
+    "GeneralView": {
+      "title": "Buscar",
+      "searchPlaceholder": "Buscar..."
+    },
+    "Organisations": {
+      "title": "Organizaciones",
+      "viewMore": "Ver %items.amount% más..."
+    },
+    "Users": {
+      "title": "Usuarios",
+      "viewMore": "Ver %items.amount% más..."
+    },
+    "Players": {
+      "title": "Jugadores",
+      "viewMore": "Ver %items.amount% más..."
+    }
+  },
+  "Home": {
+    "TopSection": {
+      "Organisations": "Organizaciones",
+      "Users": "Usuarios",
+      "Players": "Jugadores"
+    }
+  },
+  "Books": {
+    "AllBooks": {
+      "title": "Libros",
+      "addBook": "+ Nuevo Libro",
+      "table": {
+        "columns": {
+          "name": "Nombre",
+          "description": "Descripción"
+        }
+      }
+    },
+    "EditBook": {
+      "title": "Editar Libro",
+      "sections": {
+        "basicSection": "Información Básica"
+      },
+      "inputs": {
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe el nombre del libro..."
+        },
+        "isbnInput": {
+          "title": "ISBN:",
+          "placeholder": "Escribe el ISBN del libro..."
+        },
+        "enabledCheck": {
+          "title": "Habilitado:"
+        },
+        "stockInput": {
+          "title": "Stock:",
+          "placeholder": "Escribe el stock del libro..."
+        }
+      },
+      "messages": {
+        "bookUpdated": "¡Libro actualizado exitosamente!"
+      }
+    },
+    "NewBook": {
+      "title": "Nuevo Libro",
+      "sections": {
+        "basicSection": "Información Básica"
+      },
+      "inputs": {
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe el nombre del libro..."
+        },
+        "isbnInput": {
+          "title": "ISBN:",
+          "placeholder": "Escribe el ISBN del libro..."
+        },
+        "subject": {
+          "title": "Asunto:",
+          "placeholder": "Selecciona el asunto del libro..."
+        },
+        "stockInput": {
+          "title": "Stock:",
+          "placeholder": "Escribe el stock del libro..."
+        }
+      },
+      "messages": {
+        "bookUpdated": "¡Libro creado exitosamente!"
+      }
+    }
+  },
+  "Students": {
+    "AllStudents": {
+      "title": "Estudiantes",
+      "addStudent": "+ Nuevo Estudiante",
+      "table": {
+        "columns": {
+          "name": "Nombre",
+          "description": "Descripción"
+        }
+      }
+    },
+    "EditStudent": {
+      "title": "Editar Estudiante",
+      "sections": {
+        "basicSection": "Información Básica"
+      },
+      "inputs": {
+        "niaInput": {
+          "title": "NIA:",
+          "placeholder": "Escribe el NIA del estudiante..."
+        },
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe el nombre del estudiante..."
+        },
+        "surnameInput": {
+          "title": "Apellidos:",
+          "placeholder": "Escribe los apellidos del estudiante..."
+        },
+        "phoneInput": {
+          "title": "Teléfono:",
+          "placeholder": "Escribe el teléfono del estudiante..."
+        },
+        "emailInput": {
+          "title": "Correo Electrónico:",
+          "placeholder": "Escribe el correo electrónico del estudiante..."
+        }
+      },
+      "messages": {
+        "studentsUpdated": "¡Estudiante actualizado exitosamente!"
+      }
+    },
+    "NewStudent": {
+      "title": "Nuevo Estudiante",
+      "sections": {
+        "basicSection": "Información Básica"
+      },
+      "inputs": {
+        "niaInput": {
+          "title": "NIA:",
+          "placeholder": "Escribe el NIA del estudiante..."
+        },
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe el nombre del estudiante..."
+        },
+        "surnameInput": {
+          "title": "Apellidos:",
+          "placeholder": "Escribe los apellidos del estudiante..."
+        },
+        "phoneInput": {
+          "title": "Teléfono:",
+          "placeholder": "Escribe el teléfono del estudiante..."
+        },
+        "emailInput": {
+          "title": "Correo Electrónico:",
+          "placeholder": "Escribe el correo electrónico del estudiante..."
+        }
+      },
+      "messages": {
+        "studentsCreated": "¡Estudiante creado exitosamente!"
+      }
+    }
+  },
+  "Copies": {
+    "AllCopies": {
+      "title": "Copias",
+      "addCopy": "+ Nueva Copia",
+      "table": {
+        "columns": {
+          "name": "Nombre",
+          "description": "Descripción"
+        }
+      }
+    },
+    "NewCopy": {
+      "title": "Nueva Copia",
+      "inputs": {
+        "stateInput": {
+          "title": "Estado",
+          "placeholder": "Selecciona el estado..."
+        }
+      },
+      "messages": {
+        "copyCreated": "¡Copia creada exitosamente!"
+      }
     }
   }
 }

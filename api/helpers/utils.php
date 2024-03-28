@@ -264,15 +264,13 @@ if (!function_exists('convertSearchValues')) {
             if ($type === "array") {
                 $from = $value['from'];
                 $what = $value['what'];
-                foreach ($what as $key) {
-                    if ($from) {
+                if ($from) {
+                    foreach ($what as $key) {
                         if (str_contains($key, '.')) {
                             $split = explode('.', $key);
                             $function = $split[0];
                             $column = $split[1];
                             $string .= $from->{$function}()->{$column} . " ";
-                        } else {
-                            $string .= $from->{$key} . " ";
                         }
                     }
                 }

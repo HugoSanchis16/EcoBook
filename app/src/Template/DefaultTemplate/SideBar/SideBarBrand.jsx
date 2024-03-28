@@ -3,7 +3,7 @@ import ToggleSideBarButton from "../../../Components/ToggleSideBarButton/ToggleS
 import { Configuration } from "../../../Config/app.config";
 import useSideBar from "../../../Hooks/useSideBar";
 
-import logoMaximised from "../../../Assets/images/Logo/logo-maximised.png";
+import logoMaximised from "../../../Assets/images/Logo/logo-maximised-en.png";
 import logoMinimised from "../../../Assets/images/Logo/logo-minimised.png";
 
 const SideBarBrand = () => {

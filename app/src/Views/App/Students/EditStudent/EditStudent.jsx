@@ -18,12 +18,21 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import {NiaRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
+import { NiaRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
+import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
+import useModalManager from "../../../../Hooks/useModalManager";
 
 const EditStudent = () => {
   const { strings: Strings } = useContext(StringsContext);
   const ViewStrings = Strings.Students.EditStudent;
   const GeneralStrings = Strings.General.App;
+
+  const {
+    closeModal: closeDeleteModal,
+    openModal: openDeleteModal,
+    show: showDeleteModal,
+    data: deleteBookData,
+  } = useModalManager();
 
   const request = useRequest();
   const { push } = useHistory();
@@ -79,72 +88,83 @@ const EditStudent = () => {
       NiaRegex.test(nia)
     );
   };
-
+  const handleCloseDeleteBook = (refresh) => {
+    if (refresh) fetchData();
+    closeDeleteModal();
+  };
   return (
-    <GeneralLayout showBackButton title={ViewStrings.title}>
-      <PanelLayout loaded={loaded}>
-        <SectionLayout title="Student's identification">
-          <FormControl
-            controlId="nia"
-            maxLength={8}
-            disabled
-            showMaxLength={false}
-            vertical={false}
-            value={data.nia}
-            title={ViewStrings.inputs.niaInput.title}
-            placeholder={ViewStrings.inputs.niaInput.placeholder}
-            onChange={handleInput}
-          />
-        </SectionLayout>
-        <SectionLayout title="Student's profile">
-          <FormControl
-            controlId="name"
-            maxLength={50}
-            showMaxLength
-            vertical={false}
-            value={data.name}
-            title={ViewStrings.inputs.nameInput.title}
-            placeholder={ViewStrings.inputs.nameInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormControl
-            controlId="surnames"
-            maxLength={50}
-            showMaxLength
-            vertical={false}
-            value={data.surnames}
-            title={ViewStrings.inputs.surnameInput.title}
-            placeholder={ViewStrings.inputs.surnameInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormControl
-            controlId="phone"
-            maxLength={50}
-            showMaxLength
-            vertical={false}
-            value={data.phone}
-            title={ViewStrings.inputs.phoneInput.title}
-            placeholder={ViewStrings.inputs.phoneInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormControl
-            controlId="email"
-            maxLength={50}
-            showMaxLength
-            vertical={false}
-            value={data.email}
-            title={ViewStrings.inputs.emailInput.title}
-            placeholder={ViewStrings.inputs.emailInput.placeholder}
-            onChange={handleInput}
-          />
-        </SectionLayout>
-        <div className="d-flex justify-content-end w-100 align-items-center">
-          <Button disabled={!checkForm()} onClick={handleSubmit}>
-            {GeneralStrings.Update}
-          </Button>
-        </div>
-      </PanelLayout>
-    </GeneralLayout>
+    <>
+      {/* Modals */}
+      <DeleteBookModal
+        show={showDeleteModal}
+        onClose={handleCloseDeleteBook}
+        data={deleteBookData}
+      />
+      <GeneralLayout showBackButton title={ViewStrings.title}>
+        <PanelLayout loaded={loaded}>
+          <SectionLayout title="Student's identification">
+            <FormControl
+              controlId="nia"
+              maxLength={8}
+              disabled
+              showMaxLength={false}
+              vertical={false}
+              value={data.nia}
+              title={ViewStrings.inputs.niaInput.title}
+              placeholder={ViewStrings.inputs.niaInput.placeholder}
+              onChange={handleInput}
+            />
+          </SectionLayout>
+          <SectionLayout title="Student's profile">
+            <FormControl
+              controlId="name"
+              maxLength={50}
+              showMaxLength
+              vertical={false}
+              value={data.name}
+              title={ViewStrings.inputs.nameInput.title}
+              placeholder={ViewStrings.inputs.nameInput.placeholder}
+              onChange={handleInput}
+            />
+            <FormControl
+              controlId="surnames"
+              maxLength={50}
+              showMaxLength
+              vertical={false}
+              value={data.surnames}
+              title={ViewStrings.inputs.surnameInput.title}
+              placeholder={ViewStrings.inputs.surnameInput.placeholder}
+              onChange={handleInput}
+            />
+            <FormControl
+              controlId="phone"
+              maxLength={50}
+              showMaxLength
+              vertical={false}
+              value={data.phone}
+              title={ViewStrings.inputs.phoneInput.title}
+              placeholder={ViewStrings.inputs.phoneInput.placeholder}
+              onChange={handleInput}
+            />
+            <FormControl
+              controlId="email"
+              maxLength={50}
+              showMaxLength
+              vertical={false}
+              value={data.email}
+              title={ViewStrings.inputs.emailInput.title}
+              placeholder={ViewStrings.inputs.emailInput.placeholder}
+              onChange={handleInput}
+            />
+          </SectionLayout>
+          <div className="d-flex justify-content-end w-100 align-items-center">
+            <Button disabled={!checkForm()} onClick={handleSubmit}>
+              {GeneralStrings.Update}
+            </Button>
+          </div>
+        </PanelLayout>
+      </GeneralLayout>
+    </>
   );
 };
 

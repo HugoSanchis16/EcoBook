@@ -14,13 +14,17 @@ try {
     $input = validate($data, [
         'page' => 'required|numeric',
         'offset' => 'required|numeric',
-        'search' => 'sometimes|string'
+        'search' => 'sometimes|string',
+        'book_guid' => 'required|string'
     ]);
 
     $search = isset($input->search) ? $input->search : "";
 
+
+    $book = Book::getByGuid($db, $input->book_guid);
+
     //check if user exist
-    $copies = Copy::getAll($db, $input->page, $input->offset, $input->search);
+    $copies = Copy::getAllByBook($db, $book->id, $input->page, $input->offset, $input->search);
     logAPI($copies);
     $copiesFormat = CopyResource::getCopiesArray($copies);
 

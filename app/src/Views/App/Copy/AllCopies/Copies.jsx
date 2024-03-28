@@ -66,6 +66,7 @@ const Copies = () => {
       "get",
       getEndpoint(Endpoints.Copies.allCopies.getAll),
       {
+        book_guid,
         page,
         offset,
         search,

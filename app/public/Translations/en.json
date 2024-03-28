@@ -252,6 +252,9 @@
           "title": "Email:",
           "placeholder": "Type Student Email ..."
         }
+      },
+      "messages": {
+        "studentsCreated": "Student created successfully!"
       }
     }
   },

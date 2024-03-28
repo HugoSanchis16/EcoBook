@@ -6,7 +6,7 @@ import { StorageKeys } from "../../../Constants/storekeys.constants";
 import { Views } from "../../../Constants/views.constants";
 import { EmailRegex } from "../../../Utils/Regex";
 
-import logoMaximised from "../../../Assets/images/Logo/logo-maximised.png";
+import logoMaximised from "../../../Assets/images/Logo/logo-maximised-en.png";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useNotification from "../../../Hooks/useNotification";
 import useRequest from "../../../Hooks/useRequest";

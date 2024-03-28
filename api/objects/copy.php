@@ -139,6 +139,32 @@ class Copy
         createException($stmt->errorInfo());
     }
 
+    public static function getAllByBook(PDO $db, int $book_id, int $page, int $offset, string $search = ""): array
+    {
+        $query = "
+        SELECT c.*
+        FROM `" . self::$table_name . "` c
+        WHERE c.book_id = :book_id
+        ";
+
+        applySearchOnQuery($query);
+        doPagination($offset, $page, $query);
+
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":book_id", $book_id);
+
+        applySearchOnBindedValue($search, $stmt);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
     public static function getByGuid(PDO $db, string $guid): Copy
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE guid=:guid";

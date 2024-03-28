@@ -36,6 +36,9 @@ export const Endpoints = {
     deleteStudent: {
       delete: "/students/delete",
     },
+    createStudent: {
+      create: "/students/create",
+    },
   },
   Subjects: {
     allSubjects: {

@@ -37,46 +37,21 @@ const NewStudent = () => {
 
   const [data, setData] = useState({});
 
-  const [errors, setErrors] = useState({});
-
-  const [subjects, setSubjects] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    request("get", getEndpoint(Endpoints.Subjects.allSubjects.getAllNames))
-      .then((res) => {
-        setSubjects(res.subjects);
-        setLoaded(true);
-      })
-      .catch((err) => errorNotification(err.message));
-  };
-
   const handleInput = (e) => {
     const { id, value } = e.target;
     setData({ ...data, [id]: value });
   };
 
-  const handleCleanState = () => {
-    setData({
-      ...data,
-      subject: null,
-    });
-  };
-
   const handleSubmit = () => {
     if (checkForm()) {
       console.log({ data });
-      request("post", getEndpoint(Endpoints.Copies.createCopy.create), {
+      request("post", getEndpoint(Endpoints.Students.createStudent.create), {
         ...data,
         book_guid,
       })
         .then(() => {
-          successNotification(ViewStrings.messages.copyCreated);
-          push(Paths[Views.copies].path);
+          successNotification(ViewStrings.messages.studentsCreated);
+          push(Paths[Views.students].path);
         })
         .catch((err) => errorNotification(err.message));
     } else errorNotification("Check all input fields");
@@ -93,7 +68,7 @@ const NewStudent = () => {
 
   return (
     <GeneralLayout showBackButton title={ViewStrings.title}>
-      <PanelLayout cenetered loaded={loaded}>
+      <PanelLayout>
         <SectionLayout title="Student's Identification">
           <FormControl
             required

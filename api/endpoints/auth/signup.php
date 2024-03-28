@@ -7,7 +7,6 @@ $database = new Database();
 $db = $database->getConnection();
 
 $data = postInput();
-
 try {
     $db->beginTransaction();
     checkAuth(false);
@@ -23,7 +22,6 @@ try {
     $newUser->email = $input->email;
     $newUser->password = password_hash($input->password, PASSWORD_DEFAULT);
     $newUser->store();
-
     $newProfile = new UserProfile($db);
     $newProfile->user_id = $newUser->id;
     $newProfile->name = $input->name;

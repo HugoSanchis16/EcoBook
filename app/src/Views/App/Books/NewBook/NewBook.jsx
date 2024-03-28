@@ -37,10 +37,6 @@ const NewBook = () => {
 
   const [data, setData] = useState({});
 
-  const [errors, setErrors] = useState({
-    isbn: false,
-  });
-
   const [subjects, setSubjects] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -94,7 +90,7 @@ const NewBook = () => {
 
   return (
     <GeneralLayout title={ViewStrings.title}>
-      <PanelLayout cenetered loaded={loaded}>
+      <PanelLayout loaded={loaded}>
         <SectionLayout title="Book Info">
           <FormControl
             controlId="name"

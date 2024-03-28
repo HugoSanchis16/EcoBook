@@ -27,9 +27,7 @@ class User
             SET 
             guid=:guid,
             email=:email,
-            password=:password,
-            token=:token,
-            expiredate=:expiredate
+            password=:password
         ";
 
         $stmt = $this->conn->prepare($query);
@@ -54,9 +52,6 @@ class User
             UPDATE `" . self::$table_name . "` 
             SET password=:password, updated=:updated, deleted=:deleted, token=:token, expiredate=:expiredate
             WHERE id=:id";
-
-        logAPI("Hola");
-        logAPI($this->deleted);
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":password", $this->password);

@@ -6,7 +6,7 @@ import { Views } from "../../../Constants/views.constants";
 import { PasswordRegex } from "../../../Utils/Regex";
 
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
-import logo from "../../../Assets/images/Logo/logo-maximised.png";
+import logo from "../../../Assets/images/Logo/logo-maximised-en.png";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useNotification from "../../../Hooks/useNotification";
 import useRequest from "../../../Hooks/useRequest";

@@ -120,6 +120,23 @@ class Book
         createException("Book not found");
     }
 
+    public static function getByIsbn(PDO $db, string $isbn): Book | bool
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE isbn=:isbn AND deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":isbn", $isbn);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
+            return false;
+        }
+        createException("Invalid credentials");
+    }
+
     public static function getByGuid(PDO $db, string $guid): Book
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE guid=:guid AND deleted IS NULL";

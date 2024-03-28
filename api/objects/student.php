@@ -6,7 +6,7 @@ class Student
     private static string $table_name = "student";
 
 
-    public int  $id;
+    public int $id;
     public string $guid;
     public int $nia;
     public int $createdBy;
@@ -46,10 +46,12 @@ class Student
             ";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(":guid", createGUID());
+
+        $this->guid = createGUID();
+        $stmt->bindValue(":guid", $this->guid);
         $stmt->bindParam(":nia", $this->nia);
         $stmt->bindParam(":createdby", $this->createdBy);
-        $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
             $stmt->execute();
@@ -87,9 +89,11 @@ class Student
         return $this->update();
     }
 
-    function profile(): StudentProfile
+    function profile(): StudentProfile|bool
     {
-        return StudentProfile::getByStudentId($this->conn, $this->id);
+        if (isset($this->id)) {
+            return StudentProfile::getByStudentId($this->conn, $this->id);
+        } else return false;
     }
 
 
@@ -171,18 +175,19 @@ class Student
         createException($stmt->errorInfo());
     }
 
-    public static function getByEmail(PDO $db, string $email): Student
+    public static function getByNia(PDO $db, int $nia): Student | bool
     {
-        $query = "SELECT * FROM `" . self::$table_name . "` WHERE email=:email AND deleted IS NULL";
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE nia=:nia AND deleted IS NULL";
 
         $stmt = $db->prepare($query);
 
-        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":nia", $nia);
 
         if ($stmt->execute()) {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 return self::getMainObject($db, $row);
             }
+            return false;
         }
         createException("Invalid credentials");
     }
