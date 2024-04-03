@@ -48,7 +48,7 @@ class Student
         $stmt = $this->conn->prepare($query);
 
         $this->guid = createGUID();
-        $stmt->bindValue(":guid", $this->guid);
+        $stmt->bindParam(":guid", $this->guid);
         $stmt->bindParam(":nia", $this->nia);
         $stmt->bindParam(":createdby", $this->createdBy);
         $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));

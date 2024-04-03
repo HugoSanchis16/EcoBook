@@ -43,6 +43,7 @@ export const Endpoints = {
   Subjects: {
     allSubjects: {
       getAllNames: "/subjects/getAllNames",
+      getAll: "/subjects/getAll",
       edit: "/subjects/get",
     },
     editSubject: {
@@ -50,6 +51,21 @@ export const Endpoints = {
     },
     deleteSubject: {
       delete: "/subjects/delete",
+    },
+  },
+  Courses: {
+    allCourses: {
+      getAll: "/courses/getAll",
+      edit: "/courses/get",
+    },
+    editCourse: {
+      update: "/courses/update",
+    },
+    deleteCourse: {
+      delete: "/courses/delete",
+    },
+    createCourse: {
+      create: "/courses/create",
     },
   },
   Copies: {

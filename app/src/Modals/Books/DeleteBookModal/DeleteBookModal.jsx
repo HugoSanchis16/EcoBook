@@ -26,7 +26,6 @@ const DeleteBookModal = ({ show, onClose, data }) => {
 
   const hideModal = () => {
     onClose();
-    setData({});
   };
 
   return (

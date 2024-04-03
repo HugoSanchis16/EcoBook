@@ -22,6 +22,7 @@ class Copy
     private function searchableValues(): array
     {
         return [
+            $this->uniqid,
             array(
                 "from" => $this->student(),
                 "what" => [

@@ -281,5 +281,93 @@
         "copyCreated": "Copy created successfully!"
       }
     }
+  },
+  "Courses": {
+    "AllCourses": {
+      "title": "Courses",
+      "addCourse": "+ New Course",
+      "table": {
+        "columns": {
+          "name": "Name",
+          "description": "Description"
+        }
+      }
+    },
+    "NewCourse": {
+      "title": "New Course",
+      "inputs": {
+        "abbrInput": {
+          "title": "abbreviation:",
+          "placeholder": "Type Course abbreviation..."
+        },
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type Course Name..."
+        }
+      },
+      "messages": {
+        "courseCreated": "Copy created successfully!"
+      }
+    },
+    "EditCourse": {
+      "title": "Edit Course",
+      "inputs": {
+        "abbrInput": {
+          "title": "abbreviation:",
+          "placeholder": "Type Course abbreviation..."
+        },
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type Course Name..."
+        }
+      },
+      "messages": {
+        "courseCreated": "Course created successfully!"
+      }
+    }
+  },
+  "Subjects": {
+    "AllSubjects": {
+      "title": "Subjects",
+      "addCourse": "+ New Subject",
+      "table": {
+        "columns": {
+          "name": "Name",
+          "description": "Description"
+        }
+      }
+    },
+    "NewSubject": {
+      "title": "New Subject",
+      "inputs": {
+        "abbrInput": {
+          "title": "abbreviation:",
+          "placeholder": "Type Course abbreviation..."
+        },
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type Course Name..."
+        }
+      },
+      "messages": {
+        "subjectCreated": "Subject created successfully!"
+      }
+    },
+    "EditSubject": {
+      "title": "Edit Subject",
+      "inputs": {
+        "abbrInput": {
+          "title": "abbreviation:",
+          "placeholder": "Type Course abbreviation..."
+        },
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type Course Name..."
+        }
+      },
+      "messages": {
+        "subjectCreated": "Subject created successfully!"
+      }
+    }
   }
 }

@@ -9,7 +9,7 @@ class Course
     public int  $id;
     public string $guid;
     public string $name;
-    public int $abbr;
+    public string $abbr;
     public string $created;
     public string|null $updated;
     public string|null $deleted;
@@ -38,10 +38,11 @@ class Course
             ";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(":guid", createGUID());
+        $this->guid = createGUID();
+        $stmt->bindParam(":guid", $this->guid);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":abbr", $this->abbr);
-        $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
             $stmt->execute();
@@ -61,9 +62,9 @@ class Course
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":abbr", $this->abbr);
-        $stmt->bindParam(":updated", $this->updated);
+        $stmt->bindValue(":updated", newDate());
         $stmt->bindParam(":deleted", $this->deleted);
-        $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
         $stmt->bindParam(":id", $this->id);
 
         try {
@@ -110,11 +111,12 @@ class Course
         }
         createException("Course not found");
     }
-    public static function getAll(PDO $db, int $offset, int $page, string $search = ""): array
+
+    public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
     {
         $query = "
-        SELECT u.*
-        FROM `" . self::$table_name . "` u 
+        SELECT c.*
+        FROM `" . self::$table_name . "` c
         WHERE deleted IS NULL";
 
         applySearchOnQuery($query);
@@ -138,9 +140,10 @@ class Course
     public static function getAllCount(PDO $db, string $search = ""): int
     {
         $query = "
-        SELECT COUNT(u.*) as total
-        FROM `" . self::$table_name . "` u 
-        WHERE deleted IS NULL";
+        SELECT COUNT(c.id) as total
+        FROM `" . self::$table_name . "` c
+        WHERE deleted IS NULL
+        ";
 
         applySearchOnQuery($query);
 

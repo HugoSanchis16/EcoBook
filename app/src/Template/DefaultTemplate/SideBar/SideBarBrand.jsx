@@ -3,7 +3,8 @@ import ToggleSideBarButton from "../../../Components/ToggleSideBarButton/ToggleS
 import { Configuration } from "../../../Config/app.config";
 import useSideBar from "../../../Hooks/useSideBar";
 
-import logoMaximised from "../../../Assets/images/Logo/logo-maximised-en.png";
+import logoMaximisedEn from "../../../Assets/images/Logo/logo-maximised-en.png";
+import logoMaximisedEs from "../../../Assets/images/Logo/logo-maximised-es.png";
 import logoMinimised from "../../../Assets/images/Logo/logo-minimised.png";
 
 const SideBarBrand = () => {
@@ -12,6 +13,12 @@ const SideBarBrand = () => {
 
   const { sidebar } = useSelector((state) => state.Config);
   const expanded = sidebar === "maximised";
+
+  const selectedLanguage = localStorage.getItem("ADMIN_LANGUAGE_SELECTED");
+
+  // Determinar qué imagen utilizar según el idioma seleccionado
+  let logoMaximised =
+    selectedLanguage === "es" ? logoMaximisedEs : logoMaximisedEn;
 
   return (
     <div
@@ -28,7 +35,7 @@ const SideBarBrand = () => {
           <img
             className="img-fluid"
             title={`${Configuration.APP_NAME} logo`}
-            alt="PadelCrown main logo"
+            alt="BookBank main logo"
             src={isMobileView || expanded ? logoMaximised : logoMinimised}
             style={{
               width: isMobileView || expanded ? "240px" : "35px",

@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import FormControl from "../../../Components/Form/FormControl/FormControl";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useNotification from "../../../Hooks/useNotification";
 import useRequest from "../../../Hooks/useRequest";
 import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 
-const DeleteStudentModal = ({ show, onClose, data }) => {
+const DeleteCourseModal = ({ show, onClose, data }) => {
   const request = useRequest();
 
   const { showNotification: errorNotification } = useNotification();
@@ -14,11 +13,11 @@ const DeleteStudentModal = ({ show, onClose, data }) => {
 
   const handleSubmit = () => {
     console.log({ data });
-    request("post", getEndpoint(Endpoints.Students.deleteStudent.delete), {
+    request("post", getEndpoint(Endpoints.Courses.deleteCourse.delete), {
       guid: data,
     })
       .then((res) => {
-        successNotification("Student deleted successfully!");
+        successNotification("Course deleted successfully!");
         onClose(true);
       })
       .catch((err) => errorNotification(err.message));
@@ -36,7 +35,7 @@ const DeleteStudentModal = ({ show, onClose, data }) => {
       header={true}
       customHeader={
         <div className="d-flex align-items-center justify-content-between w-100">
-          <Modal.Title className="ms-2">Delete Student</Modal.Title>
+          <Modal.Title className="ms-2">Delete Course</Modal.Title>
         </div>
       }
       footer={
@@ -51,11 +50,11 @@ const DeleteStudentModal = ({ show, onClose, data }) => {
       }
     >
       <div className="mb-3">
-        <p>Are your sure that you want to remove the Student?</p>
+        <p>Are your sure that you want to remove the Course?</p>
         <b className="text-danger">This action cannot be undone</b>
       </div>
     </ModalLayout>
   );
 };
 
-export default DeleteStudentModal;
+export default DeleteCourseModal;

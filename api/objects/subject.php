@@ -125,11 +125,12 @@ class Subject
         }
         createException("Student not found");
     }
-    public static function getAll(PDO $db, int $offset, int $page, string $search = ""): array
+
+    public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
     {
         $query = "
-        SELECT u.*
-        FROM `" . self::$table_name . "` u 
+        SELECT s.*
+        FROM `" . self::$table_name . "` s 
         WHERE deleted IS NULL";
 
         applySearchOnQuery($query);
@@ -171,9 +172,10 @@ class Subject
     public static function getAllCount(PDO $db, string $search = ""): int
     {
         $query = "
-        SELECT COUNT(u.*) as total
-        FROM `" . self::$table_name . "` u 
-        WHERE deleted IS NULL";
+        SELECT COUNT(s.id) as total
+        FROM `" . self::$table_name . "` s
+        WHERE deleted IS NULL
+        ";
 
         applySearchOnQuery($query);
 
@@ -190,6 +192,7 @@ class Subject
         }
         createException($stmt->errorInfo());
     }
+
 
     private static function getMainObject(PDO $db, array $row): Subject
     {

@@ -1,10 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import {
-  Link,
-  useHistory,
-  useLocation,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import ReactTable from "../../../../Components/Table/Table";
 import { Configuration } from "../../../../Config/app.config";
 import {
@@ -21,12 +17,12 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import useModalManager from "../../../../Hooks/useModalManager";
-import { StudentsColumns } from "../../Students/AllStudents/StudentsColumns";
-import DeleteStudentModal from "../../../../Modals/Students/DeleteStudentsModal/DeleteStudentModal";
+import { CoursesColumns } from "./CoursesColumns";
+import DeleteCourseModal from "../../../../Modals/Courses/DeleteCourseModal/DeleteCourseModal";
 
-const Students = () => {
+const Courses = () => {
   const { strings } = useContext(StringsContext);
-  const ViewStrings = strings.Students.AllStudents;
+  const ViewStrings = strings.Courses.AllCourses;
 
   const request = useRequest();
   const searchParams = useQuery();
@@ -35,7 +31,7 @@ const Students = () => {
     closeModal: closeDeleteModal,
     openModal: openDeleteModal,
     show: showDeleteModal,
-    data: deleteStudentData,
+    data: deleteCourseData,
   } = useModalManager();
 
   const { pathname, search } = useLocation();
@@ -59,7 +55,7 @@ const Students = () => {
     startFetching();
     return await request(
       "get",
-      getEndpoint(Endpoints.Students.allStudents.getAll),
+      getEndpoint(Endpoints.Courses.allCourses.getAll),
       {
         page,
         offset,
@@ -67,7 +63,7 @@ const Students = () => {
       }
     )
       .then((res) => {
-        setData(res.students);
+        setData(res.courses);
         setTotalPages(res.totalPages);
       })
       .catch(errorNotification)
@@ -82,18 +78,18 @@ const Students = () => {
   return (
     <>
       {/* Modals */}
-      <DeleteStudentModal
+      <DeleteCourseModal
         show={showDeleteModal}
         onClose={handleCloseDeleteBook}
-        data={deleteStudentData}
+        data={deleteCourseData}
       />
 
       {/* Content */}
       <GeneralLayout
         title={ViewStrings.title}
         rightSection={
-          <Button size="sm" as={Link} to={Paths[Views.new_student].path}>
-            {ViewStrings.addStudent}
+          <Button size="sm" as={Link} to={Paths[Views.new_course].path}>
+            {ViewStrings.addCourse}
           </Button>
         }
       >
@@ -103,7 +99,7 @@ const Students = () => {
             fetching={fetching}
             onEventChange={fetchData}
             data={data}
-            columns={StudentsColumns(openDeleteModal)}
+            columns={CoursesColumns(openDeleteModal)}
           />
         </PanelLayout>
       </GeneralLayout>
@@ -111,4 +107,4 @@ const Students = () => {
   );
 };
 
-export default Students;
+export default Courses;

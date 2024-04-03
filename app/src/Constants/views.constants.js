@@ -51,4 +51,15 @@ export const Views = {
   //#region Management
   new_copy: "new_copy",
   //#endregion
+
+  //#region Management
+  new_course: "new_course",
+  edit_course: "edit_course",
+  //#endregion
+ 
+ 
+  //#region Management
+  new_course: "new_subject",
+  edit_course: "edit_subject",
+  //#endregion
 };

@@ -16,6 +16,10 @@ import NewBook from "../../Views/App/Books/NewBook/NewBook";
 import Copies from "../../Views/App/Copy/AllCopies/copies";
 import NewCopy from "../../Views/App/Copy/NewCopy/NewCopy";
 import NewStudent from "../../Views/App/Students/NewStudent/NewStudent";
+import Courses from "../../Views/App/Courses/AllCourses/Courses";
+import EditCourse from "../../Views/App/Courses/EditCourse/EditCourse";
+import NewCourse from "../../Views/App/Courses/NewCourse/NewCourse";
+import Subjects from "../../Views/App/Subjects/AllSubjects/Subjects";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -39,8 +43,8 @@ export const AppRoutes = [
   getRoute(Paths[Views.books].path, Books),
   getRoute(Paths[Views.students].path, Students),
   getRoute(Paths[Views.copies].path, Copies),
-  getRoute(Paths[Views.courses].path, InMaintenance),
-  getRoute(Paths[Views.subjects].path, InMaintenance),
+  getRoute(Paths[Views.courses].path, Courses),
+  getRoute(Paths[Views.subjects].path, Subjects),
   //#endregion
 
   //#region Profile
@@ -65,6 +69,11 @@ export const AppRoutes = [
 
   //#region student
   getRoute(Paths[Views.new_copy].path, NewCopy),
+  //#endregion
+
+  //#region courses
+  getRoute(Paths[Views.new_course].path, NewCourse),
+  getRoute(Paths[Views.edit_course].path, EditCourse),
   //#endregion
 ];
 

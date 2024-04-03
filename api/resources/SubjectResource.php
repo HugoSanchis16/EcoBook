@@ -13,6 +13,18 @@ class SubjectResource
         return $newItem;
     }
 
+    public static function getSubjectsArray(array $subjects): array
+    {
+        $itemsArray = [];
+        foreach ($subjects as $subject) {
+
+            $newItem = self::getSubject($subject, ['abbr', 'name', 'guid']);
+
+            $itemsArray[] = $newItem;
+        }
+        return $itemsArray;
+    }
+
     public static function getSubjectsNamesArray(array $subjects): array
     {
         $itemsArray = [];
