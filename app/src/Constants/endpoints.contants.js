@@ -52,9 +52,13 @@ export const Endpoints = {
     deleteSubject: {
       delete: "/subjects/delete",
     },
+    createSubject: {
+      create: "/subjects/create",
+    },
   },
   Courses: {
     allCourses: {
+      getAllNames: "/courses/getAllNames",
       getAll: "/courses/getAll",
       edit: "/courses/get",
     },

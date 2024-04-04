@@ -59,7 +59,7 @@ export const Views = {
  
  
   //#region Management
-  new_course: "new_subject",
-  edit_course: "edit_subject",
+  new_subject: "new_subject",
+  edit_subject: "edit_subject",
   //#endregion
 };

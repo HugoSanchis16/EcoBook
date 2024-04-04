@@ -180,7 +180,7 @@
         }
       },
       "messages": {
-        "bookUpdated": "Book updated successfully!"
+        "bookCreated": "Book Created successfully!"
       }
     }
   },
@@ -341,12 +341,16 @@
       "title": "New Subject",
       "inputs": {
         "abbrInput": {
-          "title": "abbreviation:",
-          "placeholder": "Type Course abbreviation..."
+          "title": "Abbreviation:",
+          "placeholder": "Type subject abbreviation..."
+        },
+        "course": {
+          "title": "Course:",
+          "placeholder": "Select Course..."
         },
         "nameInput": {
           "title": "Name:",
-          "placeholder": "Type Course Name..."
+          "placeholder": "Type subject Name..."
         }
       },
       "messages": {
@@ -366,7 +370,7 @@
         }
       },
       "messages": {
-        "subjectCreated": "Subject created successfully!"
+        "subjectUpdated": "Subject updated successfully!"
       }
     }
   }

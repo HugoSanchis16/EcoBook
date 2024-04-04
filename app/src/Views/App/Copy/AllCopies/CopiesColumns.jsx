@@ -1,8 +1,6 @@
 // En el componente donde defines `StateDropdown`:
-import { useState } from "react";
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
 import StateDropdown from "../../../../Components/StateDropdown/StateDropdown";
-import { CopyStatus } from "../../../../Utils/CopyStatus";
 
 export const CopiesColumns = (updateState) => {
   const columns = [

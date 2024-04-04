@@ -19,6 +19,7 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import useModalManager from "../../../../Hooks/useModalManager";
 import { SubjectsColumns } from "./SubjectsColumns";
 import DeleteCourseModal from "../../../../Modals/Courses/DeleteCourseModal/DeleteCourseModal";
+import DeleteSubjectModal from "../../../../Modals/Subjects/DeleteSubjectsModal/DeleteSubjectModal";
 
 const Subjects = () => {
   const { strings } = useContext(StringsContext);
@@ -31,7 +32,7 @@ const Subjects = () => {
     closeModal: closeDeleteModal,
     openModal: openDeleteModal,
     show: showDeleteModal,
-    data: deleteCourseData,
+    data: deleteSubjectData,
   } = useModalManager();
 
   const { pathname, search } = useLocation();
@@ -70,7 +71,7 @@ const Subjects = () => {
       .finally(() => finishFetching());
   };
 
-  const handleCloseDeleteBook = (refresh) => {
+  const handleCloseDeleteSubject = (refresh) => {
     if (refresh) fetchData();
     closeDeleteModal();
   };
@@ -78,17 +79,17 @@ const Subjects = () => {
   return (
     <>
       {/* Modals */}
-      <DeleteCourseModal
+      <DeleteSubjectModal
         show={showDeleteModal}
-        onClose={handleCloseDeleteBook}
-        data={deleteCourseData}
+        onClose={handleCloseDeleteSubject}
+        data={deleteSubjectData}
       />
 
       {/* Content */}
       <GeneralLayout
         title={ViewStrings.title}
         rightSection={
-          <Button size="sm" as={Link} to={Paths[Views.new_course].path}>
+          <Button size="sm" as={Link} to={Paths[Views.new_subject].path}>
             {ViewStrings.addCourse}
           </Button>
         }

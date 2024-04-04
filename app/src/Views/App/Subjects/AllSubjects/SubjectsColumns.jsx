@@ -28,7 +28,7 @@ export const SubjectsColumns = (openDeleteModal) => {
             <IconButton
               Icon={MdEdit}
               as={Link}
-              to={replacePaths(Paths[Views.edit_course].path, [
+              to={replacePaths(Paths[Views.edit_subject].path, [
                 { subject_guid: item.guid },
               ])}
             />

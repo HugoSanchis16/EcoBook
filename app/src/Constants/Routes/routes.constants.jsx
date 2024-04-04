@@ -20,6 +20,8 @@ import Courses from "../../Views/App/Courses/AllCourses/Courses";
 import EditCourse from "../../Views/App/Courses/EditCourse/EditCourse";
 import NewCourse from "../../Views/App/Courses/NewCourse/NewCourse";
 import Subjects from "../../Views/App/Subjects/AllSubjects/Subjects";
+import EditSubject from "../../Views/App/Subjects/EditSubject/EditSubject";
+import NewSubject from "../../Views/App/Subjects/NewSubject/NewSubject";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -74,6 +76,11 @@ export const AppRoutes = [
   //#region courses
   getRoute(Paths[Views.new_course].path, NewCourse),
   getRoute(Paths[Views.edit_course].path, EditCourse),
+  //#endregion
+
+  //#region courses
+  getRoute(Paths[Views.new_subject].path, NewSubject),
+  getRoute(Paths[Views.edit_subject].path, EditSubject),
   //#endregion
 ];
 

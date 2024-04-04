@@ -46,11 +46,12 @@ class Subject
             ";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindValue(":guid", createGUID());
+        $this->guid = createGUID();
+        $stmt->bindParam(":guid", $this->guid);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":abbr", $this->abbr);
         $stmt->bindParam(":course_id", $this->course_id);
-        $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
             $stmt->execute();
@@ -70,9 +71,9 @@ class Subject
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":abbr", $this->abbr);
-        $stmt->bindParam(":updated", $this->updated);
+        $stmt->bindValue(":updated", newDate());
         $stmt->bindParam(":deleted", $this->deleted);
-        $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
         $stmt->bindParam(":id", $this->id);
 
         try {
@@ -91,7 +92,12 @@ class Subject
 
     function course(): Course
     {
-        return Course::get($this->conn, $this->course_id);
+        logAPI($this->course_id);
+
+        if (isset($this->course_id)) {
+            return Course::get($this->conn, $this->course_id);
+        }
+        return null;
     }
 
 
@@ -108,7 +114,7 @@ class Subject
                 return self::getMainObject($db, $row);
             }
         }
-        createException("Student not found");
+        createException("Subject not found");
     }
 
     public static function getByGuid(PDO $db, string $guid): Subject
@@ -123,7 +129,7 @@ class Subject
                 return self::getMainObject($db, $row);
             }
         }
-        createException("Student not found");
+        createException("Subject not found");
     }
 
     public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array

@@ -24,4 +24,19 @@ class CourseResource
         }
         return $itemsArray;
     }
+
+    public static function getCoursesNamesArray(array $subjects): array
+    {
+        $itemsArray = [];
+        foreach ($subjects as $subject) {
+
+            $newItem = self::getCourse($subject, ['guid', 'name']);
+
+            $itemsArray[] = array(
+                "value" => $newItem->guid,
+                "label" => $newItem->name
+            );
+        }
+        return $itemsArray;
+    }
 }

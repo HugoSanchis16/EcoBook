@@ -1,10 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
-import FormControl from "../../../../Components/Form/FormControl/FormControl";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { validateData } from "../../../../Config/GeneralFunctions";
 import {
   Endpoints,
@@ -18,14 +14,13 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
-import { IsbnRegex } from "../../../../Utils/Regex";
+import FormControl from "../../../../Components/Form/FormControl/FormControl";
 import FormSelect from "../../../../Components/Form/FormSelect/FormSelect";
 
-const NewBook = () => {
+const NewSubject = () => {
   const { strings: Strings } = useContext(StringsContext);
   const GeneralStrings = Strings.General.App;
-  const ViewStrings = Strings.Books.NewBook;
+  const ViewStrings = Strings.Subjects.NewSubject;
 
   const request = useRequest();
   const { push } = useHistory();
@@ -35,7 +30,7 @@ const NewBook = () => {
 
   const [data, setData] = useState({});
 
-  const [subjects, setSubjects] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -43,9 +38,9 @@ const NewBook = () => {
   }, []);
 
   const fetchData = async () => {
-    request("get", getEndpoint(Endpoints.Subjects.allSubjects.getAllNames))
+    request("get", getEndpoint(Endpoints.Courses.allCourses.getAllNames))
       .then((res) => {
-        setSubjects(res.subjects);
+        setCourses(res.courses);
         setLoaded(true);
       })
       .catch((err) => errorNotification(err.message));
@@ -56,83 +51,68 @@ const NewBook = () => {
     setData({ ...data, [id]: value });
   };
 
-  const handleCleanSubject = () => {
-    setData({
-      ...data,
-      subject: null,
-    });
-  };
-
   const handleSubmit = () => {
     if (checkForm()) {
-      request("post", getEndpoint(Endpoints.Books.createBook.create), {
+      console.log({ data });
+      request("post", getEndpoint(Endpoints.Subjects.createSubject.create), {
         ...data,
       })
         .then(() => {
-          successNotification(ViewStrings.messages.bookCreated);
-          push(Paths[Views.books].path);
+          successNotification(ViewStrings.messages.subjectCreated);
+          push(Paths[Views.subjects].path);
         })
         .catch((err) => errorNotification(err.message));
     } else errorNotification("Check all input fields");
   };
 
+  const handleCleanCourse = () => {
+    setData({
+      ...data,
+      course: null,
+    });
+  };
+
   const checkForm = () => {
-    const { name, isbn, stock, subject } = data;
-    return (
-      validateData([name, isbn, stock, subject]) &&
-      IsbnRegex.test(isbn) &&
-      stock > 0
-    );
+    const { name, abbr, course } = data;
+    return validateData([abbr, name, course]);
   };
 
   return (
-    <GeneralLayout title={ViewStrings.title}>
-      <PanelLayout loaded={loaded}>
-        <SectionLayout title="Book Info">
+    <GeneralLayout showBackButton title={ViewStrings.title}>
+      <PanelLayout>
+        <SectionLayout title="Subject Info">
           <FormControl
+            required
             controlId="name"
-            maxLength={50}
-            showMaxLength
+            maxLength={250}
+            showMaxLength={true}
             vertical={false}
             title={ViewStrings.inputs.nameInput.title}
             placeholder={ViewStrings.inputs.nameInput.placeholder}
             onChange={handleInput}
-            required
           />
           <FormControl
-            controlId="isbn"
-            maxLength={50}
-            showMaxLength
-            vertical={false}
-            title={ViewStrings.inputs.isbnInput.title}
-            placeholder={ViewStrings.inputs.isbnInput.placeholder}
-            onChange={handleInput}
             required
+            controlId="abbr"
+            maxLength={50}
+            showMaxLength={true}
+            vertical={false}
+            title={ViewStrings.inputs.abbrInput.title}
+            placeholder={ViewStrings.inputs.abbrInput.placeholder}
+            onChange={handleInput}
           />
           <FormSelect
-            options={subjects}
-            controlId="subject"
-            value={data.subject}
+            options={courses}
+            controlId="course"
             vertical={false}
-            title={ViewStrings.inputs.subject.title}
-            placeholder={ViewStrings.inputs.subject.placeholder}
+            title={ViewStrings.inputs.course.title}
+            placeholder={ViewStrings.inputs.course.placeholder}
             onChange={handleInput}
-            onClean={handleCleanSubject}
-            required
-          />
-          <FormControl
-            controlId="stock"
-            maxLength={200}
-            showMaxLength={false}
-            vertical={false}
-            title={ViewStrings.inputs.stockInput.title}
-            placeholder={ViewStrings.inputs.stockInput.placeholder}
-            onChange={handleInput}
-            type="number"
-            step={1}
+            onClean={handleCleanCourse}
             required
           />
         </SectionLayout>
+
         <div className="d-flex justify-content-end w-100 align-items-center">
           <Button disabled={!checkForm()} onClick={handleSubmit}>
             {GeneralStrings.Create}
@@ -143,4 +123,4 @@ const NewBook = () => {
   );
 };
 
-export default NewBook;
+export default NewSubject;

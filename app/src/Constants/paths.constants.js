@@ -67,8 +67,8 @@ export const Paths = {
   //#endregion
 
   //#region subjects
-  [Views.new_course]: getPath("/subject/new"),
-  [Views.edit_course]: getPath("/subject/edit/:subject_guid"),
+  [Views.new_subject]: getPath("/subject/new"),
+  [Views.edit_subject]: getPath("/subject/edit/:subject_guid"),
   //#endregion
 };
 
