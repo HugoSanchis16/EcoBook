@@ -25,16 +25,15 @@ export const Paths = {
   //#endregion
 
   //#region Administration
+  [Views.subjects]: getPath("/subjects/all", "Subjects", "e0ee"),
+  [Views.courses]: getPath("/courses/all", "Courses", "e431"),
   [Views.books]: getPath("/books/all", "Books", "ea19"),
   [Views.students]: getPath("/students/all", "Students", "f8d9"),
-  [Views.courses]: getPath("/courses/all", "Courses", "e431"),
-  [Views.subjects]: getPath("/subjects/all", "Subjects", "e0ee"),
   //#endadministration
 
   //#region profile
   [Views.profileView]: getPath("/profile"),
   //#profile
-
 
   //#region Management
   [Views.users]: getPath("/users", "Users", "f233"),
@@ -51,12 +50,12 @@ export const Paths = {
   [Views.new_student]: getPath("/student/new"),
   [Views.edit_student]: getPath("/student/edit/:student_guid"),
   //#endregion
-  
+
   //#region copies
   [Views.copies]: getPath("/copies/:book_guid/all"),
   [Views.new_copy]: getPath("/copy/:book_guid/new"),
   //#endregion
-  
+
   //#region Old views
   [Views.dashboard]: getPath(`/dashboard`, "Dashboard", `e88a`),
   //#endregion

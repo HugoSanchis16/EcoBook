@@ -14,20 +14,18 @@ export const NavItems = () => {
     {
       id: "dashboard_section",
       title: "Dashboard",
-      items: [
-        Paths[Views.home],
-      ],
+      items: [Paths[Views.home]],
     },
     {
       id: "administration_section",
       title: "Administration",
       items: [
-        Paths[Views.books],
-        Paths[Views.students],
         Paths[Views.courses],
         Paths[Views.subjects],
+        Paths[Views.books],
+        Paths[Views.students],
       ],
-    }
+    },
   ];
   return items;
 };

@@ -89,7 +89,6 @@ const EditBook = () => {
   return (
     <GeneralLayout showBackButton title={ViewStrings.title}>
       <PanelLayout loaded={loaded}>
-        <SectionLayout title="Book Info">
           <FormControl
             controlId="name"
             maxLength={50}
@@ -102,7 +101,7 @@ const EditBook = () => {
           />
           <FormControl
             controlId="isbn"
-            maxLength={200}
+            maxLength={13}
             showMaxLength
             vertical={false}
             value={data.isbn}
@@ -118,7 +117,6 @@ const EditBook = () => {
             title={ViewStrings.inputs.enabledCheck.title}
             onChange={handleCheck}
           />
-        </SectionLayout>
         <div className="d-flex justify-content-end w-100 align-items-center">
           <Button disabled={!checkForm()} onClick={handleSubmit}>
             {GeneralStrings.Update}

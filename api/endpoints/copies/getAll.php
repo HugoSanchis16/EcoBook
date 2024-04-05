@@ -25,12 +25,17 @@ try {
 
     //check if user exist
     $copies = Copy::getAllByBook($db, $book->id, $input->page, $input->offset, $input->search);
-    logAPI($copies);
+
     $copiesFormat = CopyResource::getCopiesArray($copies);
+    $copiesCount = Copy::getAllCount($db, $input->search, $book->id);
+
+    $totalPages = ceil($copiesCount / $input->offset);
+
 
     $db->commit();
     Response::sendResponse([
-        "copies" => $copiesFormat
+        "copies" => $copiesFormat,
+        "totalPages" => $totalPages
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

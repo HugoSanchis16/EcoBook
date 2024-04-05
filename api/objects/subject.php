@@ -64,9 +64,9 @@ class Subject
     function update(): bool
     {
         $query = "
-            UPDATE `" . self::$table_name . "` 
-            SET name=:name, abbr=:abbr, updated=:updated, deleted=:deleted, searchdata=:searchdata
-            WHERE id=:id";
+        UPDATE `" . self::$table_name . "` 
+        SET name=:name, abbr=:abbr, updated=:updated, deleted=:deleted, searchdata=:searchdata
+        WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":name", $this->name);
@@ -87,13 +87,17 @@ class Subject
     function delete(): bool
     {
         $this->deleted = newDate();
+        if ($this->update()) {
+            $books = Book::getBySubject($this->conn, $this->id);
+            foreach ($books as $book) {
+                $book->delete();
+            }
+        }
         return $this->update();
     }
 
     function course(): Course
     {
-        logAPI($this->course_id);
-
         if (isset($this->course_id)) {
             return Course::get($this->conn, $this->course_id);
         }

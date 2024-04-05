@@ -141,7 +141,7 @@
           "placeholder": "Type book name..."
         },
         "isbnInput": {
-          "title": "Isbn:",
+          "title": "ISBN:",
           "placeholder": "Type book ISBN ..."
         },
         "enabledCheck": {
@@ -167,7 +167,7 @@
           "placeholder": "Type book name..."
         },
         "isbnInput": {
-          "title": "Isbn:",
+          "title": "ISBN:",
           "placeholder": "Type book ISBN ..."
         },
         "subject": {
@@ -306,7 +306,7 @@
         }
       },
       "messages": {
-        "courseCreated": "Copy created successfully!"
+        "courseCreated": "Course created successfully!"
       }
     },
     "EditCourse": {

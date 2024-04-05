@@ -28,31 +28,34 @@ const DeleteStudentModal = ({ show, onClose, data }) => {
     onClose();
   };
 
+  const fontSize = {
+    fontSize: "16px",
+  };
+
   return (
     <ModalLayout
       show={show}
       onHide={hideModal}
-      size="sm"
+      size="lm"
       header={true}
       customHeader={
         <div className="d-flex align-items-center justify-content-between w-100">
-          <Modal.Title className="ms-2">Delete Student</Modal.Title>
+          <Modal.Title className="ms-2">Comfirm de Action</Modal.Title>
         </div>
       }
       footer={
         <div className="d-flex justify-content-end gap-2">
-          <Button variant="light" size="sm" onClick={hideModal}>
+          <Button variant="light" size="lm" onClick={hideModal}>
             Cancel
           </Button>
-          <Button onClick={handleSubmit} variant="light" size="sm">
-            Delete
+          <Button onClick={handleSubmit} variant="danger" size="lm">
+            Confirm
           </Button>
         </div>
       }
     >
-      <div className="mb-3">
-        <p>Are your sure that you want to remove the Student?</p>
-        <b className="text-danger">This action cannot be undone</b>
+      <div className="mb-1">
+        <p style={fontSize}>Are your sure that you want to remove the student?</p>
       </div>
     </ModalLayout>
   );

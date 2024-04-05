@@ -15,7 +15,7 @@ export const BooksColumns = (openDeleteModal) => {
       width: 100,
     },
     {
-      Header: "Isbn",
+      Header: "ISBN",
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.isbn}</p>),
       width: 100,

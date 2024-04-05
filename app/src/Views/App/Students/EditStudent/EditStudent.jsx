@@ -18,7 +18,7 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import { NiaRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
+import { EmailRegex, NiaRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
 import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
 
@@ -85,7 +85,7 @@ const EditStudent = () => {
     return (
       validateData([nia, name, surnames, phone, email]) &&
       PhoneRegexSpain.test(phone) &&
-      NiaRegex.test(nia)
+      NiaRegex.test(nia) && EmailRegex.test(email)
     );
   };
   const handleCloseDeleteBook = (refresh) => {

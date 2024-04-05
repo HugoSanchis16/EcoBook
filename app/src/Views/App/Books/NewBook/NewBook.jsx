@@ -101,7 +101,7 @@ const NewBook = () => {
           />
           <FormControl
             controlId="isbn"
-            maxLength={50}
+            maxLength={13}
             showMaxLength
             vertical={false}
             title={ViewStrings.inputs.isbnInput.title}

@@ -19,6 +19,8 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import useModalManager from "../../../../Hooks/useModalManager";
 import { CoursesColumns } from "./CoursesColumns";
 import DeleteCourseModal from "../../../../Modals/Courses/DeleteCourseModal/DeleteCourseModal";
+import InMaintenance from "../../../InMaintenance";
+import { NotFoundCourses } from "../../../NotFoundViews/CoursesNotFound";
 
 const Courses = () => {
   const { strings } = useContext(StringsContext);
@@ -75,35 +77,46 @@ const Courses = () => {
     closeDeleteModal();
   };
 
-  return (
-    <>
-      {/* Modals */}
-      <DeleteCourseModal
-        show={showDeleteModal}
-        onClose={handleCloseDeleteBook}
-        data={deleteCourseData}
-      />
+  let content;
+  
+  if (data.length > 0) {
+    content = <>
+      
+    {/* Modals */}
+    <DeleteCourseModal
+      show={showDeleteModal}
+      onClose={handleCloseDeleteBook}
+      data={deleteCourseData}
+    />
 
-      {/* Content */}
-      <GeneralLayout
-        title={ViewStrings.title}
-        rightSection={
-          <Button size="sm" as={Link} to={Paths[Views.new_course].path}>
-            {ViewStrings.addCourse}
-          </Button>
-        }
-      >
-        <PanelLayout>
-          <ReactTable
-            totalPages={totalPages}
-            fetching={fetching}
-            onEventChange={fetchData}
-            data={data}
-            columns={CoursesColumns(openDeleteModal)}
-          />
-        </PanelLayout>
-      </GeneralLayout>
-    </>
+    {/* Content */}
+    <GeneralLayout
+      title={ViewStrings.title}
+      rightSection={
+        <Button size="sm" as={Link} to={Paths[Views.new_course].path}>
+          {ViewStrings.addCourse}
+        </Button>
+      }
+    >
+      <PanelLayout>
+        <ReactTable
+          totalPages={totalPages}
+          fetching={fetching}
+          onEventChange={fetchData}
+          data={data}
+          columns={CoursesColumns(openDeleteModal)}
+        />
+      </PanelLayout>
+    </GeneralLayout>
+  </>;
+  } else {
+    content = <NotFoundCourses></NotFoundCourses>;
+  }
+
+  return (
+    <div>
+      {content}
+    </div>
   );
 };
 

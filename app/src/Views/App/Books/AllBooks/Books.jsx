@@ -23,6 +23,7 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import { BooksColumns } from "./BooksColumns";
 import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
+import { NotFoundBooks } from "../../../NotFoundViews/BooksNotFound";
 
 const Books = () => {
   const { strings } = useContext(StringsContext);
@@ -75,36 +76,47 @@ const Books = () => {
     closeDeleteModal();
   };
 
-  return (
-    <>
-      {/* Modals */}
-      <DeleteBookModal
-        show={showDeleteModal}
-        onClose={handleCloseDeleteBook}
-        data={deleteBookData}
-      />
+  let content;
 
-      {/* Content */}
-      <GeneralLayout
-        title={ViewStrings.title}
-        rightSection={
-          <Button size="sm" as={Link} to={Paths[Views.new_book].path}>
-            {ViewStrings.addBook}
-          </Button>
-        }
-      >
-        <PanelLayout>
-          <ReactTable
-            totalPages={totalPages}
-            fetching={fetching}
-            onEventChange={fetchData}
-            data={data}
-            columns={BooksColumns(openDeleteModal)}
-          />
-        </PanelLayout>
-      </GeneralLayout>
-    </>
+  if (data.length > 0) {
+    content =  <>
+    {/* Modals */}
+    <DeleteBookModal
+      show={showDeleteModal}
+      onClose={handleCloseDeleteBook}
+      data={deleteBookData}
+    />
+
+    {/* Content */}
+    <GeneralLayout
+      title={ViewStrings.title}
+      rightSection={
+        <Button size="sm" as={Link} to={Paths[Views.new_book].path}>
+          {ViewStrings.addBook}
+        </Button>
+      }
+    >
+      <PanelLayout>
+        <ReactTable
+          totalPages={totalPages}
+          fetching={fetching}
+          onEventChange={fetchData}
+          data={data}
+          columns={BooksColumns(openDeleteModal)}
+        />
+      </PanelLayout>
+    </GeneralLayout>
+  </>;
+  } else {
+    content = <NotFoundBooks></NotFoundBooks>;
+  }
+
+  return (
+    <div>
+      {content}
+    </div>
   );
 };
+
 
 export default Books;

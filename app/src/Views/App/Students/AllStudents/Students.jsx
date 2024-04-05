@@ -23,6 +23,7 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import useModalManager from "../../../../Hooks/useModalManager";
 import { StudentsColumns } from "../../Students/AllStudents/StudentsColumns";
 import DeleteStudentModal from "../../../../Modals/Students/DeleteStudentsModal/DeleteStudentModal";
+import { NotFoundStudents } from "../../../NotFoundViews/StudentsNotFound";
 
 const Students = () => {
   const { strings } = useContext(StringsContext);
@@ -79,35 +80,44 @@ const Students = () => {
     closeDeleteModal();
   };
 
-  return (
-    <>
-      {/* Modals */}
-      <DeleteStudentModal
-        show={showDeleteModal}
-        onClose={handleCloseDeleteBook}
-        data={deleteStudentData}
-      />
+  let content;
 
-      {/* Content */}
-      <GeneralLayout
-        title={ViewStrings.title}
-        rightSection={
-          <Button size="sm" as={Link} to={Paths[Views.new_student].path}>
-            {ViewStrings.addStudent}
-          </Button>
-        }
-      >
-        <PanelLayout>
-          <ReactTable
-            totalPages={totalPages}
-            fetching={fetching}
-            onEventChange={fetchData}
-            data={data}
-            columns={StudentsColumns(openDeleteModal)}
-          />
-        </PanelLayout>
-      </GeneralLayout>
-    </>
+
+  if (data.length > 0) {
+    content =  <>
+    {/* Modals */}
+    <DeleteStudentModal
+      show={showDeleteModal}
+      onClose={handleCloseDeleteBook}
+      data={deleteStudentData}
+    />
+
+    {/* Content */}
+    <GeneralLayout
+      title={ViewStrings.title}
+      rightSection={
+        <Button size="sm" as={Link} to={Paths[Views.new_student].path}>
+          {ViewStrings.addStudent}
+        </Button>
+      }
+    >
+      <PanelLayout>
+        <ReactTable
+          totalPages={totalPages}
+          fetching={fetching}
+          onEventChange={fetchData}
+          data={data}
+          columns={StudentsColumns(openDeleteModal)}
+        />
+      </PanelLayout>
+    </GeneralLayout>
+  </>;
+  }
+
+  return (
+    <div>
+    {content}
+  </div>
   );
 };
 

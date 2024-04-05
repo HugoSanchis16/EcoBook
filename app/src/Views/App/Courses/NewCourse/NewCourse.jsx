@@ -41,7 +41,7 @@ const NewCourse = () => {
         ...data,
       })
         .then(() => {
-          successNotification(ViewStrings.messages.courseCreate);
+          successNotification(ViewStrings.messages.courseCreated);
           push(Paths[Views.courses].path);
         })
         .catch((err) => errorNotification(err.message));

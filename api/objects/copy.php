@@ -216,6 +216,29 @@ class Copy
         createException("Invalid credentials");
     }
 
+    public static function getAllCount(PDO $db, string $search = "", int $book_id): int
+    {
+        $query = "
+        SELECT COUNT(id) as total
+        FROM `" . self::$table_name . "` 
+        WHERE book_id=:book_id
+        ";
+
+        applySearchOnQuery($query);
+
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":book_id", $book_id);
+        applySearchOnBindedValue($search, $stmt);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+
     private static function getMainObject(PDO $db, array $row): Copy
     {
         $newObj = new Copy($db);

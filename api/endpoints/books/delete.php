@@ -15,6 +15,7 @@ try {
     ]);
 
     $book = Book::getByGuid($db, $input->guid);
+
     $book->delete();
 
     $db->commit();

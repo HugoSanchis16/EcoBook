@@ -69,10 +69,11 @@ class Book
 
     function update(): bool
     {
+
         $query = "
-            UPDATE `" . self::$table_name . "` 
-            SET name=:name, isbn=:isbn, stock=:stock, enabled=:enabled, updated=:updated, deleted=:deleted, searchdata=:searchdata
-            WHERE id=:id";
+        UPDATE `" . self::$table_name . "` 
+        SET name=:name, isbn=:isbn, stock=:stock, enabled=:enabled, updated=:updated, deleted=:deleted, searchdata=:searchdata
+        WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":name", $this->name);
@@ -80,10 +81,10 @@ class Book
         $stmt->bindParam(":stock", $this->stock);
         $stmt->bindParam(":enabled", $this->enabled);
         $stmt->bindValue(":updated", newDate());
-        $stmt->bindParam(":deleted", $this->deleted);
+        $stmt->bindValue(":deleted", $this->deleted);
         $stmt->bindParam(":id", $this->id);
         $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
-
+        logAPI($stmt);
         try {
             $stmt->execute();
             return true;
@@ -100,7 +101,10 @@ class Book
 
     function subject(): Subject
     {
-        return Subject::get($this->conn, $this->subject_id);
+        if (isset($this->subject_id)) {
+            return Subject::get($this->conn, $this->subject_id);
+        }
+        return null;
     }
 
 
@@ -151,6 +155,25 @@ class Book
         }
         createException("Book not found");
     }
+
+    public static function getBySubject(PDO $db, int $subject_id): array
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE subject_id=:subject_id AND deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":subject_id", $subject_id);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException("Book not found");
+    }
+
 
     public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
     {

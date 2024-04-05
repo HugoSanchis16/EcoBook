@@ -20,6 +20,7 @@ import useModalManager from "../../../../Hooks/useModalManager";
 import { SubjectsColumns } from "./SubjectsColumns";
 import DeleteCourseModal from "../../../../Modals/Courses/DeleteCourseModal/DeleteCourseModal";
 import DeleteSubjectModal from "../../../../Modals/Subjects/DeleteSubjectsModal/DeleteSubjectModal";
+import { NotFoundSubjects } from "../../../NotFoundViews/SubjectNotFound";
 
 const Subjects = () => {
   const { strings } = useContext(StringsContext);
@@ -76,35 +77,45 @@ const Subjects = () => {
     closeDeleteModal();
   };
 
-  return (
-    <>
-      {/* Modals */}
-      <DeleteSubjectModal
-        show={showDeleteModal}
-        onClose={handleCloseDeleteSubject}
-        data={deleteSubjectData}
-      />
+  let content;
 
-      {/* Content */}
-      <GeneralLayout
-        title={ViewStrings.title}
-        rightSection={
-          <Button size="sm" as={Link} to={Paths[Views.new_subject].path}>
-            {ViewStrings.addCourse}
-          </Button>
-        }
-      >
-        <PanelLayout>
-          <ReactTable
-            totalPages={totalPages}
-            fetching={fetching}
-            onEventChange={fetchData}
-            data={data}
-            columns={SubjectsColumns(openDeleteModal)}
-          />
-        </PanelLayout>
-      </GeneralLayout>
-    </>
+
+  if (data.length > 0) {
+    content =  <>
+    {/* Modals */}
+    <DeleteSubjectModal
+      show={showDeleteModal}
+      onClose={handleCloseDeleteSubject}
+      data={deleteSubjectData}
+    />
+
+    {/* Content */}
+    <GeneralLayout
+      title={ViewStrings.title}
+      rightSection={
+        <Button size="sm" as={Link} to={Paths[Views.new_subject].path}>
+          {ViewStrings.addCourse}
+        </Button>
+      }
+    >
+      <PanelLayout>
+        <ReactTable
+          totalPages={totalPages}
+          fetching={fetching}
+          onEventChange={fetchData}
+          data={data}
+          columns={SubjectsColumns(openDeleteModal)}
+        />
+      </PanelLayout>
+    </GeneralLayout>
+  </>;
+  } else {
+    content = <NotFoundSubjects></NotFoundSubjects>;
+  }
+
+
+  return (
+   <div>{content}</div>
   );
 };
 
