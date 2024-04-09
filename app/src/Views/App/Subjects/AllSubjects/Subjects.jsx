@@ -18,9 +18,7 @@ import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import useModalManager from "../../../../Hooks/useModalManager";
 import { SubjectsColumns } from "./SubjectsColumns";
-import DeleteCourseModal from "../../../../Modals/Courses/DeleteCourseModal/DeleteCourseModal";
 import DeleteSubjectModal from "../../../../Modals/Subjects/DeleteSubjectsModal/DeleteSubjectModal";
-import { NotFoundSubjects } from "../../../NotFoundViews/SubjectNotFound";
 
 const Subjects = () => {
   const { strings } = useContext(StringsContext);

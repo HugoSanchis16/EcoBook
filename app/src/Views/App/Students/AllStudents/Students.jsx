@@ -1,17 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import {
-  Link,
-  useHistory,
-  useLocation,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import ReactTable from "../../../../Components/Table/Table";
 import { Configuration } from "../../../../Config/app.config";
 import {
   Endpoints,
   getEndpoint,
 } from "../../../../Constants/endpoints.contants";
-import { Paths, replacePaths } from "../../../../Constants/paths.constants";
+import { Paths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
 import { StringsContext } from "../../../../Context/strings.context";
 import useLoaded from "../../../../Hooks/useLoaded";
@@ -23,7 +19,6 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import useModalManager from "../../../../Hooks/useModalManager";
 import { StudentsColumns } from "../../Students/AllStudents/StudentsColumns";
 import DeleteStudentModal from "../../../../Modals/Students/DeleteStudentsModal/DeleteStudentModal";
-import { NotFoundStudents } from "../../../NotFoundViews/StudentsNotFound";
 
 const Students = () => {
   const { strings } = useContext(StringsContext);

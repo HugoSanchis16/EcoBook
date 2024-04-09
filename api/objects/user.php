@@ -162,7 +162,6 @@ class User
         createException($stmt->errorInfo());
     }
 
-
     public static function checkToken($db, $token)
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE DATE(expiredate) > DATE(NOW()) AND token=:token AND deleted IS NULL";

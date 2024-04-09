@@ -7,7 +7,7 @@ import {
   Endpoints,
   getEndpoint,
 } from "../../../../Constants/endpoints.contants";
-import { Paths, replacePaths } from "../../../../Constants/paths.constants";
+import { Paths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
 import { StringsContext } from "../../../../Context/strings.context";
 import useLoaded from "../../../../Hooks/useLoaded";
@@ -19,8 +19,6 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import useModalManager from "../../../../Hooks/useModalManager";
 import { CoursesColumns } from "./CoursesColumns";
 import DeleteCourseModal from "../../../../Modals/Courses/DeleteCourseModal/DeleteCourseModal";
-import InMaintenance from "../../../InMaintenance";
-import { NotFoundCourses } from "../../../NotFoundViews/CoursesNotFound";
 
 const Courses = () => {
   const { strings } = useContext(StringsContext);
@@ -76,43 +74,6 @@ const Courses = () => {
     if (refresh) fetchData();
     closeDeleteModal();
   };
-
-  let content;
-
-  if (data.length > 0) {
-    content = (
-      <>
-        {/* Modals */}
-        <DeleteCourseModal
-          show={showDeleteModal}
-          onClose={handleCloseDeleteBook}
-          data={deleteCourseData}
-        />
-
-        {/* Content */}
-        <GeneralLayout
-          title={ViewStrings.title}
-          rightSection={
-            <Button size="sm" as={Link} to={Paths[Views.new_course].path}>
-              {ViewStrings.addCourse}
-            </Button>
-          }
-        >
-          <PanelLayout>
-            <ReactTable
-              totalPages={totalPages}
-              fetching={fetching}
-              onEventChange={fetchData}
-              data={data}
-              columns={CoursesColumns(openDeleteModal)}
-            />
-          </PanelLayout>
-        </GeneralLayout>
-      </>
-    );
-  } else {
-    content = <NotFoundCourses></NotFoundCourses>;
-  }
 
   return (
     <>

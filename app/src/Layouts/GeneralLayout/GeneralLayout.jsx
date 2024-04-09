@@ -54,10 +54,10 @@ const GeneralLayout = ({
                       speed={25}
                       className="overflow-hidden bg-danger"
                     >
-                      <h2 className="mb-0 text-nowrap me-0 me-lg-5">{title}</h2>
+                      <h1 className="mb-0 text-nowrap me-0 me-lg-5">{title}</h1>
                     </Marquee>
                   ) : (
-                    <h2 className="mb-0 text-nowrap me-0 me-lg-5">{title}</h2>
+                    <h1 className="mb-0 text-nowrap me-0 me-lg-5">{title}</h1>
                   )}
                   {subtitle && (
                     <small className="mb-0 text-uppercase text-muted">

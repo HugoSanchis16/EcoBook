@@ -11,14 +11,17 @@ try {
     checkAuth(false);
 
     $input = validate($data, [
-        'guid' => 'required|string',
+        'id' => 'required|numeric',
+        'name' => 'required|string',
+        'surnames' => 'required|string',
+        'phone' => 'required|string',
     ]);
 
-    $course = Course::getByGuid($db, $input->guid);
-    $course->delete();
-
-    Subject::deleteByCourse($db, $course->id);
-
+    $userProfile = UserProfile::getByUserId($db, $input->id);
+    $userProfile->name = $input->name;
+    $userProfile->surnames = $input->surnames;
+    $userProfile->phone = $input->phone;
+    $userProfile->update();
 
     $db->commit();
 

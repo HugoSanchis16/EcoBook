@@ -23,7 +23,6 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import { BooksColumns } from "./BooksColumns";
 import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
-import { NotFoundBooks } from "../../../NotFoundViews/BooksNotFound";
 
 const Books = () => {
   const { strings } = useContext(StringsContext);

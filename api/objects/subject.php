@@ -87,14 +87,35 @@ class Subject
     function delete(): bool
     {
         $this->deleted = newDate();
-        if ($this->update()) {
-            $books = Book::getBySubject($this->conn, $this->id);
-            foreach ($books as $book) {
-                $book->delete();
-            }
-        }
+        // if ($this->update()) {
+        //     $books = Book::getBySubject($this->conn, $this->id);
+        //     foreach ($books as $book) {
+        //         $book->delete();
+        //     }
+        // }
         return $this->update();
     }
+
+    public static function deleteByCourse(PDO $db, int $course_id): bool
+    {
+        $query = "
+        UPDATE `" . self::$table_name . "` 
+        SET deleted=:deleted
+        WHERE course_id=:course_id";
+
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(":deleted", newDate());
+        $stmt->bindValue(":course_id", $course_id);
+
+        try {
+            $stmt->execute();
+            return true;
+        } catch (\Exception $th) {
+            createException($stmt->errorInfo());
+        }
+    }
+
+
 
     function course(): Course
     {
@@ -203,6 +224,23 @@ class Subject
         createException($stmt->errorInfo());
     }
 
+
+    public static function getAllSubjectsByCourse(PDO $db, int $course_id): array
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE course_id=:course_id AND deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":course_id", $course_id);
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
 
     private static function getMainObject(PDO $db, array $row): Subject
     {

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { Paths } from "../Constants/paths.constants";
 import { StorageKeys } from "../Constants/storekeys.constants";

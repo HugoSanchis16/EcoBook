@@ -85,7 +85,8 @@ const EditStudent = () => {
     return (
       validateData([nia, name, surnames, phone, email]) &&
       PhoneRegexSpain.test(phone) &&
-      NiaRegex.test(nia) && EmailRegex.test(email)
+      NiaRegex.test(nia) &&
+      EmailRegex.test(email)
     );
   };
   const handleCloseDeleteBook = (refresh) => {

@@ -5,8 +5,6 @@ import Searcher from "../Searcher/Searcher";
 import PageSizeComponent from "./Components/PageSizeComponent";
 import CustomPagination from "./Components/Pagination";
 import TableComponent from "./Components/TableComponent";
-import { NotFound } from "../../Views/404";
-import { NotFoundSubjects } from "../../Views/NotFoundViews/SubjectNotFound";
 import NotFoundComponent from "../NotFoundComponent";
 
 const ReactTable = ({

@@ -6,12 +6,12 @@ const SectionLayout = ({
   subtitle,
   Icon,
   className = "",
-  titleSize = "h6",
+  titleSize = "h5",
   children,
   rightSection,
   loaded = true,
 }) => {
-  const titleClassNames = classNames("mb-0 text-primarys ms-2", titleSize);
+  const titleClassNames = classNames("mb-0 text-primary ms-2", titleSize);
   const mainClassNames = classNames(
     {
       "mb-3": !className.includes("mb-"),
@@ -21,7 +21,7 @@ const SectionLayout = ({
 
   return (
     <div className={mainClassNames}>
-      <div className="mb-2 border-bottom d-flex justify-content-between align-items-center w-100 pb-1">
+      <div className="d-flex justify-content-between align-items-center w-100 pb-1">
         <div className="w-100 d-flex align-items-center">
           {Icon && <Icon size={20} />}
           <p className={titleClassNames}>{title}</p>
@@ -33,7 +33,9 @@ const SectionLayout = ({
           </div>
         )}
       </div>
-      <div>{loaded ? children : <Loader />}</div>
+      <div className="border p-2 rounded-3">
+        {loaded ? children : <Loader />}
+      </div>
     </div>
   );
 };

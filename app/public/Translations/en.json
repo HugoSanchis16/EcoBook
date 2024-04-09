@@ -373,5 +373,35 @@
         "subjectUpdated": "Subject updated successfully!"
       }
     }
+  },
+  "User": {
+    "Profile": {
+      "title": "Profile",
+      "inputs": {
+        "nameInput": {
+          "title": "Name:",
+          "placeholder": "Type your name..."
+        },
+        "surnameInput": {
+          "title": "Surnames:",
+          "placeholder": "Type your surnames..."
+        },
+        "phoneInput": {
+          "title": "Phone:",
+          "placeholder": "Type your number phone..."
+        },
+        "passwordInput": {
+          "title": "New Password:",
+          "placeholder": "Type your new password..."
+        },
+        "emailInput": {
+          "title": "New Email:",
+          "placeholder": "Type your new email..."
+        }
+      },
+      "messages": {
+        "profileUpdated": "Profile updated successfully!"
+      }
+    }
   }
 }

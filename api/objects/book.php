@@ -99,6 +99,25 @@ class Book
         return $this->update();
     }
 
+    public static function deleteBySubject(PDO $db, int $subject_id): bool
+    {
+        $query = "
+        UPDATE `" . self::$table_name . "` 
+        SET deleted=:deleted
+        WHERE subject_id=:subject_id";
+
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(":deleted", newDate());
+        $stmt->bindValue(":subject_id", $subject_id);
+
+        try {
+            $stmt->execute();
+            return true;
+        } catch (\Exception $th) {
+            createException($stmt->errorInfo());
+        }
+    }
+
     function subject(): Subject
     {
         if (isset($this->subject_id)) {

@@ -23,7 +23,7 @@ export const Endpoints = {
     },
     createBook: {
       create: "/books/create",
-    }
+    },
   },
   Students: {
     allStudents: {
@@ -85,15 +85,19 @@ export const Endpoints = {
     },
     createCopy: {
       create: "/copies/create",
-    }
+    },
+  },
+  user: {
+    profile: {
+      get: "/user/get",
+    },
+    editUser: {
+      update: "/user/update",
+    },
   },
 };
 
-export const getEndpoint = (
-  path,
-  params = null,
-  isCustom = false
-) => {
+export const getEndpoint = (path, params = null, isCustom = false) => {
   let url = `${BASE_URL}${path}.php`;
   if (isCustom) url = path;
 

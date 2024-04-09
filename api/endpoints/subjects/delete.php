@@ -17,6 +17,9 @@ try {
     $subject = Subject::getByGuid($db, $input->guid);
     $subject->delete();
 
+    Book::deleteBySubject($db, $subject->id);
+
+
     $db->commit();
 
     Response::sendResponse([]);
