@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import { Paths } from "../Constants/paths.constants";
 import { StorageKeys } from "../Constants/storekeys.constants";
 import { Views } from "../Constants/views.constants";
+import NotFoundComponent from "../Components/NotFoundComponent";
 
 export const NotFound = () => {
   const { pathname } = useLocation();
@@ -109,26 +110,32 @@ export const NotFound = () => {
   );
 
   return (
-    <div
-      className="d-flex justify-content-center flex-column align-items-center p-5"
-      style={{ userSelect: "none" }}
-    >
-      <div
-        className="position-relative d-flex justify-content-center w-100"
-        style={{ height: "50vh" }}
-      >
-        <div className="position-relative d-flex justify-content-center align-items-center m-auto">
-          <Number id="image-layer1" color="#777" text={textToShow.text} />
-          <Number id="image-layer2" color="#999" text={textToShow.text} />
-          <Number id="image-layer3" color="#aaa" text={textToShow.text} />
-        </div>
-      </div>
-      <div className="mb-2 d-flex flex-column justify-content-center align-items-center">
-        <p className="mb-0 text-center">{textToShow.description}</p>
-        <Link replace to={homePath}>
-          Go Home 🚀
-        </Link>
-      </div>
-    </div>
+    // <div
+    //   className="d-flex justify-content-center flex-column align-items-center p-5"
+    //   style={{ userSelect: "none" }}
+    // >
+    //   <div
+    //     className="position-relative d-flex justify-content-center w-100"
+    //     style={{ height: "50vh" }}
+    //   >
+    //     <div className="position-relative d-flex justify-content-center align-items-center m-auto">
+    //       <Number id="image-layer1" color="#777" text={textToShow.text} />
+    //       <Number id="image-layer2" color="#999" text={textToShow.text} />
+    //       <Number id="image-layer3" color="#aaa" text={textToShow.text} />
+    //     </div>
+    //   </div>
+    //   <div className="mb-2 d-flex flex-column justify-content-center align-items-center">
+    //     <p className="mb-0 text-center">{textToShow.description}</p>
+    //     <Link replace to={homePath}>
+    //       Go Home 🚀
+    //     </Link>
+    //   </div>
+    // </div>
+    <NotFoundComponent
+      buttonText="Go Home 🚀"
+      description={textToShow.description}
+      text={textToShow.text}
+      to={homePath}
+    />
   );
 };

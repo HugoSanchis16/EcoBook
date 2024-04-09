@@ -76,47 +76,45 @@ const Books = () => {
     closeDeleteModal();
   };
 
-  let content;
-
-  if (data.length > 0) {
-    content =  <>
-    {/* Modals */}
-    <DeleteBookModal
-      show={showDeleteModal}
-      onClose={handleCloseDeleteBook}
-      data={deleteBookData}
-    />
-
-    {/* Content */}
-    <GeneralLayout
-      title={ViewStrings.title}
-      rightSection={
-        <Button size="sm" as={Link} to={Paths[Views.new_book].path}>
-          {ViewStrings.addBook}
-        </Button>
-      }
-    >
-      <PanelLayout>
-        <ReactTable
-          totalPages={totalPages}
-          fetching={fetching}
-          onEventChange={fetchData}
-          data={data}
-          columns={BooksColumns(openDeleteModal)}
-        />
-      </PanelLayout>
-    </GeneralLayout>
-  </>;
-  } else {
-    content = <NotFoundBooks></NotFoundBooks>;
-  }
-
   return (
-    <div>
-      {content}
-    </div>
+    <>
+      {/* Modals */}
+      <DeleteBookModal
+        show={showDeleteModal}
+        onClose={handleCloseDeleteBook}
+        data={deleteBookData}
+      />
+
+      {/* Content */}
+      <GeneralLayout
+        title={ViewStrings.title}
+        rightSection={
+          data.length > 0 && (
+            <Button size="sm" as={Link} to={Paths[Views.new_book].path}>
+              {ViewStrings.addBook}
+            </Button>
+          )
+        }
+      >
+        <PanelLayout loaded={loaded}>
+          <ReactTable
+            emptyData={{
+              text: "No Books found",
+              buttonText: "+ New Book",
+              to: Paths[Views.new_book].path,
+              description: "Do you want to create new Book?",
+              subDescription: "Press de following button",
+            }}
+            totalPages={totalPages}
+            fetching={fetching}
+            onEventChange={fetchData}
+            data={data}
+            columns={BooksColumns(openDeleteModal)}
+          />
+        </PanelLayout>
+      </GeneralLayout>
+    </>
   );
 };
-
 
 export default Books;

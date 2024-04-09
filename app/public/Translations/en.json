@@ -329,7 +329,7 @@
   "Subjects": {
     "AllSubjects": {
       "title": "Subjects",
-      "addCourse": "+ New Subject",
+      "addSubject": "+ New Subject",
       "table": {
         "columns": {
           "name": "Name",

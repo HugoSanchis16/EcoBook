@@ -77,45 +77,44 @@ const Subjects = () => {
     closeDeleteModal();
   };
 
-  let content;
-
-
-  if (data.length > 0) {
-    content =  <>
-    {/* Modals */}
-    <DeleteSubjectModal
-      show={showDeleteModal}
-      onClose={handleCloseDeleteSubject}
-      data={deleteSubjectData}
-    />
-
-    {/* Content */}
-    <GeneralLayout
-      title={ViewStrings.title}
-      rightSection={
-        <Button size="sm" as={Link} to={Paths[Views.new_subject].path}>
-          {ViewStrings.addCourse}
-        </Button>
-      }
-    >
-      <PanelLayout>
-        <ReactTable
-          totalPages={totalPages}
-          fetching={fetching}
-          onEventChange={fetchData}
-          data={data}
-          columns={SubjectsColumns(openDeleteModal)}
-        />
-      </PanelLayout>
-    </GeneralLayout>
-  </>;
-  } else {
-    content = <NotFoundSubjects></NotFoundSubjects>;
-  }
-
-
   return (
-   <div>{content}</div>
+    <>
+      {/* Modals */}
+      <DeleteSubjectModal
+        show={showDeleteModal}
+        onClose={handleCloseDeleteSubject}
+        data={deleteSubjectData}
+      />
+
+      {/* Content */}
+      <GeneralLayout
+        title={ViewStrings.title}
+        rightSection={
+          data.length > 0 && (
+            <Button size="sm" as={Link} to={Paths[Views.new_subject].path}>
+              {ViewStrings.addSubject}
+            </Button>
+          )
+        }
+      >
+        <PanelLayout loaded={loaded}>
+          <ReactTable
+            emptyData={{
+              text: "No Subjects found",
+              buttonText: "+ New Subject",
+              to: Paths[Views.new_subject].path,
+              description: "Do you want to create new Subject?",
+              subDescription: "Press de following button",
+            }}
+            totalPages={totalPages}
+            fetching={fetching}
+            onEventChange={fetchData}
+            data={data}
+            columns={SubjectsColumns(openDeleteModal)}
+          />
+        </PanelLayout>
+      </GeneralLayout>
+    </>
   );
 };
 

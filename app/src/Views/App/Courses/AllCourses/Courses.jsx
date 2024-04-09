@@ -78,45 +78,80 @@ const Courses = () => {
   };
 
   let content;
-  
-  if (data.length > 0) {
-    content = <>
-      
-    {/* Modals */}
-    <DeleteCourseModal
-      show={showDeleteModal}
-      onClose={handleCloseDeleteBook}
-      data={deleteCourseData}
-    />
 
-    {/* Content */}
-    <GeneralLayout
-      title={ViewStrings.title}
-      rightSection={
-        <Button size="sm" as={Link} to={Paths[Views.new_course].path}>
-          {ViewStrings.addCourse}
-        </Button>
-      }
-    >
-      <PanelLayout>
-        <ReactTable
-          totalPages={totalPages}
-          fetching={fetching}
-          onEventChange={fetchData}
-          data={data}
-          columns={CoursesColumns(openDeleteModal)}
+  if (data.length > 0) {
+    content = (
+      <>
+        {/* Modals */}
+        <DeleteCourseModal
+          show={showDeleteModal}
+          onClose={handleCloseDeleteBook}
+          data={deleteCourseData}
         />
-      </PanelLayout>
-    </GeneralLayout>
-  </>;
+
+        {/* Content */}
+        <GeneralLayout
+          title={ViewStrings.title}
+          rightSection={
+            <Button size="sm" as={Link} to={Paths[Views.new_course].path}>
+              {ViewStrings.addCourse}
+            </Button>
+          }
+        >
+          <PanelLayout>
+            <ReactTable
+              totalPages={totalPages}
+              fetching={fetching}
+              onEventChange={fetchData}
+              data={data}
+              columns={CoursesColumns(openDeleteModal)}
+            />
+          </PanelLayout>
+        </GeneralLayout>
+      </>
+    );
   } else {
     content = <NotFoundCourses></NotFoundCourses>;
   }
 
   return (
-    <div>
-      {content}
-    </div>
+    <>
+      {/* Modals */}
+      <DeleteCourseModal
+        show={showDeleteModal}
+        onClose={handleCloseDeleteBook}
+        data={deleteCourseData}
+      />
+
+      {/* Content */}
+      <GeneralLayout
+        title={ViewStrings.title}
+        rightSection={
+          data.length > 0 && (
+            <Button size="sm" as={Link} to={Paths[Views.new_course].path}>
+              {ViewStrings.addCourse}
+            </Button>
+          )
+        }
+      >
+        <PanelLayout loaded={loaded}>
+          <ReactTable
+            emptyData={{
+              text: "No Courses found",
+              buttonText: "+ New Course",
+              to: Paths[Views.new_course].path,
+              description: "Do you want to create new Course?",
+              subDescription: "Press de following button",
+            }}
+            totalPages={totalPages}
+            fetching={fetching}
+            onEventChange={fetchData}
+            data={data}
+            columns={CoursesColumns(openDeleteModal)}
+          />
+        </PanelLayout>
+      </GeneralLayout>
+    </>
   );
 };
 

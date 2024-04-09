@@ -5,12 +5,16 @@ import Searcher from "../Searcher/Searcher";
 import PageSizeComponent from "./Components/PageSizeComponent";
 import CustomPagination from "./Components/Pagination";
 import TableComponent from "./Components/TableComponent";
+import { NotFound } from "../../Views/404";
+import { NotFoundSubjects } from "../../Views/NotFoundViews/SubjectNotFound";
+import NotFoundComponent from "../NotFoundComponent";
 
 const ReactTable = ({
   fetching,
   columns,
   searcherProps = {},
   extraFilters,
+  emptyData = {},
   showPageSize = true,
   showSearcher = true,
   data,
@@ -40,43 +44,58 @@ const ReactTable = ({
     setCurrentSearch(search);
   };
 
+  const renderHeader = () => (
+    <Row className="d-flex flex-column-reverse flex-md-row">
+      <Col sm={12} md={6} className="mb-md-2 mb-1">
+        {extraFilters}
+      </Col>
+      <Col sm={12} md={6} className="mb-md-2 mb-1">
+        <div className="d-flex align-items-center justify-content-end">
+          {showSearcher && (
+            <div className="ms-1 d-flex justify-content-end align-items-center">
+              <Searcher
+                autoFocus={searcherProps?.autoFocus}
+                placeholder={searcherProps?.placeholder}
+                onChange={handleSearcher}
+              />
+            </div>
+          )}
+          {showPageSize && (
+            <div className="ms-1 d-flex justify-content-end align-items-center">
+              <PageSizeComponent
+                pageSize={currentPageSize}
+                onChange={handlePageSize}
+              />
+            </div>
+          )}
+        </div>
+      </Col>
+    </Row>
+  );
+
+  const dataLength = data.length;
   return (
     <>
-      <Row className="d-flex flex-column-reverse flex-md-row">
-        <Col sm={12} md={6} className="mb-md-2 mb-1">
-          {extraFilters}
-        </Col>
-        <Col sm={12} md={6} className="mb-md-2 mb-1">
-          <div className="d-flex align-items-center justify-content-end">
-            {showSearcher && (
-              <div className="ms-1 d-flex justify-content-end align-items-center">
-                <Searcher
-                  autoFocus={searcherProps?.autoFocus}
-                  placeholder={searcherProps?.placeholder}
-                  onChange={handleSearcher}
-                />
-              </div>
-            )}
-            {showPageSize && (
-              <div className="ms-1 d-flex justify-content-end align-items-center">
-                <PageSizeComponent
-                  pageSize={currentPageSize}
-                  onChange={handlePageSize}
-                />
-              </div>
-            )}
-          </div>
-        </Col>
-      </Row>
+      {renderHeader()}
       {useMemo(
-        () => (
-          <TableComponent
-            fetching={fetching}
-            className="mb-2"
-            data={data}
-            columns={columns}
-          />
-        ),
+        () =>
+          data.length > 0 ? (
+            <TableComponent
+              fetching={fetching}
+              className="mb-2"
+              data={data}
+              columns={columns}
+            />
+          ) : (
+            <NotFoundComponent
+              buttonText={emptyData.buttonText}
+              description={emptyData.description}
+              text={emptyData.text}
+              to={emptyData.to}
+              subDescription={emptyData.subDescription}
+              size={1}
+            />
+          ),
         [data]
       )}
       <CustomPagination

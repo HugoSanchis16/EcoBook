@@ -1,44 +1,23 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import { Paths } from "../../Constants/paths.constants";
-import { StorageKeys } from "../../Constants/storekeys.constants";
-import { Views } from "../../Constants/views.constants";
+import { StorageKeys } from "../Constants/storekeys.constants";
+import { Views } from "../Constants/views.constants";
+import { Paths } from "../Constants/paths.constants";
 import { Button } from "react-bootstrap";
 
-export const NotFoundCourses = () => {
-  const { pathname } = useLocation();
+const NotFoundComponent = ({
+  text,
+  description,
+  to,
+  size = 5,
+  buttonText,
+  subDescription,
+}) => {
   const { isMobileView } = useSelector((state) => state.Config);
 
-  const [textToShow, setTextToShow] = useState({
-    text: "Not Courses yet",
-    description: (
-      <span>
-        You don't have courses yet
-        <br />
-        Please press following button to create the first course
-      </span>
-    ),
-  });
-
-  useEffect(() => {
-    if (pathname.includes("Y2hldHV1MTY=")) {
-      setTextToShow({
-        text: "😎🤘",
-        description: (
-          <span>
-            You found the easter egg!
-            <br />
-            Are you on working hours? 🤨
-          </span>
-        ),
-      });
-    }
-  }, [pathname]);
-
   const settings = {
-    elasticity: 2, // 0 - 10
+    elasticity: 1.5, // 0 - 10
     zoom: isMobileView ? 2 : 4,
   };
 
@@ -58,7 +37,7 @@ export const NotFoundCourses = () => {
 
   const controller = (e) => {
     let elasticity = settings.elasticity;
-    if (elasticity > 10) elasticity = 10;
+    if (elasticity >= 10) elasticity = 10;
     if (elasticity < 0) elasticity = 0;
 
     let image1 = document.getElementById("image-layer1");
@@ -99,11 +78,11 @@ export const NotFoundCourses = () => {
     }
   };
 
-  const Number = ({ id, color, text = "404" }) => (
+  const Number = ({ id, color }) => (
     <b
       id={id}
       className="position-absolute text-nowrap"
-      style={{ fontSize: `${1.5 * settings.zoom}rem`, color }}
+      style={{ fontSize: `${size * settings.zoom}rem`, color }}
     >
       {text}
     </b>
@@ -116,20 +95,25 @@ export const NotFoundCourses = () => {
     >
       <div
         className="position-relative d-flex justify-content-center w-100"
-        style={{ height: "30vh" }}
+        style={{ height: "300px" }}
       >
         <div className="position-relative d-flex justify-content-center align-items-center m-auto">
-          <Number id="image-layer1" color="#777" text={textToShow.text} />
-          <Number id="image-layer2" color="#999" text={textToShow.text} />
-          <Number id="image-layer3" color="#aaa" text={textToShow.text} />
+          <Number id="image-layer1" color={`#777`} />
+          <Number id="image-layer2" color={`#999`} />
+          <Number id="image-layer3" color={`#AAA`} />
         </div>
       </div>
       <div className="mb-2 d-flex flex-column justify-content-center align-items-center">
-        <p className="mb-5 text-center">{textToShow.description}</p>
-        <Button size="sm" as={Link} to={Paths[Views.new_course].path}>
-          + New Course
-        </Button>
+        {description && <p className="mb-1 text-center">{description}</p>}
+        {subDescription && <p className="mb-5 text-center">{subDescription}</p>}
+        {buttonText && to && (
+          <Button size="sm" as={Link} to={to}>
+            {buttonText}
+          </Button>
+        )}
       </div>
     </div>
   );
 };
+
+export default NotFoundComponent;

@@ -80,44 +80,44 @@ const Students = () => {
     closeDeleteModal();
   };
 
-  let content;
-
-
-  if (data.length > 0) {
-    content =  <>
-    {/* Modals */}
-    <DeleteStudentModal
-      show={showDeleteModal}
-      onClose={handleCloseDeleteBook}
-      data={deleteStudentData}
-    />
-
-    {/* Content */}
-    <GeneralLayout
-      title={ViewStrings.title}
-      rightSection={
-        <Button size="sm" as={Link} to={Paths[Views.new_student].path}>
-          {ViewStrings.addStudent}
-        </Button>
-      }
-    >
-      <PanelLayout>
-        <ReactTable
-          totalPages={totalPages}
-          fetching={fetching}
-          onEventChange={fetchData}
-          data={data}
-          columns={StudentsColumns(openDeleteModal)}
-        />
-      </PanelLayout>
-    </GeneralLayout>
-  </>;
-  }
-
   return (
-    <div>
-    {content}
-  </div>
+    <>
+      {/* Modals */}
+      <DeleteStudentModal
+        show={showDeleteModal}
+        onClose={handleCloseDeleteBook}
+        data={deleteStudentData}
+      />
+
+      {/* Content */}
+      <GeneralLayout
+        title={ViewStrings.title}
+        rightSection={
+          data.length > 0 && (
+            <Button size="sm" as={Link} to={Paths[Views.new_student].path}>
+              {ViewStrings.addStudent}
+            </Button>
+          )
+        }
+      >
+        <PanelLayout loaded={loaded}>
+          <ReactTable
+            emptyData={{
+              text: "No Students found",
+              buttonText: "+ New Student",
+              to: Paths[Views.new_student].path,
+              description: "Do you want to create new Students?",
+              subDescription: "Press de following button",
+            }}
+            totalPages={totalPages}
+            fetching={fetching}
+            onEventChange={fetchData}
+            data={data}
+            columns={StudentsColumns(openDeleteModal)}
+          />
+        </PanelLayout>
+      </GeneralLayout>
+    </>
   );
 };
 
