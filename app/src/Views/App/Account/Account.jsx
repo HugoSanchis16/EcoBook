@@ -12,9 +12,9 @@ import { Button } from "react-bootstrap";
 import { PhoneRegexSpain } from "../../../Utils/Regex";
 import SectionLayout from "../../../Layouts/SectionLayout/SectionLayout";
 
-const Profile = () => {
+const Account = () => {
   const { strings } = useContext(StringsContext);
-  const ViewStrings = strings.User.Profile;
+  const ViewStrings = strings.User.Account;
   const GeneralStrings = strings.General.App;
 
   const request = useRequest();
@@ -24,7 +24,7 @@ const Profile = () => {
 
   const { startFetching, finishFetching, fetching, loaded } = useLoaded();
 
-  const [profile, setProfile] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -32,9 +32,9 @@ const Profile = () => {
 
   const fetchData = async () => {
     startFetching();
-    return await request("get", getEndpoint(Endpoints.user.profile.get))
+    return await request("get", getEndpoint(Endpoints.user.account.get))
       .then((res) => {
-        setProfile(res.profile);
+        setData(res.data);
       })
       .catch(errorNotification)
       .finally(() => finishFetching());
@@ -43,7 +43,7 @@ const Profile = () => {
   const handleSubmit = () => {
     if (checkForm()) {
       request("post", getEndpoint(Endpoints.user.editUser.update), {
-        ...profile,
+        ...data,
       })
         .then(() => {
           successNotification(ViewStrings.messages.profileUpdated);
@@ -54,49 +54,66 @@ const Profile = () => {
 
   const handleInput = (e) => {
     const { id, value } = e.target;
-    setProfile({ ...profile, [id]: value });
+    setData({ ...data, [id]: value });
   };
 
   const checkForm = () => {
-    const { name, surnames, phone } = profile;
-    return validateData([name, surnames, phone]) && PhoneRegexSpain.test(phone);
+    return data;
   };
 
   return (
     <>
-      {console.log(profile)}
-
       <GeneralLayout title={ViewStrings.title}>
         <PanelLayout loaded={loaded}>
-          <SectionLayout title="Basic user information">
+          <SectionLayout title="Security">
             <FormControl
-              controlId="name"
-              maxLength={50}
-              showMaxLength
+              controlId="currentPassword"
+              showMaxLength={false}
               vertical={false}
-              value={profile.name}
-              title={ViewStrings.inputs.nameInput.title}
-              placeholder={ViewStrings.inputs.nameInput.placeholder}
+              title={ViewStrings.inputs.currentPasswordInput.title}
+              placeholder={ViewStrings.inputs.currentPasswordInput.placeholder}
               onChange={handleInput}
             />
             <FormControl
-              controlId="surnames"
-              maxLength={50}
-              showMaxLength
+              controlId="newPassword"
               vertical={false}
-              value={profile.surnames}
-              title={ViewStrings.inputs.surnameInput.title}
-              placeholder={ViewStrings.inputs.surnameInput.placeholder}
+              showMaxLength={false}
+              title={ViewStrings.inputs.newPassword.title}
+              placeholder={ViewStrings.inputs.newPassword.placeholder}
               onChange={handleInput}
             />
             <FormControl
-              controlId="phone"
-              maxLength={9}
-              showMaxLength
+              controlId="newPasswordCopy"
               vertical={false}
-              value={profile.phone}
-              title={ViewStrings.inputs.phoneInput.title}
-              placeholder={ViewStrings.inputs.phoneInput.placeholder}
+              showMaxLength={false}
+              title={ViewStrings.inputs.newPasswordCopy.title}
+              placeholder={ViewStrings.inputs.newPasswordCopy.placeholder}
+              onChange={handleInput}
+            />
+          </SectionLayout>
+          <SectionLayout title="Email">
+            <FormControl
+              controlId="currentEmail"
+              showMaxLength={false}
+              vertical={false}
+              title={ViewStrings.inputs.currentEmailInput.title}
+              placeholder={ViewStrings.inputs.currentEmailInput.placeholder}
+              onChange={handleInput}
+            />
+            <FormControl
+              controlId="newEmail"
+              vertical={false}
+              showMaxLength={false}
+              title={ViewStrings.inputs.newEmail.title}
+              placeholder={ViewStrings.inputs.newEmail.placeholder}
+              onChange={handleInput}
+            />
+            <FormControl
+              controlId="newEmailCopy"
+              vertical={false}
+              showMaxLength={false}
+              title={ViewStrings.inputs.newEmailCopy.title}
+              placeholder={ViewStrings.inputs.newEmailCopy.placeholder}
               onChange={handleInput}
             />
           </SectionLayout>
@@ -111,4 +128,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Account;

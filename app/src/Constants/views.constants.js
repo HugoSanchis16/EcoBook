@@ -29,6 +29,7 @@ export const Views = {
 
   //#region profile
   profileView: "profileView",
+  accountView: "accountView",
   //#endregion
 
   //#region Management
@@ -36,7 +37,6 @@ export const Views = {
   new_user: "new_user",
   edit_user: "edit_user",
   //#endregion
-
 
   //#region Management
   new_book: "new_book",
@@ -47,7 +47,7 @@ export const Views = {
   new_student: "new_student",
   edit_student: "edit_student",
   //#endregion
-  
+
   //#region Management
   new_copy: "new_copy",
   //#endregion
@@ -56,8 +56,7 @@ export const Views = {
   new_course: "new_course",
   edit_course: "edit_course",
   //#endregion
- 
- 
+
   //#region Management
   new_subject: "new_subject",
   edit_subject: "edit_subject",

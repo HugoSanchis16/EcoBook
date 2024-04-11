@@ -89,7 +89,10 @@ export const Endpoints = {
   },
   user: {
     profile: {
-      get: "/user/get",
+      get: "/user/getProfile",
+    },
+    account: {
+      get: "/user/getAccount",
     },
     editUser: {
       update: "/user/update",

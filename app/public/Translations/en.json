@@ -402,6 +402,38 @@
       "messages": {
         "profileUpdated": "Profile updated successfully!"
       }
+    },
+    "Account": {
+      "title": "Account",
+      "inputs": {
+        "currentPasswordInput": {
+          "title": "Current Password:",
+          "placeholder": "Type your current password..."
+        },
+        "newPassword": {
+          "title": "New Password:",
+          "placeholder": "Type your new password..."
+        },
+        "newPasswordCopy": {
+          "title": "Repeat the new password:",
+          "placeholder": "Type your new password..."
+        },
+        "currentEmailInput": {
+          "title": "New Password:",
+          "placeholder": "Type your new password..."
+        },
+        "newEmail": {
+          "title": "New Email:",
+          "placeholder": "Type your new email..."
+        },
+        "newEmailCopy": {
+          "title": "New Email:",
+          "placeholder": "Type your new email..."
+        }
+      },
+      "messages": {
+        "profileUpdated": "Profile updated successfully!"
+      }
     }
   }
 }

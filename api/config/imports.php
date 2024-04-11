@@ -34,5 +34,6 @@ include_once $document_root . '/resources/StudentResource.php';
 include_once $document_root . '/resources/SubjectResource.php';
 include_once $document_root . '/resources/CopyResource.php';
 include_once $document_root . '/resources/CourseResource.php';
+include_once $document_root . '/resources/AccountResource.php';
 
 //include_once $document_root . '/objects/invitations.php';

@@ -23,6 +23,7 @@ import Subjects from "../../Views/App/Subjects/AllSubjects/Subjects";
 import EditSubject from "../../Views/App/Subjects/EditSubject/EditSubject";
 import NewSubject from "../../Views/App/Subjects/NewSubject/NewSubject";
 import ProfilePage from "../../Views/App/Profile/Profile";
+import Account from "../../Views/App/Account/Account";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -51,7 +52,8 @@ export const AppRoutes = [
   //#endregion
 
   //#region Profile
-  getRoute(Paths[Views.profileView].path, ProfilePage), // Aquí incluyes ProfilePage como el componente de la ruta
+  getRoute(Paths[Views.profileView].path, ProfilePage),
+  getRoute(Paths[Views.accountView].path, Account),
   //#endProfile
 
   //#region user

@@ -34,6 +34,7 @@ const ProfileDropdown = () => {
   };
 
   const handleOpenProfile = () => push(Paths[Views.profileView].path);
+  const handleOpenAccount = () => push(Paths[Views.accountView].path);
 
   return (
     <>
@@ -62,6 +63,13 @@ const ProfileDropdown = () => {
               onClick={handleOpenProfile}
             >
               Profile
+            </Dropdown.Item>
+            <Dropdown.Item
+              className="rounded-3"
+              as={Button}
+              onClick={handleOpenAccount}
+            >
+              Account
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item

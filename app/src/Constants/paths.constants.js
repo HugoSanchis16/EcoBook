@@ -33,6 +33,7 @@ export const Paths = {
 
   //#region profile
   [Views.profileView]: getPath("/profile"),
+  [Views.accountView]: getPath("/account"),
   //#profile
 
   //#region Management

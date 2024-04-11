@@ -27,6 +27,7 @@ const ProfileModal = ({ show, onClose }) => {
   };
 
   const handleOpenProfile = () => push(Paths[Views.profileView].path);
+  const handleOpenAccount = () => push(Paths[Views.accountView].path);
   const handleOpenSettings = () => push(Paths[Views.settings].path);
 
   return (
@@ -52,7 +53,6 @@ const ProfileModal = ({ show, onClose }) => {
           >
             <h3>{user.fullName}</h3>
             <p className="mb-0">{user.email}</p>
-            <small className="text-muted">{user.role}</small>
           </Col>
         </Row>
       </div>
@@ -63,6 +63,13 @@ const ProfileModal = ({ show, onClose }) => {
           onClick={handleOpenProfile}
         >
           Profile
+        </Button>
+        <Button
+          variant="outline-light"
+          className="py-3 bg-gradient text-start"
+          onClick={handleOpenAccount}
+        >
+          Account
         </Button>
         <Button
           onClick={handleOpenSettings}
