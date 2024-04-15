@@ -24,7 +24,7 @@ const useNotification = (
     }, FADE_TIME);
   };
 
-  const showNotification = (html = "", showCloseButton) => {
+  const showNotification = (html = "", showCloseButton = true) => {
     const notificationElement = document.createElement("div");
     notificationElement.id = `alert-${Math.round(Math.random() * 999)}`;
     notificationElement.classList.add(

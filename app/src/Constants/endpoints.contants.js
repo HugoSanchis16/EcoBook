@@ -97,6 +97,12 @@ export const Endpoints = {
     editUser: {
       update: "/user/update",
     },
+    editEmail: {
+      update: "/user/emailUpdate",
+    },
+    editPassword: {
+      update: "/user/passwordUpdate",
+    },
   },
 };
 

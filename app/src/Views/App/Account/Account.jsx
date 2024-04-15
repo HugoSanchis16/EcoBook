@@ -9,8 +9,15 @@ import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import FormControl from "../../../Components/Form/FormControl/FormControl";
 import { validateData } from "../../../Config/GeneralFunctions";
 import { Button } from "react-bootstrap";
-import { PhoneRegexSpain } from "../../../Utils/Regex";
+import {
+  EmailRegex,
+  PasswordRegex,
+  PhoneRegexSpain,
+} from "../../../Utils/Regex";
 import SectionLayout from "../../../Layouts/SectionLayout/SectionLayout";
+import { Paths } from "../../../Constants/paths.constants";
+import { Views } from "../../../Constants/views.constants";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Account = () => {
   const { strings } = useContext(StringsContext);
@@ -19,34 +26,36 @@ const Account = () => {
 
   const request = useRequest();
 
+  const { replace } = useHistory();
+
   const { showNotification: successNotification } = useNotification("success");
   const { showNotification: errorNotification } = useNotification();
 
-  const { startFetching, finishFetching, fetching, loaded } = useLoaded();
-
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    startFetching();
-    return await request("get", getEndpoint(Endpoints.user.account.get))
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch(errorNotification)
-      .finally(() => finishFetching());
-  };
-
-  const handleSubmit = () => {
-    if (checkForm()) {
-      request("post", getEndpoint(Endpoints.user.editUser.update), {
-        ...data,
+  const handleSubmitEmail = () => {
+    if (checkFormEmail()) {
+      request("post", getEndpoint(Endpoints.user.editEmail.update), {
+        currentEmail: data.currentEmail,
+        newEmail: data.newEmail,
       })
         .then(() => {
           successNotification(ViewStrings.messages.profileUpdated);
+          replace(Paths[Views.login].path);
+        })
+        .catch((err) => errorNotification(err.message));
+    } else errorNotification("Check all input fields");
+  };
+
+  const handleSubmitPassword = () => {
+    if (checkFormPassword()) {
+      request("post", getEndpoint(Endpoints.user.editPassword.update), {
+        currentPassword: data.currentPassword,
+        newPassword: data.newPassword,
+      })
+        .then(() => {
+          successNotification(ViewStrings.messages.profileUpdated);
+          replace(Paths[Views.login].path);
         })
         .catch((err) => errorNotification(err.message));
     } else errorNotification("Check all input fields");
@@ -57,74 +66,100 @@ const Account = () => {
     setData({ ...data, [id]: value });
   };
 
-  const checkForm = () => {
-    return data;
+  const checkFormEmail = () => {
+    const { currentEmail, newEmail, newEmailCopy } = data;
+    return (
+      validateData([currentEmail, newEmail, newEmailCopy]) &&
+      EmailRegex.test(currentEmail) &&
+      EmailRegex.test(newEmail) &&
+      EmailRegex.test(newEmailCopy) &&
+      currentEmail !== newEmail &&
+      newEmail === newEmailCopy
+    );
+  };
+
+  const checkFormPassword = () => {
+    const { currentPassword, newPassword, newPasswordCopy } = data;
+    return (
+      validateData([currentPassword, newPassword, newPasswordCopy]) &&
+      PasswordRegex.test(currentPassword) &&
+      PasswordRegex.test(newPassword) &&
+      PasswordRegex.test(newPasswordCopy) &&
+      currentPassword !== newPassword &&
+      newPassword === newPasswordCopy
+    );
   };
 
   return (
-    <>
-      <GeneralLayout title={ViewStrings.title}>
-        <PanelLayout loaded={loaded}>
-          <SectionLayout title="Security">
-            <FormControl
-              controlId="currentPassword"
-              showMaxLength={false}
-              vertical={false}
-              title={ViewStrings.inputs.currentPasswordInput.title}
-              placeholder={ViewStrings.inputs.currentPasswordInput.placeholder}
-              onChange={handleInput}
-            />
-            <FormControl
-              controlId="newPassword"
-              vertical={false}
-              showMaxLength={false}
-              title={ViewStrings.inputs.newPassword.title}
-              placeholder={ViewStrings.inputs.newPassword.placeholder}
-              onChange={handleInput}
-            />
-            <FormControl
-              controlId="newPasswordCopy"
-              vertical={false}
-              showMaxLength={false}
-              title={ViewStrings.inputs.newPasswordCopy.title}
-              placeholder={ViewStrings.inputs.newPasswordCopy.placeholder}
-              onChange={handleInput}
-            />
-          </SectionLayout>
-          <SectionLayout title="Email">
-            <FormControl
-              controlId="currentEmail"
-              showMaxLength={false}
-              vertical={false}
-              title={ViewStrings.inputs.currentEmailInput.title}
-              placeholder={ViewStrings.inputs.currentEmailInput.placeholder}
-              onChange={handleInput}
-            />
-            <FormControl
-              controlId="newEmail"
-              vertical={false}
-              showMaxLength={false}
-              title={ViewStrings.inputs.newEmail.title}
-              placeholder={ViewStrings.inputs.newEmail.placeholder}
-              onChange={handleInput}
-            />
-            <FormControl
-              controlId="newEmailCopy"
-              vertical={false}
-              showMaxLength={false}
-              title={ViewStrings.inputs.newEmailCopy.title}
-              placeholder={ViewStrings.inputs.newEmailCopy.placeholder}
-              onChange={handleInput}
-            />
-          </SectionLayout>
+    <GeneralLayout title={ViewStrings.title}>
+      <PanelLayout>
+        <SectionLayout title="Email">
+          <FormControl
+            controlId="currentEmail"
+            showMaxLength={false}
+            vertical={false}
+            title={ViewStrings.inputs.currentEmailInput.title}
+            placeholder={ViewStrings.inputs.currentEmailInput.placeholder}
+            onChange={handleInput}
+          />
+          <FormControl
+            controlId="newEmail"
+            vertical={false}
+            showMaxLength={false}
+            title={ViewStrings.inputs.newEmail.title}
+            placeholder={ViewStrings.inputs.newEmail.placeholder}
+            onChange={handleInput}
+          />
+          <FormControl
+            controlId="newEmailCopy"
+            vertical={false}
+            showMaxLength={false}
+            title={ViewStrings.inputs.newEmailCopy.title}
+            placeholder={ViewStrings.inputs.newEmailCopy.placeholder}
+            onChange={handleInput}
+          />
           <div className="d-flex justify-content-end w-100 align-items-center">
-            <Button disabled={!checkForm()} onClick={handleSubmit}>
-              {GeneralStrings.Update}
+            <Button disabled={!checkFormEmail()} onClick={handleSubmitEmail}>
+              {ViewStrings.inputs.changeEmailButton.title}
             </Button>
           </div>
-        </PanelLayout>
-      </GeneralLayout>
-    </>
+        </SectionLayout>
+        <SectionLayout title="Password">
+          <FormControl
+            controlId="currentPassword"
+            showMaxLength={false}
+            vertical={false}
+            title={ViewStrings.inputs.currentPasswordInput.title}
+            placeholder={ViewStrings.inputs.currentPasswordInput.placeholder}
+            onChange={handleInput}
+          />
+          <FormControl
+            controlId="newPassword"
+            vertical={false}
+            showMaxLength={false}
+            title={ViewStrings.inputs.newPassword.title}
+            placeholder={ViewStrings.inputs.newPassword.placeholder}
+            onChange={handleInput}
+          />
+          <FormControl
+            controlId="newPasswordCopy"
+            vertical={false}
+            showMaxLength={false}
+            title={ViewStrings.inputs.newPasswordCopy.title}
+            placeholder={ViewStrings.inputs.newPasswordCopy.placeholder}
+            onChange={handleInput}
+          />
+          <div className="d-flex justify-content-end w-100 align-items-center">
+            <Button
+              disabled={!checkFormPassword()}
+              onClick={handleSubmitPassword}
+            >
+              {ViewStrings.inputs.changePasswordButton.title}
+            </Button>
+          </div>
+        </SectionLayout>
+      </PanelLayout>
+    </GeneralLayout>
   );
 };
 

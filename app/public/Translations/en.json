@@ -419,16 +419,22 @@
           "placeholder": "Type your new password..."
         },
         "currentEmailInput": {
-          "title": "New Password:",
-          "placeholder": "Type your new password..."
+          "title": "Current email:",
+          "placeholder": "Type your current email..."
         },
         "newEmail": {
           "title": "New Email:",
           "placeholder": "Type your new email..."
         },
         "newEmailCopy": {
-          "title": "New Email:",
+          "title": "Repeat the new email:",
           "placeholder": "Type your new email..."
+        },
+        "changeEmailButton": {
+          "title": "Confirm Change"
+        },
+        "changePasswordButton": {
+          "title": "Change Password"
         }
       },
       "messages": {

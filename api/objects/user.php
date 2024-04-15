@@ -50,11 +50,12 @@ class User
     {
         $query = "
             UPDATE `" . self::$table_name . "` 
-            SET password=:password, updated=:updated, deleted=:deleted, token=:token, expiredate=:expiredate
+            SET password=:password, email=:email, updated=:updated, deleted=:deleted, token=:token, expiredate=:expiredate
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":password", $this->password);
+        $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":updated", $this->updated);
         $stmt->bindValue(":deleted", $this->deleted);
         $stmt->bindParam(":token", $this->token);
