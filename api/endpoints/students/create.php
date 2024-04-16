@@ -16,8 +16,12 @@ try {
         'name' => 'required|string',
         'surname' => 'required|string',
         'phone' => 'required|string',
-        'email' => 'required|string'
+        'email' => 'required|string',
+        'course' => 'required|string',
+        'repeater' => 'required|bool',
+        "subjects" => "required|array"
     ]);
+
 
     $student_exist = Student::getByNia($db, $input->nia);
     if (!$student_exist) {
@@ -33,6 +37,23 @@ try {
         $studentProfile->phone = $input->phone;
         $studentProfile->email = $input->email;
         $studentProfile->store();
+
+        $course = Course::getByGuid($db, $input->course);
+        $allSubjects = $input->subjects;
+        if (!$input->repeater) {
+            $allSubjects = Subject::getAllSubjectsByCourse($db, $course->id);
+        }
+
+        foreach ($allSubjects as $subject) {
+            //Just in case the subject is the subject_guid
+            if (gettype($subject) === "string") $subject = Subject::getByGuid($db, $subject);
+
+            $newStudentSubjectCourse = new StudentSubjectCourse($db);
+            $newStudentSubjectCourse->student_id = $student->id;
+            $newStudentSubjectCourse->course_id = $course->id;
+            $newStudentSubjectCourse->subject_id = $subject->id;
+            $newStudentSubjectCourse->store();
+        }
     } else {
         createException("Nia already exist", 409);
     }

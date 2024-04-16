@@ -19,13 +19,6 @@ class CopyResource
         foreach ($copies as $copy) {
             $newItem = self::getCopy($copy, ["guid", "uniqid", "state"]);
 
-            $student = $copy->student();
-            if ($student) {
-                logApi($student);
-                $studentProfile = $student->profile();
-                $newItem->{"student"} = $studentProfile->name . " " . $studentProfile->surnames;
-            }
-
             $itemsArray[] = $newItem;
         }
         return $itemsArray;

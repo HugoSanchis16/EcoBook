@@ -1,9 +1,10 @@
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import IconButton from "../../../../Components/Buttons/IconButton";
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
 import { Paths, replacePaths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
+import { LuBookPlus } from "react-icons/lu";
 
 export const StudentsColumns = (openDeleteModal) => {
   const columns = [
@@ -30,9 +31,9 @@ export const StudentsColumns = (openDeleteModal) => {
       width: 10,
       Cell: (row) =>
         getColumnValue(row, (item) => (
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center ">
             <IconButton
-              Icon={MdEdit}
+              Icon={MdRemoveRedEye}
               as={Link}
               to={replacePaths(Paths[Views.edit_student].path, [
                 { student_guid: item.guid },

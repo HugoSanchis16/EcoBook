@@ -7,7 +7,6 @@
       "Update": "Update",
       "Delete": "Delete",
       "Cancel": "Cancel",
-
       "Rank": "Rank"
     },
     "Tables": {
@@ -112,6 +111,31 @@
       "viewMore": "View %items.amount% more..."
     }
   },
+  "Assign": {
+    "NewAssign": {
+      "title": "Assign",
+      "inputs": {
+        "niaInput": {
+          "title": "Nia:",
+          "placeholder": "Type Student Nia..."
+        },
+        "courseInput": {
+          "title": "Course:"
+        },
+        "repeatStudentInput": {
+          "title": "Repeater:"
+        }
+      },
+      "Users": {
+        "title": "Users",
+        "viewMore": "View %items.amount% more..."
+      },
+      "Players": {
+        "title": "Players",
+        "viewMore": "View %items.amount% more..."
+      }
+    }
+  },
   "Home": {
     "TopSection": {
       "Organisations": "Organisations",
@@ -196,7 +220,7 @@
       }
     },
     "EditStudent": {
-      "title": "Edit Student",
+      "title": "Student",
       "sections": {
         "basicSection": "Basic Info"
       },
@@ -251,6 +275,13 @@
         "emailInput": {
           "title": "Email:",
           "placeholder": "Type Student Email ..."
+        },
+        "repeatStudentInput": {
+          "title": "Repeat Student:"
+        },
+        "courseInput": {
+          "title": "Course:",
+          "placeholder": "Choose the Student's course..."
         }
       },
       "messages": {
@@ -297,12 +328,16 @@
       "title": "New Course",
       "inputs": {
         "abbrInput": {
-          "title": "abbreviation:",
+          "title": "Abbreviation:",
           "placeholder": "Type Course abbreviation..."
         },
         "nameInput": {
           "title": "Name:",
           "placeholder": "Type Course Name..."
+        },
+        "seasonInput": {
+          "title": "Season:",
+          "placeholder": "Type season (Ej: 23-24)"
         }
       },
       "messages": {
@@ -313,7 +348,7 @@
       "title": "Edit Course",
       "inputs": {
         "abbrInput": {
-          "title": "abbreviation:",
+          "title": "Abbreviation:",
           "placeholder": "Type Course abbreviation..."
         },
         "nameInput": {
@@ -361,7 +396,7 @@
       "title": "Edit Subject",
       "inputs": {
         "abbrInput": {
-          "title": "abbreviation:",
+          "title": "Abbreviation:",
           "placeholder": "Type Course abbreviation..."
         },
         "nameInput": {

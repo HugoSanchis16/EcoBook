@@ -20,6 +20,7 @@ include_once $document_root . '/objects/book.php';
 include_once $document_root . '/objects/copy.php';
 include_once $document_root . '/objects/course.php';
 include_once $document_root . '/objects/subject.php';
+include_once $document_root . '/objects/studentsubjectcourse.php';
 include_once $document_root . '/objects/user.php';
 include_once $document_root . '/objects/userprofile.php';
 include_once $document_root . '/objects/student.php';

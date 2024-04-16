@@ -21,6 +21,8 @@ import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
 import { EmailRegex, NiaRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
 import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
+import { StudentTabs } from "../../../../Utils/StudentTabs";
+import Tabs from "../../../../Components/Tabs/Tabs";
 
 const EditStudent = () => {
   const { strings: Strings } = useContext(StringsContext);
@@ -102,7 +104,7 @@ const EditStudent = () => {
         data={deleteBookData}
       />
       <GeneralLayout showBackButton title={ViewStrings.title}>
-        <PanelLayout loaded={loaded}>
+        <PanelLayout loaded={loaded} Tabs={StudentTabs}>
           <SectionLayout title="Student's identification">
             <FormControl
               controlId="nia"

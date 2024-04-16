@@ -49,8 +49,8 @@ const NewCourse = () => {
   };
 
   const checkForm = () => {
-    const { name, abbr } = data;
-    return validateData([abbr, name]);
+    const { name, abbr, season } = data;
+    return validateData([abbr, name, season]);
   };
 
   return (
@@ -75,6 +75,16 @@ const NewCourse = () => {
             vertical={false}
             title={ViewStrings.inputs.nameInput.title}
             placeholder={ViewStrings.inputs.nameInput.placeholder}
+            onChange={handleInput}
+          />
+          <FormControl
+            required
+            controlId="season"
+            maxLength={50}
+            showMaxLength={true}
+            vertical={false}
+            title={ViewStrings.inputs.seasonInput.title}
+            placeholder={ViewStrings.inputs.seasonInput.placeholder}
             onChange={handleInput}
           />
         </SectionLayout>

@@ -8,15 +8,23 @@ import { Views } from "../../../../Constants/views.constants";
 export const SubjectsColumns = (openDeleteModal) => {
   const columns = [
     {
-      Header: "Abbreviation",
+      Header: "Course",
       Cell: (row) =>
-        getColumnValue(row, (item) => <p className="mb-0">{item.abbr}</p>),
-      width: 100,
+        getColumnValue(row, (item) => (
+          <p className="mb-0">{item.course.abbr}</p>
+        )),
+      width: 50,
     },
     {
       Header: "Name",
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.name}</p>),
+      width: 100,
+    },
+    {
+      Header: "Abbreviation",
+      Cell: (row) =>
+        getColumnValue(row, (item) => <p className="mb-0">{item.abbr}</p>),
       width: 100,
     },
     {

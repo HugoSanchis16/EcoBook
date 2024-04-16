@@ -5,27 +5,26 @@ include_once '../../config/config.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$data = postInput();
+$data = getInput();
 try {
 
     $db->beginTransaction();
     checkAuth();
 
     $input = validate($data, [
-        'abbr' => 'required|string',
-        "name" => "required|string",
-        "season" => "required|string"
+        'course' => 'required|string',
     ]);
 
-    $course = new Course($db);
-    $course->abbr = $input->abbr;
-    $course->name = $input->name;
-    $course->season = $input->season;
-    $course->store();
+    $course = Course::getByGuid($db, $input->course);
+
+    $subjects = Subject::getAllSubjectsByCourse($db, $course->id);
+
+    $subjectsFinal = SubjectResource::getSubjectsNamesArray($subjects);
 
     $db->commit();
-
-    Response::sendResponse();
+    Response::sendResponse([
+        "subjects" => $subjectsFinal,
+    ]);
 } catch (\Exception $th) {
     $db->rollBack();
     print_r(json_encode(array("status" => false, "message" => $th->getMessage(), 'code' => $th->getCode())));

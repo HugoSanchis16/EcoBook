@@ -10,6 +10,7 @@ class History
     public string $guid;
     public int $copy_id;
     public int $course_id;
+    public int $student_id;
     public int $initialState;
     public int $finalState;
     public string $initialDate;
@@ -49,6 +50,7 @@ class History
             guid=:guid,
             copy_id=:copy_id,
             course_id=:course_id,
+            student_id=:student_id,
             initialstate=:initialstate,
             ";
 
@@ -59,6 +61,7 @@ class History
         $stmt->bindValue(":guid", $this->guid);
         $stmt->bindParam(":copy_id", $this->copy_id);
         $stmt->bindParam(":course_id", $this->course_id);
+        $stmt->bindParam(":student_id", $this->student_id);
         $stmt->bindParam(":initialstate", $this->initialState);
         $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
 
@@ -100,6 +103,11 @@ class History
     function course(): Course
     {
         return Course::get($this->conn, $this->course_id);
+    }
+
+    function student(): Student|null
+    {
+        return Student::get($this->conn, $this->student_id);
     }
 
     public static function get(PDO $db, int $id): History

@@ -10,6 +10,7 @@ class Course
     public string $guid;
     public string $name;
     public string $abbr;
+    public string $season;
     public string $created;
     public string|null $updated;
     public string|null $deleted;
@@ -34,6 +35,7 @@ class Course
             guid=:guid,
             name=:name,
             abbr=:abbr,
+            season=:season,
             searchdata=:searchdata
             ";
 
@@ -42,6 +44,7 @@ class Course
         $stmt->bindParam(":guid", $this->guid);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":abbr", $this->abbr);
+        $stmt->bindParam(":season", $this->season);
         $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
@@ -187,6 +190,7 @@ class Course
         $newObj->guid = $row['guid'];
         $newObj->name = $row['name'];
         $newObj->abbr = $row['abbr'];
+        $newObj->season = $row['season'];
         $newObj->created = $row['created'];
         $newObj->updated = $row['updated'];
         $newObj->deleted = $row['deleted'];

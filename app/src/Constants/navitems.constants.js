@@ -18,6 +18,11 @@ export const NavItems = () => {
     },
     {
       id: "administration_section",
+      title: "Assignment",
+      items: [Paths[Views.assign_book], Paths[Views.unassign_book]],
+    },
+    {
+      id: "administration_section",
       title: "Administration",
       items: [
         Paths[Views.courses],

@@ -24,6 +24,11 @@ export const Paths = {
   [Views.home]: getPath("/home", "Home", "e88a"),
   //#endregion
 
+  //#region Dashboard
+  [Views.assign_book]: getPath("/assign", "Assign", "e7f0"),
+  [Views.unassign_book]: getPath("/unassign", "Unassign", "e7ad"),
+  //#endregion
+
   //#region Administration
   [Views.subjects]: getPath("/subjects/all", "Subjects", "e0ee"),
   [Views.courses]: getPath("/courses/all", "Courses", "e431"),

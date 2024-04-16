@@ -26,7 +26,7 @@ export const CopiesColumns = (updateState) => {
       width: 100,
     },
     {
-      Header: "Student",
+      Header: "Action",
       Cell: (row) =>
         getColumnValue(row, (item) => (
           <p className="mb-0">{item.fullname || "---"}</p>

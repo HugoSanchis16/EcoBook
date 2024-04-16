@@ -11,7 +11,6 @@ class Copy
     public string $uniqid;
     public int $state;
     public int $book_id;
-    public int|null $student_id;
 
     public function __construct(PDO $db)
     {
@@ -23,13 +22,6 @@ class Copy
     {
         return [
             $this->uniqid,
-            array(
-                "from" => $this->student(),
-                "what" => [
-                    "studentProfile.name",
-                    "studentProfile.surnames",
-                ]
-            ),
         ];
     }
 
@@ -41,7 +33,6 @@ class Copy
             uniqid=:uniqid,
             state=:state,
             book_id=:book_id,
-            student_id=:student_id,
             searchdata=:searchdata
             ";
 
@@ -54,7 +45,6 @@ class Copy
         $stmt->bindParam(":uniqid", $this->uniqid);
         $stmt->bindParam(":state", $this->state);
         $stmt->bindParam(":book_id", $this->book_id);
-        $stmt->bindParam(":student_id", $this->student_id);
         $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
@@ -69,13 +59,12 @@ class Copy
     {
         $query = "
             UPDATE `" . self::$table_name . "` 
-            SET state=:state, student_id=:student_id, updated=:updated, searchdata=:searchdata
+            SET state=:state, updated=:updated, searchdata=:searchdata
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":state", $this->state);
         $stmt->bindParam(":id", $this->id);
-        $stmt->bindParam(":student_id", $this->student_id);
         $stmt->bindValue(":updated", newDate());
         $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
@@ -90,13 +79,6 @@ class Copy
     function book(): Book
     {
         return Book::get($this->conn, $this->book_id);
-    }
-
-    function student(): Student|null
-    {
-        if ($this->student_id)
-            return Student::get($this->conn, $this->student_id);
-        else return null;
     }
 
     public static function get(PDO $db, int $id): Copy
@@ -199,22 +181,7 @@ class Copy
         createException("Invalid credentials");
     }
 
-    public static function getByStudentId(PDO $db, int $student_id): Copy
-    {
-        $query = "SELECT * FROM `" . self::$table_name . "` WHERE student_id=:student_id";
 
-        $stmt = $db->prepare($query);
-
-        $stmt->bindParam(":student_id", $student_id);
-
-        if ($stmt->execute()) {
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                return self::getMainObject($db, $row);
-            }
-            return false;
-        }
-        createException("Invalid credentials");
-    }
 
     public static function getAllCount(PDO $db, string $search = "", int $book_id): int
     {
@@ -244,7 +211,6 @@ class Copy
         $newObj = new Copy($db);
         $newObj->id = intval($row['id']);
         $newObj->book_id = intval($row['book_id']);
-        $newObj->student_id = $row["student_id"] === null ? null : intval($row['student_id']);
         $newObj->guid = $row['guid'];
         $newObj->uniqid = $row['uniqid'];
         $newObj->state = $row['state'];

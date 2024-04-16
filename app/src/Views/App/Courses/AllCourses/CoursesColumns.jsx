@@ -1,4 +1,4 @@
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdCenterFocusStrong, MdDelete, MdEdit } from "react-icons/md";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import IconButton from "../../../../Components/Buttons/IconButton";
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
@@ -11,7 +11,13 @@ export const CoursesColumns = (openDeleteModal) => {
       Header: "Abbreviation",
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.abbr}</p>),
-      width: 100,
+      width: 50,
+    },
+    {
+      Header: "Season",
+      Cell: (row) =>
+        getColumnValue(row, (item) => <p className="mb-0">{item.season}</p>),
+      width: 50,
     },
     {
       Header: "Name",

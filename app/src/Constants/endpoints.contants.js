@@ -45,6 +45,7 @@ export const Endpoints = {
       getAllNames: "/subjects/getAllNames",
       getAll: "/subjects/getAll",
       edit: "/subjects/get",
+      getAllByCourse: "/subjects/getAllByCourse",
     },
     editSubject: {
       update: "/subjects/update",

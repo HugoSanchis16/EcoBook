@@ -18,7 +18,7 @@ class CourseResource
         $itemsArray = [];
         foreach ($courses as $course) {
 
-            $newItem = self::getCourse($course, ['abbr', 'name', 'guid']);
+            $newItem = self::getCourse($course, ['abbr', 'name', 'guid', 'season']);
 
             $itemsArray[] = $newItem;
         }

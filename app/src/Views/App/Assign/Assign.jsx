@@ -4,28 +4,25 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import { validateData } from "../../../../Config/GeneralFunctions";
-import {
-  Endpoints,
-  getEndpoint,
-} from "../../../../Constants/endpoints.contants";
-import { Paths } from "../../../../Constants/paths.constants";
-import { Views } from "../../../../Constants/views.constants";
-import { StringsContext } from "../../../../Context/strings.context";
-import useNotification from "../../../../Hooks/useNotification";
-import useRequest from "../../../../Hooks/useRequest";
-import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
-import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
-import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import FormSelect from "../../../../Components/Form/FormSelect/FormSelect";
-import FormControl from "../../../../Components/Form/FormControl/FormControl";
-import { EmailRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
-import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
+import { validateData } from "../../../Config/GeneralFunctions";
+import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
+import { Paths } from "../../../Constants/paths.constants";
+import { Views } from "../../../Constants/views.constants";
+import { StringsContext } from "../../../Context/strings.context";
+import useNotification from "../../../Hooks/useNotification";
+import useRequest from "../../../Hooks/useRequest";
+import GeneralLayout from "../../../Layouts/GeneralLayout/GeneralLayout";
+import PanelLayout from "../../../Layouts/PanelLayout/PanelLayout";
+import SectionLayout from "../../../Layouts/SectionLayout/SectionLayout";
+import FormSelect from "../../../Components/Form/FormSelect/FormSelect";
+import FormControl from "../../../Components/Form/FormControl/FormControl";
+import { EmailRegex, PhoneRegexSpain } from "../../../Utils/Regex";
+import FormSwitch from "../../../Components/Form/FormSwitch/FormSwitch";
 
-const NewStudent = () => {
+const Asign = () => {
   const { strings: Strings } = useContext(StringsContext);
   const GeneralStrings = Strings.General.App;
-  const ViewStrings = Strings.Students.NewStudent;
+  const ViewStrings = Strings.Assign.NewAssign;
 
   const request = useRequest();
   const { push } = useHistory();
@@ -120,12 +117,8 @@ const NewStudent = () => {
   };
 
   const checkForm = () => {
-    const { nia, name, surname, phone, email, course } = data;
-    return (
-      validateData([nia, name, surname, phone, email, course]) &&
-      EmailRegex.test(email) &&
-      PhoneRegexSpain.test(phone)
-    );
+    const { nia, course } = data;
+    return validateData([nia, course]);
   };
 
   return (
@@ -144,49 +137,7 @@ const NewStudent = () => {
             onChange={handleInput}
           />
         </SectionLayout>
-        <SectionLayout title="Student's Profile">
-          <FormControl
-            controlId="name"
-            required
-            maxLength={200}
-            showMaxLength={true}
-            vertical={false}
-            title={ViewStrings.inputs.nameInput.title}
-            placeholder={ViewStrings.inputs.nameInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormControl
-            controlId="surname"
-            required
-            maxLength={200}
-            showMaxLength={true}
-            vertical={false}
-            title={ViewStrings.inputs.surnameInput.title}
-            placeholder={ViewStrings.inputs.surnameInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormControl
-            controlId="phone"
-            required
-            maxLength={9}
-            showMaxLength={true}
-            vertical={false}
-            title={ViewStrings.inputs.phoneInput.title}
-            placeholder={ViewStrings.inputs.phoneInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormControl
-            controlId="email"
-            required
-            maxLength={200}
-            showMaxLength={true}
-            vertical={false}
-            title={ViewStrings.inputs.emailInput.title}
-            placeholder={ViewStrings.inputs.emailInput.placeholder}
-            onChange={handleInput}
-          />
-        </SectionLayout>
-        <SectionLayout title="Student's Course">
+        <SectionLayout title="Subjects Assignments">
           <FormSelect
             options={courses}
             controlId="course"
@@ -233,4 +184,4 @@ const NewStudent = () => {
   );
 };
 
-export default NewStudent;
+export default Asign;

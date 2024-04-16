@@ -24,6 +24,7 @@ import EditSubject from "../../Views/App/Subjects/EditSubject/EditSubject";
 import NewSubject from "../../Views/App/Subjects/NewSubject/NewSubject";
 import ProfilePage from "../../Views/App/Profile/Profile";
 import Account from "../../Views/App/Account/Account";
+import Assign from "../../Views/App/Assign/assign";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -41,6 +42,11 @@ export const AuthRoutes = [
 export const AppRoutes = [
   //#region Dashboard
   getRoute(Paths[Views.home].path, Dashboard),
+  //#endregion
+
+  //#region Dashboard
+  getRoute(Paths[Views.assign_book].path, Assign),
+  getRoute(Paths[Views.unassign_book].path, InMaintenance),
   //#endregion
 
   //#region Administration

@@ -16,8 +16,12 @@ export const Views = {
 
   //#region Dashboard
   home: "home",
-
   //#endregion
+
+  //#region Assignment
+  assign_book: "assign_book",
+  unassign_book: "unassign_book",
+  //#administration
 
   //#region administration
   books: "Books",
