@@ -115,19 +115,15 @@ class Course
         createException("Course not found");
     }
 
-    public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
+
+    public static function getAll(PDO $db): array
     {
         $query = "
         SELECT c.*
-        FROM `" . self::$table_name . "` c
-        WHERE deleted IS NULL";
-
-        applySearchOnQuery($query);
-        doPagination($offset, $page, $query);
+        FROM `" . self::$table_name . "` c 
+        WHERE c.deleted IS NULL";
 
         $stmt = $db->prepare($query);
-
-        applySearchOnBindedValue($search, $stmt);
 
         if ($stmt->execute()) {
             $arrayToReturn = [];
@@ -143,8 +139,9 @@ class Course
     {
         $query = "
         SELECT c.*
-        FROM `" . self::$table_name . "` c
-        WHERE deleted IS NULL";
+        FROM `" . self::$table_name . "` c 
+        RIGHT JOIN `subject` s ON c.id = s.course_id
+        WHERE c.deleted IS NULL AND s.deleted IS NULL GROUP BY c.id";
 
         $stmt = $db->prepare($query);
 

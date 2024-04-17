@@ -13,7 +13,7 @@ try {
 
     $db->commit();
 
-    logAPI("Hi" . $resourceUser['email']);
+    I("Hi" . $resourceUser['email']);
 
     Response::sendResponse([
         "status" => true,

@@ -59,7 +59,8 @@ export const Endpoints = {
   },
   Courses: {
     allCourses: {
-      getAllNames: "/courses/getAllNames",
+      getAllNames: "/courses/getAllNamesToAdd",
+      getAllNamesToAssign: "/courses/getAllNamesToAssign",
       getAll: "/courses/getAll",
       edit: "/courses/get",
     },
@@ -103,6 +104,28 @@ export const Endpoints = {
     },
     editPassword: {
       update: "/user/passwordUpdate",
+    },
+  },
+  user: {
+    profile: {
+      get: "/user/getProfile",
+    },
+    account: {
+      get: "/user/getAccount",
+    },
+    editUser: {
+      update: "/user/update",
+    },
+    editEmail: {
+      update: "/user/emailUpdate",
+    },
+    editPassword: {
+      update: "/user/passwordUpdate",
+    },
+  },
+  assign: {
+    create: {
+      assign: "/assign/assign",
     },
   },
 };

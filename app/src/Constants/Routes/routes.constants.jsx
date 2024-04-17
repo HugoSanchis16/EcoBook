@@ -25,6 +25,7 @@ import NewSubject from "../../Views/App/Subjects/NewSubject/NewSubject";
 import ProfilePage from "../../Views/App/Profile/Profile";
 import Account from "../../Views/App/Account/Account";
 import Assign from "../../Views/App/Assign/assign";
+import Unassign from "../../Views/App/Unassign/Unassign";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -46,7 +47,7 @@ export const AppRoutes = [
 
   //#region Dashboard
   getRoute(Paths[Views.assign_book].path, Assign),
-  getRoute(Paths[Views.unassign_book].path, InMaintenance),
+  getRoute(Paths[Views.unassign_book].path, Unassign),
   //#endregion
 
   //#region Administration

@@ -59,45 +59,9 @@ const NewStudent = () => {
       .catch((err) => errorNotification(err.message));
   };
 
-  const handleCleanCourse = () => {
-    setData({
-      ...data,
-      course: null,
-    });
-  };
-
   const handleInput = (e) => {
     const { id, value } = e.target;
     setData({ ...data, [id]: value });
-  };
-
-  const handleSelectedSubjects = (e) => {
-    const { id } = e.target;
-    const dataCopy = { ...data };
-    if (dataCopy.subjects?.includes(id)) {
-      dataCopy.subjects = dataCopy.subjects.filter(
-        (subject_guid) => subject_guid !== id
-      );
-    } else {
-      dataCopy.subjects.push(id);
-    }
-    setData({ ...dataCopy });
-  };
-
-  const handleChangeCourse = (e) => {
-    const { id, value } = e.target;
-    request("get", getEndpoint(Endpoints.Subjects.allSubjects.getAllByCourse), {
-      course: value,
-    })
-      .then((res) => {
-        setSubjects(res.subjects);
-        setData({
-          ...data,
-          course: value,
-          subjects: res.subjects.map((subject) => subject.value),
-        });
-      })
-      .catch(errorNotification);
   };
 
   const handleSubmit = () => {
@@ -114,15 +78,10 @@ const NewStudent = () => {
     } else errorNotification("Check all input fields");
   };
 
-  const handleRepeaterCheckbox = (e) => {
-    const { id, checked } = e.target;
-    setData({ ...data, [id]: checked });
-  };
-
   const checkForm = () => {
-    const { nia, name, surname, phone, email, course } = data;
+    const { nia, name, surname, phone, email } = data;
     return (
-      validateData([nia, name, surname, phone, email, course]) &&
+      validateData([nia, name, surname, phone, email]) &&
       EmailRegex.test(email) &&
       PhoneRegexSpain.test(phone)
     );
@@ -185,43 +144,6 @@ const NewStudent = () => {
             placeholder={ViewStrings.inputs.emailInput.placeholder}
             onChange={handleInput}
           />
-        </SectionLayout>
-        <SectionLayout title="Student's Course">
-          <FormSelect
-            options={courses}
-            controlId="course"
-            vertical={false}
-            title={ViewStrings.inputs.courseInput.title}
-            placeholder={ViewStrings.inputs.courseInput.placeholder}
-            onChange={handleChangeCourse}
-            onClean={handleCleanCourse}
-            required
-          />
-          <FormSwitch
-            controlId="repeater"
-            type="switch"
-            value={data.repeater}
-            disabled={!data.course}
-            vertical={false}
-            title={ViewStrings.inputs.repeatStudentInput.title}
-            onChange={handleRepeaterCheckbox}
-          />
-          {data.repeater && (
-            <Row className="border p-2 rounded mx-0">
-              {subjects.map((subject, idx) => (
-                <Col sm={12}>
-                  <FormSwitch
-                    controlId={subject.value}
-                    value={data.subjects.includes(subject.value)}
-                    type="switch"
-                    vertical={false}
-                    title={subject.label}
-                    onChange={handleSelectedSubjects}
-                  />
-                </Col>
-              ))}
-            </Row>
-          )}
         </SectionLayout>
         <div className="d-flex justify-content-end w-100 align-items-center">
           <Button disabled={!checkForm()} onClick={handleSubmit}>

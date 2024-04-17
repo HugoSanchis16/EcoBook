@@ -154,7 +154,6 @@ class User
         $stmt->bindParam(":email", $email);
 
         if ($stmt->execute()) {
-            logAPI("asd");
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 return self::getMainObject($db, $row);
             }

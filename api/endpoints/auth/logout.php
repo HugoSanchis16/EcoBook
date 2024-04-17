@@ -7,7 +7,6 @@ $db = $database->getConnection();
 try {
     $db->beginTransaction();
     $userid = checkAuth();
-    logAPI($userid);
 
     $session = User::get($db, $userid);
     $session->logout();

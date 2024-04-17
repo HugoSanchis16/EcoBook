@@ -206,6 +206,38 @@ class Copy
         createException($stmt->errorInfo());
     }
 
+    public static function getFirstCopyAvailable(PDO $db, string $subject_guid): Copy|bool
+    {
+        $query = "
+            SELECT c.* 
+            FROM `subject` s
+            INNER JOIN `book` b ON b.subject_id = s.id 
+            INNER JOIN `copy` c ON c.book_id = b.id
+            WHERE s.guid = :subject_guid AND c.id NOT IN (
+                SELECT h.copy_id
+                FROM `history` h
+                INNER JOIN `subject` s ON s.id = h.subject_id
+                INNER JOIN `book` b ON b.subject_id = s.id
+                INNER JOIN `copy` c ON c.book_id = b.id
+                WHERE s.guid = :subject_guid AND finalstate = NULL
+                group BY h.copy_id
+            ) AND c.state > 0
+            LIMIT 0, 1
+        ";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":subject_guid", $subject_guid);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
+            return false;
+        }
+        createException($stmt->errorInfo());
+    }
+
     private static function getMainObject(PDO $db, array $row): Copy
     {
         $newObj = new Copy($db);

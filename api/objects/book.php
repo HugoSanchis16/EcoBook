@@ -84,7 +84,6 @@ class Book
         $stmt->bindValue(":deleted", $this->deleted);
         $stmt->bindParam(":id", $this->id);
         $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
-        logAPI($stmt);
         try {
             $stmt->execute();
             return true;

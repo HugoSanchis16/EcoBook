@@ -9,7 +9,7 @@ class History
     public int $id;
     public string $guid;
     public int $copy_id;
-    public int $course_id;
+    public int $subject_id;
     public int $student_id;
     public int $initialState;
     public int $finalState;
@@ -23,47 +23,25 @@ class History
         $this->conn = $db;
     }
 
-    private function searchableValues(): array
-    {
-        return [
-            array(
-                "from" => $this->course(),
-                "what" => [
-                    'name',
-                    'abbr',
-                ]
-            ),
-            array(
-                "from" => $this->copy(),
-                "what" => [
-                    "book.name",
-                    "book.isbn",
-                ]
-            ),
-        ];
-    }
-
     function store(): int
     {
         $query = "INSERT INTO `" . self::$table_name . "` 
             SET 
             guid=:guid,
             copy_id=:copy_id,
-            course_id=:course_id,
+            subject_id=:subject_id,
             student_id=:student_id,
-            initialstate=:initialstate,
+            initialstate=:initialstate
             ";
 
         $stmt = $this->conn->prepare($query);
 
-
         $this->guid = createGUID();
-        $stmt->bindValue(":guid", $this->guid);
+        $stmt->bindParam(":guid", $this->guid);
         $stmt->bindParam(":copy_id", $this->copy_id);
-        $stmt->bindParam(":course_id", $this->course_id);
+        $stmt->bindParam(":subject_id", $this->subject_id);
         $stmt->bindParam(":student_id", $this->student_id);
         $stmt->bindParam(":initialstate", $this->initialState);
-        $stmt->bindParam(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
             $stmt->execute();
@@ -102,7 +80,7 @@ class History
 
     function course(): Course
     {
-        return Course::get($this->conn, $this->course_id);
+        return Course::get($this->conn, $this->subject_id);
     }
 
     function student(): Student|null
@@ -140,7 +118,27 @@ class History
             }
             return false;
         }
-        createException("Invalid credentials");
+        createException($stmt->errorInfo());
+    }
+
+    public static function checkIfStudentHaveSubjectAssigned(PDO $db, int $subject_id, int $student_id): bool
+    {
+        $query = "SELECT id
+        FROM `history`
+        WHERE subject_id = :subject_id AND student_id = :student_id  AND finalstate = null";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":subject_id", $subject_id);
+        $stmt->bindParam(":student_id", $student_id);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return true;
+            }
+            return false;
+        }
+        createException($stmt->errorInfo());
     }
 
     private static function getMainObject(PDO $db, array $row): History
@@ -149,7 +147,7 @@ class History
         $newObj->id = intval($row['id']);
         $newObj->guid = $row['guid'];
         $newObj->copy_id = intval($row['copy_id']);
-        $newObj->course_id = intval($row['course_id']);
+        $newObj->subject_id = intval($row['subject_id']);
         $newObj->initialState = $row['initialstate'];
         $newObj->finalState = $row['finalstate'];
         $newObj->initialDate = $row['initialdate'];

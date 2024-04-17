@@ -24,6 +24,7 @@ include_once $document_root . '/objects/studentsubjectcourse.php';
 include_once $document_root . '/objects/user.php';
 include_once $document_root . '/objects/userprofile.php';
 include_once $document_root . '/objects/student.php';
+include_once $document_root . '/objects/history.php';
 include_once $document_root . '/objects/studentprofile.php';
 include_once $document_root . '/objects/_media.php';
 

@@ -21,7 +21,6 @@ try {
 
     $subjects = Subject::getAll($db, $input->page, $input->offset, $input->search);
 
-    logAPI($subjects);
 
     $subjectsCount = Subject::getAllCount($db, $input->search);
 

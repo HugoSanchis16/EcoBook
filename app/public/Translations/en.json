@@ -114,6 +114,7 @@
   "Assign": {
     "NewAssign": {
       "title": "Assign",
+      "addCourse": "+ Add Course",
       "inputs": {
         "niaInput": {
           "title": "Nia:",
@@ -124,6 +125,31 @@
         },
         "repeatStudentInput": {
           "title": "Repeater:"
+        }
+      },
+      "Users": {
+        "title": "Users",
+        "viewMore": "View %items.amount% more..."
+      },
+      "Players": {
+        "title": "Players",
+        "viewMore": "View %items.amount% more..."
+      }
+    }
+  },
+  "Unassign": {
+    "NewUnassign": {
+      "title": "Unassign",
+      "inputs": {
+        "niaInput": {
+          "title": "Nia:",
+          "placeholder": "Type Student Nia..."
+        },
+        "courseInput": {
+          "title": "Course:"
+        },
+        "repeatStudentInput": {
+          "title": "The student is going to repeat?"
         }
       },
       "Users": {

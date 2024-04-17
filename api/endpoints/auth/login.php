@@ -6,7 +6,6 @@ $database = new Database();
 $db = $database->getConnection();
 
 $data = postInput();
-logAPI($data);
 try {
     $db->beginTransaction();
     checkAuth(false);

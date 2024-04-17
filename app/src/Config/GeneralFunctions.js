@@ -52,12 +52,10 @@ export const replaceBreadcrumbTitle = (path, title) => {
 };
 
 export const validateData = (params) => {
-  let valid = false;
-
-  params.map((item) => {
-    if (Array.isArray(item)) valid += item.length;
-    else valid = !!item;
-  });
-
-  return valid;
+  for (let i = 0; i < params.length; i++) {
+    const item = params[i];
+    if (Array.isArray(item) && item.length === 0) return false;
+    else if (!item) return false;
+  }
+  return true;
 };

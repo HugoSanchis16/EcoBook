@@ -134,7 +134,6 @@ if (!function_exists('createException')) {
         $error = new CustomException();
 
         $msg = $message["message"] ?? $message;
-        logAPI($message);
         $error->setMessage(json_encode($msg), $code);
         throw $error;
     }
