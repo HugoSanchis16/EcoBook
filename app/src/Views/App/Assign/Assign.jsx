@@ -1,10 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import {
-  Link,
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { validateData } from "../../../Config/GeneralFunctions";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import { Paths } from "../../../Constants/paths.constants";
@@ -23,10 +19,8 @@ const Asign = () => {
   const ViewStrings = Strings.Assign.NewAssign;
 
   const request = useRequest();
-  const { push } = useHistory();
 
-  const { book_guid } = useParams();
-
+  const { showNotification: successNotification } = useNotification("success");
   const { showNotification: errorNotification } = useNotification();
 
   const [data, setData] = useState({ repeater: false });
@@ -54,21 +48,23 @@ const Asign = () => {
         ...data,
       })
         .then(() => {
-          push(Paths[Views.students].path);
+          successNotification(ViewStrings.messages.Assigndone);
+          setData({ repeater: false });
         })
         .catch((err) => errorNotification(err.message));
     } else errorNotification("Check all input fields");
   };
 
   const checkForm = () => {
+    if (!data) {
+      return false;
+    }
     const { nia, course } = data;
-
-    console.log({ data });
     return validateData([nia, course]);
   };
 
   return (
-    <GeneralLayout showBackButton title={ViewStrings.title}>
+    <GeneralLayout title={ViewStrings.title}>
       <PanelLayout>
         {courses.length > 0 ? (
           <>

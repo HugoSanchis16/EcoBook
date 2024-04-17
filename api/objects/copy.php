@@ -219,7 +219,7 @@ class Copy
                 INNER JOIN `subject` s ON s.id = h.subject_id
                 INNER JOIN `book` b ON b.subject_id = s.id
                 INNER JOIN `copy` c ON c.book_id = b.id
-                WHERE s.guid = :subject_guid AND finalstate = NULL
+                WHERE s.guid = :subject_guid AND finalstate IS NULL
                 group BY h.copy_id
             ) AND c.state > 0
             LIMIT 0, 1
@@ -234,6 +234,29 @@ class Copy
                 return self::getMainObject($db, $row);
             }
             return false;
+        }
+        createException($stmt->errorInfo());
+    }
+
+    public static function getCopiesByUserId(PDO $db, string $id): array
+    {
+        $query = "
+        SELECT c.*
+        FROM `history` h 
+        INNER JOIN `copy` c ON c.id = h.copy_id
+        WHERE h.student_id = :id;
+        ";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
         }
         createException($stmt->errorInfo());
     }

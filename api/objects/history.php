@@ -125,7 +125,7 @@ class History
     {
         $query = "SELECT id
         FROM `history`
-        WHERE subject_id = :subject_id AND student_id = :student_id  AND finalstate = null";
+        WHERE subject_id = :subject_id AND student_id = :student_id  AND finalstate IS null";
 
         $stmt = $db->prepare($query);
 

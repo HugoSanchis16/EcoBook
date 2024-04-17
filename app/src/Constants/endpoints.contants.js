@@ -128,6 +128,11 @@ export const Endpoints = {
       assign: "/assign/assign",
     },
   },
+  unassign: {
+    search: {
+      student: "/unassign/searchStudent",
+    },
+  },
 };
 
 export const getEndpoint = (path, params = null, isCustom = false) => {

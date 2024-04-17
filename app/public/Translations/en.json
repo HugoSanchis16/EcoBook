@@ -4,6 +4,7 @@
       "Yes": "Yes",
       "No": "No",
       "Create": "Create",
+      "Next": "Next",
       "Update": "Update",
       "Delete": "Delete",
       "Cancel": "Cancel",
@@ -124,42 +125,35 @@
           "title": "Course:"
         },
         "repeatStudentInput": {
-          "title": "Repeater:"
+          "title": "Specific subjects?"
         }
       },
-      "Users": {
-        "title": "Users",
-        "viewMore": "View %items.amount% more..."
-      },
-      "Players": {
-        "title": "Players",
-        "viewMore": "View %items.amount% more..."
+      "messages": {
+        "Assigndone": "The assignment of the book has been correct"
       }
     }
   },
   "Unassign": {
-    "NewUnassign": {
-      "title": "Unassign",
-      "inputs": {
-        "niaInput": {
-          "title": "Nia:",
-          "placeholder": "Type Student Nia..."
-        },
-        "courseInput": {
-          "title": "Course:"
-        },
-        "repeatStudentInput": {
-          "title": "The student is going to repeat?"
-        }
+    "title": "Unassign",
+    "inputs": {
+      "niaInput": {
+        "title": "Nia:",
+        "placeholder": "Type Student Nia..."
       },
-      "Users": {
-        "title": "Users",
-        "viewMore": "View %items.amount% more..."
+      "courseInput": {
+        "title": "Course:"
       },
-      "Players": {
-        "title": "Players",
-        "viewMore": "View %items.amount% more..."
+      "repeatStudentInput": {
+        "title": "The student is going to repeat?"
       }
+    },
+    "Users": {
+      "title": "Users",
+      "viewMore": "View %items.amount% more..."
+    },
+    "Players": {
+      "title": "Players",
+      "viewMore": "View %items.amount% more..."
     }
   },
   "Home": {

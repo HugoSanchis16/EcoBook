@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FormControl as BFormControl,
   Col,
@@ -23,6 +23,10 @@ const FormControl = ({
 }) => {
   const [currentValue, setCurrentValue] = useState(value || "");
 
+  useEffect(() => {
+    setCurrentValue(value);
+  }, [value]);
+
   const lengthClassName = classNames(
     "d-flex text-muted justify-content-end align-items-center me-2 fw-bold",
     {
@@ -34,7 +38,7 @@ const FormControl = ({
   const handleValue = (e) => {
     const { value } = e.target;
     if (maxLength !== undefined && value.length <= maxLength) {
-      setCurrentValue(value);
+      // setCurrentValue(value);
       onChange(e);
     }
   };

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FormSelect as BFormSelect,
   Col,
@@ -26,9 +26,11 @@ const FormSelect = ({
 }) => {
   const [currentValue, setCurrentValue] = useState("");
 
+  useEffect(() => {
+    setCurrentValue(value || "default");
+  }, [value]);
+
   const handleValue = (e) => {
-    const { value } = e.target;
-    setCurrentValue(value);
     onChange(e);
   };
 

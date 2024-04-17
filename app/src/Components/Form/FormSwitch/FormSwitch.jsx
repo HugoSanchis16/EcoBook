@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FormCheck as BFormCheck,
   Col,
@@ -21,13 +21,12 @@ const FormSwitch = ({
 }) => {
   const [currentValue, setCurrentValue] = useState(value || "");
 
-  const lengthClassName = classNames(
-    "d-flex text-muted justify-content-end align-items-center me-2 fw-bold"
-  );
+  useEffect(() => {
+    setCurrentValue(value);
+  }, [value]);
 
   const handleValue = (e) => {
     const { checked } = e.target;
-    setCurrentValue(checked);
     onChange(e);
   };
 

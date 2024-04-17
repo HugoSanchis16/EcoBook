@@ -63,6 +63,7 @@ const AssignmentSection = ({ data, setData, courses }) => {
       <FormSelect
         options={courses}
         controlId="course"
+        value={data.course}
         vertical={false}
         title={ViewStrings.inputs.courseInput.title}
         placeholder={ViewStrings.inputs.courseInput.placeholder}
