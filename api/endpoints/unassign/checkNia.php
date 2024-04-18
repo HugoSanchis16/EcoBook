@@ -5,7 +5,7 @@ include_once '../../config/config.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$data = getInput();
+$data = postInput();
 try {
 
     $db->beginTransaction();
@@ -17,22 +17,15 @@ try {
 
     //check if user exist
     $student = Student::getByNia($db, $input->nia);
-    if ($student) {
-        $copies = Copy::getCopiesByUserId($db, $student->id);
-
-        foreach ($copies as $copy) {
-            $book = Book::get($db, $copy->book_id);
-            $copy->book_name = $book->name;
-        }
-    } else {
+    if (!$student) {
         createException("Nia not exist", 409);
+    } else {
+        $studentFormat = StudentResource::getStudentWithProfile($student);
     }
-
-    $copiesFormat = CopyResource::getAssignCopiesArray($copies);
 
     $db->commit();
     Response::sendResponse([
-        "data" => $copiesFormat
+        "data" => $studentFormat
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

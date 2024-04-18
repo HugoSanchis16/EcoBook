@@ -130,7 +130,8 @@ export const Endpoints = {
   },
   unassign: {
     search: {
-      student: "/unassign/searchStudent",
+      student: "/unassign/checkNia",
+      copies: "/unassign/searchStudent",
     },
   },
 };

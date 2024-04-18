@@ -147,13 +147,8 @@
         "title": "The student is going to repeat?"
       }
     },
-    "Users": {
-      "title": "Users",
-      "viewMore": "View %items.amount% more..."
-    },
-    "Players": {
-      "title": "Players",
-      "viewMore": "View %items.amount% more..."
+    "step2": {
+      "title": "User"
     }
   },
   "Home": {

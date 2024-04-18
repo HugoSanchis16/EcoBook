@@ -1,0 +1,65 @@
+import {
+  FaFaceDizzy,
+  FaFaceFrown,
+  FaFaceMeh,
+  FaFaceSmile,
+  FaFaceLaughBeam,
+} from "react-icons/fa6";
+import IconButton from "../../../../Components/Buttons/IconButton";
+
+const StateByFacesComponent = ({ data, setData }) => {
+  console.log(data);
+  const handleState = (state) => {
+    setData({ ...data, state });
+  };
+
+  return (
+    <>
+      <div className>
+        <h5 className="m-1">State</h5>
+        <div className="border border-gray rounded-3 ">
+          <div className="d-flex justify-content-around bg-light p-2">
+            <div>
+              <IconButton
+                active={data.state === 0}
+                size={40}
+                Icon={FaFaceDizzy}
+                onClick={() => handleState(0)}
+              />
+            </div>
+            <div>
+              <IconButton
+                size={40}
+                Icon={FaFaceFrown}
+                onClick={() => handleState(1)}
+              />
+            </div>
+            <div>
+              <IconButton
+                size={40}
+                Icon={FaFaceMeh}
+                onClick={() => handleState(2)}
+              />
+            </div>
+            <div>
+              <IconButton
+                size={40}
+                Icon={FaFaceSmile}
+                onClick={() => handleState(3)}
+              />
+            </div>
+            <div>
+              <IconButton
+                size={40}
+                Icon={FaFaceLaughBeam}
+                onClick={() => handleState(4)}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default StateByFacesComponent;

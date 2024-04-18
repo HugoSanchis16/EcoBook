@@ -23,4 +23,14 @@ class CopyResource
         }
         return $itemsArray;
     }
+    public static function getAssignCopiesArray(array $copies): array
+    {
+        $itemsArray = [];
+        foreach ($copies as $copy) {
+            $newItem = self::getCopy($copy, ["guid", "uniqid", "state", "book_name"]);
+
+            $itemsArray[] = $newItem;
+        }
+        return $itemsArray;
+    }
 }
