@@ -36,7 +36,7 @@ try {
             $newHistory->copy_id = $copy->id;
             $newHistory->subject_id = $subject->id;
             $newHistory->student_id = $student->id;
-            $newHistory->initialState = $copy->state;
+            $newHistory->initialstate = $copy->state;
             $newHistory->store();
         } else createException("Some subjects have not enough copies available");
     }

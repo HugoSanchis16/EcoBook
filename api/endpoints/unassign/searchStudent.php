@@ -17,22 +17,20 @@ try {
 
     //check if user exist
     $student = Student::getByNia($db, $input->nia);
-    if ($student) {
-        $copies = Copy::getCopiesByUserId($db, $student->id);
 
-        foreach ($copies as $copy) {
-            $book = Book::get($db, $copy->book_id);
-            $copy->book_name = $book->name;
-        }
+    $studentHistoryResource = [];
+    if ($student) {
+
+        $studentHistory = History::getCopiesByUserId($db, $student->id);
+
+        $studentHistoryResource = HistoryResource::getHistoryArray($studentHistory);
     } else {
         createException("Nia not exist", 409);
     }
 
-    $copiesFormat = CopyResource::getAssignCopiesArray($copies);
-
     $db->commit();
     Response::sendResponse([
-        "data" => $copiesFormat
+        "data" => $studentHistoryResource
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

@@ -4,7 +4,6 @@ import IconButton from "../../../../Components/Buttons/IconButton";
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
 import { Paths, replacePaths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
-import { LuBookPlus } from "react-icons/lu";
 
 export const StudentsColumns = (openDeleteModal) => {
   const columns = [
@@ -28,7 +27,7 @@ export const StudentsColumns = (openDeleteModal) => {
     },
     {
       Header: "Actions",
-      width: 10,
+      width: 100,
       Cell: (row) =>
         getColumnValue(row, (item) => (
           <div className="d-flex align-items-center ">

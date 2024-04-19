@@ -133,6 +133,9 @@ export const Endpoints = {
       student: "/unassign/checkNia",
       copies: "/unassign/searchStudent",
     },
+    unassign: {
+      copies: "/unassign/unassign",
+    },
   },
 };
 

@@ -94,6 +94,7 @@ const NewBook = () => {
             maxLength={50}
             showMaxLength
             vertical={false}
+            value={data.name}
             title={ViewStrings.inputs.nameInput.title}
             placeholder={ViewStrings.inputs.nameInput.placeholder}
             onChange={handleInput}
@@ -104,6 +105,7 @@ const NewBook = () => {
             maxLength={13}
             showMaxLength
             vertical={false}
+            value={data.isbn}
             title={ViewStrings.inputs.isbnInput.title}
             placeholder={ViewStrings.inputs.isbnInput.placeholder}
             onChange={handleInput}
@@ -125,6 +127,7 @@ const NewBook = () => {
             maxLength={200}
             showMaxLength={false}
             vertical={false}
+            value={data.stock}
             title={ViewStrings.inputs.stockInput.title}
             placeholder={ViewStrings.inputs.stockInput.placeholder}
             onChange={handleInput}

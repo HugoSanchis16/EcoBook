@@ -13,8 +13,6 @@ try {
 
     $db->commit();
 
-    I("Hi" . $resourceUser['email']);
-
     Response::sendResponse([
         "status" => true,
         "data" => $resourceUser

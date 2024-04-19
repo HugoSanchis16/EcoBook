@@ -110,6 +110,7 @@ const NewStudent = () => {
             maxLength={200}
             showMaxLength={true}
             vertical={false}
+            value={data.name}
             title={ViewStrings.inputs.nameInput.title}
             placeholder={ViewStrings.inputs.nameInput.placeholder}
             onChange={handleInput}
@@ -120,6 +121,7 @@ const NewStudent = () => {
             maxLength={200}
             showMaxLength={true}
             vertical={false}
+            value={data.surname}
             title={ViewStrings.inputs.surnameInput.title}
             placeholder={ViewStrings.inputs.surnameInput.placeholder}
             onChange={handleInput}
@@ -130,6 +132,7 @@ const NewStudent = () => {
             maxLength={9}
             showMaxLength={true}
             vertical={false}
+            value={data.phone}
             title={ViewStrings.inputs.phoneInput.title}
             placeholder={ViewStrings.inputs.phoneInput.placeholder}
             onChange={handleInput}
@@ -140,6 +143,7 @@ const NewStudent = () => {
             maxLength={200}
             showMaxLength={true}
             vertical={false}
+            value={data.email}
             title={ViewStrings.inputs.emailInput.title}
             placeholder={ViewStrings.inputs.emailInput.placeholder}
             onChange={handleInput}

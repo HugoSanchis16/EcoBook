@@ -8,7 +8,7 @@ const Observationscomponent = ({ data, setData }) => {
 
   return (
     <div>
-      <h5 className="mt-lg-4 ">Observations</h5>
+      <h5 className="mt-3 ">Observations</h5>
       <div className="d-flex justify-content-center">
         <FormControl
           as="textarea"

@@ -28,9 +28,11 @@ const Unassign = () => {
     <GeneralLayout
       title={ViewStrings.title}
       rightSection={
-        <h4>
-          {data.name} {data.surnames}
-        </h4>
+        data.name && (
+          <h4>
+            Student: {data.name} {data.surnames}
+          </h4>
+        )
       }
     >
       <PanelLayout>{renderContent()}</PanelLayout>

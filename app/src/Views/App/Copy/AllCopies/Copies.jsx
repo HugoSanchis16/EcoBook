@@ -21,10 +21,9 @@ import useQuery from "../../../../Hooks/useQuery";
 import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
-import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
 import { CopiesColumns } from "./CopiesColumns";
-import DeleteStudentModal from "../../../../Modals/Students/DeleteStudentsModal/DeleteStudentModal";
+import ShowBarcodeModal from "../../../../Modals/BarcodeCopies/ShowBarcodeModal/ShowBarcodeModal";
 
 const Copies = () => {
   const { strings } = useContext(StringsContext);
@@ -36,10 +35,10 @@ const Copies = () => {
   const { book_guid } = useParams();
 
   const {
-    closeModal: closeDeleteModal,
-    openModal: openDeleteModal,
-    show: showDeleteModal,
-    data: deleteStudentData,
+    closeModal: closeBarcodeModal,
+    openModal: openBarcodeModal,
+    show: showBarcodeModal,
+    data: BarcodeStudentData,
   } = useModalManager();
 
   const { search } = useLocation();
@@ -97,7 +96,7 @@ const Copies = () => {
     successNotification("Status updated successfully!");
   };
 
-  const handleCloseDeleteBook = (refresh) => {
+  const handleCloseBarcodeModal = (refresh) => {
     if (refresh) fetchData();
     closeDeleteModal();
   };
@@ -105,10 +104,10 @@ const Copies = () => {
   return (
     <>
       {/* Modals */}
-      <DeleteStudentModal
-        show={showDeleteModal}
-        onClose={handleCloseDeleteBook}
-        data={deleteStudentData}
+      <ShowBarcodeModal
+        show={showBarcodeModal}
+        onClose={handleCloseBarcodeModal}
+        uniqid={BarcodeStudentData.uniqid}
       />
 
       {/* Content */}

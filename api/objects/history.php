@@ -11,10 +11,10 @@ class History
     public int $copy_id;
     public int $subject_id;
     public int $student_id;
-    public int $initialState;
-    public int $finalState;
-    public string $initialDate;
-    public string|null $finalDate;
+    public int $initialstate;
+    public int|null $finalstate;
+    public string $initialdate;
+    public string|null $finaldate;
     public string|null $observations;
     public string|null $updated;
 
@@ -41,7 +41,7 @@ class History
         $stmt->bindParam(":copy_id", $this->copy_id);
         $stmt->bindParam(":subject_id", $this->subject_id);
         $stmt->bindParam(":student_id", $this->student_id);
-        $stmt->bindParam(":initialstate", $this->initialState);
+        $stmt->bindParam(":initialstate", $this->initialstate);
 
         try {
             $stmt->execute();
@@ -59,8 +59,8 @@ class History
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":finalstate", $this->finalState);
-        $stmt->bindParam(":finaldate", $this->finalDate);
+        $stmt->bindParam(":finalstate", $this->finalstate);
+        $stmt->bindParam(":finaldate", $this->finaldate);
         $stmt->bindParam(":observations", $this->observations);
         $stmt->bindParam(":updated", $this->updated);
         $stmt->bindParam(":id", $this->id);
@@ -121,6 +121,46 @@ class History
         createException($stmt->errorInfo());
     }
 
+    public static function getByGuid(PDO $db, string $guid): History|bool
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE guid=:guid";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":guid", $guid);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
+            return false;
+        }
+        createException($stmt->errorInfo());
+    }
+
+    public static function getCopiesByUserId(PDO $db, string $id): array
+    {
+        $query = "
+        SELECT h.*
+        FROM `" . self::$table_name . "` h 
+        INNER JOIN `copy` c ON c.id = h.copy_id
+        WHERE h.student_id = :id AND h.finaldate IS NULL;
+        ";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
     public static function checkIfStudentHaveSubjectAssigned(PDO $db, int $subject_id, int $student_id): bool
     {
         $query = "SELECT id
@@ -148,10 +188,10 @@ class History
         $newObj->guid = $row['guid'];
         $newObj->copy_id = intval($row['copy_id']);
         $newObj->subject_id = intval($row['subject_id']);
-        $newObj->initialState = $row['initialstate'];
-        $newObj->finalState = $row['finalstate'];
-        $newObj->initialDate = $row['initialdate'];
-        $newObj->finalDate = $row['finaldate'];
+        $newObj->initialstate = $row['initialstate'];
+        $newObj->finalstate = $row['finalstate'];
+        $newObj->initialdate = $row['initialdate'];
+        $newObj->finaldate = $row['finaldate'];
         $newObj->observations = $row['observations'];
         $newObj->updated = $row['updated'];
         return $newObj;

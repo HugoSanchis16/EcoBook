@@ -8,7 +8,7 @@ $db = $database->getConnection();
 $data = postInput();
 try {
     $db->beginTransaction();
-    checkAuth(false);
+    checkAuth();
 
     $input = validate($data, [
         'id' => 'required|numeric',

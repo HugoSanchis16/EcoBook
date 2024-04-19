@@ -1,8 +1,10 @@
 // En el componente donde defines `StateDropdown`:
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
 import StateDropdown from "../../../../Components/StateDropdown/StateDropdown";
+import IconButton from "../../../../Components/Buttons/IconButton";
+import { IoIosBarcode } from "react-icons/io";
 
-export const CopiesColumns = (updateState) => {
+export const CopiesColumns = ({ updateState, openModal }) => {
   const columns = [
     {
       Header: "Codigo",
@@ -29,7 +31,12 @@ export const CopiesColumns = (updateState) => {
       Header: "Action",
       Cell: (row) =>
         getColumnValue(row, (item) => (
-          <p className="mb-0">{item.fullname || "---"}</p>
+          <div className="d-flex align-items-center ">
+            <IconButton
+              Icon={IoIosBarcode}
+              onClick={() => openModal(item.uniqid)}
+            />
+          </div>
         )),
       width: 100,
     },

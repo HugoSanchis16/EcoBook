@@ -4,11 +4,11 @@ import {
   FaFaceMeh,
   FaFaceSmile,
   FaFaceLaughBeam,
+  FaFaceGrinStars,
 } from "react-icons/fa6";
 import IconButton from "../../../../Components/Buttons/IconButton";
 
 const StateByFacesComponent = ({ data, setData }) => {
-  console.log(data);
   const handleState = (state) => {
     setData({ ...data, state });
   };
@@ -29,6 +29,7 @@ const StateByFacesComponent = ({ data, setData }) => {
             </div>
             <div>
               <IconButton
+                active={data.state === 1}
                 size={40}
                 Icon={FaFaceFrown}
                 onClick={() => handleState(1)}
@@ -36,6 +37,7 @@ const StateByFacesComponent = ({ data, setData }) => {
             </div>
             <div>
               <IconButton
+                active={data.state === 2}
                 size={40}
                 Icon={FaFaceMeh}
                 onClick={() => handleState(2)}
@@ -43,6 +45,7 @@ const StateByFacesComponent = ({ data, setData }) => {
             </div>
             <div>
               <IconButton
+                active={data.state === 3}
                 size={40}
                 Icon={FaFaceSmile}
                 onClick={() => handleState(3)}
@@ -50,8 +53,9 @@ const StateByFacesComponent = ({ data, setData }) => {
             </div>
             <div>
               <IconButton
+                active={data.state === 4}
                 size={40}
-                Icon={FaFaceLaughBeam}
+                Icon={FaFaceGrinStars}
                 onClick={() => handleState(4)}
               />
             </div>

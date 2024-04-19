@@ -7,6 +7,7 @@ import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 import BarcodeComponent from "./Components/BarcodeComponent";
 import StateByFacesComponent from "./Components/StateByFacesComponent";
 import Observationscomponent from "./Components/ObservationsComponent";
+import { validateData } from "../../../Config/GeneralFunctions";
 
 const UnassignCopyModal = ({ show, onClose, data }) => {
   const request = useRequest();
@@ -21,21 +22,28 @@ const UnassignCopyModal = ({ show, onClose, data }) => {
   }, [data]);
 
   const handleSubmit = () => {
-    request("post", getEndpoint(Endpoints.Books.deleteBook.delete), {
-      guid: data,
-    })
-      .then((res) => {
-        successNotification("Book deleted successfully!");
-        onClose(true);
+    if (checkData()) {
+      request("post", getEndpoint(Endpoints.unassign.unassign.copies), {
+        guid: data.guid,
+        ...localData,
       })
-      .catch((err) => errorNotification(err.message));
+        .then((res) => {
+          successNotification("Book deleted successfully!");
+          onClose(true);
+        })
+        .catch((err) => errorNotification(err.message));
+    }
   };
 
   const hideModal = () => {
     onClose();
   };
 
-  console.log(localData);
+  const checkData = () => {
+    const { uniqid, state } = localData;
+    return validateData([uniqid, state]);
+  };
+
   return (
     <ModalLayout
       show={show}
@@ -44,7 +52,7 @@ const UnassignCopyModal = ({ show, onClose, data }) => {
       header={true}
       customHeader={
         <div className="d-flex align-items-center justify-content-between w-100">
-          <Modal.Title className="ms-2">Comfirm de Action</Modal.Title>
+          <Modal.Title className="ms-2">{localData.book_name}</Modal.Title>
         </div>
       }
       footer={
@@ -52,7 +60,12 @@ const UnassignCopyModal = ({ show, onClose, data }) => {
           <Button variant="light" size="lm" onClick={hideModal}>
             Cancel
           </Button>
-          <Button onClick={handleSubmit} variant="danger" size="lm">
+          <Button
+            onClick={handleSubmit}
+            disabled={!checkData()}
+            variant="danger"
+            size="lm"
+          >
             Confirm
           </Button>
         </div>

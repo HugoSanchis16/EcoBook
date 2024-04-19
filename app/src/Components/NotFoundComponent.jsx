@@ -11,6 +11,7 @@ const NotFoundComponent = ({
   description,
   to,
   size = 5,
+  onClick,
   buttonText,
   subDescription,
 }) => {
@@ -106,8 +107,8 @@ const NotFoundComponent = ({
       <div className="mb-2 d-flex flex-column justify-content-center align-items-center">
         {description && <p className="mb-1 text-center">{description}</p>}
         {subDescription && <p className="mb-5 text-center">{subDescription}</p>}
-        {buttonText && to && (
-          <Button size="sm" as={Link} to={to}>
+        {buttonText && (
+          <Button size="sm" as={Link} to={to} onClick={onClick}>
             {buttonText}
           </Button>
         )}

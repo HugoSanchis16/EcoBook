@@ -1,35 +1,29 @@
-import { useContext, useEffect, useState } from "react";
-import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom/cjs/react-router-dom.min";
-import ReactTable from "../../../../Components/Table/Table";
-import { Configuration } from "../../../../Config/app.config";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Form, FormControl, ListGroup, ListGroupItem } from "react-bootstrap";
 import {
   Endpoints,
   getEndpoint,
 } from "../../../../Constants/endpoints.contants";
-import { Paths } from "../../../../Constants/paths.constants";
-import { Views } from "../../../../Constants/views.constants";
+
 import { StringsContext } from "../../../../Context/strings.context";
 import useLoaded from "../../../../Hooks/useLoaded";
 import useNotification from "../../../../Hooks/useNotification";
-import useQuery from "../../../../Hooks/useQuery";
 import useRequest from "../../../../Hooks/useRequest";
-import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
-import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import useModalManager from "../../../../Hooks/useModalManager";
-import { StudentsColumns } from "../../Students/AllStudents/StudentsColumns";
-import DeleteStudentModal from "../../../../Modals/Students/DeleteStudentsModal/DeleteStudentModal";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
 import CopyItem from "./CopyItem";
-import IconButton from "../../../../Components/Buttons/IconButton";
-import { BsUpcScan } from "react-icons/bs";
 import UnassignCopyModal from "../../../../Modals/Unassign/UnassignCopyModal.jsx/UnassignCopyModal";
+import NotFoundComponent from "../../../../Components/NotFoundComponent";
+import IconButton from "../../../../Components/Buttons/IconButton";
+import { MdBarcodeReader, MdScanner } from "react-icons/md";
 
-const CopyList = ({ data, setData }) => {
+const CopyList = ({ data, setData, setStep }) => {
   const { strings } = useContext(StringsContext);
   const ViewStrings = strings.Unassign.step2;
 
   const request = useRequest();
+
+  const scanRef = useRef();
 
   const {
     closeModal: closeUnassignModal,
@@ -41,6 +35,8 @@ const CopyList = ({ data, setData }) => {
   const { showNotification: errorNotification } = useNotification();
 
   const { startFetching, finishFetching, fetching, loaded } = useLoaded();
+
+  const [isScanFocus, setIsScanFocus] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -63,6 +59,35 @@ const CopyList = ({ data, setData }) => {
     closeUnassignModal();
   };
 
+  const handleFocusScan = () => {
+    setIsScanFocus(true);
+    scanRef.current.focus();
+  };
+
+  const handleCopyCode = (e) => {
+    e && e.preventDefault();
+    const {
+      target: { value },
+      keyCode,
+    } = e;
+    if (keyCode === 13) {
+      const item = data.copies?.find((copy) => copy.uniqid === value);
+      if (item) handleOpenModal(item);
+      else errorNotification("Book not found");
+      clearScanFocus();
+    }
+  };
+
+  const clearScanFocus = () => {
+    scanRef.current.value = "";
+    scanRef.current.blur();
+    setIsScanFocus(false);
+  };
+
+  const handleOpenModal = ({ uniqid, guid, book_name }) => {
+    openUnassignModal({ uniqid, guid, book_name });
+  };
+
   return (
     <>
       {/* Modals */}
@@ -72,19 +97,49 @@ const CopyList = ({ data, setData }) => {
         data={UnassignDataModal}
       />
 
-      <SectionLayout title="Books pending return" loaded={loaded}>
-        <ListGroup>
-          {data.copies?.map((item, idx) => (
-            <ListGroupItem key={idx}>
-              <CopyItem
-                item={item}
-                openUnassignModal={() =>
-                  openUnassignModal({ uniqid: item.uniqid, nia: data.nia })
-                }
-              />
-            </ListGroupItem>
-          ))}
-        </ListGroup>
+      <div className="position-absolute" style={{ zIndex: -10 }}>
+        <FormControl
+          onBlur={clearScanFocus}
+          name="scan_code"
+          ref={scanRef}
+          onKeyUp={handleCopyCode}
+        />
+      </div>
+
+      <SectionLayout
+        rightSection={
+          <IconButton
+            Icon={MdBarcodeReader}
+            title={isScanFocus ? "Scanning..." : "Scan"}
+            onClick={handleFocusScan}
+          />
+        }
+        title="Books pending return"
+        loaded={loaded}
+      >
+        {data.copies?.length > 0 ? (
+          <ListGroup>
+            {data.copies?.map((item, idx) => (
+              <ListGroupItem key={idx}>
+                <CopyItem
+                  item={item}
+                  openUnassignModal={() => handleOpenModal(item)}
+                />
+              </ListGroupItem>
+            ))}
+          </ListGroup>
+        ) : (
+          <NotFoundComponent
+            buttonText="Next Student"
+            description="This student has all the books delivered."
+            text="Nothing to return"
+            onClick={() => {
+              setStep(1), setData("");
+            }}
+            subDescription="Click the folllowing button to unassign books to another student."
+            size={1.5}
+          />
+        )}
       </SectionLayout>
     </>
   );

@@ -63,6 +63,7 @@ const NewCourse = () => {
             maxLength={50}
             showMaxLength={true}
             vertical={false}
+            value={data.abbr}
             title={ViewStrings.inputs.abbrInput.title}
             placeholder={ViewStrings.inputs.abbrInput.placeholder}
             onChange={handleInput}
@@ -73,6 +74,7 @@ const NewCourse = () => {
             maxLength={250}
             showMaxLength={true}
             vertical={false}
+            value={data.name}
             title={ViewStrings.inputs.nameInput.title}
             placeholder={ViewStrings.inputs.nameInput.placeholder}
             onChange={handleInput}
@@ -83,6 +85,7 @@ const NewCourse = () => {
             maxLength={50}
             showMaxLength={true}
             vertical={false}
+            value={data.season}
             title={ViewStrings.inputs.seasonInput.title}
             placeholder={ViewStrings.inputs.seasonInput.placeholder}
             onChange={handleInput}

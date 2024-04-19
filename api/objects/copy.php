@@ -15,7 +15,7 @@ class Copy
     public function __construct(PDO $db)
     {
         $this->conn = $db;
-        $this->state = 5;
+        $this->state = 4;
     }
 
     private function searchableValues(): array
@@ -181,6 +181,23 @@ class Copy
         createException("Invalid credentials");
     }
 
+    public static function getByUniqId(PDO $db, string $uniqid): Copy|bool
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE uniqid=:uniqid";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":uniqid", $uniqid);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
+            return false;
+        }
+        createException("Invalid credentials");
+    }
+
 
 
     public static function getAllCount(PDO $db, string $search = "", int $book_id): int
@@ -234,29 +251,6 @@ class Copy
                 return self::getMainObject($db, $row);
             }
             return false;
-        }
-        createException($stmt->errorInfo());
-    }
-
-    public static function getCopiesByUserId(PDO $db, string $id): array
-    {
-        $query = "
-        SELECT c.*
-        FROM `history` h 
-        INNER JOIN `copy` c ON c.id = h.copy_id
-        WHERE h.student_id = :id;
-        ";
-
-        $stmt = $db->prepare($query);
-
-        $stmt->bindParam(":id", $id);
-
-        if ($stmt->execute()) {
-            $arrayToReturn = [];
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $arrayToReturn[] = self::getMainObject($db, $row);
-            }
-            return $arrayToReturn;
         }
         createException($stmt->errorInfo());
     }

@@ -19,7 +19,7 @@ try {
     ]);
 
     //check if admin exist
-    $admin = User::getByRecoveryCode($db, $input->recoverycode);
+    // $admin = User::getByRecoveryCode($db, $input->recoverycode);
 
     $admin->recoverycode = null;
     $admin->recoveryexpiry = null;
@@ -30,7 +30,6 @@ try {
     Response::sendResponse([
         "status" => true,
     ]);
-
 } catch (\Exception $th) {
 
     $db->rollBack();

@@ -118,7 +118,7 @@
       "addCourse": "+ Add Course",
       "inputs": {
         "niaInput": {
-          "title": "Nia:",
+          "title": "NIA:",
           "placeholder": "Type Student Nia..."
         },
         "courseInput": {
@@ -137,7 +137,7 @@
     "title": "Unassign",
     "inputs": {
       "niaInput": {
-        "title": "Nia:",
+        "title": "NIA:",
         "placeholder": "Type Student Nia..."
       },
       "courseInput": {
@@ -241,7 +241,7 @@
       },
       "inputs": {
         "niaInput": {
-          "title": "Nia:",
+          "title": "NIA:",
           "placeholder": "Type Student Nia..."
         },
         "nameInput": {
@@ -272,7 +272,7 @@
       },
       "inputs": {
         "niaInput": {
-          "title": "Nia:",
+          "title": "NIA:",
           "placeholder": "Type Student Nia..."
         },
         "nameInput": {

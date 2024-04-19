@@ -87,6 +87,7 @@ const NewSubject = () => {
             maxLength={250}
             showMaxLength={true}
             vertical={false}
+            value={data.name}
             title={ViewStrings.inputs.nameInput.title}
             placeholder={ViewStrings.inputs.nameInput.placeholder}
             onChange={handleInput}
@@ -97,6 +98,7 @@ const NewSubject = () => {
             maxLength={50}
             showMaxLength={true}
             vertical={false}
+            value={data.abbr}
             title={ViewStrings.inputs.abbrInput.title}
             placeholder={ViewStrings.inputs.abbrInput.placeholder}
             onChange={handleInput}
@@ -107,6 +109,7 @@ const NewSubject = () => {
             vertical={false}
             title={ViewStrings.inputs.course.title}
             placeholder={ViewStrings.inputs.course.placeholder}
+            value={data.course}
             onChange={handleInput}
             onClean={handleCleanCourse}
             required
