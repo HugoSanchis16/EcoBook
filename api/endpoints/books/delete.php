@@ -15,11 +15,16 @@ try {
     ]);
 
     $book = Book::getByGuid($db, $input->guid);
+    $asigneeCopies = Book::getCountOfCopiesByBookGuid($db, $input->guid);
+    logAPI($asigneeCopies);
 
-    $book->delete();
+    if ($asigneeCopies != 0)
+        createException("There are " . $asigneeCopies . " students who have copies of this book");
+    else
+        $book->delete();
+
 
     $db->commit();
-
     Response::sendResponse([
         "data" => true
     ]);

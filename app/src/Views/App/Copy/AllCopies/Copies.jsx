@@ -24,6 +24,8 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import useModalManager from "../../../../Hooks/useModalManager";
 import { CopiesColumns } from "./CopiesColumns";
 import ShowBarcodeModal from "../../../../Modals/BarcodeCopies/ShowBarcodeModal/ShowBarcodeModal";
+import IconButton from "../../../../Components/Buttons/IconButton";
+import { BiSolidPrinter } from "react-icons/bi";
 
 const Copies = () => {
   const { strings } = useContext(StringsContext);
@@ -38,7 +40,7 @@ const Copies = () => {
     closeModal: closeBarcodeModal,
     openModal: openBarcodeModal,
     show: showBarcodeModal,
-    data: BarcodeStudentData,
+    data: barcodeModal,
   } = useModalManager();
 
   const { search } = useLocation();
@@ -98,7 +100,7 @@ const Copies = () => {
 
   const handleCloseBarcodeModal = (refresh) => {
     if (refresh) fetchData();
-    closeDeleteModal();
+    closeBarcodeModal();
   };
 
   return (
@@ -107,7 +109,7 @@ const Copies = () => {
       <ShowBarcodeModal
         show={showBarcodeModal}
         onClose={handleCloseBarcodeModal}
-        uniqid={BarcodeStudentData.uniqid}
+        data={barcodeModal}
       />
 
       {/* Content */}
@@ -115,13 +117,20 @@ const Copies = () => {
         showBackButton
         title={ViewStrings.title}
         rightSection={
-          <Button
-            size="sm"
-            as={Link}
-            to={replacePaths(Paths[Views.new_copy].path, [{ book_guid }])}
-          >
-            {ViewStrings.addCopy}
-          </Button>
+          <div className="d-flex gap-3">
+            <div>
+              <IconButton Icon={BiSolidPrinter} title={"Print All Barcodes"} />
+            </div>
+            <div>
+              <Button
+                size="sm"
+                as={Link}
+                to={replacePaths(Paths[Views.new_copy].path, [{ book_guid }])}
+              >
+                {ViewStrings.addCopy}
+              </Button>
+            </div>
+          </div>
         }
       >
         <PanelLayout>
@@ -134,7 +143,7 @@ const Copies = () => {
             fetching={fetching}
             onEventChange={fetchData}
             data={data}
-            columns={CopiesColumns(handleUpdateState)}
+            columns={CopiesColumns(handleUpdateState, openBarcodeModal)}
           />
         </PanelLayout>
       </GeneralLayout>

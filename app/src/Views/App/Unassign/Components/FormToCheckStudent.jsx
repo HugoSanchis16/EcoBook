@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import FormControl from "../../../../Components/Form/FormControl/FormControl";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
 import { StringsContext } from "../../../../Context/strings.context";
@@ -17,6 +17,7 @@ const FormToCheckStudent = ({ setData, data, setStep }) => {
   const ViewStrings = Strings.Assign.NewAssign;
 
   const request = useRequest();
+  const scanRef = useRef();
 
   const { showNotification: errorNotification } = useNotification();
 

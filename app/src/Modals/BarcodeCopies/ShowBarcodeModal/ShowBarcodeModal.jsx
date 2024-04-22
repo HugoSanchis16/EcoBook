@@ -5,7 +5,7 @@ import useRequest from "../../../Hooks/useRequest";
 import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 import BarcodeComponent from "../../Unassign/UnassignCopyModal.jsx/Components/BarcodeComponent";
 
-const ShowBarcodeModal = ({ show, onClose, uniqid }) => {
+const ShowBarcodeModal = ({ show, onClose, data }) => {
   const request = useRequest();
 
   const { showNotification: errorNotification } = useNotification();
@@ -22,17 +22,14 @@ const ShowBarcodeModal = ({ show, onClose, uniqid }) => {
       size="lm"
       footer={
         <div className="d-flex justify-content-end gap-2">
-          <Button variant="light" size="lm" onClick={hideModal}>
-            Cancel
-          </Button>
-          <Button variant="danger" size="lm">
-            Confirm
+          <Button variant="danger" size="lm" onClick={hideModal}>
+            Close
           </Button>
         </div>
       }
     >
       <div className="mb-1">
-        <BarcodeComponent code={uniqid} />
+        <BarcodeComponent code={data} />
       </div>
     </ModalLayout>
   );

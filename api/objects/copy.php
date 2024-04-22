@@ -148,6 +148,27 @@ class Copy
         createException($stmt->errorInfo());
     }
 
+    public static function getAllByBookId(PDO $db, int $book_id): array
+    {
+        $query = "
+        SELECT c.*
+        FROM `" . self::$table_name . "` c
+        WHERE c.book_id = :book_id
+        ";
+
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":book_id", $book_id);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
     public static function getByGuid(PDO $db, string $guid): Copy
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE guid=:guid";

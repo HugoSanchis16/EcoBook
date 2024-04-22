@@ -21,7 +21,10 @@ const DeleteBookModal = ({ show, onClose, data }) => {
         successNotification("Book deleted successfully!");
         onClose(true);
       })
-      .catch((err) => errorNotification(err.message));
+      .catch((err) => {
+        errorNotification(err.message);
+        onClose(true);
+      });
   };
 
   const hideModal = () => {

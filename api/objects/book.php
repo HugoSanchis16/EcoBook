@@ -242,6 +242,29 @@ class Book
         createException($stmt->errorInfo());
     }
 
+    public static function getCountOfCopiesByBookGuid(PDO $db, string $book_guid): int
+    {
+        $query = "
+        SELECT COUNT(h.id) as total
+        FROM `book` b
+        INNER JOIN `copy` c ON c.book_id = b.id
+        INNER JOIN `history` h ON h.copy_id = c.id
+        WHERE h.finaldate IS NULL AND b.guid=:book_guid
+        ";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":book_guid", $book_guid);
+        if ($stmt->execute()) {
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+
     private static function getMainObject(PDO $db, array $row): Book
     {
         $newObj = new Book($db);

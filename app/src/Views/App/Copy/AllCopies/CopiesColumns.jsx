@@ -4,7 +4,7 @@ import StateDropdown from "../../../../Components/StateDropdown/StateDropdown";
 import IconButton from "../../../../Components/Buttons/IconButton";
 import { IoIosBarcode } from "react-icons/io";
 
-export const CopiesColumns = ({ updateState, openModal }) => {
+export const CopiesColumns = (updateState, openBarcodeModal) => {
   const columns = [
     {
       Header: "Codigo",
@@ -34,7 +34,7 @@ export const CopiesColumns = ({ updateState, openModal }) => {
           <div className="d-flex align-items-center ">
             <IconButton
               Icon={IoIosBarcode}
-              onClick={() => openModal(item.uniqid)}
+              onClick={() => openBarcodeModal(item.uniqid)}
             />
           </div>
         )),

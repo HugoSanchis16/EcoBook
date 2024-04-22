@@ -16,6 +16,9 @@ import UnassignCopyModal from "../../../../Modals/Unassign/UnassignCopyModal.jsx
 import NotFoundComponent from "../../../../Components/NotFoundComponent";
 import IconButton from "../../../../Components/Buttons/IconButton";
 import { MdBarcodeReader, MdScanner } from "react-icons/md";
+import BarcodeScannerComponent from "react-webcam-barcode-scanner";
+import { BsFillWebcamFill } from "react-icons/bs";
+import ShowScanBarcodeModal from "../../../../Modals/BarcodeCopies/ShowScanBarcodeModal/ShowScanBarcodeModal";
 
 const CopyList = ({ data, setData, setStep }) => {
   const { strings } = useContext(StringsContext);
@@ -28,8 +31,14 @@ const CopyList = ({ data, setData, setStep }) => {
   const {
     closeModal: closeUnassignModal,
     openModal: openUnassignModal,
-    show: showDeleteModal,
+    show: showUnassignModal,
     data: UnassignDataModal,
+  } = useModalManager();
+
+  const {
+    closeModal: closeScanModal,
+    openModal: openScanModal,
+    show: showScanModal,
   } = useModalManager();
 
   const { showNotification: errorNotification } = useNotification();
@@ -37,6 +46,7 @@ const CopyList = ({ data, setData, setStep }) => {
   const { startFetching, finishFetching, fetching, loaded } = useLoaded();
 
   const [isScanFocus, setIsScanFocus] = useState(false);
+  const [isScanningEnabled, setIsScanningEnabled] = useState(false); // Step 1
 
   useEffect(() => {
     fetchData();
@@ -58,8 +68,15 @@ const CopyList = ({ data, setData, setStep }) => {
     if (refresh) fetchData();
     closeUnassignModal();
   };
+  const handleClosScanModal = (uniqid) => {
+    closeScanModal();
+    if (uniqid) {
+      handleOpenModal(getCopy(uniqid));
+    }
+  };
 
-  const handleFocusScan = () => {
+  const handleFocusScan = (e) => {
+    e.preventDefault();
     setIsScanFocus(true);
     scanRef.current.focus();
   };
@@ -71,10 +88,8 @@ const CopyList = ({ data, setData, setStep }) => {
       keyCode,
     } = e;
     if (keyCode === 13) {
-      const item = data.copies?.find((copy) => copy.uniqid === value);
-      if (item) handleOpenModal(item);
-      else errorNotification("Book not found");
-      clearScanFocus();
+      const item = getCopy(value);
+      handleOpenModal(item);
     }
   };
 
@@ -85,16 +100,34 @@ const CopyList = ({ data, setData, setStep }) => {
   };
 
   const handleOpenModal = ({ uniqid, guid, book_name }) => {
+    setIsScanningEnabled(false);
     openUnassignModal({ uniqid, guid, book_name });
+  };
+
+  const handleOpenScanModal = ({ isScanningEnabled }) => {
+    openScanModal({ setIsScanningEnabled, isScanningEnabled });
+  };
+
+  const getCopy = (value) => {
+    const item = data.copies?.find((copy) => copy.uniqid === value);
+    if (item) return item;
+    else return errorNotification("Book not found");
   };
 
   return (
     <>
       {/* Modals */}
       <UnassignCopyModal
-        show={showDeleteModal}
+        show={showUnassignModal}
         onClose={handleCloseUnassignCopy}
         data={UnassignDataModal}
+      />
+
+      <ShowScanBarcodeModal
+        show={showScanModal}
+        onClose={handleClosScanModal}
+        isScanningEnabled={isScanningEnabled}
+        setIsScanningEnabled={setIsScanningEnabled}
       />
 
       <div className="position-absolute" style={{ zIndex: -10 }}>
@@ -108,11 +141,18 @@ const CopyList = ({ data, setData, setStep }) => {
 
       <SectionLayout
         rightSection={
-          <IconButton
-            Icon={MdBarcodeReader}
-            title={isScanFocus ? "Scanning..." : "Scan"}
-            onClick={handleFocusScan}
-          />
+          <div className="d-flex gap-3">
+            <IconButton
+              Icon={MdBarcodeReader}
+              title={isScanFocus ? "Scanning..." : " Scan with reader"}
+              onClick={handleFocusScan}
+            />
+            <IconButton
+              Icon={BsFillWebcamFill}
+              title={isScanningEnabled ? "Scanning..." : " Scan with webcam"}
+              onClick={handleOpenScanModal}
+            />
+          </div>
         }
         title="Books pending return"
         loaded={loaded}

@@ -1,4 +1,5 @@
 import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
+import { BiSolidPrinter } from "react-icons/bi";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import IconButton from "../../../../Components/Buttons/IconButton";
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
@@ -39,15 +40,17 @@ export const BooksColumns = (openDeleteModal) => {
       width: 10,
       Cell: (row) =>
         getColumnValue(row, (item) => (
-          <div className="d-flex align-items-center gap-3">
-            <IconButton
-              Icon={MdRemoveRedEye}
-              as={Link}
-              to={replacePaths(Paths[Views.copies].path, [
-                { book_guid: item.guid },
-              ])}
-            />
-            <div className="d-flex align-items-center ">
+          <div className="d-flex gap-3">
+            <div className="d-flex align-items-center">
+              <IconButton
+                Icon={MdRemoveRedEye}
+                as={Link}
+                to={replacePaths(Paths[Views.copies].path, [
+                  { book_guid: item.guid },
+                ])}
+              />
+            </div>
+            <div className="d-flex align-items-center">
               <IconButton
                 Icon={MdEdit}
                 as={Link}
