@@ -18,8 +18,8 @@ const UnassignCopyModal = ({ show, onClose, data }) => {
   const [localData, setLocalData] = useState({});
 
   useEffect(() => {
-    setLocalData(data);
-  }, [data]);
+    if (show) setLocalData(data);
+  }, [data, show]);
 
   const handleSubmit = () => {
     if (checkData()) {

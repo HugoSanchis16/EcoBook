@@ -20,7 +20,7 @@ const Dashboard = () => {
       {/* Small Panels */}
       <Row>
         {BasicData.map((item, idx) => (
-          <Col sm={12} md={6} xxl={3} key={idx}>
+          <Col sm={12} md={6} xxl={4} key={idx}>
             <SmallPanel
               title={item.title}
               amount={item.totalItems}

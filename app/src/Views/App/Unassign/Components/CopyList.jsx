@@ -46,7 +46,7 @@ const CopyList = ({ data, setData, setStep }) => {
   const { startFetching, finishFetching, fetching, loaded } = useLoaded();
 
   const [isScanFocus, setIsScanFocus] = useState(false);
-  const [isScanningEnabled, setIsScanningEnabled] = useState(false); // Step 1
+  const [isScanningEnabled, setIsScanningEnabled] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -101,6 +101,7 @@ const CopyList = ({ data, setData, setStep }) => {
 
   const handleOpenModal = ({ uniqid, guid, book_name }) => {
     setIsScanningEnabled(false);
+    console.log(book_name);
     openUnassignModal({ uniqid, guid, book_name });
   };
 

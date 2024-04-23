@@ -26,6 +26,8 @@ import ProfilePage from "../../Views/App/Profile/Profile";
 import Account from "../../Views/App/Account/Account";
 import Assign from "../../Views/App/Assign/assign";
 import Unassign from "../../Views/App/Unassign/Unassign";
+import Example from "../../Views/Example/Example";
+import PrintBarcodes from "../../Views/App/PrintBarcodes/PrintBarcodes";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -79,8 +81,9 @@ export const AppRoutes = [
   getRoute(Paths[Views.edit_student].path, EditStudent),
   //#endregion
 
-  //#region student
+  //#region copies
   getRoute(Paths[Views.new_copy].path, NewCopy),
+  getRoute(Paths[Views.print_barcodes].path, PrintBarcodes),
   //#endregion
 
   //#region courses

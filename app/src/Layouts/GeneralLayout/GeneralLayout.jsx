@@ -7,10 +7,12 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Breadcrumbs from "../../Components/Breadcrumbs/Breadcrumbs";
 import IconButton from "../../Components/Buttons/IconButton";
 import { Paths } from "../../Constants/paths.constants";
+import Loader from "../../Components/Loader/Loader";
 
 const GeneralLayout = ({
   title,
   subtitle,
+  loaded,
   showBackButton,
   rightSection,
   children,
@@ -68,7 +70,7 @@ const GeneralLayout = ({
               </div>
             )}
           </Col>
-          {rightSection && (
+          {(loaded === false || rightSection) && (
             <Col sm={12} md={6} className="px-0">
               <div className="d-flex justify-content-center justify-content-md-end align-items-center w-100 h-100">
                 {rightSection}
@@ -77,7 +79,9 @@ const GeneralLayout = ({
           )}
         </Row>
       </div>
-      <div className="p-0 p-md-2">{children}</div>
+      <div className="p-0 p-md-2">
+        {loaded === false ? <Loader /> : children}
+      </div>
     </div>
   );
 };

@@ -24,6 +24,8 @@ try {
         $studentHistory = History::getCopiesByUserId($db, $student->id);
 
         $studentHistoryResource = HistoryResource::getHistoryArray($studentHistory);
+
+        logAPI($studentHistoryResource);
     } else {
         createException("Nia not exist", 409);
     }

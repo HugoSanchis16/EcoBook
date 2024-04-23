@@ -26,6 +26,7 @@ import { CopiesColumns } from "./CopiesColumns";
 import ShowBarcodeModal from "../../../../Modals/BarcodeCopies/ShowBarcodeModal/ShowBarcodeModal";
 import IconButton from "../../../../Components/Buttons/IconButton";
 import { BiSolidPrinter } from "react-icons/bi";
+import PrintCustomModal from "../../../../Modals/BarcodeCopies/PrintCustomModal/PrintCustomModal";
 
 const Copies = () => {
   const { strings } = useContext(StringsContext);
@@ -43,12 +44,19 @@ const Copies = () => {
     data: barcodeModal,
   } = useModalManager();
 
+  const {
+    closeModal: closePrintCustomModal,
+    openModal: openPrintCustomModal,
+    show: showPrintCustomModal,
+    data: bookGuidData,
+  } = useModalManager();
+
   const { search } = useLocation();
 
   const { showNotification: errorNotification } = useNotification();
   const { showNotification: successNotification } = useNotification("success");
 
-  const { startFetching, finishFetching, fetching } = useLoaded();
+  const { startFetching, finishFetching, fetching, loaded } = useLoaded();
 
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -103,6 +111,10 @@ const Copies = () => {
     closeBarcodeModal();
   };
 
+  const handleClosePrintCustomModal = (refresh) => {
+    if (refresh) fetchData();
+    closePrintCustomModal();
+  };
   return (
     <>
       {/* Modals */}
@@ -111,15 +123,25 @@ const Copies = () => {
         onClose={handleCloseBarcodeModal}
         data={barcodeModal}
       />
+      <PrintCustomModal
+        show={showPrintCustomModal}
+        onClose={handleClosePrintCustomModal}
+        bookGuid={bookGuidData}
+      />
 
       {/* Content */}
       <GeneralLayout
         showBackButton
+        loaded={loaded}
         title={ViewStrings.title}
         rightSection={
           <div className="d-flex gap-3">
             <div>
-              <IconButton Icon={BiSolidPrinter} title={"Print All Barcodes"} />
+              <IconButton
+                Icon={BiSolidPrinter}
+                title={"Print All Barcodes"}
+                onClick={() => openPrintCustomModal(book_guid)}
+              />
             </div>
             <div>
               <Button

@@ -77,6 +77,7 @@ export const Endpoints = {
   Copies: {
     allCopies: {
       getAll: "/copies/getAll",
+      getAllCodes: "/copies/getAllCodes",
     },
     editCopy: {
       updateState: "/copies/updateState",
