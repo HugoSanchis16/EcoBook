@@ -26,4 +26,17 @@ class HistoryResource
         }
         return $itemsArray;
     }
+    public static function getStudentHistoryArray(array $history): array
+    {
+        $itemsArray = [];
+        foreach ($history as $history) {
+            $copy = $history->copy();
+            $book = $copy->book();
+            $newItem = self::getHistory($history, ["guid"]);
+            $newItem->{"book_name"} = $book->name;
+            $newItem->{"uniqid"} = $copy->uniqid;
+            $itemsArray[] = $newItem;
+        }
+        return $itemsArray;
+    }
 }

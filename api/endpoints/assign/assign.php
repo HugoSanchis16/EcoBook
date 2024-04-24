@@ -19,26 +19,29 @@ try {
     ]);
 
     $student = Student::getByNia($db, $input->nia);
-    $course = Course::getByGuid($db, $input->course);
+    if ($student) {
+        $course = Course::getByGuid($db, $input->course);
+        $subjects = Subject::getAllSubjectsByCourse($db, $course->id);
+        if ($input->repeater) {
+            $subjects = $input->subjects;
+        }
 
-    $subjects = Subject::getAllSubjectsByCourse($db, $course->id);
-    if ($input->repeater) {
-        $subjects = $input->subjects;
-    }
+        foreach ($subjects as $subject) {
+            if (gettype($subject) === "string") $subject = Subject::getByGuid($db, $subject);
+            $copy = Copy::getFirstCopyAvailable($db, $subject->guid);
+            if ($copy) {
+                if (History::checkIfStudentHaveSubjectAssigned($db, $subject->id, $student->id)) continue;
 
-    foreach ($subjects as $subject) {
-        if (gettype($subject) === "string") $subject = Subject::getByGuid($db, $subject);
-        $copy = Copy::getFirstCopyAvailable($db, $subject->guid);
-        if ($copy) {
-            if (History::checkIfStudentHaveSubjectAssigned($db, $subject->id, $student->id)) continue;
-
-            $newHistory = new History($db);
-            $newHistory->copy_id = $copy->id;
-            $newHistory->subject_id = $subject->id;
-            $newHistory->student_id = $student->id;
-            $newHistory->initialstate = $copy->state;
-            $newHistory->store();
-        } else createException("Some subjects have not enough copies available");
+                $newHistory = new History($db);
+                $newHistory->copy_id = $copy->id;
+                $newHistory->subject_id = $subject->id;
+                $newHistory->student_id = $student->id;
+                $newHistory->initialstate = $copy->state;
+                $newHistory->store();
+            } else createException("Some subjects have not enough copies available");
+        }
+    } else {
+        createException("Nia not exist", 409);
     }
 
     $db->commit();

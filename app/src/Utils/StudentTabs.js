@@ -15,7 +15,7 @@ export const StudentTabs = () => {
     {
       id: "student_history",
       title: "History",
-      path: replacePaths(Paths[Views.edit_course].path, [{ student_guid }]),
+      path: replacePaths(Paths[Views.student_history].path, [{ student_guid }]),
     },
   ];
 

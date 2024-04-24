@@ -29,6 +29,7 @@ export const Endpoints = {
     allStudents: {
       getAll: "/students/getAll",
       edit: "/students/get",
+      getHistory: "/students/getHistory",
     },
     editStudent: {
       update: "/students/update",

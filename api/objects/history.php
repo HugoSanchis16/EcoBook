@@ -161,6 +161,57 @@ class History
         createException($stmt->errorInfo());
     }
 
+    public static function getHistoryByUserId(PDO $db, string $id, int $page, int $offset, string $search = ""): array
+    {
+        $query = "
+        SELECT h.*
+        FROM `" . self::$table_name . "` h 
+        INNER JOIN `copy` c ON c.id = h.copy_id
+        WHERE h.student_id = :id;
+        ";
+
+
+        applySearchOnQuery($query);
+        doPagination($offset, $page, $query);
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        applySearchOnBindedValue($search, $stmt);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+    public static function getHistoryByUserIdCount(PDO $db, int $id): int
+    {
+        $query = "
+        SELECT COUNT(*) as total
+        FROM `" . self::$table_name . "` h 
+        INNER JOIN `copy` c ON c.id = h.copy_id
+        WHERE h.student_id = :id
+    ";
+
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":id", $id);
+
+        if ($stmt->execute()) {
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+
+
     public static function checkIfStudentHaveSubjectAssigned(PDO $db, int $subject_id, int $student_id): bool
     {
         $query = "SELECT id

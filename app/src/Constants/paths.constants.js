@@ -55,6 +55,7 @@ export const Paths = {
   //#region students
   [Views.new_student]: getPath("/student/new"),
   [Views.edit_student]: getPath("/student/edit/:student_guid"),
+  [Views.student_history]: getPath("/student/history/:student_guid"),
   //#endregion
 
   //#region copies
