@@ -12,6 +12,7 @@ import IconButton from "../../Buttons/IconButton";
 
 const FormSelect = ({
   vertical = true,
+  disabled,
   title,
   onClean,
   controlId,
@@ -56,6 +57,7 @@ const FormSelect = ({
             resize: props.as === "textarea" ? "none" : "vertical",
           }}
           value={value || currentValue || null}
+          disabled={disabled}
           defaultValue={
             placeholder
               ? "default"

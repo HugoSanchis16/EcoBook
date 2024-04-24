@@ -19,6 +19,7 @@ const FormControl = ({
   required,
   inputClassname,
   formGroupProps = { className: "mb-2 w-100" },
+  autoFocus,
   ...props
 }) => {
   const [currentValue, setCurrentValue] = useState(value || "");
@@ -66,6 +67,7 @@ const FormControl = ({
           }}
           value={value || currentValue}
           onChange={handleValue}
+          autoFocus={autoFocus || false}
         />
         {showMaxLength && (
           <small className={lengthClassName}>

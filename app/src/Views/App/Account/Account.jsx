@@ -101,6 +101,7 @@ const Account = () => {
             title={ViewStrings.inputs.currentEmailInput.title}
             placeholder={ViewStrings.inputs.currentEmailInput.placeholder}
             onChange={handleInput}
+            value={data.currentEmail}
           />
           <FormControl
             controlId="newEmail"
@@ -109,6 +110,7 @@ const Account = () => {
             title={ViewStrings.inputs.newEmail.title}
             placeholder={ViewStrings.inputs.newEmail.placeholder}
             onChange={handleInput}
+            value={data.newEmail}
           />
           <FormControl
             controlId="newEmailCopy"
@@ -117,6 +119,7 @@ const Account = () => {
             title={ViewStrings.inputs.newEmailCopy.title}
             placeholder={ViewStrings.inputs.newEmailCopy.placeholder}
             onChange={handleInput}
+            value={data.newEmailCopy}
           />
           <div className="d-flex justify-content-end w-100 align-items-center">
             <Button disabled={!checkFormEmail()} onClick={handleSubmitEmail}>
@@ -132,6 +135,7 @@ const Account = () => {
             title={ViewStrings.inputs.currentPasswordInput.title}
             placeholder={ViewStrings.inputs.currentPasswordInput.placeholder}
             onChange={handleInput}
+            value={data.currentPassword}
           />
           <FormControl
             controlId="newPassword"
@@ -140,6 +144,7 @@ const Account = () => {
             title={ViewStrings.inputs.newPassword.title}
             placeholder={ViewStrings.inputs.newPassword.placeholder}
             onChange={handleInput}
+            value={data.newPassword}
           />
           <FormControl
             controlId="newPasswordCopy"
@@ -148,6 +153,7 @@ const Account = () => {
             title={ViewStrings.inputs.newPasswordCopy.title}
             placeholder={ViewStrings.inputs.newPasswordCopy.placeholder}
             onChange={handleInput}
+            value={data.newPasswordCopy}
           />
           <div className="d-flex justify-content-end w-100 align-items-center">
             <Button

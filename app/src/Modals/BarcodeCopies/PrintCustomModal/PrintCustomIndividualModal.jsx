@@ -1,58 +1,32 @@
 import { Button, Modal } from "react-bootstrap";
 import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 import FormControl from "../../../Components/Form/FormControl/FormControl";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BarcodeLayoutToPrint from "../../../Components/BarcodeLayoutToPrint/BarcodeLayoutToPrint";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import useLoaded from "../../../Hooks/useLoaded";
-import useRequest from "../../../Hooks/useRequest";
-import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
-import useNotification from "../../../Hooks/useNotification";
+import BarcodeLayoutToIndivudualPrint from "../../../Components/BarcodeLayoutToPrint/BarcodeLayoutToIndividualPrint";
 import { validateData } from "../../../Config/GeneralFunctions";
 
-const PrintCustomModal = ({ show, onClose, bookGuid }) => {
+const PrintCustomIndividualModal = ({ show, onClose, uniqid }) => {
   const [data, setData] = useState({});
-  const request = useRequest();
-
-  const { showNotification: errorNotification } = useNotification();
-  const { showNotification: successNotification } = useNotification("success");
-
-  const { startFetching, finishFetching, fetching, loaded } = useLoaded();
-
-  useEffect(() => {
-    if (show) {
-      fetchData();
-    }
-  }, [show]);
-
-  const fetchData = async () => {
-    startFetching();
-    return await request(
-      "get",
-      getEndpoint(Endpoints.Copies.allCopies.getAllCodes),
-      {
-        guid: bookGuid,
-      }
-    )
-      .then((res) => {
-        setData({ ...data, codes: res.codes });
-      })
-      .catch(errorNotification)
-      .finally(() => finishFetching());
-  };
-
-  const hideModal = () => {
-    onClose();
-  };
 
   const handleInput = (e) => {
     const { id, value } = e.target;
     setData({ ...data, [id]: +value });
   };
 
+  const hideModal = () => {
+    onClose();
+  };
+
   const checkForm = () => {
-    const { rows, cols, offset } = data;
-    return validateData([rows, cols, offset]) && rows > 0 && cols > 0;
+    const { copies, rows, cols, offset } = data;
+    return (
+      validateData([copies, rows, cols, offset]) &&
+      copies > 0 &&
+      rows > 0 &&
+      cols > 0
+    );
   };
 
   return (
@@ -71,6 +45,7 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
           <Button variant="light" size="lm" onClick={hideModal}>
             Close
           </Button>
+
           <Button
             disabled={!checkForm()}
             variant="light"
@@ -79,14 +54,15 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
           >
             <PDFDownloadLink
               document={
-                <BarcodeLayoutToPrint
+                <BarcodeLayoutToIndivudualPrint
                   cols={data.cols}
                   rows={data.rows}
                   offset={data.offset}
-                  codes={data.codes?.map((code) => code.uniqid)}
+                  copies={data.copies}
+                  uniqid={uniqid}
                 />
               }
-              fileName={`Barcodes${data.codes?.length}-${data.cols}-${data.rows}-${data.offset}.pdf`}
+              fileName={`Barcodes${data.copies}-${data.cols}-${data.rows}-${data.offset}.pdf`}
             >
               {({ loading }) =>
                 loading ? "Loading document..." : "Download PDF!"
@@ -98,6 +74,19 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
     >
       <div className="mb-1">
         <p>Choose how you want to print the Barcodes.</p>
+        <FormControl
+          controlId="copies"
+          required
+          title="Copies"
+          vertical={false}
+          showMaxLength={false}
+          type="number"
+          step={1}
+          value={data.copies}
+          placeholder={"How many copies?"}
+          onChange={handleInput}
+          min={1}
+        ></FormControl>
         <FormControl
           controlId="cols"
           required
@@ -143,4 +132,4 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
   );
 };
 
-export default PrintCustomModal;
+export default PrintCustomIndividualModal;

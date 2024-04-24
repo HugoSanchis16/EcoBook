@@ -3,8 +3,13 @@ import { getColumnValue } from "../../../../Config/GeneralFunctions";
 import StateDropdown from "../../../../Components/StateDropdown/StateDropdown";
 import IconButton from "../../../../Components/Buttons/IconButton";
 import { IoIosBarcode } from "react-icons/io";
+import { BiSolidPrinter } from "react-icons/bi";
 
-export const CopiesColumns = (updateState, openBarcodeModal) => {
+export const CopiesColumns = (
+  updateState,
+  openBarcodeModal,
+  openPrintCustomIndividualModal
+) => {
   const columns = [
     {
       Header: "Codigo",
@@ -31,10 +36,14 @@ export const CopiesColumns = (updateState, openBarcodeModal) => {
       Header: "Action",
       Cell: (row) =>
         getColumnValue(row, (item) => (
-          <div className="d-flex align-items-center ">
+          <div className="d-flex align-items-center gap-3">
             <IconButton
               Icon={IoIosBarcode}
               onClick={() => openBarcodeModal(item.uniqid)}
+            />
+            <IconButton
+              Icon={BiSolidPrinter}
+              onClick={() => openPrintCustomIndividualModal(item.uniqid)}
             />
           </div>
         )),

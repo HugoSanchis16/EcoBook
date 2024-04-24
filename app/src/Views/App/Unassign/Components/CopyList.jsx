@@ -68,7 +68,7 @@ const CopyList = ({ data, setData, setStep }) => {
     if (refresh) fetchData();
     closeUnassignModal();
   };
-  const handleClosScanModal = (uniqid) => {
+  const handleCloseScanModal = (uniqid) => {
     closeScanModal();
     if (uniqid) {
       handleOpenModal(getCopy(uniqid));
@@ -101,7 +101,6 @@ const CopyList = ({ data, setData, setStep }) => {
 
   const handleOpenModal = ({ uniqid, guid, book_name }) => {
     setIsScanningEnabled(false);
-    console.log(book_name);
     openUnassignModal({ uniqid, guid, book_name });
   };
 
@@ -126,7 +125,7 @@ const CopyList = ({ data, setData, setStep }) => {
 
       <ShowScanBarcodeModal
         show={showScanModal}
-        onClose={handleClosScanModal}
+        onClose={handleCloseScanModal}
         isScanningEnabled={isScanningEnabled}
         setIsScanningEnabled={setIsScanningEnabled}
       />

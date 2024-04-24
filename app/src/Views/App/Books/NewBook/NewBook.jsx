@@ -36,6 +36,7 @@ const NewBook = () => {
   const [data, setData] = useState({});
 
   const [subjects, setSubjects] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -43,11 +44,19 @@ const NewBook = () => {
   }, []);
 
   const fetchData = async () => {
-    request("get", getEndpoint(Endpoints.Subjects.allSubjects.getAllNames))
+    request("get", getEndpoint(Endpoints.Courses.allCourses.getAllNames))
       .then((res) => {
-        setSubjects(res.subjects);
+        setCourses(res.courses);
         setLoaded(true);
       })
+      .catch((err) => errorNotification(err.message));
+  };
+
+  const fetchDataSubjects = async (course_guid) => {
+    request("get", getEndpoint(Endpoints.Subjects.allSubjects.getAllByCourse), {
+      course: course_guid,
+    })
+      .then((res) => setSubjects(res.subjects))
       .catch((err) => errorNotification(err.message));
   };
 
@@ -59,6 +68,13 @@ const NewBook = () => {
   const handleCleanSubject = () => {
     setData({
       ...data,
+      subject: null,
+    });
+  };
+  const handleCleanCourse = () => {
+    setData({
+      ...data,
+      course: null,
       subject: null,
     });
   };
@@ -76,17 +92,23 @@ const NewBook = () => {
     } else errorNotification("Check all input fields");
   };
 
+  const handleInputCourse = (e) => {
+    const { id, value } = e.target;
+    setData({ ...data, [id]: value });
+    fetchDataSubjects(value);
+  };
+
   const checkForm = () => {
-    const { name, isbn, stock, subject } = data;
+    const { name, isbn, stock, subject, course } = data;
     return (
-      validateData([name, isbn, stock, subject]) &&
+      validateData([name, isbn, stock, subject, course]) &&
       IsbnRegex.test(isbn) &&
       stock > 0
     );
   };
 
   return (
-    <GeneralLayout title={ViewStrings.title}>
+    <GeneralLayout showBackButton={true} title={ViewStrings.title}>
       <PanelLayout loaded={loaded}>
         <SectionLayout title="Book Info">
           <FormControl
@@ -112,6 +134,19 @@ const NewBook = () => {
             required
           />
           <FormSelect
+            options={courses}
+            controlId="course"
+            value={data.course}
+            vertical={false}
+            title={ViewStrings.inputs.course.title}
+            placeholder={ViewStrings.inputs.course.placeholder}
+            onChange={handleInputCourse}
+            onClean={handleCleanCourse}
+            disabled={false}
+            required
+          />
+
+          <FormSelect
             options={subjects}
             controlId="subject"
             value={data.subject}
@@ -120,8 +155,10 @@ const NewBook = () => {
             placeholder={ViewStrings.inputs.subject.placeholder}
             onChange={handleInput}
             onClean={handleCleanSubject}
+            disabled={!data.course}
             required
           />
+
           <FormControl
             controlId="stock"
             maxLength={200}
@@ -134,6 +171,7 @@ const NewBook = () => {
             type="number"
             step={1}
             required
+            min={1}
           />
         </SectionLayout>
         <div className="d-flex justify-content-end w-100 align-items-center">

@@ -213,6 +213,10 @@
           "title": "Subject:",
           "placeholder": "Select the subject of the book ..."
         },
+        "course": {
+          "title": "Course:",
+          "placeholder": "Select the course of the book ..."
+        },
         "stockInput": {
           "title": "Stock:",
           "placeholder": "Type book stock..."

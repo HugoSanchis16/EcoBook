@@ -27,6 +27,7 @@ import ShowBarcodeModal from "../../../../Modals/BarcodeCopies/ShowBarcodeModal/
 import IconButton from "../../../../Components/Buttons/IconButton";
 import { BiSolidPrinter } from "react-icons/bi";
 import PrintCustomModal from "../../../../Modals/BarcodeCopies/PrintCustomModal/PrintCustomModal";
+import PrintCustomIndividualModal from "../../../../Modals/BarcodeCopies/PrintCustomModal/PrintCustomIndividualModal";
 
 const Copies = () => {
   const { strings } = useContext(StringsContext);
@@ -51,6 +52,12 @@ const Copies = () => {
     data: bookGuidData,
   } = useModalManager();
 
+  const {
+    closeModal: closePrintIndividualCustomModal,
+    openModal: openPrintIndividualCustomModal,
+    show: showPrintIndividualCustomModal,
+    data: uniqidData,
+  } = useModalManager();
   const { search } = useLocation();
 
   const { showNotification: errorNotification } = useNotification();
@@ -115,6 +122,10 @@ const Copies = () => {
     if (refresh) fetchData();
     closePrintCustomModal();
   };
+  const handleClosePrintIndividualCustomModal = (refresh) => {
+    if (refresh) fetchData();
+    closePrintIndividualCustomModal();
+  };
   return (
     <>
       {/* Modals */}
@@ -127,6 +138,11 @@ const Copies = () => {
         show={showPrintCustomModal}
         onClose={handleClosePrintCustomModal}
         bookGuid={bookGuidData}
+      />
+      <PrintCustomIndividualModal
+        show={showPrintIndividualCustomModal}
+        onClose={handleClosePrintIndividualCustomModal}
+        uniqid={uniqidData}
       />
 
       {/* Content */}
@@ -165,7 +181,12 @@ const Copies = () => {
             fetching={fetching}
             onEventChange={fetchData}
             data={data}
-            columns={CopiesColumns(handleUpdateState, openBarcodeModal)}
+            columns={CopiesColumns(
+              handleUpdateState,
+              openBarcodeModal,
+              openPrintIndividualCustomModal,
+              book_guid
+            )}
           />
         </PanelLayout>
       </GeneralLayout>
