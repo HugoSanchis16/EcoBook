@@ -1,7 +1,7 @@
 import { Configuration } from "../../../Config/app.config";
 import FormSelect from "../../Form/FormSelect/FormSelect";
 
-const PageSizeComponent = ({ onChange }) => {
+const PageSizeComponent = ({ onChange, pageSize }) => {
   const handleOnChange = (e) => {
     const { value } = e.target;
     onChange && onChange(+value);
@@ -16,7 +16,7 @@ const PageSizeComponent = ({ onChange }) => {
       }))}
       onChange={handleOnChange}
       hideDefaultOption
-      defaultValue={Configuration.tables.defaultPageSize}
+      value={pageSize || Configuration.tables.defaultPageSize}
       className=" border-0 shadow-none"
     />
   );

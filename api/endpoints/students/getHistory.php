@@ -19,15 +19,12 @@ try {
     ]);
 
 
-    logAPI($input->guid);
-
     $search = isset($input->search) ? $input->search : "";
+
     $student = Student::getByGuid($db, $input->guid);
     $AllCopies = History::getHistoryByUserId($db, $student->id, $input->page, $input->offset, $input->search);
 
-    $AllCopiesCount = History::getHistoryByUserIdCount($db, $student->id);
-
-    logAPI($AllCopies);
+    $AllCopiesCount = History::getHistoryByUserIdCount($db, $student->id,  $input->page, $input->offset, $input->search);
 
     $AllCopiesFormat = HistoryResource::getStudentHistoryArray($AllCopies);
 
@@ -35,7 +32,7 @@ try {
 
     $db->commit();
     Response::sendResponse([
-        "student" => $studentFormat,
+        "student" => $AllCopiesFormat,
         "totalPages" => $totalPages
     ]);
 } catch (\Exception $th) {

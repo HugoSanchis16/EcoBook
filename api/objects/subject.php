@@ -115,8 +115,6 @@ class Subject
         }
     }
 
-
-
     function course(): Course
     {
         if (isset($this->course_id)) {

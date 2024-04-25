@@ -24,4 +24,17 @@ class BookResource
         }
         return $itemsArray;
     }
+    public static function getBooksArrayList(array $books): array
+    {
+        $itemsArray = [];
+        foreach ($books as $book) {
+
+            $newItem = self::getBook($book, ['name', 'isbn', 'stock', 'guid', 'enabled']);
+            $subjectName = $book->subject()->name;
+            $newItem->subjectName = $subjectName;
+
+            $itemsArray[] = $newItem;
+        }
+        return $itemsArray;
+    }
 }

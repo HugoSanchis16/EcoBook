@@ -116,6 +116,7 @@ const StudentHistory = () => {
 
   return (
     <>
+      {console.log(data)}
       {/* Modals */}
       <DeleteBookModal
         show={showDeleteModal}
@@ -133,11 +134,12 @@ const StudentHistory = () => {
                 description: "Do you want to create new Students?",
                 subDescription: "Press de following button",
               }}
+              
               totalPages={totalPages}
               fetching={fetching}
               onEventChange={fetchData}
               data={data}
-              columns={HistoryColumns}
+              columns={HistoryColumns()}
             />
           </SectionLayout>
         </PanelLayout>

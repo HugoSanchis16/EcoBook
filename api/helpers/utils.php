@@ -260,6 +260,7 @@ if (!function_exists('convertSearchValues')) {
         $string = '';
         foreach ($values as $value) {
             $type = gettype($value);
+            logAPI($type, $value);
             if ($type === "array") {
                 $from = $value['from'];
                 $what = $value['what'];
@@ -270,6 +271,9 @@ if (!function_exists('convertSearchValues')) {
                             $function = $split[0];
                             $column = $split[1];
                             $string .= $from->{$function}()->{$column} . " ";
+                            logAPI($string);
+                        } else {
+                            $string .= $from->$key . " ";
                         }
                     }
                 }

@@ -31,10 +31,14 @@ class HistoryResource
         $itemsArray = [];
         foreach ($history as $history) {
             $copy = $history->copy();
+            $subject = $history->subject();
+            $course = $subject->course();
             $book = $copy->book();
-            $newItem = self::getHistory($history, ["guid"]);
+            $newItem = self::getHistory($history, ["guid", "initialstate", "finalstate", "initialdate", "finaldate"]);
             $newItem->{"book_name"} = $book->name;
             $newItem->{"uniqid"} = $copy->uniqid;
+            $newItem->{"season"} = $course->season;
+            $newItem->{"course_abbr"} = $course->abbr;
             $itemsArray[] = $newItem;
         }
         return $itemsArray;

@@ -23,7 +23,12 @@ try {
     $books = Book::getAll($db, $input->page, $input->offset, $input->search);
     $booksCount = Book::getAllCount($db, $input->search);
 
-    $booksFormat = BookResource::getBooksArray($books);
+
+
+
+
+    $booksFormat = BookResource::getBooksArrayList($books);
+
 
     $totalPages = ceil($booksCount / $input->offset);
 

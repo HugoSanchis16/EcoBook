@@ -23,6 +23,19 @@ class History
         $this->conn = $db;
     }
 
+    private function searchableValues(): array
+    {
+        return [
+            array(
+                "from" => $this->copy(),
+                "what" => [
+                    'uniqid',
+                    'book.name'
+                ]
+            )
+        ];
+    }
+
     function store(): int
     {
         $query = "INSERT INTO `" . self::$table_name . "` 
@@ -31,7 +44,8 @@ class History
             copy_id=:copy_id,
             subject_id=:subject_id,
             student_id=:student_id,
-            initialstate=:initialstate
+            initialstate=:initialstate,
+            searchdata=:searchdata
             ";
 
         $stmt = $this->conn->prepare($query);
@@ -42,6 +56,7 @@ class History
         $stmt->bindParam(":subject_id", $this->subject_id);
         $stmt->bindParam(":student_id", $this->student_id);
         $stmt->bindParam(":initialstate", $this->initialstate);
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
             $stmt->execute();
@@ -55,7 +70,7 @@ class History
     {
         $query = "
             UPDATE `" . self::$table_name . "` 
-            SET finalstate=:finalstate, finaldate=:finaldate, observations=:observations, updated=:updated
+            SET finalstate=:finalstate, finaldate=:finaldate, observations=:observations, searchdata=:searchdata, updated=:updated
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
@@ -63,6 +78,7 @@ class History
         $stmt->bindParam(":finaldate", $this->finaldate);
         $stmt->bindParam(":observations", $this->observations);
         $stmt->bindParam(":updated", $this->updated);
+        $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
         $stmt->bindParam(":id", $this->id);
 
         try {
@@ -77,10 +93,9 @@ class History
     {
         return Copy::get($this->conn, $this->copy_id);
     }
-
-    function course(): Course
+    function subject(): Subject
     {
-        return Course::get($this->conn, $this->subject_id);
+        return Subject::get($this->conn, $this->subject_id);
     }
 
     function student(): Student|null
@@ -167,18 +182,15 @@ class History
         SELECT h.*
         FROM `" . self::$table_name . "` h 
         INNER JOIN `copy` c ON c.id = h.copy_id
-        WHERE h.student_id = :id;
+        WHERE h.student_id=:id AND LOWER(h.searchdata) LIKE LOWER(:search)
         ";
 
-
-        applySearchOnQuery($query);
         doPagination($offset, $page, $query);
 
         $stmt = $db->prepare($query);
 
         $stmt->bindParam(":id", $id);
-
-        applySearchOnBindedValue($search, $stmt);
+        $stmt->bindValue(":search", "%" . $search . "%");
 
         if ($stmt->execute()) {
             $arrayToReturn = [];
@@ -189,18 +201,19 @@ class History
         }
         createException($stmt->errorInfo());
     }
-    public static function getHistoryByUserIdCount(PDO $db, int $id): int
+    public static function getHistoryByUserIdCount(PDO $db, string $id, int $page, int $offset, string $search = ""): int
     {
         $query = "
         SELECT COUNT(*) as total
         FROM `" . self::$table_name . "` h 
         INNER JOIN `copy` c ON c.id = h.copy_id
-        WHERE h.student_id = :id
+        WHERE h.student_id =:id AND LOWER(h.searchdata) LIKE LOWER(:search)
     ";
 
         $stmt = $db->prepare($query);
         $stmt->bindParam(":id", $id);
 
+        $stmt->bindValue(":search", "%" . $search . "%");
         if ($stmt->execute()) {
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

@@ -37,6 +37,7 @@ try {
                 $newHistory->subject_id = $subject->id;
                 $newHistory->student_id = $student->id;
                 $newHistory->initialstate = $copy->state;
+                $newHistory->initialdate = newDate();
                 $newHistory->store();
             } else createException("Some subjects have not enough copies available");
         }
