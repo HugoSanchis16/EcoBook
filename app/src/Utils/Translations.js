@@ -9,7 +9,6 @@ export const getAvailableLanguages = async () => {
 export const getLanguageSelected = async () => {
   let languageSelected = localStorage.getItem(StorageKeys.LANGUAGE_SELECTED);
   return getAvailableLanguages().then((langs) => {
-    console.log({ langs });
     if (
       !languageSelected ||
       !langs.some((lang) => lang.key === languageSelected)

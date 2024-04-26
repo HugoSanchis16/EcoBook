@@ -43,4 +43,33 @@ class HistoryResource
         }
         return $itemsArray;
     }
+    public static function getCopyHistoryArray(array $history): array
+    {
+        $itemsArray = [];
+        foreach ($history as $history) {
+            $copy = $history->copy();
+            $book = $copy->book();
+
+            $subject = $history->subject();
+            $course = $subject->course();
+
+            $student = $history->student();
+            $studentProfile = $student->profile();
+
+            $newItem = self::getHistory($history, ["guid", "initialstate", "finalstate", "initialdate", "finaldate", "observations"]);
+            $newItem->{"student_nia"} = $student->nia;
+            $newItem->{"student_name"} = $studentProfile->name  . " " . $studentProfile->surnames;
+            $newItem->{"student_email"} = $studentProfile->email;
+            $newItem->{"student_phone"} = $studentProfile->phone;
+            $newItem->{"book_name"} = $book->name;
+            $newItem->{"book_isbn"} = $book->isbn;
+            $newItem->{"uniqid"} = $copy->uniqid;
+            $newItem->{"season"} = $course->season;
+            $newItem->{"subject_name"} = $subject->name;
+            $newItem->{"course_abbr"} = $course->abbr;
+            $newItem->{"course_name"} = $course->name;
+            $itemsArray[] = $newItem;
+        }
+        return $itemsArray;
+    }
 }

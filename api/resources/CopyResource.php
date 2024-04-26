@@ -43,4 +43,17 @@ class CopyResource
         }
         return $itemsArray;
     }
+
+    public static function getCopyFormatWithAll(Copy $copy): stdClass
+    {
+        $book = $copy->book();
+        $subject = $book->subject();
+        $course = $subject->course();
+        $newItem = self::getCopy($copy, ['uniqid', 'state']);
+        $newItem->{"book_name"} = $book->name;
+        $newItem->{"subject_name"} = $subject->name;
+        $newItem->{"course_name"} = $course->name;
+
+        return $newItem;
+    }
 }

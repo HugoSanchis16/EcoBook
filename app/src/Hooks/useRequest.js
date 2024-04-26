@@ -55,7 +55,6 @@ const useRequest = () => {
     };
 
     const checkError = (res) => {
-      console.log({ res });
       throw new CustomError(res.message, res.status);
     };
 

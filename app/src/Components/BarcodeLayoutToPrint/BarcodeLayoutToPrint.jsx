@@ -35,7 +35,6 @@ const BarcodeLayoutToPrint = ({ codes, rows = 6, cols = 3, offset = 0 }) => {
     const items = finalArray.map((pageContent) => {
       return createChunk(pageContent, cols);
     });
-    console.log(items);
     setImages(items);
   };
 

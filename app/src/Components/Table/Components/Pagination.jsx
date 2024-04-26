@@ -1,7 +1,6 @@
 import { Button, Pagination } from "react-bootstrap";
 
 const CustomPagination = ({ totalPages, page: currentPage, onChange }) => {
-  console.log({ currentPage });
   const handlePage = (pageSelected) => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     onChange(pageSelected);

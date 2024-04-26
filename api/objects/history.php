@@ -32,6 +32,18 @@ class History
                     'uniqid',
                     'book.name'
                 ]
+            ),
+            array(
+                "from" => $this->student(),
+                "what" => [
+                    'nia',
+                ]
+            ),
+            array(
+                "from" => $this->subject(),
+                "what" => [
+                    'course.season',
+                ]
             )
         ];
     }
@@ -201,6 +213,31 @@ class History
         }
         createException($stmt->errorInfo());
     }
+    public static function getHistoryByCopyId(PDO $db, string $id, int $page, int $offset, string $search = ""): array
+    {
+        $query = "
+        SELECT h.*
+        FROM `" . self::$table_name . "` h 
+        INNER JOIN `copy` c ON c.id = h.copy_id
+        WHERE h.copy_id=:id AND LOWER(h.searchdata) LIKE LOWER(:search)
+        ";
+
+        doPagination($offset, $page, $query);
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+        $stmt->bindValue(":search", "%" . $search . "%");
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
     public static function getHistoryByUserIdCount(PDO $db, string $id, int $page, int $offset, string $search = ""): int
     {
         $query = "
@@ -208,6 +245,28 @@ class History
         FROM `" . self::$table_name . "` h 
         INNER JOIN `copy` c ON c.id = h.copy_id
         WHERE h.student_id =:id AND LOWER(h.searchdata) LIKE LOWER(:search)
+    ";
+
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":id", $id);
+
+        $stmt->bindValue(":search", "%" . $search . "%");
+        if ($stmt->execute()) {
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+    public static function getHistoryByCopyIdCount(PDO $db, string $id, int $page, int $offset, string $search = ""): int
+    {
+        $query = "
+        SELECT COUNT(*) as total
+        FROM `" . self::$table_name . "` h 
+        INNER JOIN `copy` c ON c.id = h.copy_id
+        WHERE h.copy_id=:id AND LOWER(h.searchdata) LIKE LOWER(:search)
     ";
 
         $stmt = $db->prepare($query);
@@ -252,6 +311,7 @@ class History
         $newObj->guid = $row['guid'];
         $newObj->copy_id = intval($row['copy_id']);
         $newObj->subject_id = intval($row['subject_id']);
+        $newObj->student_id = intval($row['student_id']);
         $newObj->initialstate = $row['initialstate'];
         $newObj->finalstate = $row['finalstate'];
         $newObj->initialdate = $row['initialdate'];

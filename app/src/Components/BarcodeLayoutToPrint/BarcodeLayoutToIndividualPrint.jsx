@@ -23,12 +23,9 @@ const BarcodeLayoutToIndivudualPrint = ({
   const createNewArray = (length) => [...Array(length).keys()];
 
   const createImage = () => {
-    console.log(copies);
     const newCopies = createNewArray(copies);
-    console.log(newCopies);
     const newCodes =
       newCopies.map(() => {
-        console.log(uniqid);
         const base64 = getImgBase64String(uniqid);
         return base64;
       }) || [];
@@ -42,7 +39,6 @@ const BarcodeLayoutToIndivudualPrint = ({
     const items = finalArray.map((pageContent) => {
       return createChunk(pageContent, cols);
     });
-    console.log(items);
     setImages(items);
   };
 

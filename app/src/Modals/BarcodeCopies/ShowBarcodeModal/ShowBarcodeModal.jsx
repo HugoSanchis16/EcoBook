@@ -1,5 +1,4 @@
 import { Button } from "react-bootstrap";
-import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useNotification from "../../../Hooks/useNotification";
 import useRequest from "../../../Hooks/useRequest";
 import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
@@ -7,9 +6,6 @@ import BarcodeComponent from "../../Unassign/UnassignCopyModal.jsx/Components/Ba
 
 const ShowBarcodeModal = ({ show, onClose, data }) => {
   const request = useRequest();
-
-  const { showNotification: errorNotification } = useNotification();
-  const { showNotification: successNotification } = useNotification("success");
 
   const hideModal = () => {
     onClose();

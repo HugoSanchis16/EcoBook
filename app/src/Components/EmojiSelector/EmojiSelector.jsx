@@ -27,7 +27,6 @@ const EmojiSelector = () => {
           <EmojiPicker
             width={275}
             emojiStyle="twitter"
-            onEmojiClick={console.log}
           />
         </div>
       )}

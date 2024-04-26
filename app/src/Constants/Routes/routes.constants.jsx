@@ -29,6 +29,8 @@ import Unassign from "../../Views/App/Unassign/Unassign";
 import Example from "../../Views/Example/Example";
 import PrintBarcodes from "../../Views/App/PrintBarcodes/PrintBarcodes";
 import StudentHistory from "../../Views/App/Students/StudentHistory/StudentHistory";
+import CopyHistory from "../../Views/App/Copy/CopyHistory/CopyHistory";
+import CopyInfo from "../../Views/App/Copy/CopyInfo/CopyInfo";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -84,6 +86,8 @@ export const AppRoutes = [
   //#endregion
 
   //#region copies
+  getRoute(Paths[Views.copy_history].path, CopyHistory),
+  getRoute(Paths[Views.copy_info].path, CopyInfo),
   getRoute(Paths[Views.new_copy].path, NewCopy),
   getRoute(Paths[Views.print_barcodes].path, PrintBarcodes),
   //#endregion

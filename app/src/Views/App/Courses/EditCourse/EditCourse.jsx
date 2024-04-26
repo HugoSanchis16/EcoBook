@@ -67,7 +67,6 @@ const EditCourse = () => {
 
   const handleSubmit = () => {
     if (checkForm()) {
-      console.log({ data });
       request("post", getEndpoint(Endpoints.Courses.editCourse.update), {
         ...data,
       })

@@ -11,7 +11,6 @@ const DeleteBookModal = ({ show, onClose, data }) => {
   const { showNotification: successNotification } = useNotification("success");
 
   const handleSubmit = () => {
-    console.log({ data });
     request("post", getEndpoint(Endpoints.Books.deleteBook.delete), {
       guid: data,
     })

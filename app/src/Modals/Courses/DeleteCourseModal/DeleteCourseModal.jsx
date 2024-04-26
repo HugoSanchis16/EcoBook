@@ -10,9 +10,7 @@ const DeleteCourseModal = ({ show, onClose, data }) => {
 
   const { showNotification: errorNotification } = useNotification();
   const { showNotification: successNotification } = useNotification("success");
-
   const handleSubmit = () => {
-    console.log({ data });
     request("post", getEndpoint(Endpoints.Courses.deleteCourse.delete), {
       guid: data,
     })

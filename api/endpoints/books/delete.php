@@ -16,7 +16,6 @@ try {
 
     $book = Book::getByGuid($db, $input->guid);
     $asigneeCopies = Book::getCountOfCopiesByBookGuid($db, $input->guid);
-    logAPI($asigneeCopies);
 
     if ($asigneeCopies != 0)
         createException("There are " . $asigneeCopies . " students who have copies of this book");

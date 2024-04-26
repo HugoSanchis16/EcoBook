@@ -12,26 +12,19 @@ try {
     checkAuth();
 
     $input = validate($data, [
-        "nia" => "required|numeric"
+        "uniqid" => "required|string"
     ]);
 
     //check if user exist
-    $student = Student::getByNia($db, $input->nia);
+    $copy = Copy::getByUniqId($db, $input->uniqid);
 
-    $studentHistoryResource = [];
-    if ($student) {
+    $copyFormat = CopyResource::getCopyFormatWithAll($copy);
 
-        $studentHistory = History::getCopiesByUserId($db, $student->id);
-
-        $studentHistoryResource = HistoryResource::getHistoryArray($studentHistory);
-
-    } else {
-        createException("Nia not exist", 409);
-    }
+    logAPI($copyFormat);
 
     $db->commit();
     Response::sendResponse([
-        "data" => $studentHistoryResource
+        "data" => $copyFormat
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

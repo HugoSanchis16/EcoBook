@@ -82,7 +82,12 @@ export const Endpoints = {
     },
     editCopy: {
       updateState: "/copies/updateState",
-      update: "/copies/update",
+    },
+    infoCopy: {
+      getInfo: "/copies/getInfo",
+    },
+    historyCopy: {
+      getHistory: "/copies/gethistory",
     },
     deleteCopy: {
       delete: "/copies/delete",

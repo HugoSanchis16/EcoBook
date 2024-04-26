@@ -64,8 +64,6 @@ const Profile = () => {
 
   return (
     <>
-      {console.log(profile)}
-
       <GeneralLayout title={ViewStrings.title}>
         <PanelLayout loaded={loaded}>
           <SectionLayout title="Basic user information">

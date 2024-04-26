@@ -53,7 +53,6 @@ const NewSubject = () => {
 
   const handleSubmit = () => {
     if (checkForm()) {
-      console.log({ data });
       request("post", getEndpoint(Endpoints.Subjects.createSubject.create), {
         ...data,
       })

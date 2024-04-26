@@ -39,15 +39,10 @@ const NewStudent = () => {
     repeater: false,
   });
   const [courses, setCourses] = useState([]);
-  const [subjects, setSubjects] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     fetchData();
-  }, []);
-
-  useEffect(() => {
-    console.log({ data });
   }, [data]);
 
   const fetchData = async () => {
@@ -66,7 +61,6 @@ const NewStudent = () => {
 
   const handleSubmit = () => {
     if (checkForm()) {
-      console.log({ data });
       request("post", getEndpoint(Endpoints.Students.createStudent.create), {
         ...data,
       })

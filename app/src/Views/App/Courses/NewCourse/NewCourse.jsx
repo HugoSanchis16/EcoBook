@@ -36,7 +36,6 @@ const NewCourse = () => {
 
   const handleSubmit = () => {
     if (checkForm()) {
-      console.log({ data });
       request("post", getEndpoint(Endpoints.Courses.createCourse.create), {
         ...data,
       })

@@ -1,13 +1,56 @@
-import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import IconButton from "../../../../Components/Buttons/IconButton";
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
-import { Paths, replacePaths } from "../../../../Constants/paths.constants";
-import { Views } from "../../../../Constants/views.constants";
-import BarcodeComponent from "../../../../Modals/Unassign/UnassignCopyModal.jsx/Components/BarcodeComponent";
 import moment from "moment";
 
 export const HistoryColumns = () => {
+  const getCopyState = (state) => {
+    let stateElement;
+    switch (state) {
+      case 0:
+        stateElement = (
+          <span>
+            <b>Usless</b>
+          </span>
+        );
+        break;
+      case 1:
+        stateElement = (
+          <span>
+            <b>Bad</b>
+          </span>
+        );
+        break;
+      case 2:
+        stateElement = (
+          <span>
+            <b>Good</b>
+          </span>
+        );
+        break;
+      case 3:
+        stateElement = (
+          <span>
+            <b>Very Good</b>
+          </span>
+        );
+        break;
+      case 4:
+        stateElement = (
+          <span>
+            <b>New</b>
+          </span>
+        );
+        break;
+      default:
+        stateElement = (
+          <span className="bg-info-subtle p-2 rounded-5 ">
+            <b>In use</b>
+          </span>
+        );
+        break;
+    }
+    return <p className="mb-0">{stateElement}</p>;
+  };
+
   const columns = [
     {
       Header: "Book",
@@ -26,23 +69,13 @@ export const HistoryColumns = () => {
     {
       Header: "Initial State",
       Cell: (row) =>
-        getColumnValue(row, (item) => (
-          <p className="mb-0">{item.initialstate} </p>
-        )),
+        getColumnValue(row, (item) => getCopyState(item.initialstate)),
       width: 100,
     },
     {
       Header: "Final State",
       Cell: (row) =>
-        getColumnValue(row, (item) => (
-          <p className="mb-0">
-            {item.finalstate != null ? (
-              <span>{item.initialstate}</span>
-            ) : (
-              <span className="bg-info-subtle p-1 rounded-3 ">In use</span>
-            )}
-          </p>
-        )),
+        getColumnValue(row, (item) => getCopyState(item.finalstate)),
       width: 100,
     },
     {
@@ -64,13 +97,14 @@ export const HistoryColumns = () => {
           <p className="mb-0">
             {item.finaldate != null ? (
               <span>
-                {" "}
                 {moment(item.finaldate, "YYYY-MM-DD HH:mm:SS").format(
                   "DD-MM-YYYY"
                 )}
               </span>
             ) : (
-              <span className="bg-info-subtle p-1 rounded-3 ">In use</span>
+              <span className="bg-info-subtle p-2 rounded-5 ">
+                <b>In use</b>
+              </span>
             )}
           </p>
         )),

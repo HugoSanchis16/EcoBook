@@ -27,7 +27,6 @@ const Notification = ({
   }, []);
 
   const handleClick = () => {
-    console.log({ action, extra_data });
     switch (action) {
       case "redirect":
         redirectAction();

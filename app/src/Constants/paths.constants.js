@@ -61,6 +61,8 @@ export const Paths = {
   //#region copies
   [Views.copies]: getPath("/copies/:book_guid/all"),
   [Views.new_copy]: getPath("/copy/:book_guid/new"),
+  [Views.copy_history]: getPath("/copy/history/:copy_uniqid"),
+  [Views.copy_info]: getPath("/copy/info/:copy_uniqid"),
   [Views.print_barcodes]: getPath("/copies/print_barcodes/:book_guid"),
   //#endregion
 

@@ -77,7 +77,6 @@ const Books = () => {
 
   return (
     <>
-      {console.log(data)}
       {/* Modals */}
       <DeleteBookModal
         show={showDeleteModal}

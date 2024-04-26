@@ -81,7 +81,6 @@ const FormToCheckStudent = ({ setData, data, setStep }) => {
   const handleCloseScanModal = (nia) => {
     closeScanModal();
     if (nia) {
-      console.log(nia);
       setData({ ...data, nia });
       handleSubmit();
     }

@@ -43,7 +43,6 @@ const Asign = () => {
 
   const handleSubmit = () => {
     if (checkForm()) {
-      console.log({ data });
       request("post", getEndpoint(Endpoints.assign.create.assign), {
         ...data,
       })

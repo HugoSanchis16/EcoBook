@@ -16,9 +16,6 @@ const PrintBarcodes = (book_guid) => {
   const [data, setData] = useState([]);
 
   const { showNotification: errorNotification } = useNotification();
-  const { showNotification: successNotification } = useNotification("success");
-
-  console.log(book_guid);
 
   useEffect(() => {
     fetchData();

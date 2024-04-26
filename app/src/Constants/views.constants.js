@@ -55,6 +55,8 @@ export const Views = {
 
   //#region Management
   new_copy: "new_copy",
+  copy_history: "copy_history",
+  copy_info: "copy_info",
   print_barcodes: "print_barcodes",
   //#endregion
 

@@ -44,7 +44,6 @@ const StudentSection = ({ setData, data }) => {
   const handleCloseScanModal = (uniqid) => {
     closeScanModal();
     if (uniqid) {
-      console.log(uniqid);
       setData({ ...data, nia: uniqid });
     }
   };

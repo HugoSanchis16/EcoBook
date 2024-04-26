@@ -21,7 +21,7 @@ import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
 import { EmailRegex, NiaRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
 import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
-import { StudentTabs } from "../../../../Utils/StudentTabs";
+import { StudentTabs } from "../Tabs/StudentTabs";
 import Tabs from "../../../../Components/Tabs/Tabs";
 
 const EditStudent = () => {
@@ -70,7 +70,6 @@ const EditStudent = () => {
 
   const handleSubmit = () => {
     if (checkForm()) {
-      console.log({ data });
       request("post", getEndpoint(Endpoints.Students.editStudent.update), {
         ...data,
       })

@@ -22,7 +22,6 @@ const CustomTable = ({
         }
 
         const dataX = [...getObjectFromObjectKey(propsData, cols)];
-        console.log(dataX);
         setData([...dataX]);
     }, [propsData])
 
@@ -30,7 +29,6 @@ const CustomTable = ({
         const dataCopy = { ...d };
         const fullData = { ...dataCopy };
         delete dataCopy.original;
-        console.log(dataCopy);
         return (
             Object.keys(dataCopy).map((key, colIndex) => (
                 <div

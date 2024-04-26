@@ -13,7 +13,6 @@ const DeleteStudentModal = ({ show, onClose, data }) => {
   const { showNotification: successNotification } = useNotification("success");
 
   const handleSubmit = () => {
-    console.log({ data });
     request("post", getEndpoint(Endpoints.Students.deleteStudent.delete), {
       guid: data,
     })

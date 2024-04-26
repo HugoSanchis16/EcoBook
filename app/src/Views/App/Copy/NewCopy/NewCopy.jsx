@@ -69,7 +69,6 @@ const NewCopy = () => {
 
   const handleSubmit = () => {
     if (checkForm()) {
-      console.log({ data });
       request("post", getEndpoint(Endpoints.Copies.createCopy.create), {
         ...data,
         book_guid,
