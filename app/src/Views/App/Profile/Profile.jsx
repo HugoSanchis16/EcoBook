@@ -8,9 +8,11 @@ import { StringsContext } from "../../../Context/strings.context";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import FormControl from "../../../Components/Form/FormControl/FormControl";
 import { validateData } from "../../../Config/GeneralFunctions";
-import { Button } from "react-bootstrap";
+import { Button, Image, Row, Col } from "react-bootstrap";
 import { PhoneRegexSpain } from "../../../Utils/Regex";
 import SectionLayout from "../../../Layouts/SectionLayout/SectionLayout";
+import adventure from "./adventure.jpg";
+import ImageModal from "./modal";
 
 const Profile = () => {
   const { strings } = useContext(StringsContext);
@@ -62,42 +64,127 @@ const Profile = () => {
     return validateData([name, surnames, phone]) && PhoneRegexSpain.test(phone);
   };
 
+  const [hovered, setHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+  };
+  const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
+  const handleClick = () => {
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  // Función para manejar la selección de imagen
+  const handleSelectImage = () => {
+    // Aquí puedes implementar la lógica para seleccionar una imagen
+    // Por ahora, solo cerraremos el modal
+    handleCloseModal();
+  };
+
   return (
     <>
+      <ImageModal
+        show={showModal}
+        onHide={handleCloseModal}
+        onSelectImage={handleSelectImage}
+      />
+
       <GeneralLayout title={ViewStrings.title}>
         <PanelLayout loaded={loaded}>
-          <SectionLayout title="Basic user information">
-            <FormControl
-              controlId="name"
-              maxLength={50}
-              showMaxLength
-              vertical={false}
-              value={profile.name}
-              title={ViewStrings.inputs.nameInput.title}
-              placeholder={ViewStrings.inputs.nameInput.placeholder}
-              onChange={handleInput}
-            />
-            <FormControl
-              controlId="surnames"
-              maxLength={50}
-              showMaxLength
-              vertical={false}
-              value={profile.surnames}
-              title={ViewStrings.inputs.surnameInput.title}
-              placeholder={ViewStrings.inputs.surnameInput.placeholder}
-              onChange={handleInput}
-            />
-            <FormControl
-              controlId="phone"
-              maxLength={9}
-              showMaxLength
-              vertical={false}
-              value={profile.phone}
-              title={ViewStrings.inputs.phoneInput.title}
-              placeholder={ViewStrings.inputs.phoneInput.placeholder}
-              onChange={handleInput}
-            />
-          </SectionLayout>
+          <Row className="row-styles">
+            <Col xs={12} md={6} className="col-styles">
+              <SectionLayout title={"Image Profile"}>
+                <div className="d-flex justify-content-center ">
+                  <div
+                    className="bg-dark image-container d-flex justify-content-center position-relative rounded-circle "
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <img
+                      className="rounded-circle"
+                      src={adventure}
+                      alt="Profile"
+                      style={{
+                        minHeight: "100px",
+                        width: "250px",
+                        maxWidth: "300px",
+                      }}
+                    />
+                    {hovered && (
+                      <div
+                        onClick={handleClick}
+                        style={{
+                          cursor: "pointer",
+                          position: "absolute",
+                          top: 0,
+                          minHeight: "100px",
+                          width: "250px",
+                          maxWidth: "300px",
+                          height: "100%",
+                          backgroundColor: "#000000AA",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                        className="overlay rounded-circle "
+                      >
+                        <p
+                          style={{
+                            fontSize: "18px",
+                          }}
+                          className="text-light"
+                        >
+                          Upload Image
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </SectionLayout>
+            </Col>
+            <Col xs={12} md={6} className="col-styles">
+              <SectionLayout className="w-100" title="Basic user information">
+                <FormControl
+                  controlId="name"
+                  maxLength={50}
+                  showMaxLength
+                  vertical={false}
+                  value={profile.name}
+                  title={ViewStrings.inputs.nameInput.title}
+                  placeholder={ViewStrings.inputs.nameInput.placeholder}
+                  onChange={handleInput}
+                />
+                <FormControl
+                  controlId="surnames"
+                  maxLength={50}
+                  showMaxLength
+                  vertical={false}
+                  value={profile.surnames}
+                  title={ViewStrings.inputs.surnameInput.title}
+                  placeholder={ViewStrings.inputs.surnameInput.placeholder}
+                  onChange={handleInput}
+                />
+                <FormControl
+                  controlId="phone"
+                  maxLength={9}
+                  showMaxLength
+                  vertical={false}
+                  value={profile.phone}
+                  title={ViewStrings.inputs.phoneInput.title}
+                  placeholder={ViewStrings.inputs.phoneInput.placeholder}
+                  onChange={handleInput}
+                />
+              </SectionLayout>
+            </Col>
+          </Row>
+
           <div className="d-flex justify-content-end w-100 align-items-center">
             <Button disabled={!checkForm()} onClick={handleSubmit}>
               {GeneralStrings.Update}
