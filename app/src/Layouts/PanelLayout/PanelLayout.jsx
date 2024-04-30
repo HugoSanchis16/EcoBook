@@ -9,6 +9,7 @@ const PanelLayout = ({
   Tabs,
   className = "p-2 p-xl-3",
   cardClassName = "p-0",
+  title = "",
   onClick = () => {},
 }) => {
   const mainClassNames = classNames(

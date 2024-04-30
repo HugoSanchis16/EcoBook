@@ -45,6 +45,7 @@ export const Endpoints = {
     allSubjects: {
       getAllNames: "/subjects/getAllNames",
       getAll: "/subjects/getAll",
+      getAllAbbr: "/subjects/getAllAbbr",
       edit: "/subjects/get",
       getAllByCourse: "/subjects/getAllByCourse",
     },
@@ -62,6 +63,8 @@ export const Endpoints = {
     allCourses: {
       getAllNames: "/courses/getAllNamesToAdd",
       getAllNamesToAssign: "/courses/getAllNamesToAssign",
+      getAllAbbr: "/courses/getAllAbbr",
+      getAllSeasons: "/courses/getAllSeasons",
       getAll: "/courses/getAll",
       edit: "/courses/get",
     },

@@ -71,6 +71,11 @@ const StudentHistory = () => {
     <GeneralLayout showBackButton title={ViewStrings.title + " Books History"}>
       <PanelLayout loaded={loaded} Tabs={StudentTabs}>
         <ReactTable
+          extraFilters={
+            <p className="m-2 bg-info-subtle fw-bolder text-dark shadow w-75 text-center rounded-2 p-1">
+              Books the student has had
+            </p>
+          }
           emptyData={{
             text: "No history found",
             buttonText: "Go Back !",

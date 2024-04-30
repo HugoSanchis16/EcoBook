@@ -17,13 +17,13 @@ export const StudentsColumns = (openDeleteModal) => {
       Header: "Full Name",
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.fullname}</p>),
-      width: 100,
+      width: 200,
     },
     {
       Header: "Email",
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.email}</p>),
-      width: 100,
+      width: 150,
     },
     {
       Header: "Actions",

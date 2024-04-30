@@ -29,6 +29,7 @@ class Subject
                 "from" => $this->course(),
                 "what" => [
                     'name',
+                    'abbr'
                 ]
             )
         ];
@@ -155,12 +156,18 @@ class Subject
         createException("Subject not found");
     }
 
-    public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
+    public static function getAll(PDO $db, int $page, int $offset, string $search = "", array $filters): array
     {
         $query = "
-        SELECT s.*
-        FROM `" . self::$table_name . "` s 
+        SELECT *
+        FROM `" . self::$table_name . "`
         WHERE deleted IS NULL";
+
+
+        foreach ($filters as $index => $object) {
+            $query .= " AND $object->id = :val$index";
+        }
+
 
         applySearchOnQuery($query);
         doPagination($offset, $page, $query);
@@ -168,6 +175,10 @@ class Subject
         $stmt = $db->prepare($query);
 
         applySearchOnBindedValue($search, $stmt);
+        foreach ($filters as $index => $object) {
+            $value = $object->value;
+            $stmt->bindValue(":val$index", $value, PDO::PARAM_INT);
+        }
 
         if ($stmt->execute()) {
             $arrayToReturn = [];
@@ -178,6 +189,59 @@ class Subject
         }
         createException($stmt->errorInfo());
     }
+
+    public static function getAllWithoutPaginationToFilter(PDO $db): array
+    {
+        $query = "
+        SELECT s.*
+        FROM `" . self::$table_name . "` AS s
+        INNER JOIN `book` AS b ON s.id = b.subject_id
+        WHERE b.deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
+    public static function getAllCount(PDO $db, string $search = "", array $filters): int
+    {
+        $query = "
+        SELECT COUNT(s.id) as total
+        FROM `" . self::$table_name . "` s
+        WHERE deleted IS NULL";
+
+        foreach ($filters as $index => $object) {
+            $query .= " AND $object->id = :val$index";
+        }
+
+        applySearchOnQuery($query);
+
+        $stmt = $db->prepare($query);
+
+        applySearchOnBindedValue($search, $stmt);
+
+        foreach ($filters as $index => $object) {
+            $value = $object->value;
+            $stmt->bindValue(":val$index", $value, PDO::PARAM_INT);
+        }
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        } else {
+            createException($stmt->errorInfo());
+        }
+    }
+
     public static function getAllNames(PDO $db): array
     {
         $query = "
@@ -196,32 +260,6 @@ class Subject
         }
         createException($stmt->errorInfo());
     }
-
-
-    public static function getAllCount(PDO $db, string $search = ""): int
-    {
-        $query = "
-        SELECT COUNT(s.id) as total
-        FROM `" . self::$table_name . "` s
-        WHERE deleted IS NULL
-        ";
-
-        applySearchOnQuery($query);
-
-        $stmt = $db->prepare($query);
-
-        applySearchOnBindedValue($search, $stmt);
-
-        if ($stmt->execute()) {
-
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                return intval($row['total']);
-            }
-            return 0;
-        }
-        createException($stmt->errorInfo());
-    }
-
 
     public static function getAllSubjectsByCourse(PDO $db, int $course_id): array
     {

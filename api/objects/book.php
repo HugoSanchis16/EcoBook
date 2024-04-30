@@ -193,12 +193,16 @@ class Book
     }
 
 
-    public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
+    public static function getAll(PDO $db, int $page, int $offset, string $search = "", $filters): array
     {
         $query = "
         SELECT b.*
         FROM `" . self::$table_name . "` b
         WHERE deleted IS NULL";
+
+        foreach ($filters as $index => $object) {
+            $query .= " AND $object->id = :val$index";
+        }
 
         applySearchOnQuery($query);
         doPagination($offset, $page, $query);
@@ -206,6 +210,11 @@ class Book
         $stmt = $db->prepare($query);
 
         applySearchOnBindedValue($search, $stmt);
+
+        foreach ($filters as $index => $object) {
+            $value = $object->value;
+            $stmt->bindValue(":val$index", $value, PDO::PARAM_INT);
+        }
 
         if ($stmt->execute()) {
             $arrayToReturn = [];
@@ -218,7 +227,7 @@ class Book
     }
 
 
-    public static function getAllCount(PDO $db, string $search = ""): int
+    public static function getAllCount(PDO $db, string $search = "", $filters): int
     {
         $query = "
         SELECT COUNT(b.id) as total
@@ -226,11 +235,20 @@ class Book
         WHERE deleted IS NULL
         ";
 
+        foreach ($filters as $index => $object) {
+            $query .= " AND $object->id = :val$index";
+        }
+
         applySearchOnQuery($query);
 
         $stmt = $db->prepare($query);
 
         applySearchOnBindedValue($search, $stmt);
+
+        foreach ($filters as $index => $object) {
+            $value = $object->value;
+            $stmt->bindValue(":val$index", $value, PDO::PARAM_INT);
+        }
 
         if ($stmt->execute()) {
 

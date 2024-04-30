@@ -34,6 +34,8 @@ try {
         $studentProfile->phone = $input->phone;
         $studentProfile->email = $input->email;
         $studentProfile->store();
+
+        $student->update(); //Needed to add profile searchdata
     } else {
         createException("Nia already exist", 409);
     }

@@ -88,6 +88,11 @@ const CopyHistory = () => {
       >
         <PanelLayout loaded={loaded} Tabs={CopyTabs}>
           <ReactTable
+            extraFilters={
+              <p className="m-2 bg-info-subtle fw-bolder text-dark shadow w-75 text-center rounded-2 p-1">
+                Students who have had this book
+              </p>
+            }
             emptyData={{
               text: "No history found",
               buttonText: "Go Back !",

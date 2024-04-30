@@ -11,15 +11,14 @@ try {
     $db->beginTransaction();
     checkAuth();
 
+    $courses = Course::getAllWithoutPaginationToFilterSeasons($db);
 
+    $seasons = CourseResource::getCoursesSeasonArray($courses);
 
-    //check if user exist
-    $courses = Course::getAllWithoutPagination($db);
-    $coursesFormat = CourseResource::getCoursesNamesArray($courses);
 
     $db->commit();
     Response::sendResponse([
-        "courses" => $coursesFormat
+        "seasons" => $seasons,
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import CustomAreaChart from "../../../../Components/Charts/AreaChart";
-import CustomPieChart from "../../../../Components/Charts/PieChart";
-import SmallPanel from "../../../../Components/Charts/SmallPanel/SmallPanel";
-import { Paths } from "../../../../Constants/paths.constants";
-import { Views } from "../../../../Constants/views.constants";
-import { StringsContext } from "../../../../Context/strings.context";
-import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
-import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
-import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
+import CustomAreaChart from "../../../Components/Charts/AreaChart";
+import CustomPieChart from "../../../Components/Charts/PieChart";
+import SmallPanel from "../../../Components/Charts/SmallPanel/SmallPanel";
+import { Paths } from "../../../Constants/paths.constants";
+import { Views } from "../../../Constants/views.constants";
+import { StringsContext } from "../../../Context/strings.context";
+import GeneralLayout from "../../../Layouts/GeneralLayout/GeneralLayout";
+import PanelLayout from "../../../Layouts/PanelLayout/PanelLayout";
+import SectionLayout from "../../../Layouts/SectionLayout/SectionLayout";
 import { BasicData } from "./data";
 
 const Dashboard = () => {

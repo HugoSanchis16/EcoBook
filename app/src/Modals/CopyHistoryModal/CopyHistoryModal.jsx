@@ -13,20 +13,20 @@ const CopyHistoryModal = ({ show, onClose, data }) => {
 
   return (
     <ModalLayout show={show} onHide={hideModal} size="lg">
-      <SectionLayout title="General Info">
+      <SectionLayout title="General Student Information">
         <InfoProps title="NIA" data={data?.student_nia} />
         <InfoProps title="Name" data={data?.student_name} />
         <InfoProps title="Email" data={data?.student_email} />
         <InfoProps title="Phone" data={data?.student_phone} />
       </SectionLayout>
-      <SectionLayout title="CopyInfo">
+      <SectionLayout title="Copy Information">
         <InfoProps title="Code" data={data?.uniqid} />
         <InfoProps title="Book Name" data={data?.book_name} />
         <InfoProps title="ISBN" data={data?.book_isbn} />
         <InfoProps title="Course" data={data?.course_name} />
         <InfoProps title="Subject" data={data?.subject_name} />
       </SectionLayout>
-      <SectionLayout title="Delivery information">
+      <SectionLayout title="Delivery Information">
         <InfoProps
           title="Delivery date"
           data={moment(data?.initialdate, "YYYY-MM-DD HH:mm:SS").format(
@@ -38,7 +38,7 @@ const CopyHistoryModal = ({ show, onClose, data }) => {
           data={<StarsComponent state={data?.initialstate} />}
         />
       </SectionLayout>
-      <SectionLayout title="Return information">
+      <SectionLayout title="Return Information">
         <InfoProps
           title="Return date"
           data={

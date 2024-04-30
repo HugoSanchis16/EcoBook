@@ -8,7 +8,6 @@ import logoMaximisedEs from "../../../Assets/images/Logo/logo-maximised-es.png";
 import logoMinimised from "../../../Assets/images/Logo/logo-minimised.png";
 
 const SideBarBrand = () => {
-  const { menuMode } = useSideBar();
   const { isMobileView } = useSelector((state) => state.Config);
 
   const { sidebar } = useSelector((state) => state.Config);

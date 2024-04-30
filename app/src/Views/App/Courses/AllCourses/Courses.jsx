@@ -19,6 +19,7 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import useModalManager from "../../../../Hooks/useModalManager";
 import { CoursesColumns } from "./CoursesColumns";
 import DeleteCourseModal from "../../../../Modals/Courses/DeleteCourseModal/DeleteCourseModal";
+import SeasonFilterSelector from "../../../../Components/Filter/SeasonFilterSelector";
 
 const Courses = () => {
   const { strings } = useContext(StringsContext);
@@ -41,6 +42,7 @@ const Courses = () => {
   const { startFetching, finishFetching, fetching, loaded } = useLoaded();
 
   const [data, setData] = useState([]);
+  const [filterSelected, setFilterSelected] = useState();
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
@@ -50,7 +52,8 @@ const Courses = () => {
   const fetchData = async (
     page = 1,
     offset = Configuration.tables.defaultPageSize,
-    search = searchParams.get("search")
+    search = searchParams.get("search"),
+    filter = filterSelected
   ) => {
     startFetching();
     return await request(
@@ -60,6 +63,7 @@ const Courses = () => {
         page,
         offset,
         search,
+        filter: JSON.stringify(filter ? [filter] : []),
       }
     )
       .then((res) => {
@@ -73,6 +77,10 @@ const Courses = () => {
   const handleCloseDeleteBook = (refresh) => {
     if (refresh) fetchData();
     closeDeleteModal();
+  };
+
+  const handleFilter = (e) => {
+    setFilterSelected(e);
   };
 
   return (
@@ -97,6 +105,19 @@ const Courses = () => {
       >
         <PanelLayout loaded={loaded}>
           <ReactTable
+            useFilter
+            extraFilters={
+              <div className="d-flex flex-column ">
+                <SeasonFilterSelector onChange={handleFilter} />
+                <Button
+                  className="align-self-end m-1"
+                  size="sm"
+                  onClick={() => fetchData()}
+                >
+                  Apply
+                </Button>
+              </div>
+            }
             emptyData={{
               text: "No Courses found",
               buttonText: "+ New Course",

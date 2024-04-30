@@ -14,13 +14,15 @@ try {
     $input = validate($data, [
         'page' => 'required|numeric',
         'offset' => 'required|numeric',
-        'search' => 'sometimes|string'
+        'search' => 'sometimes|string',
+        'filter' => 'sometimes|string'
     ]);
 
     $search = isset($input->search) ? $input->search : "";
+    $filter = isset($input->filter) ? json_decode($input->filter) : [];
 
-    $courses = Course::getAll($db, $input->page, $input->offset, $input->search);
-    $coursesCount = Course::getAllCount($db, $input->search);
+    $courses = Course::getAll($db, $input->page, $input->offset, $input->search, $filter);
+    $coursesCount = Course::getAllCount($db, $input->search, $filter);
 
     $coursesFormat = CourseResource::getCoursesArray($courses);
 

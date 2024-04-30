@@ -4,19 +4,13 @@ import {
   Accordion,
   Button,
   Card,
-  Form,
-  FormControl,
-  InputGroup,
   useAccordionButton,
 } from "react-bootstrap";
 import { BsChevronCompactDown, BsSearch } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { Configuration } from "../../../Config/app.config";
 import { NavItems } from "../../../Constants/navitems.constants";
-import { Paths } from "../../../Constants/paths.constants";
-import { Views } from "../../../Constants/views.constants";
 import useModalManager from "../../../Hooks/useModalManager";
 import useSideBar from "../../../Hooks/useSideBar";
 import SearcherModal from "../../../Modals/Searcher/SearcherModal";
@@ -25,7 +19,6 @@ import SideBarBrand from "./SideBarBrand";
 import SideBarItem from "./SideBarItem";
 
 const SideBar = () => {
-  const { push } = useHistory();
 
   const { closeModal, openModal, show } = useModalManager();
 
@@ -47,11 +40,6 @@ const SideBar = () => {
       "m-2 border rounded-lg": roundedSideBar,
     }
   );
-
-  const handleSearch = (e) => {
-    e && e.preventDefault();
-    if (search) push(`${Paths[Views.search].path}?search=${search}`);
-  };
 
   const getIcon = (icon) => {
     let iconCode = `&#x${icon};`;

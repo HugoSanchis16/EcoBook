@@ -3,7 +3,6 @@ export const BasicData = [
     title: "Books",
     totalItems: Math.round(Math.random() * 9999),
     percentage: Math.round(Math.random() * 99),
-    sign: Math.random() * 10 > 3,
     color: "#ff4545",
     history: [
       {

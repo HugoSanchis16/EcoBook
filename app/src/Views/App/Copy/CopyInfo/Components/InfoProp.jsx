@@ -1,5 +1,3 @@
-import classNames from "classnames";
-
 const InfoProps = ({ title, data }) => {
   return (
     <div className="d-flex w-100  py-2">

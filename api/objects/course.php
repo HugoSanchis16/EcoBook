@@ -116,7 +116,82 @@ class Course
     }
 
 
-    public static function getAll(PDO $db): array
+    public static function getAll(PDO $db, int $page, int $offset, string $search = "", array $filters): array
+    {
+
+        $query = "
+        SELECT c.*
+        FROM `" . self::$table_name . "` c 
+        WHERE c.deleted IS NULL";
+
+        foreach ($filters as $index => $object) {
+            $query .= " AND $object->id = :val$index";
+        }
+
+        applySearchOnQuery($query);
+        doPagination($offset, $page, $query);
+
+        $stmt = $db->prepare($query);
+
+        applySearchOnBindedValue($search, $stmt);
+
+        foreach ($filters as $index => $object) {
+            $value = $object->value;
+            $stmt->bindValue(":val$index", $value, PDO::PARAM_INT);
+        }
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
+
+    public static function getAllWithoutPaginationToFilter(PDO $db): array
+    {
+        $query = "
+        SELECT DISTINCT c.*
+        FROM `" . self::$table_name . "` AS c
+        INNER JOIN `subject` AS s ON c.id = s.course_id
+        WHERE c.deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
+    public static function getAllWithoutPaginationToFilterSeasons(PDO $db): array
+    {
+        $query = "
+        SELECT DISTINCT c.*
+        FROM `" . self::$table_name . "` AS c
+        WHERE c.deleted IS NULL GROUP BY season";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
+
+    public static function getAllWithoutPagination(PDO $db): array
     {
         $query = "
         SELECT c.*
@@ -156,7 +231,7 @@ class Course
     }
 
 
-    public static function getAllCount(PDO $db, string $search = ""): int
+    public static function getAllCount(PDO $db, string $search = "", array $filters): int
     {
         $query = "
         SELECT COUNT(c.id) as total
@@ -164,11 +239,20 @@ class Course
         WHERE deleted IS NULL
         ";
 
+        foreach ($filters as $index => $object) {
+            $query .= " AND $object->id = :val$index";
+        }
+
         applySearchOnQuery($query);
 
         $stmt = $db->prepare($query);
 
         applySearchOnBindedValue($search, $stmt);
+
+        foreach ($filters as $index => $object) {
+            $value = $object->value;
+            $stmt->bindValue(":val$index", $value, PDO::PARAM_INT);
+        }
 
         if ($stmt->execute()) {
 

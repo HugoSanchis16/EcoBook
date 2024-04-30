@@ -41,4 +41,20 @@ class SubjectResource
         }
         return $itemsArray;
     }
+    public static function getSubjectsAbbrArray(array $subjects): array
+    {
+        $itemsArray = [];
+        foreach ($subjects as $subject) {
+
+            $course = $subject->course();
+
+            $newItem = self::getSubject($subject, ['id', 'name']);
+
+            $itemsArray[] = array(
+                "value" => $newItem->id,
+                "label" => $newItem->name . " (" . $course->abbr . ")"
+            );
+        }
+        return $itemsArray;
+    }
 }

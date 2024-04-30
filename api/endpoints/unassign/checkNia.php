@@ -17,7 +17,9 @@ try {
 
     //check if user exist
     $student = Student::getByNia($db, $input->nia);
+
     if (!$student) {
+        logAPI($input->nia);
         createException("Nia not exist", 409);
     } else {
         $studentFormat = StudentResource::getStudentWithProfile($student);

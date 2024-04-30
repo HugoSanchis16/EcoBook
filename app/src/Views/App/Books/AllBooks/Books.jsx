@@ -23,6 +23,8 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import { BooksColumns } from "./BooksColumns";
 import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
+import CourseFilterSelector from "../../../../Components/Filter/CourseFilterSelector";
+import SubjectFilterSelector from "../../../../Components/Filter/SubjectFilterSelector";
 
 const Books = () => {
   const { strings } = useContext(StringsContext);
@@ -43,6 +45,7 @@ const Books = () => {
   const { showNotification: errorNotification } = useNotification();
 
   const { startFetching, finishFetching, fetching, loaded } = useLoaded();
+  const [filterSelected, setFilterSelected] = useState();
 
   const [data, setData] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -54,13 +57,15 @@ const Books = () => {
   const fetchData = async (
     page = 1,
     offset = Configuration.tables.defaultPageSize,
-    search = searchParams.get("search")
+    search = searchParams.get("search"),
+    filter = filterSelected
   ) => {
     startFetching();
     return await request("get", getEndpoint(Endpoints.Books.allBooks.getAll), {
       page,
       offset,
       search,
+      filter: JSON.stringify(filter ? [filter] : []),
     })
       .then((res) => {
         setData(res.books);
@@ -73,6 +78,10 @@ const Books = () => {
   const handleCloseDeleteBook = (refresh) => {
     if (refresh) fetchData();
     closeDeleteModal();
+  };
+
+  const handleFilter = (e) => {
+    setFilterSelected(e);
   };
 
   return (
@@ -97,6 +106,19 @@ const Books = () => {
       >
         <PanelLayout loaded={loaded}>
           <ReactTable
+            useFilter
+            extraFilters={
+              <div className="d-flex flex-column ">
+                <SubjectFilterSelector onChange={handleFilter} />
+                <Button
+                  className="align-self-end m-1"
+                  size="sm"
+                  onClick={() => fetchData()}
+                >
+                  Apply
+                </Button>
+              </div>
+            }
             emptyData={{
               text: "No Books found",
               buttonText: "+ New Book",

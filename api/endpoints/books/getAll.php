@@ -14,18 +14,15 @@ try {
     $input = validate($data, [
         'page' => 'required|numeric',
         'offset' => 'required|numeric',
-        'search' => 'sometimes|string'
+        'search' => 'sometimes|string',
+        'filter' => 'sometimes|string'
     ]);
 
     $search = isset($input->search) ? $input->search : "";
+    $filter = isset($input->filter) ? json_decode($input->filter) : [];
 
-    //check if user exist
-    $books = Book::getAll($db, $input->page, $input->offset, $input->search);
-    $booksCount = Book::getAllCount($db, $input->search);
-
-
-
-
+    $books = Book::getAll($db, $input->page, $input->offset, $input->search, $filter);
+    $booksCount = Book::getAllCount($db, $input->search, $filter);
 
     $booksFormat = BookResource::getBooksArrayList($books);
 

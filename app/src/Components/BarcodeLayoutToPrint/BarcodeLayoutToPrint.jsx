@@ -55,30 +55,32 @@ const BarcodeLayoutToPrint = ({ codes, rows = 6, cols = 3, offset = 0 }) => {
 
   return (
     <Document>
-      {images.map((page) => (
-        <Page size="A4" style={{ margin: 0, padding: 0 }}>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            {page.map((row) => (
-              <View style={{ flexDirection: "row" }}>
-                {row.map((image) =>
+      {images.map((page, index) => (
+        <Page key={index} size="A4" style={{ margin: 0, padding: 0 }}>
+          <View style={{ flexDirection: "column", flexGrow: 1 }}>
+            {page.map((row, rowIndex) => (
+              <View
+                key={rowIndex}
+                style={{ flexDirection: "row", flexGrow: 1 }}
+              >
+                {row.map((image, imageIndex) =>
                   typeof image === "string" ? (
                     <Image
+                      key={imageIndex}
                       src={image}
                       style={{
-                        width: A4_Sizes.width / cols - 2,
-                        height: A4_Sizes.height / rows - 2,
+                        width: (A4_Sizes.width) / cols,
+                        height: (A4_Sizes.height) / rows,
+                        flexGrow: 1,
                       }}
                     />
                   ) : (
                     <Text
+                      key={imageIndex}
                       style={{
-                        width: A4_Sizes.width / cols - 2,
-                        height: A4_Sizes.height / rows - 2,
+                        width: (A4_Sizes.width) / cols,
+                        height: (A4_Sizes.height) / rows,
+                        flexGrow: 1,
                       }}
                     ></Text>
                   )

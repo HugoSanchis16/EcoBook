@@ -39,4 +39,35 @@ class CourseResource
         }
         return $itemsArray;
     }
+    public static function getCoursesAbbrArray(array $subjects): array
+    {
+        $itemsArray = [];
+        foreach ($subjects as $subject) {
+
+            $newItem = self::getCourse($subject, ['id', 'abbr']);
+
+            logAPI($newItem);
+
+            $itemsArray[] = array(
+                "value" => $newItem->id,
+                "label" => $newItem->abbr
+            );
+        }
+        return $itemsArray;
+    }
+    public static function getCoursesSeasonArray(array $subjects): array
+    {
+        $itemsArray = [];
+        foreach ($subjects as $subject) {
+
+            $newItem = self::getCourse($subject, ['season']);
+
+
+            $itemsArray[] = array(
+                "value" => $newItem->season,
+                "label" => $newItem->season
+            );
+        }
+        return $itemsArray;
+    }
 }

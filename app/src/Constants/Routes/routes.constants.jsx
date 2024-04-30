@@ -1,7 +1,7 @@
 import { Redirect } from "react-router-dom";
 import { getToken } from "../../Config/GeneralFunctions";
 import { NotFound } from "../../Views/404";
-import Dashboard from "../../Views/App/OldViews/Dashboard/Dashboard";
+import Dashboard from "../../Views/App/Dashboard/Dashboard";
 import ForgotPassword from "../../Views/Auth/ForgotPassword/ForgotPassword";
 import Login from "../../Views/Auth/Login/Login";
 import ResetPassword from "../../Views/Auth/ResetPassword/ResetPassword";

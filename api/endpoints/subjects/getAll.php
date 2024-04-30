@@ -14,15 +14,16 @@ try {
     $input = validate($data, [
         'page' => 'required|numeric',
         'offset' => 'required|numeric',
-        'search' => 'sometimes|string'
+        'search' => 'sometimes|string',
+        'filter' => 'sometimes|string'
     ]);
 
     $search = isset($input->search) ? $input->search : "";
+    $filter = isset($input->filter) ? json_decode($input->filter) : [];
 
-    $subjects = Subject::getAll($db, $input->page, $input->offset, $input->search);
+    $subjects = Subject::getAll($db, $input->page, $input->offset, $input->search, $filter);
 
-
-    $subjectsCount = Subject::getAllCount($db, $input->search);
+    $subjectsCount = Subject::getAllCount($db, $input->search, $filter);
 
     $subjectsFormat = SubjectResource::getSubjectsArray($subjects);
 
