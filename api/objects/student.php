@@ -22,7 +22,6 @@ class Student
 
     private function searchableValues(): array
     {
-        logAPI($this->profile());
         return [
             $this->nia,
             array(

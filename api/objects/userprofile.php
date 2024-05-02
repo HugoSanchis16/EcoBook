@@ -11,6 +11,7 @@ class UserProfile
     public string $name;
     public string $surnames;
     public string|null $phone;
+    public string|null $avatar;
     public string|null $updated;
 
 
@@ -45,14 +46,34 @@ class UserProfile
     {
         $query = "
             UPDATE `" . self::$table_name . "` 
-            SET name=:name, surnames=:surnames, phone=:phone, updated=:updated
+            SET name=:name, surnames=:surnames, phone=:phone, updated=:updated, avatar=:avatar
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":surnames", $this->surnames);
         $stmt->bindParam(":phone", $this->phone);
+        $stmt->bindParam(":avatar", $this->avatar);
         $stmt->bindValue(":updated", newDate());
+        $stmt->bindParam(":id", $this->id);
+
+        try {
+            $stmt->execute();
+            return true;
+        } catch (\Exception $th) {
+            createException($stmt->errorInfo());
+        }
+    }
+
+    function updateImage(): bool
+    {
+        $query = "
+        UPDATE `" . self::$table_name . "` 
+        SET avatar=:avatar
+        WHERE id=:id";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":avatar", $this->avatar);
         $stmt->bindParam(":id", $this->id);
 
         try {
@@ -88,6 +109,7 @@ class UserProfile
         $newObj->name = $row['name'];
         $newObj->surnames = $row['surnames'];
         $newObj->phone = $row['phone'];
+        $newObj->avatar = $row['avatar'];
         $newObj->updated = $row['updated'];
         return $newObj;
     }

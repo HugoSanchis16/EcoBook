@@ -1,5 +1,4 @@
 import { Button, Dropdown } from "react-bootstrap";
-import { BsPersonCircle } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import {
@@ -8,21 +7,32 @@ import {
 } from "../../../../Constants/endpoints.contants";
 import { Paths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
-import useModalManager from "../../../../Hooks/useModalManager";
 import useRequest from "../../../../Hooks/useRequest";
-import ProfileModal from "../../../../Modals/ProfileModal/ProfileModal";
+import { useEffect, useState } from "react";
+import useNotification from "../../../../Hooks/useNotification";
+import useLoaded from "../../../../Hooks/useLoaded";
 
 const ProfileDropdown = () => {
   const request = useRequest();
   const { isMobileView } = useSelector((state) => state.Config);
 
   const { push, replace } = useHistory();
+  const [profile, setProfile] = useState([]);
+  const { showNotification: errorNotification } = useNotification();
+  const { finishFetching } = useLoaded();
 
-  const {
-    show: showProfileModal,
-    closeModal: closeProfileModal,
-    openModal: openProfileModal,
-  } = useModalManager();
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    return await request("get", getEndpoint(Endpoints.user.profile.get))
+      .then((res) => {
+        setProfile(res.profile);
+      })
+      .catch(errorNotification)
+      .finally(() => finishFetching());
+  };
 
   const handleSignOut = () => {
     request("post", getEndpoint(Endpoints.Auth.logout))
@@ -38,22 +48,38 @@ const ProfileDropdown = () => {
 
   return (
     <>
-      {/* Modals */}
-      <ProfileModal show={showProfileModal} onClose={closeProfileModal} />
-
       {/* Content */}
       {isMobileView ? (
         <Button
           className="d-flex align-items-center text-secondary"
           variant="link"
-          onClick={openProfileModal}
         >
-          <BsPersonCircle size={20} />
+          <img
+            className="rounded-circle"
+            src={
+              profile.avatar ||
+              `https://www.gravatar.com/avatar/${profile.name}?d=identicon`
+            }
+            alt="Profile"
+            width={25}
+            height={25}
+            style={{}}
+          />
         </Button>
       ) : (
         <Dropdown>
           <Dropdown.Toggle as={Button} variant="link">
-            <BsPersonCircle size={20} />
+            <img
+              className="rounded-circle"
+              src={
+                profile.avatar ||
+                `https://www.gravatar.com/avatar/${profile.name}?d=identicon`
+              }
+              alt="Profile"
+              width={25}
+              height={25}
+              style={{}}
+            />
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="px-2">

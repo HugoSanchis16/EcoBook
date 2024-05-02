@@ -46,8 +46,6 @@ class CourseResource
 
             $newItem = self::getCourse($subject, ['id', 'abbr']);
 
-            logAPI($newItem);
-
             $itemsArray[] = array(
                 "value" => $newItem->id,
                 "label" => $newItem->abbr

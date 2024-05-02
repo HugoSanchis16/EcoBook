@@ -27,11 +27,9 @@ try {
     $allCopiesCount = History::getHistoryByCopyIdCount($db, $copy->id,  $input->page, $input->offset, $search);
 
     $allCopiesFormat = HistoryResource::getCopyHistoryArray($allCopies);
-    logAPI($allCopiesFormat);
 
     $totalPages = ceil($allCopiesCount / $input->offset);
 
-    logAPI($allCopiesFormat);
 
     $db->commit();
     Response::sendResponse([

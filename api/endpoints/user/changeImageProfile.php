@@ -1,0 +1,42 @@
+<?php
+
+include_once '../../config/config.php';
+
+$database = new Database();
+$db = $database->getConnection();
+
+try {
+    $db->beginTransaction();
+    $userid = checkAuth();
+
+    $input = validate($_POST, [
+        'user' => 'required|numeric',
+    ]);
+
+    if (!$_FILES) createException('No files selected');
+    $files = getFiles();
+
+    $user = User::get($db, $input->user);
+    $profile = $user->profile();
+
+    foreach ($files as $index => $file) {
+        $extension = "." . pathinfo($file->fileName, PATHINFO_EXTENSION);
+
+        $filename = $user->guid . $extension;
+
+        $filePath = FileStorage::FilePath($filename);
+
+        move_uploaded_file($file->tempPath, $filePath);
+
+        $profile->avatar = FileStorage::FileURL($filename);
+        $profile->update();
+    }
+
+    $db->commit();
+    Response::sendResponse([
+        "file" => $profile->avatar
+    ]);
+} catch (\Exception $th) {
+    $db->rollBack();
+    print_r(json_encode(array("status" => false, "message" => $th->getMessage(), 'code' => $th->getCode())));
+}

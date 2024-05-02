@@ -20,7 +20,6 @@ try {
 
     $copyFormat = CopyResource::getCopyFormatWithAll($copy);
 
-    logAPI($copyFormat);
 
     $db->commit();
     Response::sendResponse([

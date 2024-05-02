@@ -69,6 +69,35 @@ const useRequest = () => {
           })
           .then(checkResponse)
           .catch(checkError);
+      case "file":
+        //Split obj with file and values
+        const fileKey = obj.accessor;
+        const files = obj[fileKey];
+        delete obj[fileKey];
+        delete obj.accessor;
+
+        //Create formdata
+        var formData = new FormData();
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          formData.append("file[]", file);
+        }
+
+        const remainingKeys = Object.keys(obj);
+        for (let i = 0; i < remainingKeys.length; i++) {
+          const key = remainingKeys[i];
+          const value = obj[key];
+          formData.append(key, value);
+        }
+        return await axios
+          .post(url, formData, {
+            headers: {
+              ...headers,
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then(checkResponse)
+          .catch(checkError);
       case "get":
         let finalUrl = `${url}?`;
         let keys = Object.keys(payload);

@@ -10,6 +10,11 @@ export const Endpoints = {
     resetPassword: "/auth/resetpassword",
     checkUser: "/auth/checkUser",
   },
+  Dashboard: {
+    allInfo: {
+      getAll: "/dashboard/getHistory",
+    },
+  },
   Books: {
     allBooks: {
       getAll: "/books/getAll",
@@ -102,23 +107,7 @@ export const Endpoints = {
   user: {
     profile: {
       get: "/user/getProfile",
-    },
-    account: {
-      get: "/user/getAccount",
-    },
-    editUser: {
-      update: "/user/update",
-    },
-    editEmail: {
-      update: "/user/emailUpdate",
-    },
-    editPassword: {
-      update: "/user/passwordUpdate",
-    },
-  },
-  user: {
-    profile: {
-      get: "/user/getProfile",
+      changeImage: "/user/changeImageProfile",
     },
     account: {
       get: "/user/getAccount",

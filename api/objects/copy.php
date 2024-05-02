@@ -249,6 +249,62 @@ class Copy
         createException($stmt->errorInfo());
     }
 
+    public static function getAllCountDashboard(PDO $db): int
+    {
+        $query = "
+        SELECT COUNT(c.id) as total
+        FROM `" . self::$table_name . "` c";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+    public static function getAllCountGoodCopiesDashboard(PDO $db): int
+    {
+        $query = "
+        SELECT COUNT(c.id) as total
+        FROM `" . self::$table_name . "` c 
+        WHERE c.state >= 2";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+
+    public static function getAllBadCopiesCountDashboard(PDO $db): int
+    {
+        $query = "
+        SELECT COUNT(*) as total
+        FROM `" . self::$table_name . "` c 
+        WHERE c.state < 2
+        ";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+
     public static function getFirstCopyAvailable(PDO $db, string $subject_guid): Copy|bool
     {
         $query = "

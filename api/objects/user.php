@@ -70,6 +70,7 @@ class User
         }
     }
 
+
     function delete(): bool
     {
         $this->deleted = newDate();

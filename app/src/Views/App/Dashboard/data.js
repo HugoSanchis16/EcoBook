@@ -2,7 +2,6 @@ export const BasicData = [
   {
     title: "Books",
     totalItems: Math.round(Math.random() * 9999),
-    percentage: Math.round(Math.random() * 99),
     color: "#ff4545",
     history: [
       {

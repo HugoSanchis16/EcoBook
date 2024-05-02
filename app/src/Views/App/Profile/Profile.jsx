@@ -11,15 +11,17 @@ import { validateData } from "../../../Config/GeneralFunctions";
 import { Button, Image, Row, Col } from "react-bootstrap";
 import { PhoneRegexSpain } from "../../../Utils/Regex";
 import SectionLayout from "../../../Layouts/SectionLayout/SectionLayout";
-import adventure from "./adventure.jpg";
-import ImageModal from "./modal";
+import { IoMdImages } from "react-icons/io";
+import { Colors } from "../../../Utils/Colors";
 
 const Profile = () => {
+  const request = useRequest();
+
   const { strings } = useContext(StringsContext);
   const ViewStrings = strings.User.Profile;
   const GeneralStrings = strings.General.App;
 
-  const request = useRequest();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const { showNotification: successNotification } = useNotification("success");
   const { showNotification: errorNotification } = useNotification();
@@ -73,118 +75,137 @@ const Profile = () => {
   const handleMouseLeave = () => {
     setHovered(false);
   };
-  const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
-  const handleClick = () => {
-    setShowModal(true);
-  };
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
 
-  // Función para manejar la selección de imagen
-  const handleSelectImage = () => {
-    // Aquí puedes implementar la lógica para seleccionar una imagen
-    // Por ahora, solo cerraremos el modal
-    handleCloseModal();
+  const handleSubmitImage = (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    request("file", getEndpoint(Endpoints.user.profile.changeImage), {
+      accessor: "image",
+      image: [file],
+      user: profile.user_id,
+    })
+      .then((res) => {
+        setProfile({ ...profile, avatar: res.file });
+        successNotification(ViewStrings.messages.profileUpdated);
+        window.location.reload();
+      })
+      .catch((err) => errorNotification(err.message));
   };
 
   return (
     <>
-      <ImageModal
-        show={showModal}
-        onHide={handleCloseModal}
-        onSelectImage={handleSelectImage}
-      />
-
       <GeneralLayout title={ViewStrings.title}>
         <PanelLayout loaded={loaded}>
-          <Row className="row-styles">
-            <Col xs={12} md={6} className="col-styles">
-              <SectionLayout title={"Image Profile"}>
-                <div className="d-flex justify-content-center ">
+          {/* Sección de imagen de perfil */}
+          <h5 className="">Profile image</h5>
+          <div className="d-flex justify-content-center ">
+            <div
+              className="bg-dark image-container d-flex justify-content-center position-relative rounded-circle "
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <img
+                className="rounded-circle"
+                src={
+                  profile.avatar ||
+                  `https://www.gravatar.com/avatar/${profile.name}?d=identicon`
+                }
+                alt="Profile"
+                style={{
+                  minHeight: "50px",
+                  width: "125px",
+                  maxWidth: "150px",
+                  height: "125px",
+                }}
+              />
+              {hovered && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    minHeight: "50px",
+                    width: "125px",
+                    maxWidth: "150px",
+                    height: "125px",
+                    backgroundColor: "#000000AA",
+                  }}
+                  className="overlay overflow-hidden  rounded-circle d-flex justify-content-center align-content-center align-items-center "
+                >
                   <div
-                    className="bg-dark image-container d-flex justify-content-center position-relative rounded-circle "
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
+                    className="position-absolute top-0 px-5 py-1 rounded-circle "
+                    style={{
+                      backgroundColor: "#A35EBF",
+                    }}
                   >
-                    <img
-                      className="rounded-circle"
-                      src={adventure}
-                      alt="Profile"
-                      style={{
-                        minHeight: "100px",
-                        width: "250px",
-                        maxWidth: "300px",
-                      }}
-                    />
-                    {hovered && (
-                      <div
-                        onClick={handleClick}
-                        style={{
-                          cursor: "pointer",
-                          position: "absolute",
-                          top: 0,
-                          minHeight: "100px",
-                          width: "250px",
-                          maxWidth: "300px",
-                          height: "100%",
-                          backgroundColor: "#000000AA",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                        className="overlay rounded-circle "
-                      >
-                        <p
-                          style={{
-                            fontSize: "18px",
-                          }}
-                          className="text-light"
-                        >
-                          Upload Image
-                        </p>
-                      </div>
-                    )}
+                    <IoMdImages color={Colors.white1} size={25} />
+                  </div>
+                  <input
+                    type="file"
+                    id="file-input"
+                    accept="image/*"
+                    onChange={handleSubmitImage}
+                    name="ImageStyle"
+                    style={{
+                      padding: "200px",
+                      width: "100%",
+                      height: "100%",
+                      fontSize: "18px",
+                      opacity: "0",
+                      overflow: "hidden",
+                      position: "absolute",
+                      cursor: "pointer",
+                    }}
+                    className="text-light text-center"
+                  />
+                  <div
+                    className="position-absolute bottom-0 px-5 py-1 rounded-circle"
+                    style={{
+                      cursor: "pointer",
+                      backgroundColor: "#A35EBF",
+                    }}
+                  >
+                    <p className="text-light fs-6">Change</p>
                   </div>
                 </div>
-              </SectionLayout>
-            </Col>
-            <Col xs={12} md={6} className="col-styles">
-              <SectionLayout className="w-100" title="Basic user information">
-                <FormControl
-                  controlId="name"
-                  maxLength={50}
-                  showMaxLength
-                  vertical={false}
-                  value={profile.name}
-                  title={ViewStrings.inputs.nameInput.title}
-                  placeholder={ViewStrings.inputs.nameInput.placeholder}
-                  onChange={handleInput}
-                />
-                <FormControl
-                  controlId="surnames"
-                  maxLength={50}
-                  showMaxLength
-                  vertical={false}
-                  value={profile.surnames}
-                  title={ViewStrings.inputs.surnameInput.title}
-                  placeholder={ViewStrings.inputs.surnameInput.placeholder}
-                  onChange={handleInput}
-                />
-                <FormControl
-                  controlId="phone"
-                  maxLength={9}
-                  showMaxLength
-                  vertical={false}
-                  value={profile.phone}
-                  title={ViewStrings.inputs.phoneInput.title}
-                  placeholder={ViewStrings.inputs.phoneInput.placeholder}
-                  onChange={handleInput}
-                />
-              </SectionLayout>
-            </Col>
-          </Row>
+              )}
+            </div>
+          </div>
 
+          {/* Sección de información básica del usuario */}
+          <SectionLayout title="Basic user information">
+            <FormControl
+              controlId="name"
+              maxLength={50}
+              showMaxLength
+              vertical={false}
+              value={profile.name}
+              title={ViewStrings.inputs.nameInput.title}
+              placeholder={ViewStrings.inputs.nameInput.placeholder}
+              onChange={handleInput}
+            />
+            <FormControl
+              controlId="surnames"
+              maxLength={50}
+              showMaxLength
+              vertical={false}
+              value={profile.surnames}
+              title={ViewStrings.inputs.surnameInput.title}
+              placeholder={ViewStrings.inputs.surnameInput.placeholder}
+              onChange={handleInput}
+            />
+            <FormControl
+              controlId="phone"
+              maxLength={9}
+              showMaxLength
+              vertical={false}
+              value={profile.phone}
+              title={ViewStrings.inputs.phoneInput.title}
+              placeholder={ViewStrings.inputs.phoneInput.placeholder}
+              onChange={handleInput}
+            />
+          </SectionLayout>
+
+          {/* Botón de actualización */}
           <div className="d-flex justify-content-end w-100 align-items-center">
             <Button disabled={!checkForm()} onClick={handleSubmit}>
               {GeneralStrings.Update}

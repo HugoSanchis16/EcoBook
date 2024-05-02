@@ -15,7 +15,7 @@ try {
     //check if user exist
     $user = User::get($db, $userId);
     $profile = UserProfile::getByUserId($db, $user->id);
-
+    
     $db->commit();
     Response::sendResponse([
         "profile" => $profile
