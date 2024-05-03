@@ -210,6 +210,25 @@ class Subject
         createException($stmt->errorInfo());
     }
 
+    public static function getAllCountDashboard(PDO $db): int
+    {
+        $query = "
+        SELECT COUNT(s.id) as total
+        FROM `" . self::$table_name . "` s
+        WHERE deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+
     public static function getAllCount(PDO $db, string $search = "", array $filters): int
     {
         $query = "

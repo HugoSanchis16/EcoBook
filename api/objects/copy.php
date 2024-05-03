@@ -266,6 +266,39 @@ class Copy
         }
         createException($stmt->errorInfo());
     }
+
+    public static function getAllCountCopiesData(PDO $db): array
+    {
+        $query = "
+        SELECT 
+            CONCAT(MONTH(created), '/', YEAR(created)) AS name,
+            COUNT(*) AS uv
+        FROM 
+            `" . self::$table_name . "` 
+        WHERE 
+            DATE(created) >= DATE_ADD(NOW(), INTERVAL -12 MONTH)
+        GROUP BY 
+            YEAR(created), MONTH(created) 
+        ORDER BY 
+            created ASC LIMIT 12
+        ";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+            $copyHistory = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $copyHistory[] = [
+                    "name" => $row['name'],
+                    "copies" => intval($row['uv'])
+                ];
+            }
+            return $copyHistory;
+        }
+        createException($stmt->errorInfo());
+    }
+
+
     public static function getAllCountGoodCopiesDashboard(PDO $db): int
     {
         $query = "

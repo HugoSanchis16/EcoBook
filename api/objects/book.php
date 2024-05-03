@@ -260,6 +260,26 @@ class Book
         createException($stmt->errorInfo());
     }
 
+    public static function getAllCountDashboard(PDO $db): int
+    {
+        $query = "
+        SELECT COUNT(b.id) as total
+        FROM `" . self::$table_name . "` b
+        WHERE deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+
+
     public static function getCountOfCopiesByBookGuid(PDO $db, string $book_guid): int
     {
         $query = "

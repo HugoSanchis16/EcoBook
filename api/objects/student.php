@@ -151,6 +151,56 @@ class Student
         createException($stmt->errorInfo());
     }
 
+    public static function getAllCountStudentsData(PDO $db): array
+    {
+        $query = "
+        SELECT 
+            CONCAT(MONTH(created), '/', YEAR(created)) AS name,
+            COUNT(*) AS uv
+        FROM 
+            `" . self::$table_name . "` 
+        WHERE 
+            deleted IS NULL AND DATE(created) >= DATE_ADD(NOW(), INTERVAL -12 MONTH)
+        GROUP BY 
+            YEAR(created), MONTH(created) 
+        ORDER BY 
+            created ASC LIMIT 12
+        ";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+            $studentHistory = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $studentHistory[] = [
+                    "name" => $row['name'],
+                    "students" => intval($row['uv'])
+                ];
+            }
+            return $studentHistory;
+        }
+        createException($stmt->errorInfo());
+    }
+
+    public static function getAllCountDashboard(PDO $db): int
+    {
+        $query = "
+        SELECT COUNT(s.id) as total
+        FROM `" . self::$table_name . "` s
+        WHERE deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        if ($stmt->execute()) {
+
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+
     public static function getAllCount(PDO $db, string $search = ""): int
     {
         $query = "

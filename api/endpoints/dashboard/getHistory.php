@@ -14,17 +14,31 @@ try {
 
     $cursesCount = Course::getAllCountDashboard($db);
     $copiesCount = Copy::getAllCountDashboard($db);
+    $booksCount = Book::getAllCountDashboard($db);
+    $subjectsCount = Subject::getAllCountDashboard($db);
+    $studentsCount = Student::getAllCountDashboard($db);
+
     $goodCopiesCount = Copy::getAllCountGoodCopiesDashboard($db);
     $badCopiesCount = Copy::getAllBadCopiesCountDashboard($db);
 
+    $studentGraphicsData = Student::getAllCountStudentsData($db);
+    $copyGraphicsData = Copy::getAllCountCopiesData($db);
+
     $responseData = [
         "cursesCount" => $cursesCount,
-        "cursesCountColor" => "#ffaa00",
+        "subjectsCount" => $subjectsCount,
+        "booksCount" => $booksCount,
+        "studentsCount" => $studentsCount,
         "copiesCount" => $copiesCount,
-        "copiesCountColor" =>  "#00AAFF",
-        "goodCopiesCount" => $goodCopiesCount,
-        "goodCopiesColor" => "#55FF55",
         "badCopiesCount" => $badCopiesCount,
+        "goodCopiesCount" => $goodCopiesCount,
+        "studentHistory" => $studentGraphicsData,
+        "copiesHistory" => $copyGraphicsData,
+        "cursesCountColor" => "#ffaa00",
+        "subjectsCountColor" =>  "#00AAFF",
+        "booksCountColor" => "#797D7F",
+        "studentsCountColor" =>  "#5B2C6F",
+        "goodCopiesColor" => "#55FF55",
         "badCopiesColor" => "#ff4545",
     ];
 

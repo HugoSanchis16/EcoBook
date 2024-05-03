@@ -25,7 +25,7 @@ const SectionLayout = ({
         <div className="w-100 d-flex align-items-center">
           {Icon && <Icon size={20} />}
           <p className={titleClassNames}>{title}</p>
-          {subtitle && <p className="text-muted mb-0">{subtitle}</p>}
+          {subtitle && <p className="text-muted ms-2 mb-0">{subtitle}</p>}
         </div>
         {rightSection && (
           <div className="d-flex justify-content-end align-items-center w-100">

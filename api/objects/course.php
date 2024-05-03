@@ -153,8 +153,8 @@ class Course
     public static function getAllCountDashboard(PDO $db): int
     {
         $query = "
-        SELECT COUNT(b.id) as total
-        FROM `" . self::$table_name . "` b 
+        SELECT COUNT(c.id) as total
+        FROM `" . self::$table_name . "` c 
         WHERE deleted IS NULL
         ";
 

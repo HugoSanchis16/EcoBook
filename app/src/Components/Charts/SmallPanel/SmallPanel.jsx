@@ -44,7 +44,7 @@ const SmallPanel = ({
       )}
       <div className={mainContentClassName}>
         <h5 className="text-muted mb-0">{title}</h5>
-        <p className="display-4 fw-bold mb-0">{amount}</p>
+        <p className="display-4 fw-bold mb-0" >{amount}</p>
       </div>
       {showGraph && (
         <div
