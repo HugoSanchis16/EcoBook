@@ -35,7 +35,7 @@ const Courses = () => {
     data: deleteCourseData,
   } = useModalManager();
 
-  const { pathname, search } = useLocation();
+  const { search } = useLocation();
 
   const { showNotification: errorNotification } = useNotification();
 
@@ -114,16 +114,16 @@ const Courses = () => {
                   size="sm"
                   onClick={() => fetchData()}
                 >
-                  Apply
+                  {ViewStrings.filterButton}
                 </Button>
               </div>
             }
             emptyData={{
-              text: "No Courses found",
-              buttonText: "+ New Course",
+              text: ViewStrings.emptyData.text,
+              buttonText: ViewStrings.emptyData.buttonText,
               to: Paths[Views.new_course].path,
-              description: "Do you want to create new Course?",
-              subDescription: "Press de following button",
+              description: ViewStrings.emptyData.description,
+              subDescription: ViewStrings.emptyData.subDescription,
             }}
             totalPages={totalPages}
             fetching={fetching}

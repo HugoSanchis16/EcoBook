@@ -30,10 +30,11 @@ class BookResource
         foreach ($books as $book) {
 
             $newItem = self::getBook($book, ['name', 'isbn', 'stock', 'guid', 'enabled']);
-            $subjectName = $book->subject()->name;
-            $newItem->subjectName = $subjectName;
-
-            $itemsArray[] = $newItem;
+            $subject = $book->subject();
+            if ($subject) {
+                $newItem->subjectName = $subject->name;
+                $itemsArray[] = $newItem;
+            }
         }
         return $itemsArray;
     }

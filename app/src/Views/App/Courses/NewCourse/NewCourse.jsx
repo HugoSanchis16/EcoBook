@@ -44,7 +44,7 @@ const NewCourse = () => {
           push(Paths[Views.courses].path);
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.inputError);
   };
 
   const checkForm = () => {
@@ -55,7 +55,7 @@ const NewCourse = () => {
   return (
     <GeneralLayout showBackButton title={ViewStrings.title}>
       <PanelLayout>
-        <SectionLayout title="Course Info">
+        <SectionLayout title={ViewStrings.subtitle}>
           <FormControl
             required
             controlId="abbr"

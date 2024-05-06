@@ -19,107 +19,49 @@
       }
     }
   },
-  "Users": {
-    "AllUsers": {
-      "title": "Users",
-      "newUser": "+ New User",
-      "table": {
-        "columns": {
-          "name": "Name",
-          "email": "Email"
-        }
-      }
-    },
-    "NewUser": {
-      "title": "New User",
-      "sections": {
-        "basicSection": "Basic Info",
-        "accountSection": "Account Details"
-      },
-      "inputs": {
-        "nameInput": {
-          "title": "Name:",
-          "placeholder": "Type name..."
-        },
-        "lastNameInput": {
-          "title": "Last name:",
-          "placeholder": "Type last name..."
-        },
-        "emailInput": {
-          "title": "Email:",
-          "placeholder": "Type email..."
-        },
-        "organisationInput": {
-          "title": "Organisation:",
-          "placeholder": "Select organisation..."
-        }
-      },
-      "messages": {
-        "userCreated": "User created successfully!"
-      },
-      "buttons": {
-        "create": "Create"
-      }
-    },
-    "EditUser": {
-      "title": "Edit User",
-      "inputs": {
-        "nameInput": {
-          "title": "Name:",
-          "placeholder": "Type organisation name..."
-        },
-        "lastNameInput": {
-          "title": "Last name:",
-          "placeholder": "Type last name..."
-        },
-        "ageInput": {
-          "title": "Age:",
-          "placeholder": "Type your age..."
-        },
-        "phoneInput": {
-          "title": "Phone:",
-          "placeholder": "Type phone..."
-        },
-        "dniInput": {
-          "title": "ID:",
-          "placeholder": "Type your ID..."
-        },
-        "organisationInput": {
-          "title": "Organisation:",
-          "placeholder": "Select organisation..."
-        }
-      },
-      "messages": {
-        "userUpdated": "User updated successfully!"
-      }
-    }
-  },
   "Search": {
     "GeneralView": {
       "title": "Search",
       "searchPlaceholder": "Search..."
+    }
+  },
+  "Dashboard": {
+    "title": "Home",
+    "subtitle": "APP DATA STATISTICS",
+    "titleBadCopies": "Bad Copies",
+    "titleGoodCopies": "Good Copies",
+    "smallPanels": {
+      "titleCourses": "Total Courses",
+      "titleSubjects": "Total Subjects",
+      "titleBooks": "Total Books",
+      "titleStudents": "Total Students"
     },
-    "Organisations": {
-      "title": "Organisations",
-      "viewMore": "View %items.amount% more..."
+    "bigChartStudents": {
+      "title": "Students",
+      "subtitle": "All students from the last 12 months",
+      "accessor": "students"
     },
-    "Users": {
-      "title": "Users",
-      "viewMore": "View %items.amount% more..."
-    },
-    "Players": {
-      "title": "Players",
-      "viewMore": "View %items.amount% more..."
+    "bigChartCopies": {
+      "title": "Copies",
+      "subtitle": "All copies from the last 12 months",
+      "accessor": "copies"
     }
   },
   "Assign": {
     "NewAssign": {
       "title": "Assign",
       "addCourse": "+ Add Course",
+      "scanning": "Scanning...",
+      "scanReader": "Scan with reader",
+      "scanWebcam": "Scan with webcam",
+      "tileSection": {
+        "titleIdentification": "Student's Identification",
+        "titleAssignament": "Subjects Assignments"
+      },
       "inputs": {
         "niaInput": {
           "title": "NIA:",
-          "placeholder": "Type Student Nia..."
+          "placeholder": "Type Student NIA..."
         },
         "courseInput": {
           "title": "Course:"
@@ -129,33 +71,36 @@
         }
       },
       "messages": {
+        "checkInputs": "Check all input fields",
+        "notCoursesYet": "Not courses available yet. Please create new courses.",
         "Assigndone": "The assignment of the book has been correct"
       }
     }
   },
   "Unassign": {
     "title": "Unassign",
+    "studentName": "Student:",
+
     "inputs": {
       "niaInput": {
         "title": "NIA:",
         "placeholder": "Type Student Nia..."
-      },
-      "courseInput": {
-        "title": "Course:"
-      },
-      "repeatStudentInput": {
-        "title": "The student is going to repeat?"
       }
     },
     "step2": {
-      "title": "User"
-    }
-  },
-  "Home": {
-    "TopSection": {
-      "Organisations": "Organisations",
-      "Users": "Users",
-      "Players": "Players"
+      "title": "Books pending return",
+      "scanning": "Scanning...",
+      "scanReader": "Scan with reader",
+      "scanWebcam": "Scan with webcam",
+      "messages": {
+        "bookError": "Book not found"
+      },
+      "notFoundComponent": {
+        "buttonText": "Next Student",
+        "description": "This student has all the books delivered.",
+        "text": "Nothing to return",
+        "subDescription": "Click the folllowing button to unassign books to another student."
+      }
     }
   },
   "Books": {
@@ -167,6 +112,21 @@
           "name": "Name",
           "description": "Description"
         }
+      },
+      "filterButton": "Apply",
+      "notFoundComponent": {
+        "buttonText": "+ New Book",
+        "description": "Do you want to create new Book?",
+        "text": "No Books found",
+        "subDescription": "Press de following button"
+      },
+      "columns": {
+        "name": "Name",
+        "isbn": "ISBN",
+        "subject": "Subject",
+        "stock": "Stock",
+        "enabled": "Enabled",
+        "actions": "Actions"
       }
     },
     "EditBook": {
@@ -192,11 +152,13 @@
         }
       },
       "messages": {
+        "inputsError": "Check all input fields",
         "bookUpdated": "Book updated successfully!"
       }
     },
     "NewBook": {
       "title": "New Book",
+      "subTitle": "Book Info",
       "sections": {
         "basicSection": "Basic Info"
       },
@@ -223,6 +185,7 @@
         }
       },
       "messages": {
+        "inputError": "Check all input fields",
         "bookCreated": "Book Created successfully!"
       }
     }
@@ -236,12 +199,29 @@
           "name": "Name",
           "description": "Description"
         }
+      },
+      "tabs": {
+        "student_info": "Info",
+        "student_history": "History"
+      },
+      "notFoundComponent": {
+        "buttonText": "+ New Student",
+        "description": "Do you want to create new Students?",
+        "text": "No Students found",
+        "subDescription": "Press de following button"
+      },
+      "columns": {
+        "nia": "NIA",
+        "fullName": "Full Name",
+        "email": "Email",
+        "actions": "Actions"
       }
     },
     "EditStudent": {
       "title": "Student",
       "sections": {
-        "basicSection": "Basic Info"
+        "studentIdentification": "Student's Identification",
+        "studentProfile": "Student's profile"
       },
       "inputs": {
         "niaInput": {
@@ -266,11 +246,14 @@
         }
       },
       "messages": {
+        "inputError": "Check all input fields",
         "studentsUpdated": "Student updated successfully!"
       }
     },
     "NewStudent": {
       "title": "New Student",
+      "subtitle": "Student's Identification",
+      "subtitleSection": "Student's Profile",
       "sections": {
         "basicSection": "Basic Info"
       },
@@ -304,11 +287,49 @@
         }
       },
       "messages": {
+        "checkInputs": "Check all input fields",
         "studentsCreated": "Student created successfully!"
+      }
+    },
+    "studentHistory": {
+      "title": "Student Books History",
+      "subtitle": "Books the student has had",
+      "emptyData": {
+        "text": "No history found",
+        "buttonText": "Go Back!",
+        "description": "This student has never had books in his possession.",
+        "subDescription": "Press de following button to return back."
+      },
+      "columns": {
+        "book": "Book",
+        "code": "Code",
+        "initialState": "Initial State",
+        "finalState": "Final State",
+        "initialDate": "Initial Date",
+        "finalDate": "Final Date"
+      },
+      "state": {
+        "usless": "Usless",
+        "bad": "Bad",
+        "good": "Good",
+        "veryGood": "Very Good",
+        "new": "New",
+        "inUse": "In use"
       }
     }
   },
   "Copies": {
+    "tabs": {
+      "copy_info": "Info",
+      "copy_history": "History"
+    },
+    "columns": {
+      "season": "Season",
+      "nia": "NIA",
+      "name": "Name",
+      "email": "Email",
+      "action": "Action"
+    },
     "AllCopies": {
       "title": "Copies",
       "addCopy": "+ New Copy",
@@ -317,10 +338,46 @@
           "name": "Name",
           "description": "Description"
         }
+      },
+      "messages": {
+        "statusUpdate": "Status updated successfully!"
+      },
+      "buttonTitle": "Print All Barcodes",
+      "placeholder": "Search the code ...",
+      "emptyData": {
+        "text": "No Copies found",
+        "buttonText": "Go Back!",
+        "description": "Your search does not match any copy.",
+        "subDescription": "Press the following button to go back."
+      },
+      "columns": {
+        "code": "Code",
+        "state": "State",
+        "actions": "Actions"
+      }
+    },
+    "copyInfo": {
+      "title": "General Info",
+      "copyCode": "Copy Code",
+      "course": "Course",
+      "subject": "Subject",
+      "bookName": "Book Name",
+      "state": "State",
+      "barcode": "Barcode"
+    },
+    "copyHistory": {
+      "title": "Copy History",
+      "extrafilters": "Students who have had this book",
+      "emptyData": {
+        "text": "No history found",
+        "buttonText": "Go Back!",
+        "description": "No student has had this book.",
+        "subDescription": "Press de following button to return back."
       }
     },
     "NewCopy": {
       "title": "New Copy",
+      "subtitle": "Copy Info",
       "inputs": {
         "stateInput": {
           "title": "State",
@@ -328,6 +385,7 @@
         }
       },
       "messages": {
+        "inputError": "Check all input fields",
         "copyCreated": "Copy created successfully!"
       }
     }
@@ -341,10 +399,24 @@
           "name": "Name",
           "description": "Description"
         }
+      },
+      "filterButton": "Apply",
+      "emptyData": {
+        "text": "No Courses found",
+        "buttonText": "+ New Course",
+        "description": "Do you want to create new Course?",
+        "subDescription": "Press de following button"
       }
+    },
+    "Columns": {
+      "abbr": "Abbreviation",
+      "season": "Season",
+      "name": "Name",
+      "actions": "Actions"
     },
     "NewCourse": {
       "title": "New Course",
+      "subtitle": "Course Info",
       "inputs": {
         "abbrInput": {
           "title": "Abbreviation:",
@@ -360,11 +432,13 @@
         }
       },
       "messages": {
+        "inputError": "Check all input fields",
         "courseCreated": "Course created successfully!"
       }
     },
     "EditCourse": {
       "title": "Edit Course",
+      "subtitle": "Course Info",
       "inputs": {
         "abbrInput": {
           "title": "Abbreviation:",
@@ -376,6 +450,7 @@
         }
       },
       "messages": {
+        "inputError": "Check all input fields",
         "courseCreated": "Course created successfully!"
       }
     }
@@ -389,6 +464,19 @@
           "name": "Name",
           "description": "Description"
         }
+      },
+      "filterButton": "Apply",
+      "emptyData": {
+        "text": "No Subjects Found",
+        "buttonText": "+ New Subject",
+        "description": "Do you want to create new subject?",
+        "subDescription": "Press de following button"
+      },
+      "columns": {
+        "course": "Course",
+        "name": "Name",
+        "abbr": "Abbreviation",
+        "actions": "Actions"
       }
     },
     "NewSubject": {
@@ -431,6 +519,11 @@
   "User": {
     "Profile": {
       "title": "Profile",
+      "sections": {
+        "profileImage": "Profile Image",
+        "basicSection": "Basic user information"
+      },
+      "buttonChangeImage": "Change",
       "inputs": {
         "nameInput": {
           "title": "Name:",
@@ -454,11 +547,17 @@
         }
       },
       "messages": {
+        "inputError": "Check all input fields",
+        "errorImageType": "Only image files (png, gif, jpg, jpeg, webp) are allowed.",
         "profileUpdated": "Profile updated successfully!"
       }
     },
     "Account": {
       "title": "Account",
+      "sections": {
+        "email": "Email",
+        "password": "Password"
+      },
       "inputs": {
         "currentPasswordInput": {
           "title": "Current Password:",
@@ -492,6 +591,7 @@
         }
       },
       "messages": {
+        "inputsError": "Check all input fields",
         "profileUpdated": "Profile updated successfully!"
       }
     }

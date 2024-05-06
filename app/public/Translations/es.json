@@ -4,6 +4,7 @@
       "Yes": "Sí",
       "No": "No",
       "Create": "Crear",
+      "Next": "Siguiente",
       "Update": "Actualizar",
       "Delete": "Eliminar",
       "Cancel": "Cancelar",
@@ -18,104 +19,88 @@
       }
     }
   },
-  "Users": {
-    "AllUsers": {
-      "title": "Usuarios",
-      "newUser": "+ Nuevo Usuario",
-      "table": {
-        "columns": {
-          "name": "Nombre",
-          "email": "Correo Electrónico"
-        }
-      }
-    },
-    "NewUser": {
-      "title": "Nuevo Usuario",
-      "sections": {
-        "basicSection": "Información Básica",
-        "accountSection": "Detalles de la Cuenta"
-      },
-      "inputs": {
-        "nameInput": {
-          "title": "Nombre:",
-          "placeholder": "Escribe el nombre..."
-        },
-        "lastNameInput": {
-          "title": "Apellido:",
-          "placeholder": "Escribe el apellido..."
-        },
-        "emailInput": {
-          "title": "Correo Electrónico:",
-          "placeholder": "Escribe el correo electrónico..."
-        },
-        "organisationInput": {
-          "title": "Organización:",
-          "placeholder": "Selecciona la organización..."
-        }
-      },
-      "messages": {
-        "userCreated": "¡Usuario creado exitosamente!"
-      },
-      "buttons": {
-        "create": "Crear"
-      }
-    },
-    "EditUser": {
-      "title": "Editar Usuario",
-      "inputs": {
-        "nameInput": {
-          "title": "Nombre:",
-          "placeholder": "Escribe el nombre de la organización..."
-        },
-        "lastNameInput": {
-          "title": "Apellido:",
-          "placeholder": "Escribe el apellido..."
-        },
-        "ageInput": {
-          "title": "Edad:",
-          "placeholder": "Escribe tu edad..."
-        },
-        "phoneInput": {
-          "title": "Teléfono:",
-          "placeholder": "Escribe el teléfono..."
-        },
-        "dniInput": {
-          "title": "ID:",
-          "placeholder": "Escribe tu ID..."
-        },
-        "organisationInput": {
-          "title": "Organización:",
-          "placeholder": "Selecciona la organización..."
-        }
-      },
-      "messages": {
-        "userUpdated": "¡Usuario actualizado exitosamente!"
-      }
-    }
-  },
   "Search": {
     "GeneralView": {
       "title": "Buscar",
       "searchPlaceholder": "Buscar..."
-    },
-    "Organisations": {
-      "title": "Organizaciones",
-      "viewMore": "Ver %items.amount% más..."
-    },
-    "Users": {
-      "title": "Usuarios",
-      "viewMore": "Ver %items.amount% más..."
-    },
-    "Players": {
-      "title": "Jugadores",
-      "viewMore": "Ver %items.amount% más..."
     }
   },
-  "Home": {
-    "TopSection": {
-      "Organisations": "Organizaciones",
-      "Users": "Usuarios",
-      "Players": "Jugadores"
+  "Dashboard": {
+    "title": "Inicio",
+    "subtitle": "ESTADÍSTICAS DE DATOS DE LA APLICACIÓN",
+    "titleBadCopies": "Copias Malas",
+    "titleGoodCopies": "Copias Buenas",
+    "smallPanels": {
+      "titleCourses": "Total de Cursos",
+      "titleSubjects": "Total de Materias",
+      "titleBooks": "Total de Libros",
+      "titleStudents": "Total de Estudiantes"
+    },
+    "bigChartStudents": {
+      "title": "Estudiantes",
+      "subtitle": "Todos los estudiantes de los últimos 12 meses",
+      "accessor": "estudiantes"
+    },
+    "bigChartCopies": {
+      "title": "Copias",
+      "subtitle": "Todas las copias de los últimos 12 meses",
+      "accessor": "copias"
+    }
+  },
+  "Assign": {
+    "NewAssign": {
+      "title": "Asignar",
+      "addCourse": "+ Agregar Curso",
+      "scanning": "Escaneando...",
+      "scanReader": "Escanear con lector",
+      "scanWebcam": "Escanear con cámara web",
+      "tileSection": {
+        "titleIdentification": "Identificación del Estudiante",
+        "titleAssignament": "Asignaciones de Materias"
+      },
+      "inputs": {
+        "niaInput": {
+          "title": "NIA:",
+          "placeholder": "Escribe el NIA del estudiante..."
+        },
+        "courseInput": {
+          "title": "Curso:"
+        },
+        "repeatStudentInput": {
+          "title": "¿Materias específicas?"
+        }
+      },
+      "messages": {
+        "checkInputs": "Verifica todos los campos de entrada",
+        "notCoursesYet": "Aún no hay cursos disponibles. Por favor, crea nuevos cursos.",
+        "Assigndone": "La asignación del libro se realizó correctamente"
+      }
+    }
+  },
+  "Unassign": {
+    "title": "Desasignar",
+    "studentName": "Estudiante:",
+
+    "inputs": {
+      "niaInput": {
+        "title": "NIA:",
+        "placeholder": "Escribe el NIA del estudiante..."
+      }
+    },
+    "step2": {
+      "title": "Libros pendientes de devolución",
+      "scanning": "Escaneando...",
+      "scanReader": "Escanear con lector",
+      "scanWebcam": "Escanear con cámara web",
+      "messages": {
+        "bookError": "Libro no encontrado"
+      },
+      "notFoundComponent": {
+        "buttonText": "Siguiente Estudiante",
+        "description": "Este estudiante ya entregó todos los libros.",
+        "text": "Nada que devolver",
+        "subDescription": "Haz clic en el siguiente botón para desasignar libros a otro estudiante."
+      }
     }
   },
   "Books": {
@@ -127,6 +112,21 @@
           "name": "Nombre",
           "description": "Descripción"
         }
+      },
+      "filterButton": "Aplicar",
+      "notFoundComponent": {
+        "buttonText": "+ Nuevo Libro",
+        "description": "¿Deseas crear un nuevo libro?",
+        "text": "No se encontraron libros",
+        "subDescription": "Presiona el siguiente botón"
+      },
+      "columns": {
+        "name": "Nombre",
+        "isbn": "ISBN",
+        "subject": "Materia",
+        "stock": "Existencia",
+        "enabled": "Habilitado",
+        "actions": "Acciones"
       }
     },
     "EditBook": {
@@ -147,16 +147,18 @@
           "title": "Habilitado:"
         },
         "stockInput": {
-          "title": "Stock:",
-          "placeholder": "Escribe el stock del libro..."
+          "title": "Existencia:",
+          "placeholder": "Escribe la existencia del libro..."
         }
       },
       "messages": {
-        "bookUpdated": "¡Libro actualizado exitosamente!"
+        "inputsError": "Verifica todos los campos de entrada",
+        "bookUpdated": "¡Libro actualizado correctamente!"
       }
     },
     "NewBook": {
       "title": "Nuevo Libro",
+      "subTitle": "Información del Libro",
       "sections": {
         "basicSection": "Información Básica"
       },
@@ -170,16 +172,21 @@
           "placeholder": "Escribe el ISBN del libro..."
         },
         "subject": {
-          "title": "Asunto:",
-          "placeholder": "Selecciona el asunto del libro..."
+          "title": "Materia:",
+          "placeholder": "Selecciona la materia del libro..."
+        },
+        "course": {
+          "title": "Curso:",
+          "placeholder": "Selecciona el curso del libro..."
         },
         "stockInput": {
-          "title": "Stock:",
-          "placeholder": "Escribe el stock del libro..."
+          "title": "Existencia:",
+          "placeholder": "Escribe la existencia del libro..."
         }
       },
       "messages": {
-        "bookUpdated": "¡Libro creado exitosamente!"
+        "inputError": "Verifica todos los campos de entrada",
+        "bookCreated": "¡Libro creado correctamente!"
       }
     }
   },
@@ -192,12 +199,29 @@
           "name": "Nombre",
           "description": "Descripción"
         }
+      },
+      "tabs": {
+        "student_info": "Información",
+        "student_history": "Historial"
+      },
+      "notFoundComponent": {
+        "buttonText": "+ Nuevo Estudiante",
+        "description": "¿Deseas crear nuevos estudiantes?",
+        "text": "No se encontraron estudiantes",
+        "subDescription": "Presiona el siguiente botón"
+      },
+      "columns": {
+        "nia": "NIA",
+        "fullName": "Nombre Completo",
+        "email": "Correo Electrónico",
+        "actions": "Acciones"
       }
     },
     "EditStudent": {
-      "title": "Editar Estudiante",
+      "title": "Estudiante",
       "sections": {
-        "basicSection": "Información Básica"
+        "studentIdentification": "Identificación del Estudiante",
+        "studentProfile": "Perfil del Estudiante"
       },
       "inputs": {
         "niaInput": {
@@ -222,11 +246,14 @@
         }
       },
       "messages": {
-        "studentsUpdated": "¡Estudiante actualizado exitosamente!"
+        "inputError": "Verifica todos los campos de entrada",
+        "studentsUpdated": "¡Estudiante actualizado correctamente!"
       }
     },
     "NewStudent": {
       "title": "Nuevo Estudiante",
+      "subtitle": "Identificación del Estudiante",
+      "subtitleSection": "Perfil del Estudiante",
       "sections": {
         "basicSection": "Información Básica"
       },
@@ -250,14 +277,59 @@
         "emailInput": {
           "title": "Correo Electrónico:",
           "placeholder": "Escribe el correo electrónico del estudiante..."
+        },
+        "repeatStudentInput": {
+          "title": "Repetir Estudiante:"
+        },
+        "courseInput": {
+          "title": "Curso:",
+          "placeholder": "Selecciona el curso del estudiante..."
         }
       },
       "messages": {
-        "studentsCreated": "¡Estudiante creado exitosamente!"
+        "checkInputs": "Verifica todos los campos de entrada",
+        "studentsCreated": "¡Estudiante creado correctamente!"
+      }
+    },
+    "studentHistory": {
+      "title": "Historial de Libros del Estudiante",
+      "subtitle": "Libros que el estudiante ha tenido",
+      "emptyData": {
+        "text": "No se encontró historial",
+        "buttonText": "¡Regresar!",
+        "description": "Este estudiante nunca ha tenido libros en su posesión.",
+        "subDescription": "Presiona el siguiente botón para regresar."
+      },
+      "columns": {
+        "book": "Libro",
+        "code": "Código",
+        "initialState": "Estado Inicial",
+        "finalState": "Estado Final",
+        "initialDate": "Fecha Inicial",
+        "finalDate": "Fecha Final"
+      },
+      "state": {
+        "usless": "Inútil",
+        "bad": "Malo",
+        "good": "Bueno",
+        "veryGood": "Muy Bueno",
+        "new": "Nuevo",
+        "inUse": "En Uso"
       }
     }
   },
   "Copies": {
+    "tabs": {
+      "copy_info": "Información",
+      "copy_history": "Historial"
+    },
+    "columns": {
+      "season": "Temporada",
+      "nia": "NIA",
+      "name": "Nombre",
+      "email": "Correo Electrónico",
+      "action": "Acción"
+    },
     "AllCopies": {
       "title": "Copias",
       "addCopy": "+ Nueva Copia",
@@ -266,18 +338,261 @@
           "name": "Nombre",
           "description": "Descripción"
         }
+      },
+      "messages": {
+        "statusUpdate": "¡Estado actualizado correctamente!"
+      },
+      "buttonTitle": "Imprimir Todos los Códigos de Barras",
+      "placeholder": "Buscar el código ...",
+      "emptyData": {
+        "text": "No se encontraron Copias",
+        "buttonText": "¡Regresar!",
+        "description": "Tu búsqueda no coincide con ninguna copia.",
+        "subDescription": "Presiona el siguiente botón para regresar."
+      },
+      "columns": {
+        "code": "Código",
+        "state": "Estado",
+        "actions": "Acciones"
+      }
+    },
+    "copyInfo": {
+      "title": "Información General",
+      "copyCode": "Código de Copia",
+      "course": "Curso",
+      "subject": "Materia",
+      "bookName": "Nombre del Libro",
+      "state": "Estado",
+      "barcode": "Código de Barras"
+    },
+    "copyHistory": {
+      "title": "Historial de Copias",
+      "extrafilters": "Estudiantes que han tenido este libro",
+      "emptyData": {
+        "text": "No se encontró historial",
+        "buttonText": "¡Regresar!",
+        "description": "Ningún estudiante ha tenido este libro.",
+        "subDescription": "Presiona el siguiente botón para regresar."
       }
     },
     "NewCopy": {
       "title": "Nueva Copia",
+      "subtitle": "Información de la Copia",
       "inputs": {
         "stateInput": {
           "title": "Estado",
-          "placeholder": "Selecciona el estado..."
+          "placeholder": "Selecciona el estado ..."
         }
       },
       "messages": {
-        "copyCreated": "¡Copia creada exitosamente!"
+        "inputError": "Verifica todos los campos de entrada",
+        "copyCreated": "¡Copia creada correctamente!"
+      }
+    }
+  },
+  "Courses": {
+    "AllCourses": {
+      "title": "Cursos",
+      "addCourse": "+ Nuevo Curso",
+      "table": {
+        "columns": {
+          "name": "Nombre",
+          "description": "Descripción"
+        }
+      },
+      "filterButton": "Aplicar",
+      "emptyData": {
+        "text": "No se encontraron Cursos",
+        "buttonText": "+ Nuevo Curso",
+        "description": "¿Deseas crear un nuevo Curso?",
+        "subDescription": "Presiona el siguiente botón"
+      }
+    },
+    "Columns": {
+      "abbr": "Abreviatura",
+      "season": "Temporada",
+      "name": "Nombre",
+      "actions": "Acciones"
+    },
+    "NewCourse": {
+      "title": "Nuevo Curso",
+      "subtitle": "Información del Curso",
+      "inputs": {
+        "abbrInput": {
+          "title": "Abreviatura:",
+          "placeholder": "Escribe la abreviatura del curso..."
+        },
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe el nombre del curso..."
+        },
+        "seasonInput": {
+          "title": "Temporada:",
+          "placeholder": "Escribe la temporada (Ej: 23-24)"
+        }
+      },
+      "messages": {
+        "inputError": "Verifica todos los campos de entrada",
+        "courseCreated": "¡Curso creado correctamente!"
+      }
+    },
+    "EditCourse": {
+      "title": "Editar Curso",
+      "subtitle": "Información del Curso",
+      "inputs": {
+        "abbrInput": {
+          "title": "Abreviatura:",
+          "placeholder": "Escribe la abreviatura del curso..."
+        },
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe el nombre del curso..."
+        }
+      },
+      "messages": {
+        "inputError": "Verifica todos los campos de entrada",
+        "courseCreated": "¡Curso creado correctamente!"
+      }
+    }
+  },
+  "Subjects": {
+    "AllSubjects": {
+      "title": "Materias",
+      "addSubject": "+ Nueva Materia",
+      "table": {
+        "columns": {
+          "name": "Nombre",
+          "description": "Descripción"
+        }
+      },
+      "filterButton": "Aplicar",
+      "emptyData": {
+        "text": "No se encontraron Materias",
+        "buttonText": "+ Nueva Materia",
+        "description": "¿Deseas crear una nueva materia?",
+        "subDescription": "Presiona el siguiente botón"
+      },
+      "columns": {
+        "course": "Curso",
+        "name": "Nombre",
+        "abbr": "Abreviatura",
+        "actions": "Acciones"
+      }
+    },
+    "NewSubject": {
+      "title": "Nueva Materia",
+      "inputs": {
+        "abbrInput": {
+          "title": "Abreviatura:",
+          "placeholder": "Escribe la abreviatura de la materia..."
+        },
+        "course": {
+          "title": "Curso:",
+          "placeholder": "Selecciona el Curso..."
+        },
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe el nombre de la materia..."
+        }
+      },
+      "messages": {
+        "subjectCreated": "¡Materia creada correctamente!"
+      }
+    },
+    "EditSubject": {
+      "title": "Editar Materia",
+      "inputs": {
+        "abbrInput": {
+          "title": "Abreviatura:",
+          "placeholder": "Escribe la abreviatura de la materia..."
+        },
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe el nombre de la materia..."
+        }
+      },
+      "messages": {
+        "subjectUpdated": "¡Materia actualizada correctamente!"
+      }
+    }
+  },
+  "User": {
+    "Profile": {
+      "title": "Perfil",
+      "sections": {
+        "profileImage": "Imagen de Perfil",
+        "basicSection": "Información básica del usuario"
+      },
+      "buttonChangeImage": "Cambiar",
+      "inputs": {
+        "nameInput": {
+          "title": "Nombre:",
+          "placeholder": "Escribe tu nombre..."
+        },
+        "surnameInput": {
+          "title": "Apellidos:",
+          "placeholder": "Escribe tus apellidos..."
+        },
+        "phoneInput": {
+          "title": "Teléfono:",
+          "placeholder": "Escribe tu número de teléfono..."
+        },
+        "passwordInput": {
+          "title": "Nueva Contraseña:",
+          "placeholder": "Escribe tu nueva contraseña..."
+        },
+        "emailInput": {
+          "title": "Nuevo Correo Electrónico:",
+          "placeholder": "Escribe tu nuevo correo electrónico..."
+        }
+      },
+      "messages": {
+        "inputError": "Verifica todos los campos de entrada",
+        "errorImageType": "Solo se permiten archivos de imagen (png, gif, jpg, jpeg, webp).",
+        "profileUpdated": "¡Perfil actualizado correctamente!"
+      }
+    },
+    "Account": {
+      "title": "Cuenta",
+      "sections": {
+        "email": "Correo Electrónico",
+        "password": "Contraseña"
+      },
+      "inputs": {
+        "currentPasswordInput": {
+          "title": "Contraseña Actual:",
+          "placeholder": "Escribe tu contraseña actual..."
+        },
+        "newPassword": {
+          "title": "Nueva Contraseña:",
+          "placeholder": "Escribe tu nueva contraseña..."
+        },
+        "newPasswordCopy": {
+          "title": "Repite la nueva contraseña:",
+          "placeholder": "Escribe tu nueva contraseña..."
+        },
+        "currentEmailInput": {
+          "title": "Correo Electrónico Actual:",
+          "placeholder": "Escribe tu correo electrónico actual..."
+        },
+        "newEmail": {
+          "title": "Nuevo Correo Electrónico:",
+          "placeholder": "Escribe tu nuevo correo electrónico..."
+        },
+        "newEmailCopy": {
+          "title": "Repite el nuevo correo electrónico:",
+          "placeholder": "Escribe tu nuevo correo electrónico..."
+        },
+        "changeEmailButton": {
+          "title": "Confirmar Cambio"
+        },
+        "changePasswordButton": {
+          "title": "Cambiar Contraseña"
+        }
+      },
+      "messages": {
+        "inputsError": "Verifica todos los campos de entrada",
+        "profileUpdated": "¡Perfil actualizado correctamente!"
       }
     }
   }

@@ -1,4 +1,3 @@
-import { Form } from "react-bootstrap";
 import { Endpoints, getEndpoint } from "../../Constants/endpoints.contants";
 import { useEffect, useState } from "react";
 import useRequest from "../../Hooks/useRequest";
@@ -39,7 +38,7 @@ const CourseFilterSelector = ({ onChange }) => {
       defaultValue="default"
       value={courseSelected}
       options={courses}
-      title="Curso:"
+      title="Course:"
       onChange={handleCourseSelected}
     />
   );

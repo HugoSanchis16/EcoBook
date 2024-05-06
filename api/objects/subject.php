@@ -116,7 +116,7 @@ class Subject
         }
     }
 
-    function course(): Course
+    function course(): Course | bool
     {
         if (isset($this->course_id)) {
             return Course::get($this->conn, $this->course_id);
@@ -125,7 +125,7 @@ class Subject
     }
 
 
-    public static function get(PDO $db, int $id): Subject
+    public static function get(PDO $db, int $id): Subject | bool
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE id=:id AND deleted IS NULL";
 
@@ -137,6 +137,7 @@ class Subject
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 return self::getMainObject($db, $row);
             }
+            return false;
         }
         createException("Subject not found");
     }

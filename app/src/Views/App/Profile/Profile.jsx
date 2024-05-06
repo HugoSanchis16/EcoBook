@@ -21,14 +21,13 @@ const Profile = () => {
   const ViewStrings = strings.User.Profile;
   const GeneralStrings = strings.General.App;
 
-  const [selectedImage, setSelectedImage] = useState(null);
-
   const { showNotification: successNotification } = useNotification("success");
   const { showNotification: errorNotification } = useNotification();
 
   const { startFetching, finishFetching, fetching, loaded } = useLoaded();
 
   const [profile, setProfile] = useState([]);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -53,27 +52,7 @@ const Profile = () => {
           successNotification(ViewStrings.messages.profileUpdated);
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
-  };
-
-  const handleInput = (e) => {
-    const { id, value } = e.target;
-    setProfile({ ...profile, [id]: value });
-  };
-
-  const checkForm = () => {
-    const { name, surnames, phone } = profile;
-    return validateData([name, surnames, phone]) && PhoneRegexSpain.test(phone);
-  };
-
-  const [hovered, setHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setHovered(false);
+    } else errorNotification(ViewStrings.messages.inputError);
   };
 
   const handleSubmitImage = (e) => {
@@ -89,15 +68,41 @@ const Profile = () => {
         successNotification(ViewStrings.messages.profileUpdated);
         window.location.reload();
       })
-      .catch((err) => errorNotification(err.message));
+      .catch((err) => {
+        switch (err.code) {
+          case 415:
+            errorNotification(ViewStrings.messages.errorImageType);
+            break;
+          default:
+            errorNotification(err.code);
+            break;
+        }
+      });
+  };
+
+  const handleInput = (e) => {
+    const { id, value } = e.target;
+    setProfile({ ...profile, [id]: value });
+  };
+
+  const checkForm = () => {
+    const { name, surnames, phone } = profile;
+    return validateData([name, surnames, phone]) && PhoneRegexSpain.test(phone);
+  };
+
+  const handleMouseEnter = () => {
+    setHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
   };
 
   return (
     <>
       <GeneralLayout title={ViewStrings.title}>
         <PanelLayout loaded={loaded}>
-          {/* Sección de imagen de perfil */}
-          <h5 className="">Profile image</h5>
+          <h5>{ViewStrings.sections.profileImage}</h5>
           <div className="d-flex justify-content-center ">
             <div
               className="bg-dark image-container d-flex justify-content-center position-relative rounded-circle "
@@ -164,15 +169,15 @@ const Profile = () => {
                       backgroundColor: "#A35EBF",
                     }}
                   >
-                    <p className="text-light fs-6">Change</p>
+                    <p className="text-light fs-6">
+                      {ViewStrings.buttonChangeImage}
+                    </p>
                   </div>
                 </div>
               )}
             </div>
           </div>
-
-          {/* Sección de información básica del usuario */}
-          <SectionLayout title="Basic user information">
+          <SectionLayout title={ViewStrings.sections.basicSection}>
             <FormControl
               controlId="name"
               maxLength={50}
@@ -205,7 +210,6 @@ const Profile = () => {
             />
           </SectionLayout>
 
-          {/* Botón de actualización */}
           <div className="d-flex justify-content-end w-100 align-items-center">
             <Button disabled={!checkForm()} onClick={handleSubmit}>
               {GeneralStrings.Update}

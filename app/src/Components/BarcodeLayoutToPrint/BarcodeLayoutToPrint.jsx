@@ -1,7 +1,6 @@
 import { Document, Page, View, Text, Image } from "@react-pdf/renderer";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import JsBarcode from "jsbarcode";
-import Barcode from "react-barcode";
 
 const A4_Sizes = {
   width: 595,
@@ -10,8 +9,6 @@ const A4_Sizes = {
 
 const BarcodeLayoutToPrint = ({ codes, rows = 6, cols = 3, offset = 0 }) => {
   const [images, setImages] = useState([]);
-
-  //   const refImage = useRef();
 
   useEffect(() => {
     createImage();
@@ -69,8 +66,8 @@ const BarcodeLayoutToPrint = ({ codes, rows = 6, cols = 3, offset = 0 }) => {
                       key={imageIndex}
                       src={image}
                       style={{
-                        width: (A4_Sizes.width) / cols,
-                        height: (A4_Sizes.height) / rows,
+                        width: A4_Sizes.width / cols,
+                        height: A4_Sizes.height / rows,
                         flexGrow: 1,
                       }}
                     />
@@ -78,8 +75,8 @@ const BarcodeLayoutToPrint = ({ codes, rows = 6, cols = 3, offset = 0 }) => {
                     <Text
                       key={imageIndex}
                       style={{
-                        width: (A4_Sizes.width) / cols,
-                        height: (A4_Sizes.height) / rows,
+                        width: A4_Sizes.width / cols,
+                        height: A4_Sizes.height / rows,
                         flexGrow: 1,
                       }}
                     ></Text>

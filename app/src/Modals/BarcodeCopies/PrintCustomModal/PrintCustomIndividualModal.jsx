@@ -2,7 +2,6 @@ import { Button, Modal } from "react-bootstrap";
 import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 import FormControl from "../../../Components/Form/FormControl/FormControl";
 import { useState } from "react";
-import BarcodeLayoutToPrint from "../../../Components/BarcodeLayoutToPrint/BarcodeLayoutToPrint";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import BarcodeLayoutToIndivudualPrint from "../../../Components/BarcodeLayoutToPrint/BarcodeLayoutToIndividualPrint";
 import { validateData } from "../../../Config/GeneralFunctions";

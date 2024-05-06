@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useNotification from "../../../Hooks/useNotification";
@@ -52,11 +51,12 @@ const DeleteCourseModal = ({ show, onClose, data }) => {
       }
     >
       <div className="mb-1">
-        <p style={fontSize}>Are your sure that you want to remove the course?</p>
+        <p style={fontSize}>
+          Are your sure that you want to remove the course?
+        </p>
       </div>
     </ModalLayout>
   );
 };
-
 
 export default DeleteCourseModal;

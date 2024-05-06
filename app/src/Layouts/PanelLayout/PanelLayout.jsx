@@ -4,12 +4,11 @@ import Loader from "../../Components/Loader/Loader";
 const PanelLayout = ({
   children,
   loaded = true,
-  cenetered,
+  centered,
   style,
   Tabs,
   className = "p-2 p-xl-3",
   cardClassName = "p-0",
-  title = "",
   onClick = () => {},
 }) => {
   const mainClassNames = classNames(
@@ -20,7 +19,7 @@ const PanelLayout = ({
 
   const contentClassname = classNames(
     {
-      container: cenetered,
+      container: centered,
     },
     className
   );

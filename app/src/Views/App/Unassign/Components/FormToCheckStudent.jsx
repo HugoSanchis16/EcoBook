@@ -23,7 +23,6 @@ const FormToCheckStudent = ({ setData, data, setStep }) => {
   const ViewStrings = Strings.Assign.NewAssign;
 
   const request = useRequest();
-  const scanRef = useRef();
 
   const [isScanningEnabled, setIsScanningEnabled] = useState(false);
 
@@ -51,7 +50,7 @@ const FormToCheckStudent = ({ setData, data, setStep }) => {
           errorNotification(err.message);
         });
     } else {
-      errorNotification("Check all input fields");
+      errorNotification(ViewStrings.messages.checkInputs);
     }
   };
 
@@ -99,17 +98,21 @@ const FormToCheckStudent = ({ setData, data, setStep }) => {
 
       <Form onSubmit={handleSubmit}>
         <SectionLayout
-          title="Student's Identification"
+          title={ViewStrings.tileSection.titleIdentification}
           rightSection={
             <div className="d-flex gap-3">
               <IconButton
-                title={scanning ? "Scanning..." : "Scan with reader"}
+                title={scanning ? ViewStrings.scanning : ViewStrings.scanReader}
                 Icon={MdBarcodeReader}
                 onClick={handleCheck}
               ></IconButton>
               <IconButton
                 Icon={BsFillWebcamFill}
-                title={isScanningEnabled ? "Scanning..." : " Scan with webcam"}
+                title={
+                  isScanningEnabled
+                    ? ViewStrings.scanning
+                    : ViewStrings.scanWebcam
+                }
                 onClick={handleOpenScanModal}
               />
             </div>

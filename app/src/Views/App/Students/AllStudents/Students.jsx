@@ -34,7 +34,7 @@ const Students = () => {
     data: deleteStudentData,
   } = useModalManager();
 
-  const { pathname, search } = useLocation();
+  const { search } = useLocation();
 
   const { showNotification: errorNotification } = useNotification();
 
@@ -98,11 +98,11 @@ const Students = () => {
         <PanelLayout loaded={loaded}>
           <ReactTable
             emptyData={{
-              text: "No Students found",
-              buttonText: "+ New Student",
+              text: ViewStrings.notFoundComponent.text,
+              buttonText: ViewStrings.notFoundComponent.buttonText,
               to: Paths[Views.new_student].path,
-              description: "Do you want to create new Students?",
-              subDescription: "Press de following button",
+              description: ViewStrings.notFoundComponent.description,
+              subDescription: ViewStrings.notFoundComponent.subDescription,
             }}
             totalPages={totalPages}
             fetching={fetching}

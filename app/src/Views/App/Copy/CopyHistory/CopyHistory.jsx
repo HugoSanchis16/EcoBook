@@ -4,7 +4,7 @@ import { Paths } from "../../../../Constants/paths.constants";
 import useLoaded from "../../../../Hooks/useLoaded";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../Hooks/useRequest";
 import {
   useLocation,
@@ -21,8 +21,12 @@ import { CopyHistoryColumns } from "./CopyHistoryColumns";
 import { CopyTabs } from "../Tabs/CopyTabs";
 import CopyHistoryModal from "../../../../Modals/CopyHistoryModal/CopyHistoryModal";
 import useModalManager from "../../../../Hooks/useModalManager";
+import { StringsContext } from "../../../../Context/strings.context";
 
 const CopyHistory = () => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.Copies.copyHistory;
+
   const { startFetching, finishFetching, fetching, loaded } = useLoaded();
   const request = useRequest();
 
@@ -84,21 +88,16 @@ const CopyHistory = () => {
       <GeneralLayout
         loaded={loaded}
         showBackButton={true}
-        title={"Copy History"}
+        title={ViewStrings.title}
       >
         <PanelLayout loaded={loaded} Tabs={CopyTabs}>
           <ReactTable
-            extraFilters={
-              <p className="m-2 bg-info-subtle fw-bolder text-dark shadow w-75 text-center rounded-2 p-1">
-                Students who have had this book
-              </p>
-            }
             emptyData={{
-              text: "No history found",
-              buttonText: "Go Back !",
+              text: ViewStrings.emptyData.text,
+              buttonText: ViewStrings.emptyData.buttonText,
               to: Paths[Views.students].path,
-              description: "No student has had this book.",
-              subDescription: "Press de following button to return back.",
+              description: ViewStrings.emptyData.description,
+              subDescription: ViewStrings.emptyData.subDescription,
             }}
             totalPages={totalPages}
             fetching={fetching}

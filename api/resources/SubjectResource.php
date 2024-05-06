@@ -45,15 +45,15 @@ class SubjectResource
     {
         $itemsArray = [];
         foreach ($subjects as $subject) {
-
             $course = $subject->course();
+            if ($course) {
+                $newItem = self::getSubject($subject, ['id', 'name']);
 
-            $newItem = self::getSubject($subject, ['id', 'name']);
-
-            $itemsArray[] = array(
-                "value" => $newItem->id,
-                "label" => $newItem->name . " (" . $course->abbr . ")"
-            );
+                $itemsArray[] = array(
+                    "value" => $newItem->id,
+                    "label" => $newItem->name . " (" . $course->abbr . ")"
+                );
+            }
         }
         return $itemsArray;
     }

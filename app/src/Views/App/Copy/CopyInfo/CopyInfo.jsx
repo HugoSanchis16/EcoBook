@@ -1,7 +1,7 @@
 import useLoaded from "../../../../Hooks/useLoaded";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../../Hooks/useRequest";
 import {
   useLocation,
@@ -16,12 +16,15 @@ import {
 } from "../../../../Constants/endpoints.contants";
 import { CopyTabs } from "../Tabs/CopyTabs";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import { Col, Row } from "react-bootstrap";
 import StarsComponent from "./Components/Stars";
 import BarcodeComponent from "../../../../Modals/Unassign/UnassignCopyModal.jsx/Components/BarcodeComponent";
 import InfoProps from "./Components/InfoProp";
+import { StringsContext } from "../../../../Context/strings.context";
 
 const CopyInfo = () => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.Copies.copyInfo;
+
   const { startFetching, finishFetching, fetching, loaded } = useLoaded();
   const request = useRequest();
 
@@ -64,17 +67,17 @@ const CopyInfo = () => {
   return (
     <GeneralLayout loaded={loaded} showBackButton={true} title={"Copy"}>
       <PanelLayout loaded={loaded} Tabs={CopyTabs}>
-        <SectionLayout title="General Info">
-          <InfoProps title="Copy code" data={data.uniqid} />
-          <InfoProps title="Course" data={data.course_name} />
-          <InfoProps title="Subject" data={data.subject_name} />
-          <InfoProps title="Book Name" data={data.book_name} />
+        <SectionLayout title={ViewStrings.title}>
+          <InfoProps title={ViewStrings.copyCode} data={data.uniqid} />
+          <InfoProps title={ViewStrings.course} data={data.course_name} />
+          <InfoProps title={ViewStrings.subject} data={data.subject_name} />
+          <InfoProps title={ViewStrings.bookName} data={data.book_name} />
           <InfoProps
-            title="State"
+            title={ViewStrings.state}
             data={<StarsComponent state={data.state} />}
           />
         </SectionLayout>
-        <SectionLayout title="Barcode">
+        <SectionLayout title={ViewStrings.barcode}>
           <BarcodeComponent notitle={true} code={data.uniqid} />
         </SectionLayout>
       </PanelLayout>

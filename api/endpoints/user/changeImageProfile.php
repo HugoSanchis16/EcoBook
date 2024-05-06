@@ -20,6 +20,14 @@ try {
     $profile = $user->profile();
 
     foreach ($files as $index => $file) {
+
+        $allowedExtensions = ['png', 'gif', 'jpg', 'jpeg', 'webp'];
+        $fileExtension = strtolower(pathinfo($file->fileName, PATHINFO_EXTENSION));
+
+        if (!in_array($fileExtension, $allowedExtensions)) {
+            createException('Only image files (png, gif, jpg, jpeg, webp) are allowed.', 415);
+        }
+
         $extension = "." . pathinfo($file->fileName, PATHINFO_EXTENSION);
 
         $filename = $user->guid . $extension;

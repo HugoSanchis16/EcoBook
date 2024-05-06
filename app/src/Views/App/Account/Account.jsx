@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import useRequest from "../../../Hooks/useRequest";
 import useNotification from "../../../Hooks/useNotification";
-import useLoaded from "../../../Hooks/useLoaded";
 import PanelLayout from "../../../Layouts/PanelLayout/PanelLayout";
 import GeneralLayout from "../../../Layouts/GeneralLayout/GeneralLayout";
 import { StringsContext } from "../../../Context/strings.context";
@@ -9,11 +8,7 @@ import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import FormControl from "../../../Components/Form/FormControl/FormControl";
 import { validateData } from "../../../Config/GeneralFunctions";
 import { Button } from "react-bootstrap";
-import {
-  EmailRegex,
-  PasswordRegex,
-  PhoneRegexSpain,
-} from "../../../Utils/Regex";
+import { EmailRegex, PasswordRegex } from "../../../Utils/Regex";
 import SectionLayout from "../../../Layouts/SectionLayout/SectionLayout";
 import { Paths } from "../../../Constants/paths.constants";
 import { Views } from "../../../Constants/views.constants";
@@ -22,8 +17,6 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const Account = () => {
   const { strings } = useContext(StringsContext);
   const ViewStrings = strings.User.Account;
-  const GeneralStrings = strings.General.App;
-
   const request = useRequest();
 
   const { replace } = useHistory();
@@ -44,7 +37,7 @@ const Account = () => {
           replace(Paths[Views.login].path);
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.inputsError);
   };
 
   const handleSubmitPassword = () => {
@@ -58,7 +51,7 @@ const Account = () => {
           replace(Paths[Views.login].path);
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.inputsError);
   };
 
   const handleInput = (e) => {
@@ -93,7 +86,7 @@ const Account = () => {
   return (
     <GeneralLayout title={ViewStrings.title}>
       <PanelLayout>
-        <SectionLayout title="Email">
+        <SectionLayout title={ViewStrings.sections.email}>
           <FormControl
             controlId="currentEmail"
             showMaxLength={false}
@@ -127,7 +120,7 @@ const Account = () => {
             </Button>
           </div>
         </SectionLayout>
-        <SectionLayout title="Password">
+        <SectionLayout title={ViewStrings.sections.password}>
           <FormControl
             controlId="currentPassword"
             showMaxLength={false}

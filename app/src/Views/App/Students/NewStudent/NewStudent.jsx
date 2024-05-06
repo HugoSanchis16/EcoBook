@@ -1,9 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { validateData } from "../../../../Config/GeneralFunctions";
 import {
   Endpoints,
@@ -17,10 +14,8 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import FormSelect from "../../../../Components/Form/FormSelect/FormSelect";
 import FormControl from "../../../../Components/Form/FormControl/FormControl";
 import { EmailRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
-import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
 
 const NewStudent = () => {
   const { strings: Strings } = useContext(StringsContext);
@@ -30,29 +25,12 @@ const NewStudent = () => {
   const request = useRequest();
   const { push } = useHistory();
 
-  const { book_guid } = useParams();
-
   const { showNotification: successNotification } = useNotification("success");
   const { showNotification: errorNotification } = useNotification();
 
   const [data, setData] = useState({
     repeater: false,
   });
-  const [courses, setCourses] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    fetchData();
-  }, [data]);
-
-  const fetchData = async () => {
-    request("get", getEndpoint(Endpoints.Courses.allCourses.getAllNames))
-      .then((res) => {
-        setCourses(res.courses);
-        setLoaded(true);
-      })
-      .catch((err) => errorNotification(err.message));
-  };
 
   const handleInput = (e) => {
     const { id, value } = e.target;
@@ -69,7 +47,7 @@ const NewStudent = () => {
           push(Paths[Views.students].path);
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.checkInputs);
   };
 
   const checkForm = () => {
@@ -84,7 +62,7 @@ const NewStudent = () => {
   return (
     <GeneralLayout showBackButton title={ViewStrings.title}>
       <PanelLayout>
-        <SectionLayout title="Student's Identification">
+        <SectionLayout title={ViewStrings.subtitle}>
           <FormControl
             required
             controlId="nia"
@@ -97,7 +75,7 @@ const NewStudent = () => {
             onChange={handleInput}
           />
         </SectionLayout>
-        <SectionLayout title="Student's Profile">
+        <SectionLayout title={ViewStrings.subtitleSection}>
           <FormControl
             controlId="name"
             required

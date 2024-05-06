@@ -26,8 +26,6 @@ import ProfilePage from "../../Views/App/Profile/Profile";
 import Account from "../../Views/App/Account/Account";
 import Assign from "../../Views/App/Assign/assign";
 import Unassign from "../../Views/App/Unassign/Unassign";
-import Example from "../../Views/Example/Example";
-import PrintBarcodes from "../../Views/App/PrintBarcodes/PrintBarcodes";
 import StudentHistory from "../../Views/App/Students/StudentHistory/StudentHistory";
 import CopyHistory from "../../Views/App/Copy/CopyHistory/CopyHistory";
 import CopyInfo from "../../Views/App/Copy/CopyInfo/CopyInfo";
@@ -68,12 +66,6 @@ export const AppRoutes = [
   getRoute(Paths[Views.accountView].path, Account),
   //#endProfile
 
-  //#region user
-  getRoute(Paths[Views.users].path, InMaintenance),
-  getRoute(Paths[Views.new_user].path, InMaintenance),
-  getRoute(Paths[Views.edit_user].path, InMaintenance),
-  //#endregion
-
   //#region book
   getRoute(Paths[Views.new_book].path, NewBook),
   getRoute(Paths[Views.edit_book].path, EditBook),
@@ -89,7 +81,6 @@ export const AppRoutes = [
   getRoute(Paths[Views.copy_history].path, CopyHistory),
   getRoute(Paths[Views.copy_info].path, CopyInfo),
   getRoute(Paths[Views.new_copy].path, NewCopy),
-  getRoute(Paths[Views.print_barcodes].path, PrintBarcodes),
   //#endregion
 
   //#region courses

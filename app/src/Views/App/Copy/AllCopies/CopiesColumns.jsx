@@ -1,30 +1,32 @@
-// En el componente donde defines `StateDropdown`:
 import { getColumnValue } from "../../../../Config/GeneralFunctions";
 import StateDropdown from "../../../../Components/StateDropdown/StateDropdown";
 import IconButton from "../../../../Components/Buttons/IconButton";
 import { IoIosBarcode } from "react-icons/io";
 import { BiSolidPrinter } from "react-icons/bi";
-import { LuHistory } from "react-icons/lu";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { Paths, replacePaths } from "../../../../Constants/paths.constants";
-import { Endpoints } from "../../../../Constants/endpoints.contants";
 import { Views } from "../../../../Constants/views.constants";
 import { MdRemoveRedEye } from "react-icons/md";
+import { useContext } from "react";
+import { StringsContext } from "../../../../Context/strings.context";
 
 export const CopiesColumns = (
   updateState,
   openBarcodeModal,
   openPrintCustomIndividualModal
 ) => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.Copies.AllCopies;
+
   const columns = [
     {
-      Header: "Codigo",
+      Header: ViewStrings.columns.code,
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.uniqid}</p>),
       width: 150,
     },
     {
-      Header: "State",
+      Header: ViewStrings.columns.state,
       Cell: (row) =>
         getColumnValue(row, (item) => (
           <div>
@@ -39,7 +41,7 @@ export const CopiesColumns = (
       width: 150,
     },
     {
-      Header: "Action",
+      Header: ViewStrings.columns.actions,
       Cell: (row) =>
         getColumnValue(row, (item) => (
           <div className="d-flex align-items-center gap-3">

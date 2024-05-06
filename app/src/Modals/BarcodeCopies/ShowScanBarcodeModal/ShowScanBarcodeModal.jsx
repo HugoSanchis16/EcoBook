@@ -1,9 +1,6 @@
 import { useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import BarcodeScannerComponent from "react-webcam-barcode-scanner";
-import useNotification from "../../../Hooks/useNotification";
-import useRequest from "../../../Hooks/useRequest";
-import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 
 const ShowScanBarcodeModal = ({
   show,

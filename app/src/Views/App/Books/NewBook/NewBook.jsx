@@ -1,9 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import {
-  useHistory,
-  useParams,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import FormControl from "../../../../Components/Form/FormControl/FormControl";
 import { validateData } from "../../../../Config/GeneralFunctions";
 import {
@@ -18,7 +15,6 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
 import { IsbnRegex } from "../../../../Utils/Regex";
 import FormSelect from "../../../../Components/Form/FormSelect/FormSelect";
 
@@ -89,7 +85,7 @@ const NewBook = () => {
           push(Paths[Views.books].path);
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.inputError);
   };
 
   const handleInputCourse = (e) => {
@@ -110,7 +106,7 @@ const NewBook = () => {
   return (
     <GeneralLayout showBackButton={true} title={ViewStrings.title}>
       <PanelLayout loaded={loaded}>
-        <SectionLayout title="Book Info">
+        <SectionLayout title={ViewStrings.subTitle}>
           <FormControl
             controlId="name"
             maxLength={50}

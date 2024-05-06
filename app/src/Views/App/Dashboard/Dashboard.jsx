@@ -12,6 +12,8 @@ import useNotification from "../../../Hooks/useNotification";
 
 const Dashboard = () => {
   const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.Dashboard;
+
   const request = useRequest();
 
   const [data, setData] = useState();
@@ -31,66 +33,51 @@ const Dashboard = () => {
   };
 
   return (
-    <GeneralLayout title="Home" subtitle="APP DATA STATISTICS">
+    <GeneralLayout title={ViewStrings.title} subtitle={ViewStrings.subtitle}>
       {console.log(data)}
       {/* Small Panels */}
       <Row className="d-flex justify-content-center ">
         <Col sm={12} md={6} xxl={3}>
           <SmallPanel
-            title="Courses"
+            title={ViewStrings.smallPanels.titleCourses}
             amount={data?.cursesCount}
-            showGraph={true}
             color={data?.cursesCountColor}
-            graphOptions={{
-              accessor: "uv",
-            }}
           />
         </Col>
         <Col sm={12} md={6} xxl={3}>
           <SmallPanel
-            title="Subjects"
+            title={ViewStrings.smallPanels.titleSubjects}
             amount={data?.subjectsCount}
             color={data?.subjectsCountColor}
-            showGraph={true}
-            graphOptions={{
-              accessor: "uv",
-            }}
           />
         </Col>
         <Col sm={12} md={6} xxl={3}>
           <SmallPanel
-            title="Books"
+            title={ViewStrings.smallPanels.titleBooks}
             amount={data?.booksCount}
             color={data?.booksCountColor}
-            showGraph={true}
-            graphOptions={{
-              accessor: "uv",
-            }}
           />
         </Col>
         <Col sm={12} md={6} xxl={3}>
           <SmallPanel
-            title="Students"
+            title={ViewStrings.smallPanels.titleStudents}
             amount={data?.studentsCount}
             color={data?.studentsCountColor}
-            showGraph={true}
-            graphOptions={{
-              accessor: "uv",
-            }}
           />
         </Col>
       </Row>
 
       {/* Big Chart */}
+
       <Row className="d-flex justify-content-center ">
         <Col sm={12} xxl={12}>
           <PanelLayout>
             <SectionLayout
-              title="Students"
-              subtitle="All students from the last 12 months"
+              title={ViewStrings.bigChartStudents.title}
+              subtitle={ViewStrings.bigChartStudents.subtitle}
             >
               <CustomAreaChart
-                accessor="students"
+                accessor={ViewStrings.bigChartStudents.accessor}
                 data={data?.studentHistory}
                 fillColor="#0055ff"
                 strokeColor="#00ff"
@@ -105,16 +92,15 @@ const Dashboard = () => {
           </PanelLayout>
         </Col>
       </Row>
-
       <Row className="d-flex justify-content-center ">
         <Col sm={12} xxl={8}>
           <PanelLayout>
             <SectionLayout
-              title="Copies"
-              subtitle="All copies from the last 12 months"
+              title={ViewStrings.bigChartCopies.title}
+              subtitle={ViewStrings.bigChartCopies.subtitle}
             >
               <CustomAreaChart
-                accessor="copies"
+                accessor={ViewStrings.bigChartCopies.accessor}
                 data={data?.copiesHistory}
                 fillColor="#6930c3"
                 strokeColor="#7400b8"
@@ -132,24 +118,18 @@ const Dashboard = () => {
           <Row className="d-flex justify-content-center ">
             <Col sm={12}>
               <SmallPanel
-                title="Bad Copies"
+                title={ViewStrings.titleBadCopies}
                 amount={data?.badCopiesCount}
                 color={data?.badCopiesColor}
                 showGraph={true}
-                graphOptions={{
-                  accessor: "uv",
-                }}
               />
             </Col>
             <Col sm={12}>
               <SmallPanel
-                title="Good Copies"
+                title={ViewStrings.titleGoodCopies}
                 amount={data?.goodCopiesCount}
                 color={data?.goodCopiesColor}
                 showGraph={true}
-                graphOptions={{
-                  accessor: "uv",
-                }}
               />
             </Col>
           </Row>

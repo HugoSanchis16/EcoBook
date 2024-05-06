@@ -84,7 +84,7 @@ class Course
         return $this->update();
     }
 
-    public static function get(PDO $db, int $id): Course
+    public static function get(PDO $db, int $id): Course|bool
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE id=:id AND deleted IS NULL";
 
@@ -96,6 +96,7 @@ class Course
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 return self::getMainObject($db, $row);
             }
+            return false;
         }
         createException("Course not found");
     }

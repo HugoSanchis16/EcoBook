@@ -25,12 +25,12 @@ class CourseResource
         return $itemsArray;
     }
 
-    public static function getCoursesNamesArray(array $subjects): array
+    public static function getCoursesNamesArray(array $courses): array
     {
         $itemsArray = [];
-        foreach ($subjects as $subject) {
+        foreach ($courses as $course) {
 
-            $newItem = self::getCourse($subject, ['guid', 'name']);
+            $newItem = self::getCourse($course, ['guid', 'name']);
 
             $itemsArray[] = array(
                 "value" => $newItem->guid,
@@ -39,12 +39,13 @@ class CourseResource
         }
         return $itemsArray;
     }
-    public static function getCoursesAbbrArray(array $subjects): array
+    public static function getCoursesAbbrArray(array $courses): array
     {
+        logAPI($courses);
         $itemsArray = [];
-        foreach ($subjects as $subject) {
+        foreach ($courses as $course) {
 
-            $newItem = self::getCourse($subject, ['id', 'abbr']);
+            $newItem = self::getCourse($course, ['id', 'abbr']);
 
             $itemsArray[] = array(
                 "value" => $newItem->id,
@@ -53,12 +54,12 @@ class CourseResource
         }
         return $itemsArray;
     }
-    public static function getCoursesSeasonArray(array $subjects): array
+    public static function getCoursesSeasonArray(array $courses): array
     {
         $itemsArray = [];
-        foreach ($subjects as $subject) {
+        foreach ($courses as $course) {
 
-            $newItem = self::getCourse($subject, ['season']);
+            $newItem = self::getCourse($course, ['season']);
 
 
             $itemsArray[] = array(

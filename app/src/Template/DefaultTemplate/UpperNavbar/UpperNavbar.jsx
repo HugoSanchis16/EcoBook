@@ -1,27 +1,13 @@
 import LanguageSelector from "../../../Components/LanguageSelector/LanguageSelector";
 import ToggleSideBarButton from "../../../Components/ToggleSideBarButton/ToggleSideBarButton";
 import { Configuration } from "../../../Config/app.config";
-import useModalManager from "../../../Hooks/useModalManager";
-import NotificationModal from "../../../Modals/NotificationModal/NotificationModal";
 import ProfileDropdown from "./Components/ProfileDropdown";
 
 const { height } = Configuration.theme.general.navbar;
 
 const UpperNavbar = () => {
-  const {
-    show: showNotificationModal,
-    closeModal: closeNotificationModal,
-    openModal: openNotificationModal,
-  } = useModalManager();
-
   return (
     <div className="bg-transparent">
-      {/* Modal */}
-      <NotificationModal
-        show={showNotificationModal}
-        onClose={closeNotificationModal}
-      />
-
       {/* Content */}
       <div
         style={{ height }}

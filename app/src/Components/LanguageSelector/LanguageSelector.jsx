@@ -58,18 +58,6 @@ const LanguageSelector = () => {
         ))}
       </Dropdown.Menu>
     </Dropdown>
-
-    // <FormSelect
-    //   className="mx-1 border-0 bg-light shadow-none"
-    //   value={language}
-    //   onChange={handleLanguage}
-    // >
-    //   {languages.map((lan, idx) => (
-    //     <option value={lan.key} key={idx}>
-    //       {lan.label}
-    //     </option>
-    //   ))}
-    // </FormSelect>
   );
 };
 

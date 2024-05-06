@@ -51,7 +51,7 @@ const Asign = () => {
           setData({ repeater: false });
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.checkInputs);
   };
 
   const checkForm = () => {
@@ -81,9 +81,7 @@ const Asign = () => {
           </>
         ) : (
           <div className="d-flex flex-column justify-content-center align-items-center p-4">
-            <p className="mb-4">
-              Not courses available yet. Please create new courses.
-            </p>
+            <p className="mb-4">{ViewStrings.messages.notCoursesYet}</p>
             <Button size="sm" as={Link} to={Paths[Views.new_course].path}>
               {ViewStrings.addCourse}
             </Button>

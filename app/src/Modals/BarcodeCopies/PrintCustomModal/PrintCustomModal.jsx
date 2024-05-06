@@ -15,9 +15,8 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
   const request = useRequest();
 
   const { showNotification: errorNotification } = useNotification();
-  const { showNotification: successNotification } = useNotification("success");
 
-  const { startFetching, finishFetching, fetching, loaded } = useLoaded();
+  const { startFetching, finishFetching } = useLoaded();
 
   useEffect(() => {
     if (show) {

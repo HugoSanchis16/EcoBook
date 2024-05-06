@@ -10,7 +10,6 @@ import ShowScanBarcodeModal from "../../../../Modals/BarcodeCopies/ShowScanBarco
 
 const StudentSection = ({ setData, data }) => {
   const { strings: Strings } = useContext(StringsContext);
-  const GeneralStrings = Strings.General.App;
   const ViewStrings = Strings.Assign.NewAssign;
 
   const [scanning, setScanning] = useState(false);
@@ -59,17 +58,21 @@ const StudentSection = ({ setData, data }) => {
       />
 
       <SectionLayout
-        title="Student's Identification"
+        title={ViewStrings.tileSection.titleIdentification}
         rightSection={
           <div className="d-flex gap-3">
             <IconButton
-              title={scanning ? "Scanning..." : "Scan with reader"}
+              title={scanning ? ViewStrings.scanning : ViewStrings.scanReader}
               Icon={MdBarcodeReader}
               onClick={handleCheck}
             ></IconButton>
             <IconButton
               Icon={BsFillWebcamFill}
-              title={isScanningEnabled ? "Scanning..." : " Scan with webcam"}
+              title={
+                isScanningEnabled
+                  ? ViewStrings.scanning
+                  : ViewStrings.scanWebcam
+              }
               onClick={handleOpenScanModal}
             />
           </div>

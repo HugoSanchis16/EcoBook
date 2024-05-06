@@ -1,17 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import {
-  Link,
-  useHistory,
-  useLocation,
-} from "react-router-dom/cjs/react-router-dom.min";
+import { Link, useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import ReactTable from "../../../../Components/Table/Table";
 import { Configuration } from "../../../../Config/app.config";
 import {
   Endpoints,
   getEndpoint,
 } from "../../../../Constants/endpoints.contants";
-import { Paths, replacePaths } from "../../../../Constants/paths.constants";
+import { Paths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
 import { StringsContext } from "../../../../Context/strings.context";
 import useLoaded from "../../../../Hooks/useLoaded";
@@ -23,7 +19,6 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import { BooksColumns } from "./BooksColumns";
 import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
-import CourseFilterSelector from "../../../../Components/Filter/CourseFilterSelector";
 import SubjectFilterSelector from "../../../../Components/Filter/SubjectFilterSelector";
 
 const Books = () => {
@@ -115,16 +110,16 @@ const Books = () => {
                   size="sm"
                   onClick={() => fetchData()}
                 >
-                  Apply
+                  {ViewStrings.filterButton}
                 </Button>
               </div>
             }
             emptyData={{
-              text: "No Books found",
-              buttonText: "+ New Book",
+              text: ViewStrings.notFoundComponent.text,
+              buttonText: ViewStrings.notFoundComponent.buttonText,
               to: Paths[Views.new_book].path,
-              description: "Do you want to create new Book?",
-              subDescription: "Press de following button",
+              description: ViewStrings.notFoundComponent.description,
+              subDescription: ViewStrings.notFoundComponent.subDescription,
             }}
             totalPages={totalPages}
             fetching={fetching}

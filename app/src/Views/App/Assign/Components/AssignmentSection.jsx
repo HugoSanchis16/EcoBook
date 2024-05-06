@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import FormSelect from "../../../../Components/Form/FormSelect/FormSelect";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
 import { StringsContext } from "../../../../Context/strings.context";
@@ -17,7 +17,6 @@ const AssignmentSection = ({ data, setData, courses }) => {
   const { showNotification: errorNotification } = useNotification();
 
   const { strings: Strings } = useContext(StringsContext);
-  const GeneralStrings = Strings.General.App;
   const ViewStrings = Strings.Assign.NewAssign;
 
   const [subjects, setSubjects] = useState([]);
@@ -59,7 +58,7 @@ const AssignmentSection = ({ data, setData, courses }) => {
   };
 
   return (
-    <SectionLayout title="Subjects Assignments">
+    <SectionLayout title={ViewStrings.tileSection.titleAssignament}>
       <FormSelect
         options={courses}
         controlId="course"

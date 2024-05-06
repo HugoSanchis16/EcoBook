@@ -23,11 +23,13 @@ try {
 
     $books = Book::getAll($db, $input->page, $input->offset, $input->search, $filter);
     $booksCount = Book::getAllCount($db, $input->search, $filter);
-
+    logAPI($booksCount);
     $booksFormat = BookResource::getBooksArrayList($books);
 
 
-    $totalPages = ceil($booksCount / $input->offset);
+    $totalPages = 0;
+    if (count($booksFormat) > 0)
+        ceil($booksCount / $input->offset);
 
     $db->commit();
     Response::sendResponse([

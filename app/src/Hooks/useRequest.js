@@ -49,13 +49,14 @@ const useRequest = () => {
               goBack() || replace(Paths[Views.default].path);
               break;
           }
+          console.log(data);
           throw new CustomError(data.message, data.code);
         }
       } else throw new CustomError(res.message, res.status);
     };
 
     const checkError = (res) => {
-      throw new CustomError(res.message, res.status);
+      throw new CustomError(res.message, res.code);
     };
 
     switch (type.toLowerCase()) {

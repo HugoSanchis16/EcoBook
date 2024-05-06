@@ -18,20 +18,11 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
-import useModalManager from "../../../../Hooks/useModalManager";
 
 const EditCourse = () => {
   const { strings: Strings } = useContext(StringsContext);
   const ViewStrings = Strings.Courses.EditCourse;
   const GeneralStrings = Strings.General.App;
-
-  const {
-    closeModal: closeDeleteModal,
-    openModal: openDeleteModal,
-    show: showDeleteModal,
-    data: deleteBookData,
-  } = useModalManager();
 
   const request = useRequest();
   const { push } = useHistory();
@@ -75,7 +66,7 @@ const EditCourse = () => {
           push(Paths[Views.courses].path);
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.inputError);
   };
 
   const checkForm = () => {
@@ -83,21 +74,11 @@ const EditCourse = () => {
     return validateData([name, abbr]);
   };
 
-  const handleCloseDeleteBook = (refresh) => {
-    if (refresh) fetchData();
-    closeDeleteModal();
-  };
   return (
     <>
-      {/* Modals */}
-      <DeleteBookModal
-        show={showDeleteModal}
-        onClose={handleCloseDeleteBook}
-        data={deleteBookData}
-      />
       <GeneralLayout showBackButton title={ViewStrings.title}>
         <PanelLayout loaded={loaded}>
-          <SectionLayout title="Course">
+          <SectionLayout title={ViewStrings.subtitle}>
             <FormControl
               controlId="abbr"
               maxLength={50}

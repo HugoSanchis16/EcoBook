@@ -4,13 +4,12 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
-import FormControl from "../../../../Components/Form/FormControl/FormControl";
 import { validateData } from "../../../../Config/GeneralFunctions";
 import {
   Endpoints,
   getEndpoint,
 } from "../../../../Constants/endpoints.contants";
-import { Paths } from "../../../../Constants/paths.constants";
+import { Paths, replacePaths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
 import { StringsContext } from "../../../../Context/strings.context";
 import useNotification from "../../../../Hooks/useNotification";
@@ -18,7 +17,6 @@ import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
-import { IsbnRegex } from "../../../../Utils/Regex";
 import FormSelect from "../../../../Components/Form/FormSelect/FormSelect";
 import { CopyStatus } from "../../../../Utils/CopyStatus";
 
@@ -36,24 +34,6 @@ const NewCopy = () => {
   const { showNotification: errorNotification } = useNotification();
 
   const [data, setData] = useState({});
-
-  const [errors, setErrors] = useState({});
-
-  const [subjects, setSubjects] = useState([]);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    request("get", getEndpoint(Endpoints.Subjects.allSubjects.getAllNames))
-      .then((res) => {
-        setSubjects(res.subjects);
-        setLoaded(true);
-      })
-      .catch((err) => errorNotification(err.message));
-  };
 
   const handleInput = (e) => {
     const { id, value } = e.target;
@@ -75,10 +55,10 @@ const NewCopy = () => {
       })
         .then(() => {
           successNotification(ViewStrings.messages.copyCreated);
-          push(Paths[Views.copies].path);
+          push(replacePaths(Paths[Views.copies].path, [{ book_guid }]));
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.inputError);
   };
 
   const checkForm = () => {
@@ -88,8 +68,8 @@ const NewCopy = () => {
 
   return (
     <GeneralLayout showBackButton title={ViewStrings.title}>
-      <PanelLayout cenetered loaded={loaded}>
-        <SectionLayout title="Copy Info">
+      <PanelLayout cenetered>
+        <SectionLayout title={ViewStrings.subtitle}>
           <FormSelect
             options={CopyStatus}
             controlId="state"

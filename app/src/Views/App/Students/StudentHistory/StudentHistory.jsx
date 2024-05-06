@@ -23,8 +23,7 @@ import useQuery from "../../../../Hooks/useQuery";
 
 const StudentHistory = () => {
   const { strings: Strings } = useContext(StringsContext);
-  const ViewStrings = Strings.Students.EditStudent;
-  const GeneralStrings = Strings.General.App;
+  const ViewStrings = Strings.Students.studentHistory;
 
   const request = useRequest();
 
@@ -68,20 +67,20 @@ const StudentHistory = () => {
   };
 
   return (
-    <GeneralLayout showBackButton title={ViewStrings.title + " Books History"}>
+    <GeneralLayout showBackButton title={ViewStrings.title}>
       <PanelLayout loaded={loaded} Tabs={StudentTabs}>
         <ReactTable
           extraFilters={
             <p className="m-2 bg-info-subtle fw-bolder text-dark shadow w-75 text-center rounded-2 p-1">
-              Books the student has had
+              {ViewStrings.subtitle}
             </p>
           }
           emptyData={{
-            text: "No history found",
-            buttonText: "Go Back !",
+            text: ViewStrings.emptyData.text,
+            buttonText: ViewStrings.emptyData.buttonText,
             to: Paths[Views.students].path,
-            description: "This student has never had books in his possession.",
-            subDescription: "Press de following button to return back.",
+            description: ViewStrings.emptyData.description,
+            subDescription: ViewStrings.emptyData.subDescription,
           }}
           totalPages={totalPages}
           fetching={fetching}

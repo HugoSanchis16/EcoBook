@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Breadcrumbs from "../../Components/Breadcrumbs/Breadcrumbs";
 import IconButton from "../../Components/Buttons/IconButton";
-import { Paths } from "../../Constants/paths.constants";
 import Loader from "../../Components/Loader/Loader";
 
 const GeneralLayout = ({
@@ -19,18 +18,7 @@ const GeneralLayout = ({
   breadcrumbs,
 }) => {
   const { isMobileView } = useSelector((state) => state.Config);
-  const { pathname } = useLocation();
   const { goBack } = useHistory();
-
-  const foundPath = () => {
-    let pathFound = null;
-    Object.keys(Paths).forEach((path) => {
-      if (Paths[path].path === pathname) {
-        pathFound = path;
-      }
-    });
-    return pathFound;
-  };
 
   return (
     <div className="p-1 pt-3 p-lg-2 p-xl-3">

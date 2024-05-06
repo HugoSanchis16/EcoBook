@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Form, FormControl, ListGroup, ListGroupItem } from "react-bootstrap";
+import { FormControl, ListGroup, ListGroupItem } from "react-bootstrap";
 import {
   Endpoints,
   getEndpoint,
@@ -15,8 +15,7 @@ import CopyItem from "./CopyItem";
 import UnassignCopyModal from "../../../../Modals/Unassign/UnassignCopyModal.jsx/UnassignCopyModal";
 import NotFoundComponent from "../../../../Components/NotFoundComponent";
 import IconButton from "../../../../Components/Buttons/IconButton";
-import { MdBarcodeReader, MdScanner } from "react-icons/md";
-import BarcodeScannerComponent from "react-webcam-barcode-scanner";
+import { MdBarcodeReader } from "react-icons/md";
 import { BsFillWebcamFill } from "react-icons/bs";
 import ShowScanBarcodeModal from "../../../../Modals/BarcodeCopies/ShowScanBarcodeModal/ShowScanBarcodeModal";
 
@@ -111,7 +110,7 @@ const CopyList = ({ data, setData, setStep }) => {
   const getCopy = (value) => {
     const item = data.copies?.find((copy) => copy.uniqid === value);
     if (item) return item;
-    else return errorNotification("Book not found");
+    else return errorNotification(ViewStrings.messages.bookError);
   };
 
   return (
@@ -144,17 +143,23 @@ const CopyList = ({ data, setData, setStep }) => {
           <div className="d-flex gap-3">
             <IconButton
               Icon={MdBarcodeReader}
-              title={isScanFocus ? "Scanning..." : " Scan with reader"}
+              title={
+                isScanFocus ? ViewStrings.scanning : ViewStrings.scanReader
+              }
               onClick={handleFocusScan}
             />
             <IconButton
               Icon={BsFillWebcamFill}
-              title={isScanningEnabled ? "Scanning..." : " Scan with webcam"}
+              title={
+                isScanningEnabled
+                  ? ViewStrings.scanning
+                  : ViewStrings.scanWebcam
+              }
               onClick={handleOpenScanModal}
             />
           </div>
         }
-        title="Books pending return"
+        title={ViewStrings.title}
         loaded={loaded}
       >
         {data.copies?.length > 0 ? (
@@ -170,13 +175,13 @@ const CopyList = ({ data, setData, setStep }) => {
           </ListGroup>
         ) : (
           <NotFoundComponent
-            buttonText="Next Student"
-            description="This student has all the books delivered."
-            text="Nothing to return"
+            buttonText={ViewStrings.notFoundComponent.buttonText}
+            description={ViewStrings.notFoundComponent.description}
+            text={ViewStrings.notFoundComponent.text}
             onClick={() => {
               setStep(1), setData("");
             }}
-            subDescription="Click the folllowing button to unassign books to another student."
+            subDescription={ViewStrings.notFoundComponent.subDescription}
             size={1.5}
           />
         )}

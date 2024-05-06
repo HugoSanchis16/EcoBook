@@ -91,33 +91,6 @@ const NewBoardModal = ({ show, onClose }) => {
           Save
         </Button>
       </div>
-
-      {/* <FormControl
-        onChange={handleInput}
-        value={data.name}
-        title="Name"
-        required={true}
-        controlId="name"
-        placeholder="Name..."
-      />
-      <FormControl
-        as="textarea"
-        onChange={handleInput}
-        value={data.description}
-        title="Description"
-        controlId="description"
-        placeholder="Description..."
-        style={{ height: 150 }}
-      />
-      <FormControl
-        onChange={handleInput}
-        value={data.prefix}
-        title="Prefix"
-        required={true}
-        className="w-100"
-        controlId="prefix"
-        placeholder="Prefix..."
-      /> */}
     </ModalLayout>
   );
 };

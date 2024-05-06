@@ -52,7 +52,6 @@ const AnimationBalls = ({
         borderBottomLeftRadius: `${ballSettings.bottom.left}%`,
         borderBottomRightRadius: `${ballSettings.bottom.right}%`,
         transition: `${time / 1000}s`,
-        // boxShadow: `0 0 100px 100px ${color}`,
         height: `${size}rem`,
         width: `${size}rem`,
         ...style,

@@ -3,7 +3,6 @@ import ModalLayout from "../../Layouts/ModalLayout/ModalLayout";
 import SectionLayout from "../../Layouts/SectionLayout/SectionLayout";
 import InfoProps from "../../Views/App/Copy/CopyInfo/Components/InfoProp";
 import StarsComponent from "../../Views/App/Copy/CopyInfo/Components/Stars";
-import BarcodeComponent from "../Unassign/UnassignCopyModal.jsx/Components/BarcodeComponent";
 import moment from "moment";
 
 const CopyHistoryModal = ({ show, onClose, data }) => {

@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import {
   Link,
-  useHistory,
   useLocation,
   useParams,
 } from "react-router-dom/cjs/react-router-dom.min";
@@ -105,12 +104,8 @@ const Copies = () => {
         state: value,
       }
     )
-      .then((res) => updateStatusOfCopy(guid, value))
+      .then(() => successNotification(ViewStrings.messages.statusUpdate))
       .catch(errorNotification);
-  };
-
-  const updateStatusOfCopy = (guid, value) => {
-    successNotification("Status updated successfully!");
   };
 
   const handleCloseBarcodeModal = (refresh) => {
@@ -155,7 +150,7 @@ const Copies = () => {
             <div>
               <IconButton
                 Icon={BiSolidPrinter}
-                title={"Print All Barcodes"}
+                title={ViewStrings.buttonTitle}
                 onClick={() => openPrintCustomModal(book_guid)}
               />
             </div>
@@ -174,8 +169,15 @@ const Copies = () => {
         <PanelLayout>
           <ReactTable
             searcherProps={{
-              placeholder: "Search the code ...",
+              placeholder: ViewStrings.placeholder,
               autoFocus: true,
+            }}
+            emptyData={{
+              text: ViewStrings.emptyData.text,
+              buttonText: ViewStrings.emptyData.buttonText,
+              to: Paths[Views.new_book].path,
+              description: ViewStrings.emptyData.description,
+              subDescription: ViewStrings.emptyData.subDescription,
             }}
             totalPages={totalPages}
             fetching={fetching}

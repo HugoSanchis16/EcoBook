@@ -30,7 +30,7 @@ const Unassign = () => {
       rightSection={
         data.name && (
           <h4>
-            Student: {data.name} {data.surnames}
+            {ViewStrings.studentName} {data.name} {data.surnames}
           </h4>
         )
       }

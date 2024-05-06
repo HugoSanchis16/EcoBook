@@ -1,13 +1,5 @@
-import { useContext, useMemo, useState } from "react";
-import {
-  Accordion,
-  AccordionContext,
-  Card,
-  Col,
-  Form,
-  Row,
-  useAccordionButton,
-} from "react-bootstrap";
+import { useMemo, useState } from "react";
+import { Accordion, Card, Col, Row, useAccordionButton } from "react-bootstrap";
 import { Configuration } from "../../Config/app.config";
 import Searcher from "../Searcher/Searcher";
 import PageSizeComponent from "./Components/PageSizeComponent";

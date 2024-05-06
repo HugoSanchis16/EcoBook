@@ -20,7 +20,6 @@ import useModalManager from "../../../../Hooks/useModalManager";
 import { SubjectsColumns } from "./SubjectsColumns";
 import DeleteSubjectModal from "../../../../Modals/Subjects/DeleteSubjectsModal/DeleteSubjectModal";
 import CourseFilterSelector from "../../../../Components/Filter/CourseFilterSelector";
-import { Value } from "sass";
 
 const Subjects = () => {
   const { strings } = useContext(StringsContext);
@@ -36,10 +35,9 @@ const Subjects = () => {
     data: deleteSubjectData,
   } = useModalManager();
 
-  const { pathname, search } = useLocation();
+  const { search } = useLocation();
 
   const { showNotification: errorNotification } = useNotification();
-  const { showNotification: successNotification } = useNotification("success");
 
   const { startFetching, finishFetching, fetching, loaded } = useLoaded();
 
@@ -116,16 +114,16 @@ const Subjects = () => {
                   size="sm"
                   onClick={() => fetchData()}
                 >
-                  Apply
+                  {ViewStrings.filterButton}
                 </Button>
               </div>
             }
             emptyData={{
-              text: "No Subjects found",
-              buttonText: "+ New Subject",
+              text: ViewStrings.emptyData.text,
+              buttonText: ViewStrings.emptyData.buttonText,
               to: Paths[Views.new_subject].path,
-              description: "Do you want to create new Subject?",
-              subDescription: "Press de following button",
+              description: ViewStrings.emptyData.description,
+              subDescription: ViewStrings.emptyData.subDescription,
             }}
             totalPages={totalPages}
             fetching={fetching}

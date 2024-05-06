@@ -19,22 +19,12 @@ import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
 import { EmailRegex, NiaRegex, PhoneRegexSpain } from "../../../../Utils/Regex";
-import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
-import useModalManager from "../../../../Hooks/useModalManager";
 import { StudentTabs } from "../Tabs/StudentTabs";
-import Tabs from "../../../../Components/Tabs/Tabs";
 
 const EditStudent = () => {
   const { strings: Strings } = useContext(StringsContext);
   const ViewStrings = Strings.Students.EditStudent;
   const GeneralStrings = Strings.General.App;
-
-  const {
-    closeModal: closeDeleteModal,
-    openModal: openDeleteModal,
-    show: showDeleteModal,
-    data: deleteBookData,
-  } = useModalManager();
 
   const request = useRequest();
   const { push } = useHistory();
@@ -78,7 +68,7 @@ const EditStudent = () => {
           push(Paths[Views.students].path);
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.inputError);
   };
 
   const checkForm = () => {
@@ -96,15 +86,9 @@ const EditStudent = () => {
   };
   return (
     <>
-      {/* Modals */}
-      <DeleteBookModal
-        show={showDeleteModal}
-        onClose={handleCloseDeleteBook}
-        data={deleteBookData}
-      />
       <GeneralLayout showBackButton title={ViewStrings.title}>
         <PanelLayout loaded={loaded} Tabs={StudentTabs}>
-          <SectionLayout title="Student's identification">
+          <SectionLayout title={ViewStrings.sections.studentIdentification}>
             <FormControl
               controlId="nia"
               maxLength={8}
@@ -117,7 +101,7 @@ const EditStudent = () => {
               onChange={handleInput}
             />
           </SectionLayout>
-          <SectionLayout title="Student's profile">
+          <SectionLayout title={ViewStrings.sections.studentProfile}>
             <FormControl
               controlId="name"
               maxLength={50}
@@ -140,7 +124,7 @@ const EditStudent = () => {
             />
             <FormControl
               controlId="phone"
-              maxLength={50}
+              maxLength={9}
               showMaxLength
               vertical={false}
               value={data.phone}

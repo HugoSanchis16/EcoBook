@@ -117,7 +117,7 @@ class Book
         }
     }
 
-    function subject(): Subject
+    function subject(): Subject | bool
     {
         if (isset($this->subject_id)) {
             return Subject::get($this->conn, $this->subject_id);
@@ -198,7 +198,7 @@ class Book
         $query = "
         SELECT b.*
         FROM `" . self::$table_name . "` b
-        WHERE deleted IS NULL";
+        WHERE b.deleted IS NULL";
 
         foreach ($filters as $index => $object) {
             $query .= " AND $object->id = :val$index";

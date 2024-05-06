@@ -17,7 +17,6 @@ import useNotification from "../../../../Hooks/useNotification";
 import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
-import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
 import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
 import { IsbnRegex } from "../../../../Utils/Regex";
 
@@ -35,10 +34,6 @@ const EditBook = () => {
   const { showNotification: errorNotification } = useNotification();
 
   const [data, setData] = useState({});
-
-  const [errors, setErrors] = useState({
-    isbn: false,
-  });
 
   const [loaded, setLoaded] = useState(false);
 
@@ -77,7 +72,7 @@ const EditBook = () => {
           push(Paths[Views.books].path);
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.inputsError);
   };
 
   const checkForm = () => {
@@ -88,34 +83,34 @@ const EditBook = () => {
   return (
     <GeneralLayout showBackButton title={ViewStrings.title}>
       <PanelLayout loaded={loaded}>
-          <FormControl
-            controlId="name"
-            maxLength={50}
-            showMaxLength
-            vertical={false}
-            value={data.name}
-            title={ViewStrings.inputs.nameInput.title}
-            placeholder={ViewStrings.inputs.nameInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormControl
-            controlId="isbn"
-            maxLength={13}
-            showMaxLength
-            vertical={false}
-            value={data.isbn}
-            title={ViewStrings.inputs.isbnInput.title}
-            placeholder={ViewStrings.inputs.isbnInput.placeholder}
-            onChange={handleInput}
-          />
-          <FormSwitch
-            controlId="enabled"
-            type="switch"
-            vertical={false}
-            value={data.enabled}
-            title={ViewStrings.inputs.enabledCheck.title}
-            onChange={handleCheck}
-          />
+        <FormControl
+          controlId="name"
+          maxLength={50}
+          showMaxLength
+          vertical={false}
+          value={data.name}
+          title={ViewStrings.inputs.nameInput.title}
+          placeholder={ViewStrings.inputs.nameInput.placeholder}
+          onChange={handleInput}
+        />
+        <FormControl
+          controlId="isbn"
+          maxLength={13}
+          showMaxLength
+          vertical={false}
+          value={data.isbn}
+          title={ViewStrings.inputs.isbnInput.title}
+          placeholder={ViewStrings.inputs.isbnInput.placeholder}
+          onChange={handleInput}
+        />
+        <FormSwitch
+          controlId="enabled"
+          type="switch"
+          vertical={false}
+          value={data.enabled}
+          title={ViewStrings.inputs.enabledCheck.title}
+          onChange={handleCheck}
+        />
         <div className="d-flex justify-content-end w-100 align-items-center">
           <Button disabled={!checkForm()} onClick={handleSubmit}>
             {GeneralStrings.Update}
