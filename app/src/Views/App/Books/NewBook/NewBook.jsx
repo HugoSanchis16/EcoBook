@@ -84,8 +84,19 @@ const NewBook = () => {
           successNotification(ViewStrings.messages.bookCreated);
           push(Paths[Views.books].path);
         })
-        .catch((err) => errorNotification(err.message));
-    } else errorNotification(ViewStrings.messages.inputError);
+        .catch((err) => {
+          switch (err.code) {
+            case 409:
+              errorNotification(ViewStrings.messages.isbnError);
+              break;
+            default:
+              errorNotification(err.message);
+              break;
+          }
+        });
+    } else {
+      errorNotification(ViewStrings.messages.inputError);
+    }
   };
 
   const handleInputCourse = (e) => {

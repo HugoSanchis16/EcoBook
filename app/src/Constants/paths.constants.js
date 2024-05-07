@@ -36,6 +36,8 @@ export const Paths = {
   [Views.students]: getPath("/students/all", "Students", "f8d9"),
   //#endadministration
 
+  [Views.privacy_policy]: getPath("/privacy-policy"),
+
   //#region profile
   [Views.profileView]: getPath("/profile"),
   [Views.accountView]: getPath("/account"),

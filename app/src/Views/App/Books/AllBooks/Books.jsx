@@ -19,7 +19,7 @@ import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
 import { BooksColumns } from "./BooksColumns";
 import DeleteBookModal from "../../../../Modals/Books/DeleteBookModal/DeleteBookModal";
 import useModalManager from "../../../../Hooks/useModalManager";
-import SubjectFilterSelector from "../../../../Components/Filter/SubjectFilterSelector";
+import CourseFilterSelector from "../../../../Components/Filter/CourseFilterSelector";
 
 const Books = () => {
   const { strings } = useContext(StringsContext);
@@ -104,7 +104,7 @@ const Books = () => {
             useFilter
             extraFilters={
               <div className="d-flex flex-column ">
-                <SubjectFilterSelector onChange={handleFilter} />
+                <CourseFilterSelector onChange={handleFilter} />
                 <Button
                   className="align-self-end m-1"
                   size="sm"

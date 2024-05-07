@@ -186,6 +186,7 @@
       },
       "messages": {
         "inputError": "Check all input fields",
+        "isbnError": "ISBN already exists!",
         "bookCreated": "Book Created successfully!"
       }
     }
@@ -514,6 +515,29 @@
       "messages": {
         "subjectUpdated": "Subject updated successfully!"
       }
+    }
+  },
+  "privacyPolicy": {
+    "titles": {
+      "privacyPolicy": "Privacy Policy",
+      "date": "Effective Date:",
+      "description": "Description",
+      "informationWeCollect": "Information We Collect",
+      "howWeUseInformation": "How We Use Your Information",
+      "informationDisclosure": "Information Disclosure",
+      "informationSecurity": "Information Security",
+      "changesPrivacyPolicy": "Changes to this Privacy Policy",
+      "contact": "Contact"
+    },
+    "paragraphs": {
+      "description": "This Privacy Policy describes how 'Book Bank' collects, uses, and shares users' personal information who use our application.",
+      "informationWeCollect": "When you use our application, we may collect certain types of information, including but not limited to: Personal identification information, such as your name, email address, postal address, phone number, and payment details. Information about your educational institution, such as the institution's name, educational level, and the course you are enrolled in. Information about the books you have requested or donated through the application. Usage information of the application, such as log data, IP address, browser type, pages visited, and time spent on the application.",
+      "howWeUseInformation": " We use the collected information for the following purposes: Providing and maintaining application functionality. Processing book transactions and requests. Communicating with you about your account, transactions, and application updates. Personalizing your experience within the application. Improving our services and developing new features.",
+      "informationDisclosure": "We do not sell or share your personal information with third parties, except in the following circumstances: When necessary to process a book transaction or request. With your explicit consent. When we are legally obligated to do so to comply with the law, protect our legal rights, or respond to legal requests.",
+      "informationSecurity": "We implement security measures to protect your information against unauthorized access, misuse, or disclosure. However, you should be aware that no security measure is absolutely infallible.",
+      "changesPrivacyPolicy": "We reserve the right to update this Privacy Policy at any time. We will notify you of significant changes through a prominent notice in our application or by email.",
+      "contactP1": "If you have any questions about this Privacy Policy, please contact us at ",
+      "contactP2": ". By using our application, you agree to the terms described in this Privacy Policy."
     }
   },
   "User": {

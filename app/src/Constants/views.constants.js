@@ -1,3 +1,5 @@
+import PrivacyPolicy from "../Views/PrivacyPolicy/PrivacyPolicy";
+
 export const Views = {
   //#region General
   auth: "auth",
@@ -69,4 +71,5 @@ export const Views = {
   new_subject: "new_subject",
   edit_subject: "edit_subject",
   //#endregion
+  privacy_policy: "privacy_policy",
 };

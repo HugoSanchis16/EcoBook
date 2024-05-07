@@ -32,19 +32,19 @@
     "titleGoodCopies": "Copias Buenas",
     "smallPanels": {
       "titleCourses": "Total de Cursos",
-      "titleSubjects": "Total de Materias",
+      "titleSubjects": "Total de Asignaturas",
       "titleBooks": "Total de Libros",
       "titleStudents": "Total de Estudiantes"
     },
     "bigChartStudents": {
       "title": "Estudiantes",
       "subtitle": "Todos los estudiantes de los últimos 12 meses",
-      "accessor": "estudiantes"
+      "accessor": "students"
     },
     "bigChartCopies": {
       "title": "Copias",
       "subtitle": "Todas las copias de los últimos 12 meses",
-      "accessor": "copias"
+      "accessor": "copies"
     }
   },
   "Assign": {
@@ -56,7 +56,7 @@
       "scanWebcam": "Escanear con cámara web",
       "tileSection": {
         "titleIdentification": "Identificación del Estudiante",
-        "titleAssignament": "Asignaciones de Materias"
+        "titleAssignament": "Asignaciones de Asignaturas"
       },
       "inputs": {
         "niaInput": {
@@ -117,13 +117,13 @@
       "notFoundComponent": {
         "buttonText": "+ Nuevo Libro",
         "description": "¿Deseas crear un nuevo libro?",
-        "text": "No se encontraron libros",
+        "text": "No hay libros",
         "subDescription": "Presiona el siguiente botón"
       },
       "columns": {
         "name": "Nombre",
         "isbn": "ISBN",
-        "subject": "Materia",
+        "subject": "Asignatura",
         "stock": "Existencia",
         "enabled": "Habilitado",
         "actions": "Acciones"
@@ -172,8 +172,8 @@
           "placeholder": "Escribe el ISBN del libro..."
         },
         "subject": {
-          "title": "Materia:",
-          "placeholder": "Selecciona la materia del libro..."
+          "title": "Asignatura:",
+          "placeholder": "Selecciona la asignatura del libro..."
         },
         "course": {
           "title": "Curso:",
@@ -186,6 +186,7 @@
       },
       "messages": {
         "inputError": "Verifica todos los campos de entrada",
+        "isbnError": "El ISBN ya existe",
         "bookCreated": "¡Libro creado correctamente!"
       }
     }
@@ -207,7 +208,7 @@
       "notFoundComponent": {
         "buttonText": "+ Nuevo Estudiante",
         "description": "¿Deseas crear nuevos estudiantes?",
-        "text": "No se encontraron estudiantes",
+        "text": "No hay estudiantes",
         "subDescription": "Presiona el siguiente botón"
       },
       "columns": {
@@ -345,7 +346,7 @@
       "buttonTitle": "Imprimir Todos los Códigos de Barras",
       "placeholder": "Buscar el código ...",
       "emptyData": {
-        "text": "No se encontraron Copias",
+        "text": "No hay Copias",
         "buttonText": "¡Regresar!",
         "description": "Tu búsqueda no coincide con ninguna copia.",
         "subDescription": "Presiona el siguiente botón para regresar."
@@ -360,7 +361,7 @@
       "title": "Información General",
       "copyCode": "Código de Copia",
       "course": "Curso",
-      "subject": "Materia",
+      "subject": "Asignatura",
       "bookName": "Nombre del Libro",
       "state": "Estado",
       "barcode": "Código de Barras"
@@ -402,7 +403,7 @@
       },
       "filterButton": "Aplicar",
       "emptyData": {
-        "text": "No se encontraron Cursos",
+        "text": "No hay Cursos",
         "buttonText": "+ Nuevo Curso",
         "description": "¿Deseas crear un nuevo Curso?",
         "subDescription": "Presiona el siguiente botón"
@@ -457,8 +458,8 @@
   },
   "Subjects": {
     "AllSubjects": {
-      "title": "Materias",
-      "addSubject": "+ Nueva Materia",
+      "title": "Asignaturas",
+      "addSubject": "+ Nueva Asignatura",
       "table": {
         "columns": {
           "name": "Nombre",
@@ -467,9 +468,9 @@
       },
       "filterButton": "Aplicar",
       "emptyData": {
-        "text": "No se encontraron Materias",
-        "buttonText": "+ Nueva Materia",
-        "description": "¿Deseas crear una nueva materia?",
+        "text": "No hay Asignaturas",
+        "buttonText": "+ Nueva Asignatura",
+        "description": "¿Deseas crear una nueva asignatura?",
         "subDescription": "Presiona el siguiente botón"
       },
       "columns": {
@@ -480,11 +481,11 @@
       }
     },
     "NewSubject": {
-      "title": "Nueva Materia",
+      "title": "Nueva Asignatura",
       "inputs": {
         "abbrInput": {
           "title": "Abreviatura:",
-          "placeholder": "Escribe la abreviatura de la materia..."
+          "placeholder": "Escribe la abreviatura de la asignatura..."
         },
         "course": {
           "title": "Curso:",
@@ -492,7 +493,7 @@
         },
         "nameInput": {
           "title": "Nombre:",
-          "placeholder": "Escribe el nombre de la materia..."
+          "placeholder": "Escribe el nombre de la asignatura..."
         }
       },
       "messages": {
@@ -500,20 +501,43 @@
       }
     },
     "EditSubject": {
-      "title": "Editar Materia",
+      "title": "Editar Asignatura",
       "inputs": {
         "abbrInput": {
           "title": "Abreviatura:",
-          "placeholder": "Escribe la abreviatura de la materia..."
+          "placeholder": "Escribe la abreviatura de la asignatura..."
         },
         "nameInput": {
           "title": "Nombre:",
-          "placeholder": "Escribe el nombre de la materia..."
+          "placeholder": "Escribe el nombre de la asignatura..."
         }
       },
       "messages": {
         "subjectUpdated": "¡Materia actualizada correctamente!"
       }
+    }
+  },
+  "privacyPolicy": {
+    "titles": {
+      "privacyPolicy": "Política de Privacidad",
+      "date": "Fecha de vigencia:",
+      "description": "Descripción",
+      "informationWeCollect": "Información que Recopilamos",
+      "howWeUseInformation": "Cómo Utilizamos tu Información",
+      "informationDisclosure": "Divulgación de la Información",
+      "informationSecurity": "Seguridad de la Información",
+      "changesPrivacyPolicy": "Cambios en esta Política de Privacidad",
+      "contact": "Contacto"
+    },
+    "paragraphs": {
+      "description": "Esta Política de Privacidad describe cómo 'Banco De Libros' recopila, utiliza y comparte la información personal de los usuarios que utilizan nuestra aplicación.",
+      "informationWeCollect": "Cuando utilizas nuestra aplicación, podemos recopilar ciertos tipos de información, que incluyen pero no se limitan a: Información de identificación personal, como tu nombre, dirección de correo electrónico, dirección postal, número de teléfono y detalles de pago. Información sobre tu instituto educativo, como el nombre del instituto, el nivel educativo y el curso en el que estás matriculado. Información sobre los libros que has solicitado o donado a través de la aplicación. Información de uso de la aplicación, como datos de registro, dirección IP, tipo de navegador, páginas visitadas y tiempo dedicado en la aplicación.",
+      "howWeUseInformation": "Utilizamos la información recopilada para los siguientes fines: Proporcionar y mantener la funcionalidad de la aplicación. Procesar transacciones y solicitudes de libros. Comunicarnos contigo sobre tu cuenta, transacciones y actualizaciones de la aplicación. Personalizar tu experiencia dentro de la aplicación. Mejorar nuestros servicios y desarrollar nuevas características.",
+      "informationDisclosure": "No vendemos ni compartimos tu información personal con terceros, excepto en las siguientes circunstancias: Cuando sea necesario para procesar una transacción o solicitud de libro. Con tu consentimiento explícito. Cuando estemos legalmente obligados a hacerlo para cumplir con la ley, proteger nuestros derechos legales o responder a solicitudes legales.",
+      "informationSecurity": "Implementamos medidas de seguridad para proteger tu información contra accesos no autorizados, uso indebido o divulgación. Sin embargo, debes tener en cuenta que ninguna medida de seguridad es absolutamente infalible.",
+      "changesPrivacyPolicy": "Nos reservamos el derecho de actualizar esta Política de Privacidad en cualquier momento. Te notificaremos sobre cambios significativos mediante un aviso prominente en nuestra aplicación o por correo electrónico.",
+      "contactP1": "Si tienes alguna pregunta sobre esta Política de Privacidad, contáctanos en ",
+      "contactP2": ". Al utilizar nuestra aplicación, aceptas los términos descritos en esta Política de Privacidad."
     }
   },
   "User": {

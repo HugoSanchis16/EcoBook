@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Accordion, Card, Col, Row, useAccordionButton } from "react-bootstrap";
 import { Configuration } from "../../Config/app.config";
 import Searcher from "../Searcher/Searcher";

@@ -29,6 +29,7 @@ import Unassign from "../../Views/App/Unassign/Unassign";
 import StudentHistory from "../../Views/App/Students/StudentHistory/StudentHistory";
 import CopyHistory from "../../Views/App/Copy/CopyHistory/CopyHistory";
 import CopyInfo from "../../Views/App/Copy/CopyInfo/CopyInfo";
+import PrivacyPolicy from "../../Views/PrivacyPolicy/PrivacyPolicy";
 
 const getRoute = (path, component, exact = true) => ({
   path,
@@ -60,6 +61,7 @@ export const AppRoutes = [
   getRoute(Paths[Views.courses].path, Courses),
   getRoute(Paths[Views.subjects].path, Subjects),
   //#endregion
+  getRoute(Paths[Views.privacy_policy].path, PrivacyPolicy),
 
   //#region Profile
   getRoute(Paths[Views.profileView].path, ProfilePage),
