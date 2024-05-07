@@ -226,6 +226,78 @@ class Book
         createException($stmt->errorInfo());
     }
 
+    public static function getAllWithCourseFilter(PDO $db, int $page, int $offset, string $search = "", $filters): array
+    {
+        $query = "
+        SELECT b.*
+        FROM `" . self::$table_name . "` b
+        JOIN subject s ON b.subject_id = s.id
+        JOIN course c ON s.course_id = c.id
+        WHERE b.deleted IS NULL";
+
+        if (!empty($filters)) {
+            $query .= " AND c.id = :course";
+        }
+
+        $query .= " AND LOWER(b.searchdata) LIKE LOWER(:search)";
+
+        doPagination($offset, $page, $query);
+
+        $stmt = $db->prepare($query);
+
+        if (!empty($filters)) {
+            $courseId = $filters[0]->value;
+            logAPI($courseId);
+            $stmt->bindParam(":course", $courseId, PDO::PARAM_INT);
+        }
+
+        applySearchOnBindedValue($search, $stmt);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
+    public static function getAllCountWithCourseFilter(PDO $db, string $search = "", $filters): int
+    {
+        $query = "
+        SELECT COUNT(b.id) as total
+        FROM `" . self::$table_name . "` b
+        JOIN subject s ON b.subject_id = s.id
+        JOIN course c ON s.course_id = c.id
+        WHERE b.deleted IS NULL";
+
+        if (!empty($filters)) {
+            $query .= " AND c.id = :course";
+        }
+
+        $query .= " AND LOWER(b.searchdata) LIKE LOWER(:search)";
+
+        $stmt = $db->prepare($query);
+
+        if (!empty($filters)) {
+            $courseId = $filters[0]->value;
+            logAPI($courseId);
+            $stmt->bindParam(":course", $courseId, PDO::PARAM_INT);
+        }
+
+        applySearchOnBindedValue($search, $stmt);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+        createException($stmt->errorInfo());
+    }
+
+
 
     public static function getAllCount(PDO $db, string $search = "", $filters): int
     {

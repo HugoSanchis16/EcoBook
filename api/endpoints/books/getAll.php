@@ -21,15 +21,15 @@ try {
     $search = isset($input->search) ? $input->search : "";
     $filter = isset($input->filter) ? json_decode($input->filter) : [];
 
-    $books = Book::getAll($db, $input->page, $input->offset, $input->search, $filter);
-    $booksCount = Book::getAllCount($db, $input->search, $filter);
-    logAPI($booksCount);
+    $books = Book::getAllWithCourseFilter($db, $input->page, $input->offset, $input->search, $filter);
+    $booksCount = Book::getAllCountWithCourseFilter($db, $input->search, $filter);
+
     $booksFormat = BookResource::getBooksArrayList($books);
 
 
     $totalPages = 0;
     if (count($booksFormat) > 0)
-        ceil($booksCount / $input->offset);
+        $totalPages = ceil($booksCount / $input->offset);
 
     $db->commit();
     Response::sendResponse([

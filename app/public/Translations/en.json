@@ -540,6 +540,19 @@
       "contactP2": ". By using our application, you agree to the terms described in this Privacy Policy."
     }
   },
+  "navBar": {
+    "SideBarHome": "Home",
+    "SideBarAssign": "Assign",
+    "SideBarUnassign": "Unassign",
+    "SideBarCourses": "Courses",
+    "SideBarSubjects": "Subjects",
+    "SideBarBooks": "Books",
+    "SideBarStudents": "Students",
+    "SideBarPrivacyPolicy": "Privacy Policy",
+    "Dashboard": "Dashboard",
+    "Assignment": "Assignment",
+    "Administration": "Administration"
+  },
   "User": {
     "Profile": {
       "title": "Profile",

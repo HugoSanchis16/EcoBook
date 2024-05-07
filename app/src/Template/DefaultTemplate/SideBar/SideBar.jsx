@@ -1,26 +1,20 @@
 import classNames from "classnames";
-import { useState } from "react";
-import {
-  Accordion,
-  Button,
-  Card,
-  useAccordionButton,
-} from "react-bootstrap";
+import { useContext, useState } from "react";
+import { Accordion, Button, Card, useAccordionButton } from "react-bootstrap";
 import { BsChevronCompactDown, BsSearch } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Configuration } from "../../../Config/app.config";
 import { NavItems } from "../../../Constants/navitems.constants";
-import useModalManager from "../../../Hooks/useModalManager";
 import useSideBar from "../../../Hooks/useSideBar";
-import SearcherModal from "../../../Modals/Searcher/SearcherModal";
 import { setCurrentNavItemMenuSelectedAction } from "../../../Redux/actions/ConfigActions";
 import SideBarBrand from "./SideBarBrand";
 import SideBarItem from "./SideBarItem";
+import { StringsContext } from "../../../Context/strings.context";
 
 const SideBar = () => {
-
-  const { closeModal, openModal, show } = useModalManager();
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.navBar;
 
   const { isMobileView, currentNavItemSelected } = useSelector(
     (state) => state.Config
@@ -118,9 +112,6 @@ const SideBar = () => {
 
   return (
     <>
-      {/* Modal */}
-      <SearcherModal onClose={closeModal} show={show} />
-
       {/* Content */}
       <div
         style={{
@@ -144,33 +135,6 @@ const SideBar = () => {
                 height: `calc(100vh - ${85 + 50}px`,
               }}
             >
-              {/* {expanded || isMobileView ? (
-                <Form onSubmit={handleSearch}>
-                  <InputGroup className="m-2 mb-3 w-auto border rounded">
-                    <FormControl
-                      onChange={(e) => setSearch(e.target.value)}
-                      className="py-2 pl-3 border-0 shadow-none"
-                      placeholder="Search"
-                      aria-describedby="general-search"
-                    />
-                    <InputGroup.Text
-                      id="general-search"
-                      className="border-0 bg-transparent px-3"
-                    >
-                      <BsSearch size={18} />
-                    </InputGroup.Text>
-                  </InputGroup>
-                </Form>
-              ) : (
-                <Button
-                  variant="link"
-                  onClick={openModal}
-                  className="d-flex justify-content-center w-100 mb-3"
-                >
-                  <BsSearch size={18} />
-                </Button>
-              )} */}
-
               {NavItems().map((section, idx) => {
                 const sectionClassName = classNames("w-100", {
                   "mb-3": expanded || isMobileView,
@@ -211,7 +175,7 @@ const SideBar = () => {
             }}
           >
             <Button variant="link" as={Link} to="/privacy-policy">
-              Privacy Policy
+              {ViewStrings.SideBarPrivacyPolicy}
             </Button>
           </div>
         )}

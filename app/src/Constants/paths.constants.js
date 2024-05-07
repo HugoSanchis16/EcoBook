@@ -21,19 +21,19 @@ export const Paths = {
   //#endregion
 
   //#region Dashboard
-  [Views.home]: getPath("/home", "Home", "e88a"),
+  [Views.home]: getPath("/home", "SideBarHome", "e88a"),
   //#endregion
 
   //#region Assignment
-  [Views.assign_book]: getPath("/assign", "Assign", "e7f0"),
-  [Views.unassign_book]: getPath("/unassign", "Unassign", "e7ad"),
+  [Views.assign_book]: getPath("/assign", "SideBarAssign", "e7f0"),
+  [Views.unassign_book]: getPath("/unassign", "SideBarUnassign", "e7ad"),
   //#endregion
 
   //#region Administration
-  [Views.subjects]: getPath("/subjects/all", "Subjects", "e0ee"),
-  [Views.courses]: getPath("/courses/all", "Courses", "e431"),
-  [Views.books]: getPath("/books/all", "Books", "ea19"),
-  [Views.students]: getPath("/students/all", "Students", "f8d9"),
+  [Views.subjects]: getPath("/subjects/all", "SideBarSubjects", "e0ee"),
+  [Views.courses]: getPath("/courses/all", "SideBarCourses", "e431"),
+  [Views.books]: getPath("/books/all", "SideBarBooks", "ea19"),
+  [Views.students]: getPath("/students/all", "SideBarStudents", "f8d9"),
   //#endadministration
 
   [Views.privacy_policy]: getPath("/privacy-policy"),

@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { StringsContext } from "../Context/strings.context";
 import { Paths } from "./paths.constants";
 import { Views } from "./views.constants";
 
@@ -10,20 +12,23 @@ import { Views } from "./views.constants";
  */
 
 export const NavItems = () => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.navBar;
+
   const items = [
     {
       id: "dashboard_section",
-      title: "Dashboard",
+      title: ViewStrings.Dashboard,
       items: [Paths[Views.home]],
     },
     {
       id: "administration_section",
-      title: "Assignment",
+      title: ViewStrings.Assignment,
       items: [Paths[Views.assign_book], Paths[Views.unassign_book]],
     },
     {
       id: "administration_section",
-      title: "Administration",
+      title: ViewStrings.Administration,
       items: [
         Paths[Views.courses],
         Paths[Views.subjects],

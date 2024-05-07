@@ -4,8 +4,13 @@ import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
 import { Configuration } from "../../../Config/app.config";
 import useSideBar from "../../../Hooks/useSideBar";
+import { useContext } from "react";
+import { StringsContext } from "../../../Context/strings.context";
 
-const SideBarItem = ({ item, dropdown }) => {
+const SideBarItem = ({ item }) => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.navBar;
+
   const { pathname } = useLocation();
   const { isMobileView } = useSelector((state) => state.Config);
   const { expanded, setMenuOpen } = useSideBar();
@@ -30,11 +35,11 @@ const SideBarItem = ({ item, dropdown }) => {
     let icon = `&#x${item.icon};`;
     return `<i class="material-icons">${icon}</i>`;
   };
-
+  console.log(ViewStrings);
   return (
     <div className={itemClassName}>
       <Button
-        title={item.title}
+        title={ViewStrings[item.title]}
         className={buttonClassName}
         variant="link"
         onClick={() => setMenuOpen(false)}
@@ -48,7 +53,7 @@ const SideBarItem = ({ item, dropdown }) => {
           />
         )}
         <span className={isMobileView || expanded ? "ms-3" : ""}>
-          {(isMobileView || expanded) && item.title}
+          {isMobileView || (expanded && ViewStrings[item.title])}
         </span>
       </Button>
     </div>

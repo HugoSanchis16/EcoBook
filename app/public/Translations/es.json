@@ -540,6 +540,19 @@
       "contactP2": ". Al utilizar nuestra aplicación, aceptas los términos descritos en esta Política de Privacidad."
     }
   },
+  "navBar": {
+    "SideBarHome": "Inicio",
+    "SideBarAssign": "Assignar",
+    "SideBarUnassign": "Desasignar",
+    "SideBarCourses": "Cursos",
+    "SideBarSubjects": "Asignaturas",
+    "SideBarBooks": "Libros",
+    "SideBarStudents": "Estudiantes",
+    "SideBarPrivacyPolicy": "Política de privacidad",
+    "Dashboard": "Panel",
+    "Assignment": "Asignación",
+    "Administration": "Administración"
+  },
   "User": {
     "Profile": {
       "title": "Perfil",
