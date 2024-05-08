@@ -2,6 +2,7 @@
 
 include_once '../../config/config.php';
 
+
 $database = new Database();
 $db = $database->getConnection();
 
@@ -9,31 +10,22 @@ $data = postInput();
 
 try {
     $db->beginTransaction();
+
     checkAuth(false);
 
     $input = validate($data, [
-        'email' => 'required|email',
+        'password' => 'required|string',
+        'recoverycode' => 'required|string'
     ]);
 
-    $user = User::getByEmail($db, $input->email);
-    logAPI($user);
-    if ($user === false) {
-        createException('El email introducido no existe!');
-    }
-
-    $user->recoverycode = uniqid("");
+    $user = User::getByRecoveryCode($db, $input->recoverycode);
+    $user->recoverycode = null;
+    $user->password = password_hash($input->password, PASSWORD_DEFAULT);
     $user->update();
-    $forgot_password_content = API_URL . "/reset-password/$user->recoverycode";
-
-    // sendEmail(
-    //     $user->email,
-    //     "forgot Password",
-    //     $forgot_password_content
-    // );
 
     $db->commit();
     Response::sendResponse([
-        "status" => true
+        "status" => true,
     ]);
 } catch (\Exception $th) {
 

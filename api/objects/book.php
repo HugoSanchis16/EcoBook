@@ -247,7 +247,6 @@ class Book
 
         if (!empty($filters)) {
             $courseId = $filters[0]->value;
-            logAPI($courseId);
             $stmt->bindParam(":course", $courseId, PDO::PARAM_INT);
         }
 
@@ -282,7 +281,6 @@ class Book
 
         if (!empty($filters)) {
             $courseId = $filters[0]->value;
-            logAPI($courseId);
             $stmt->bindParam(":course", $courseId, PDO::PARAM_INT);
         }
 

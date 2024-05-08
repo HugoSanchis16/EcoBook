@@ -39,12 +39,14 @@
     "bigChartStudents": {
       "title": "Estudiantes",
       "subtitle": "Todos los estudiantes de los últimos 12 meses",
-      "accessor": "students"
+      "accessor": "students",
+      "emptyGraph": "Aún no hay suficientes datos para mostrar el gráfico"
     },
     "bigChartCopies": {
       "title": "Copias",
       "subtitle": "Todas las copias de los últimos 12 meses",
-      "accessor": "copies"
+      "accessor": "copies",
+      "emptyGraph": "Aún no hay suficientes datos para mostrar el gráfico"
     }
   },
   "Assign": {

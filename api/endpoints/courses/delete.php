@@ -15,14 +15,28 @@ try {
     ]);
 
     $course = Course::getByGuid($db, $input->guid);
-    $course->delete();
 
-    Subject::deleteByCourse($db, $course->id);
+    $subjects = Subject::getAllSubjectsByCourse($db, $course->id);
 
+    foreach ($subjects as $subject) {
+        $books = Book::getBySubject($db, $subject->id);
+        foreach ($books as $book) {
+            $asigneeCopies = Book::getCountOfCopiesByBookGuid($db, $book->guid);
+            if ($asigneeCopies != 0)
+                createException("There are " . $asigneeCopies . " students who have copies of this course");
+            else {
+                $course->delete();
+                Subject::deleteByCourse($db, $course->id);
+                $book->delete();
+            }
+        }
+    }
 
     $db->commit();
 
-    Response::sendResponse([]);
+    Response::sendResponse([
+        "data" => true
+    ]);
 } catch (\Exception $th) {
     $db->rollBack();
     print_r(json_encode(array("status" => false, "message" => $th->getMessage(), 'code' => $th->getCode())));

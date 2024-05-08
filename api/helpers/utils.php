@@ -201,34 +201,33 @@ if (!function_exists('checkAuth')) {
     }
 }
 
-// if (!function_exists('sendEmail')) {
-//     function sendEmail($to, $subject, $body, $cc = [])
-//     {
-//         if (ALLOW_EMAIL_SENDING) {
+if (!function_exists('sendEmail')) {
+    function sendEmail($to, $subject, $body, $cc = [])
+    {
+        if (ALLOW_EMAIL_SENDING) {
 
-//             $mail = new PHPMailer(true);
-//             // $mail->SMTPDebug = 3; // SMTP debug output
-//             $mail->isSMTP();
-//             $mail->Host = SMTP_HOST;
-//             $mail->SMTPAuth = true;
-//             $mail->Username = SMTP_USERNAME; // SMTP username
-//             $mail->Password = SMTP_PASSWORD; // SMTP password
-//             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable implicit TLS encryption
-//             $mail->Port = 465;
-//             $mail->CharSet = 'UTF-8';
-//             $mail->setFrom('');
-//             $mail->addAddress($to); // Add a recipient
-//             foreach ($cc as $mailCC) {
-//                 $mail->addCC($mailCC);
-//             }
-//             $mail->isHTML(true); // Set email format to HTML
-//             $mail->Subject = $subject;
-//             $mail->Body = $body;
-
-//             $mail->send();
-//         }
-//     }
-// }
+            $mail = new PHPMailer(true);
+            //$mail->SMTPDebug = 3; // SMTP debug output
+            $mail->isSMTP();
+            $mail->Host = SMTP_HOST;
+            $mail->SMTPAuth = true;
+            $mail->Username = SMTP_USERNAME; // SMTP username
+            $mail->Password = SMTP_PASSWORD; // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable implicit TLS encryption
+            $mail->Port = 465;
+            $mail->CharSet = 'UTF-8';
+            $mail->setFrom('admin@bookbank.com');
+            $mail->addAddress($to); // Add a recipient
+            foreach ($cc as $mailCC) {
+                $mail->addCC($mailCC);
+            }
+            $mail->isHTML(true); // Set email format to HTML
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+            $mail->send();
+        }
+    }
+}
 
 if (!function_exists('doPagination')) {
     function doPagination($valuesAmount, $page, &$query)
@@ -260,7 +259,6 @@ if (!function_exists('convertSearchValues')) {
         $string = '';
         foreach ($values as $value) {
             $type = gettype($value);
-            logAPI($type, $value);
             if ($type === "array") {
                 $from = $value['from'];
                 $what = $value['what'];
@@ -271,7 +269,6 @@ if (!function_exists('convertSearchValues')) {
                             $function = $split[0];
                             $column = $split[1];
                             $string .= $from->{$function}()->{$column} . " ";
-                            logAPI($string);
                         } else {
                             $string .= $from->$key . " ";
                         }

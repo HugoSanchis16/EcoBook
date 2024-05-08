@@ -8,6 +8,7 @@ export const Endpoints = {
     logout: "/auth/logout",
     forgotPassword: "/auth/forgotpassword",
     resetPassword: "/auth/resetpassword",
+    resetPasswordFinal: "/auth/resetpasswordStep2",
     checkUser: "/auth/checkUser",
   },
   Dashboard: {

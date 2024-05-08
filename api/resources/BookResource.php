@@ -31,10 +31,8 @@ class BookResource
 
             $newItem = self::getBook($book, ['name', 'isbn', 'stock', 'guid', 'enabled']);
             $subject = $book->subject();
-            if ($subject) {
-                $newItem->subjectName = $subject->name;
-                $itemsArray[] = $newItem;
-            }
+            $newItem->subjectName = $subject->name;
+            $itemsArray[] = $newItem;
         }
         return $itemsArray;
     }

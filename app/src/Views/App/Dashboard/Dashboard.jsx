@@ -9,6 +9,9 @@ import SectionLayout from "../../../Layouts/SectionLayout/SectionLayout";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useRequest from "../../../Hooks/useRequest";
 import useNotification from "../../../Hooks/useNotification";
+import { PieChart } from "recharts";
+import CustomPieChart from "../../../Components/Charts/PieChart";
+import { BasicData } from "./data";
 
 const Dashboard = () => {
   const { strings } = useContext(StringsContext);
@@ -17,6 +20,7 @@ const Dashboard = () => {
   const request = useRequest();
 
   const [data, setData] = useState();
+  const [loaded, setLoaded] = useState(false);
   const { showNotification: errorNotification } = useNotification();
 
   useEffect(() => {
@@ -27,13 +31,18 @@ const Dashboard = () => {
     return await request("get", getEndpoint(Endpoints.Dashboard.allInfo.getAll))
       .then((res) => {
         setData(res.data);
+        setLoaded(true);
       })
       .catch(errorNotification)
       .finally(() => finishFetching());
   };
 
   return (
-    <GeneralLayout title={ViewStrings.title} subtitle={ViewStrings.subtitle}>
+    <GeneralLayout
+      loaded={loaded}
+      title={ViewStrings.title}
+      subtitle={ViewStrings.subtitle}
+    >
       {console.log(data)}
       {/* Small Panels */}
       <Row className="d-flex justify-content-center ">
@@ -76,18 +85,24 @@ const Dashboard = () => {
               title={ViewStrings.bigChartStudents.title}
               subtitle={ViewStrings.bigChartStudents.subtitle}
             >
-              <CustomAreaChart
-                accessor={ViewStrings.bigChartStudents.accessor}
-                data={data?.studentHistory}
-                fillColor="#0055ff"
-                strokeColor="#00ff"
-                options={{
-                  showTooltip: true,
-                  height: 250,
-                  borderColor: "#ffff",
-                  borderBottom: true,
-                }}
-              />
+              {data?.studentHistory.length > 1 ? (
+                <CustomAreaChart
+                  accessor={ViewStrings.bigChartStudents.accessor}
+                  data={data?.studentHistory}
+                  fillColor="#0055ff"
+                  strokeColor="#00ff"
+                  options={{
+                    showTooltip: true,
+                    height: 250,
+                    borderColor: "#ffff",
+                    borderBottom: true,
+                  }}
+                />
+              ) : (
+                <h5 className="text-center text-secondary m-3 ">
+                  {ViewStrings.bigChartStudents.emptyGraph}
+                </h5>
+              )}
             </SectionLayout>
           </PanelLayout>
         </Col>
@@ -99,23 +114,43 @@ const Dashboard = () => {
               title={ViewStrings.bigChartCopies.title}
               subtitle={ViewStrings.bigChartCopies.subtitle}
             >
-              <CustomAreaChart
-                accessor={ViewStrings.bigChartCopies.accessor}
-                data={data?.copiesHistory}
-                fillColor="#6930c3"
-                strokeColor="#7400b8"
-                options={{
-                  showTooltip: true,
-                  height: 265,
-                  borderColor: "#ffff",
-                  borderBottom: true,
-                }}
-              />
+              {data?.copiesHistory.length > 1 ? (
+                <CustomAreaChart
+                  accessor={ViewStrings.bigChartCopies.accessor}
+                  data={data?.copiesHistory}
+                  fillColor="#6930c3"
+                  strokeColor="#7400b8"
+                  options={{
+                    showTooltip: true,
+                    height: 265,
+                    borderColor: "#ffff",
+                    borderBottom: true,
+                  }}
+                />
+              ) : (
+                <h5 className="text-center text-secondary m-3 ">
+                  {ViewStrings.bigChartCopies.emptyGraph}
+                </h5>
+              )}
             </SectionLayout>
           </PanelLayout>
         </Col>
         <Col sm={12} xxl={4}>
           <Row className="d-flex justify-content-center ">
+            <CustomPieChart
+              accessor="uv"
+              data={data?.pieChart}
+              fillColor="#00aaff"
+              options={{
+                borderBottom: true,
+                borderLeft: true,
+                borderColor: "#222",
+                showBorders: true,
+                height: 300,
+                width: "100%",
+                showTooltip: true,
+              }}
+            />
             <Col sm={12}>
               <SmallPanel
                 title={ViewStrings.titleBadCopies}

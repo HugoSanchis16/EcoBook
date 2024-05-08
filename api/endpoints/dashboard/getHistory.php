@@ -24,6 +24,19 @@ try {
     $studentGraphicsData = Student::getAllCountStudentsData($db);
     $copyGraphicsData = Copy::getAllCountCopiesData($db);
 
+    $pieChart = [
+        [
+            "name" => "BadCopies",
+            "uv" => $badCopiesCount,
+            "color" => "#FF1B00"
+        ],
+        [
+            "name" => "GoodCopies",
+            "uv" => $goodCopiesCount,
+            "color" => "#0FFF00"
+        ]
+    ];
+
     $responseData = [
         "cursesCount" => $cursesCount,
         "subjectsCount" => $subjectsCount,
@@ -34,6 +47,7 @@ try {
         "goodCopiesCount" => $goodCopiesCount,
         "studentHistory" => $studentGraphicsData,
         "copiesHistory" => $copyGraphicsData,
+        "pieChart" => $pieChart,
         "cursesCountColor" => "#ffaa00",
         "subjectsCountColor" =>  "#00AAFF",
         "booksCountColor" => "#797D7F",

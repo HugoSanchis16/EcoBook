@@ -155,8 +155,8 @@ class Student
     {
         $query = "
         SELECT 
-            CONCAT(MONTH(created), '/', YEAR(created)) AS name,
-            COUNT(*) AS uv
+        CONCAT(MONTH(created), '/', YEAR(created)) AS name,
+        IF(COUNT(*) > 0, COUNT(*), 0) AS uv 
         FROM 
             `" . self::$table_name . "` 
         WHERE 

@@ -41,7 +41,6 @@ class CourseResource
     }
     public static function getCoursesAbbrArray(array $courses): array
     {
-        logAPI($courses);
         $itemsArray = [];
         foreach ($courses as $course) {
 

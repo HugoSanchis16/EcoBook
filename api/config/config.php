@@ -25,11 +25,10 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
 
 //SMTP Config
-define('ALLOW_EMAIL_SENDING', false);
-define('USE_PHP_PEAR_MAIL', false);
-define("SMTP_HOST", "");
-define("SMTP_USERNAME", "");
-define("SMTP_PASSWORD", "");
+define('ALLOW_EMAIL_SENDING', true);
+define("SMTP_HOST", "mail.soulxvintage.es");
+define("SMTP_USERNAME", "sender@soulxvintage.es");
+define("SMTP_PASSWORD", "#o7D&GgcMELk");
 
 //Files Config
 define('FILE_STORAGE_PATH', "$document_root/storage");

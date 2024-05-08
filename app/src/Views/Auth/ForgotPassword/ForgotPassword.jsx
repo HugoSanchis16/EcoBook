@@ -17,6 +17,7 @@ const ForgotPassword = () => {
   const { replace } = useHistory();
 
   const { showNotification: errorNotification } = useNotification();
+  const { showNotification: successNotification } = useNotification("success");
 
   const [data, setData] = useState({ email: "" });
   const [errors, setErrors] = useState({ email: false });
@@ -32,15 +33,10 @@ const ForgotPassword = () => {
     e && e.preventDefault();
     if (checkForm()) {
       setLoading(true);
-      request(
-        "post",
-        getEndpoint(Endpoints.Auth.forgotPassword),
-        { ...data },
-        false,
-        false
-      )
+      request("post", getEndpoint(Endpoints.Auth.forgotPassword), { ...data })
         .then(() => {
           localStorage.setItem(StorageKeys.TOKEN, "token");
+          successNotification("Email enviado correctamente");
           replace(Paths[Views.login].path);
         })
         .catch((err) => errorNotification(err.message))

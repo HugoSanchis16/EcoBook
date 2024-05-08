@@ -25,8 +25,6 @@ const SideBar = () => {
   const { rounded: roundedSideBar } = Configuration.theme.general.sidebar;
   const { backgroundColor } = Configuration.theme.general.sidebar;
 
-  const [search, setSearch] = useState("");
-
   const sideBarClassName = classNames(
     "overflow-hidden d-flex flex-column justify-content-between shadow",
     backgroundColor,

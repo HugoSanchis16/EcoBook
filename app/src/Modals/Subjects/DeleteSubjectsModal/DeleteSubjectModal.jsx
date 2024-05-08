@@ -18,7 +18,10 @@ const DeleteSubjectModal = ({ show, onClose, data }) => {
         successNotification("Subject deleted successfully!");
         onClose(true);
       })
-      .catch((err) => errorNotification(err.message));
+      .catch((err) => {
+        errorNotification(err.message);
+        onClose(true);
+      });
   };
 
   const hideModal = () => {
@@ -52,7 +55,9 @@ const DeleteSubjectModal = ({ show, onClose, data }) => {
       }
     >
       <div className="mb-1">
-        <p style={fontSize}>Are your sure that you want to remove the subject?</p>
+        <p style={fontSize}>
+          Are your sure that you want to remove the subject?
+        </p>
       </div>
     </ModalLayout>
   );

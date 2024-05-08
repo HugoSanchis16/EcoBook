@@ -6,7 +6,7 @@ include_once '../../config/config.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$data = postInput();
+$data = getInput();
 
 try {
     $db->beginTransaction();
@@ -14,21 +14,15 @@ try {
     checkAuth(false);
 
     $input = validate($data, [
-        'password' => 'required|string',
         'recoverycode' => 'required|string',
     ]);
 
     //check if admin exist
-    // $admin = User::getByRecoveryCode($db, $input->recoverycode);
-
-    $admin->recoverycode = null;
-    $admin->recoveryexpiry = null;
-    $admin->password = password_hash($input->password, PASSWORD_DEFAULT);
-    $admin->update();
+    $user = User::getByRecoveryCode($db, $input->recoverycode);
 
     $db->commit();
     Response::sendResponse([
-        "status" => true,
+        "status" => !!$user
     ]);
 } catch (\Exception $th) {
 

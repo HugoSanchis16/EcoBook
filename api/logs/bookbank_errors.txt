@@ -3,3 +3,33 @@
 "Invalid credentials"
 ---------------------
 
+24:05:08 02:09:41E:\work_versioned\Banc-de-Llibres\api\endpoints\auth\forgotpassword.php
+--------------------------------------
+"Could not instantiate mail function."
+--------------------------------------
+
+24:05:08 04:54:56E:\work_versioned\Banc-de-Llibres\api\endpoints\auth\forgotpassword.php
+-------
+"\"s\""
+-------
+
+24:05:08 04:55:25E:\work_versioned\Banc-de-Llibres\api\endpoints\auth\forgotpassword.php
+--------------------------------------------
+"\"\\u00a1El email introducido no existe!\""
+--------------------------------------------
+
+24:05:08 04:55:30E:\work_versioned\Banc-de-Llibres\api\endpoints\auth\forgotpassword.php
+--------------------------------------------
+"\"\\u00a1El email introducido no existe!\""
+--------------------------------------------
+
+24:05:08 04:55:42E:\work_versioned\Banc-de-Llibres\api\endpoints\auth\forgotpassword.php
+--------------------------------------------
+"\"\\u00a1El email introducido no existe!\""
+--------------------------------------------
+
+24:05:08 04:55:49E:\work_versioned\Banc-de-Llibres\api\endpoints\auth\forgotpassword.php
+-------------------------------------
+"\"El email introducido no existe!\""
+-------------------------------------
+

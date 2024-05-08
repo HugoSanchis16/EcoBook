@@ -17,7 +17,10 @@ const DeleteCourseModal = ({ show, onClose, data }) => {
         successNotification("Course deleted successfully!");
         onClose(true);
       })
-      .catch((err) => errorNotification(err.message));
+      .catch((err) => {
+        errorNotification(err.message);
+        onClose(true);
+      });
   };
 
   const hideModal = () => {

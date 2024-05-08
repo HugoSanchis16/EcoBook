@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Form, InputGroup } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { Paths } from "../../../Constants/paths.constants";
@@ -10,9 +10,11 @@ import logo from "../../../Assets/images/Logo/logo-maximised-en.png";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useNotification from "../../../Hooks/useNotification";
 import useRequest from "../../../Hooks/useRequest";
+import useLoaded from "../../../Hooks/useLoaded";
 
 const ResetPassword = () => {
   const request = useRequest();
+  const { push } = useHistory();
 
   const { replace } = useHistory();
   const { recoverycode } = useParams();
@@ -32,6 +34,27 @@ const ResetPassword = () => {
     samePassword: false,
   });
 
+  const { startFetching, finishFetching } = useLoaded();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    startFetching();
+    return await request("get", getEndpoint(Endpoints.Auth.resetPassword), {
+      recoverycode: recoverycode,
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(() => {
+        errorNotification("Error resetting password"),
+          push(Paths[Views.login].path);
+      })
+      .finally(() => finishFetching());
+  };
+
   const handlePassword = (e) => {
     const { value } = e.target;
     setErrors({ ...errors, password: !PasswordRegex.test(value) });
@@ -46,7 +69,7 @@ const ResetPassword = () => {
   const handleResetPassword = (e) => {
     e && e.preventDefault();
     if (checkForm()) {
-      request("post", getEndpoint(Endpoints.Auth.resetPassword), {
+      request("post", getEndpoint(Endpoints.Auth.resetPasswordFinal), {
         ...data,
       })
         .then((res) => {
@@ -76,7 +99,7 @@ const ResetPassword = () => {
         <Card.Body className="p-0">
           <div className="p-2 p-md-4">
             <Form.Group className="mb-3" controlId="password1">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>New Password</Form.Label>
               <InputGroup className="mb-3">
                 <Form.Control
                   isInvalid={errors.password}

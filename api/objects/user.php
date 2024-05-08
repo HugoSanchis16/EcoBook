@@ -10,6 +10,7 @@ class User
     public string $guid;
     public string $email;
     public string $password;
+    public string|null $recoverycode;
     public string $created;
     public string|null $updated;
     public string|null $deleted;
@@ -50,12 +51,13 @@ class User
     {
         $query = "
             UPDATE `" . self::$table_name . "` 
-            SET password=:password, email=:email, updated=:updated, deleted=:deleted, token=:token, expiredate=:expiredate
+            SET password=:password, email=:email, recoverycode=:recoverycode, updated=:updated, deleted=:deleted, token=:token, expiredate=:expiredate
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":password", $this->password);
         $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":recoverycode", $this->recoverycode);
         $stmt->bindParam(":updated", $this->updated);
         $stmt->bindValue(":deleted", $this->deleted);
         $stmt->bindParam(":token", $this->token);
@@ -163,6 +165,23 @@ class User
         createException($stmt->errorInfo());
     }
 
+    public static function getByRecoveryCode(PDO $db, string $code): User|bool
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE recoverycode=:recoverycode AND deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":recoverycode", $code);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
+            return false;
+        }
+        createException($stmt->errorInfo());
+    }
+
     public static function checkToken($db, $token)
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE DATE(expiredate) > DATE(NOW()) AND token=:token AND deleted IS NULL";
@@ -187,6 +206,7 @@ class User
         $newObj->guid = $row['guid'];
         $newObj->email = $row['email'];
         $newObj->password = $row['password'];
+        $newObj->recoverycode = $row['recoverycode'];
         $newObj->created = $row['created'];
         $newObj->token = $row['token'];
         $newObj->updated = $row['updated'];
