@@ -177,8 +177,33 @@ class Student
                     "students" => intval($row['uv'])
                 ];
             }
-            return $studentHistory;
+
+            $currentDate = new DateTime();
+            $dataNames = array_column($studentHistory, "name");
+
+            $history = [];
+
+
+            for ($i = 0; $i < 12; $i++) {
+                if ($i > 0) {
+                    $currentDate->modify('-1 month');
+                }
+                $currentMonth = $currentDate->format('n/Y');
+                $index = array_search($currentMonth, $dataNames);
+                if ($index === false) {
+                    $history[$i] = [
+                        "name" => $currentMonth,
+                        "students" => 0
+                    ];
+                } else {
+                    $object = $studentHistory[$index];
+                    $history[$i] = ["name" => $object['name'], "students" => $object['students']];
+                }
+            }
+
+            return array_reverse($history);
         }
+
         createException($stmt->errorInfo());
     }
 

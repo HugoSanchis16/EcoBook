@@ -46,7 +46,6 @@ const ResetPassword = () => {
       recoverycode: recoverycode,
     })
       .then((res) => {
-        console.log(res);
       })
       .catch(() => {
         errorNotification("Error resetting password"),

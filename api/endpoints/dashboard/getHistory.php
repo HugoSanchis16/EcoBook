@@ -28,12 +28,12 @@ try {
         [
             "name" => "BadCopies",
             "uv" => $badCopiesCount,
-            "color" => "#FF1B00"
+            "color" => "#FF6961"
         ],
         [
             "name" => "GoodCopies",
             "uv" => $goodCopiesCount,
-            "color" => "#0FFF00"
+            "color" => "#77DD77"
         ]
     ];
 

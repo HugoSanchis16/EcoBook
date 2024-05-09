@@ -35,7 +35,6 @@ const SideBarItem = ({ item }) => {
     let icon = `&#x${item.icon};`;
     return `<i class="material-icons">${icon}</i>`;
   };
-  console.log(ViewStrings);
   return (
     <div className={itemClassName}>
       <Button

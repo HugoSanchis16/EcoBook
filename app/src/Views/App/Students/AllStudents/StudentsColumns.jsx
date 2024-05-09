@@ -10,7 +10,6 @@ import { useContext } from "react";
 export const StudentsColumns = (openDeleteModal) => {
   const { strings } = useContext(StringsContext);
   const ViewStrings = strings.Students.AllStudents;
-  console.log(strings);
   const columns = [
     {
       Header: ViewStrings.columns.nia,

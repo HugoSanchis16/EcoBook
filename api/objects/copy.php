@@ -11,6 +11,8 @@ class Copy
     public string $uniqid;
     public int $state;
     public int $book_id;
+    public string|null $deleted;
+
 
     public function __construct(PDO $db)
     {
@@ -64,22 +66,31 @@ class Copy
     {
         $query = "
             UPDATE `" . self::$table_name . "` 
-            SET state=:state, updated=:updated, searchdata=:searchdata
+            SET state=:state, updated=:updated, deleted=:deleted, searchdata=:searchdata
             WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":state", $this->state);
         $stmt->bindParam(":id", $this->id);
         $stmt->bindValue(":updated", newDate());
+        $stmt->bindValue(":deleted", $this->deleted);
         $stmt->bindValue(":searchdata", convertSearchValues($this->searchableValues()));
 
         try {
             $stmt->execute();
             return true;
         } catch (\Exception $th) {
-            createException($stmt->errorInfo());
+            createException($th->getMessage());
         }
     }
+
+
+    function delete(): bool
+    {
+        $this->deleted = newDate();
+        return $this->update();
+    }
+
 
     function book(): Book
     {
@@ -271,16 +282,24 @@ class Copy
     {
         $query = "
         SELECT 
-            CONCAT(MONTH(created), '/', YEAR(created)) AS name,
-            COUNT(*) AS uv
+            months.name,
+            COALESCE(COUNT(copies.id), 0) AS copies
         FROM 
-            `" . self::$table_name . "` 
-        WHERE 
-            DATE(created) >= DATE_ADD(NOW(), INTERVAL -12 MONTH)
+            (
+                SELECT CONCAT(MONTH(created), '/', YEAR(created)) AS name
+                FROM `" . self::$table_name . "`
+                WHERE DATE(created) >= DATE_ADD(NOW(), INTERVAL -12 MONTH)
+                GROUP BY YEAR(created), MONTH(created)
+                ORDER BY created ASC
+            ) AS months
+        LEFT JOIN 
+            `" . self::$table_name . "` AS copies 
+        ON 
+            months.name = CONCAT(MONTH(copies.created), '/', YEAR(copies.created))
         GROUP BY 
-            YEAR(created), MONTH(created) 
+            months.name
         ORDER BY 
-            created ASC LIMIT 12
+            STR_TO_DATE(months.name, '%m/%Y') ASC
         ";
 
         $stmt = $db->prepare($query);
@@ -290,13 +309,38 @@ class Copy
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $copyHistory[] = [
                     "name" => $row['name'],
-                    "copies" => intval($row['uv'])
+                    "copies" => intval($row['copies'])
                 ];
             }
-            return $copyHistory;
+
+            $currentDate = new DateTime();
+            $dataNames = array_column($copyHistory, "name");
+
+            $history = [];
+
+
+            for ($i = 0; $i < 12; $i++) {
+                if ($i > 0) {
+                    $currentDate->modify('-1 month');
+                }
+                $currentMonth = $currentDate->format('n/Y');
+                $index = array_search($currentMonth, $dataNames);
+                if ($index === false) {
+                    $history[$i] = [
+                        "name" => $currentMonth,
+                        "copies" => 0
+                    ];
+                } else {
+                    $object = $copyHistory[$index];
+                    $history[$i] = ["name" => $object['name'], "copies" => $object['copies']];
+                }
+            }
+
+            return array_reverse($history);
         }
         createException($stmt->errorInfo());
     }
+
 
 
     public static function getAllCountGoodCopiesDashboard(PDO $db): int
@@ -378,6 +422,7 @@ class Copy
         $newObj->guid = $row['guid'];
         $newObj->uniqid = $row['uniqid'];
         $newObj->state = $row['state'];
+        $newObj->deleted = $row['deleted'];
         return $newObj;
     }
 }

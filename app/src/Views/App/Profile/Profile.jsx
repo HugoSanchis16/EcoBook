@@ -24,7 +24,7 @@ const Profile = () => {
   const { showNotification: successNotification } = useNotification("success");
   const { showNotification: errorNotification } = useNotification();
 
-  const { startFetching, finishFetching, fetching, loaded } = useLoaded();
+  const { startFetching, finishFetching, loaded } = useLoaded();
 
   const [profile, setProfile] = useState([]);
   const [hovered, setHovered] = useState(false);
@@ -57,7 +57,6 @@ const Profile = () => {
 
   const handleSubmitImage = (e) => {
     const file = e.target.files[0];
-    console.log(file);
     request("file", getEndpoint(Endpoints.user.profile.changeImage), {
       accessor: "image",
       image: [file],

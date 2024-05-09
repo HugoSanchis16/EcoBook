@@ -44,7 +44,6 @@ export const CopyHistoryColumns = (openHistoryModal) => {
       Cell: (row) =>
         getColumnValue(row, (item) => (
           <div className="d-flex align-items-center">
-            {console.log(item)}
             <IconButton
               Icon={TbReport}
               onClick={() => openHistoryModal(item)}
