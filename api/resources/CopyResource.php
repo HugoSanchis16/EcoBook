@@ -44,6 +44,23 @@ class CopyResource
         return $itemsArray;
     }
 
+    public static function getCopiesArrayListDashboard(array $copies): array
+    {
+        $itemsArray = [];
+        foreach ($copies as $copy) {
+
+            $newItem = self::getCopy($copy, ['uniqid', 'state']);
+            $book = $copy->Book();
+            $subject = $book->subject();
+            $course = $subject->course();
+            $newItem->bookName = $book->name;
+            $newItem->subjectName = $subject->abbr;
+            $newItem->courseName = $course->abbr;
+            $itemsArray[] = $newItem;
+        }
+        return $itemsArray;
+    }
+
     public static function getCopyFormatWithAll(Copy $copy): stdClass
     {
         $book = $copy->book();

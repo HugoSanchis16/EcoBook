@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
 import CustomAreaChart from "../../../Components/Charts/AreaChart";
 import SmallPanel from "../../../Components/Charts/SmallPanel/SmallPanel";
 import { StringsContext } from "../../../Context/strings.context";
@@ -11,10 +11,21 @@ import useRequest from "../../../Hooks/useRequest";
 import useNotification from "../../../Hooks/useNotification";
 import CustomPieChart from "../../../Components/Charts/PieChart";
 import useLoaded from "../../../Hooks/useLoaded";
+import ReactTable from "../../../Components/Table/Table";
+import { Paths } from "../../../Constants/paths.constants";
+import { Views } from "react-big-calendar";
+import CourseFilterSelector from "../../../Components/Filter/CourseFilterSelector";
+import { CopiesColumns } from "../Copy/AllCopies/CopiesColumns";
+import { Configuration } from "../../../Config/app.config";
+import useQuery from "../../../Hooks/useQuery";
+import { CopiesColumnsDashboard } from "./CopiesColumns";
+import SubjectFilterSelector from "../../../Components/Filter/SubjectFilterSelector";
 
 const Dashboard = () => {
   const { strings } = useContext(StringsContext);
   const ViewStrings = strings.Dashboard;
+
+  const searchParams = useQuery();
 
   const request = useRequest();
 
@@ -22,11 +33,20 @@ const Dashboard = () => {
   const { showNotification: errorNotification } = useNotification();
 
   const [loaded, setLoaded] = useState(false);
+  const [copies, setCopies] = useState({});
 
-  const { finishFetching } = useLoaded();
+  const { startFetching, fetching, finishFetching } = useLoaded();
+
+  const [totalPages, setTotalPages] = useState(1);
+
+  const [filterSelected, setFilterSelected] = useState();
 
   useEffect(() => {
-    fetchData();
+    const fetchAllData = async () => {
+      await fetchData();
+      await fetchCopies();
+    };
+    fetchAllData();
   }, []);
 
   const fetchData = async () => {
@@ -35,8 +55,35 @@ const Dashboard = () => {
         setData(res.data);
         setLoaded(true);
       })
+      .catch(errorNotification);
+  };
+
+  const fetchCopies = async (
+    page = 1,
+    offset = Configuration.tables.defaultPageSize,
+    search = searchParams.get("search"),
+    filter = filterSelected
+  ) => {
+    startFetching();
+    return await request(
+      "get",
+      getEndpoint(Endpoints.Copies.allCopies.getAllWithBadState),
+      {
+        page,
+        offset,
+        search,
+        filter: JSON.stringify(filter ? [filter] : []),
+      }
+    )
+      .then((res) => {
+        setCopies(res.copies);
+        setTotalPages(res.totalPages);
+      })
       .catch(errorNotification)
       .finally(() => finishFetching());
+  };
+  const handleFilter = (e) => {
+    setFilterSelected(e);
   };
 
   return (
@@ -118,7 +165,41 @@ const Dashboard = () => {
       {/* Big Chart */}
 
       <Row className="d-flex justify-content-center ">
-        <Col sm={12} xxl={12}>
+        <Col sm={12} xxl={4}>
+          <PanelLayout>
+            <SectionLayout title="Copies to withdraw">
+              <ReactTable
+                useFilter
+                extraFilters={
+                  <div className="d-flex flex-column ">
+                    <CourseFilterSelector onChange={handleFilter} />
+                    <Button
+                      className="align-self-end m-1"
+                      size="sm"
+                      onClick={() => fetchCopies()}
+                    >
+                      Aply
+                    </Button>
+                  </div>
+                }
+                emptyData={{
+                  text: "text",
+                  buttonText: "buttonText",
+                  to: Paths[Views.new_book].path,
+                  description: "description",
+                  subDescription: "subDescription",
+                }}
+                totalPages={totalPages}
+                fetching={fetching}
+                onEventChange={fetchCopies}
+                data={copies}
+                columns={CopiesColumnsDashboard()}
+              />
+            </SectionLayout>
+          </PanelLayout>
+        </Col>
+
+        <Col sm={12} xxl={8}>
           <PanelLayout>
             <SectionLayout
               title={ViewStrings.bigChartStudents.title}
@@ -140,10 +221,6 @@ const Dashboard = () => {
               />
             </SectionLayout>
           </PanelLayout>
-        </Col>
-      </Row>
-      <Row className="d-flex justify-content-center ">
-        <Col sm={12} xxl={12}>
           <PanelLayout>
             <SectionLayout
               title={ViewStrings.bigChartCopies.title}
@@ -167,6 +244,7 @@ const Dashboard = () => {
           </PanelLayout>
         </Col>
       </Row>
+      <Row className="d-flex justify-content-center "></Row>
     </GeneralLayout>
   );
 };
