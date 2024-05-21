@@ -11,6 +11,7 @@ const BarcodeLayoutToPrint = ({ codes, rows = 10, cols = 3, offset = 0 }) => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
+    console.log({ rows, cols, offset });
     createImage();
   }, [rows, cols, offset]);
 
@@ -33,6 +34,7 @@ const BarcodeLayoutToPrint = ({ codes, rows = 10, cols = 3, offset = 0 }) => {
       return createChunk(pageContent, cols);
     });
     setImages(items);
+    console.log(items);
   };
 
   const createChunk = (array, chunkSize) => {
@@ -53,12 +55,20 @@ const BarcodeLayoutToPrint = ({ codes, rows = 10, cols = 3, offset = 0 }) => {
   return (
     <Document>
       {images.map((page, index) => (
-        <Page key={index} size="A4" style={{ margin: 0, padding: 0 }}>
-          <View style={{ flexDirection: "column", flexGrow: 1 }}>
+        <Page key={index} size="A4" dpi={72}>
+          <View
+            style={{
+              flexDirection: "column",
+              height: "100%",
+            }}
+          >
             {page.map((row, rowIndex) => (
               <View
                 key={rowIndex}
-                style={{ flexDirection: "row", flexGrow: 1 }}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
               >
                 {row.map((image, imageIndex) =>
                   typeof image === "string" ? (
@@ -68,7 +78,6 @@ const BarcodeLayoutToPrint = ({ codes, rows = 10, cols = 3, offset = 0 }) => {
                       style={{
                         width: A4_Sizes.width / cols,
                         height: A4_Sizes.height / rows,
-                        flexGrow: 1,
                       }}
                     />
                   ) : (
@@ -77,7 +86,6 @@ const BarcodeLayoutToPrint = ({ codes, rows = 10, cols = 3, offset = 0 }) => {
                       style={{
                         width: A4_Sizes.width / cols,
                         height: A4_Sizes.height / rows,
-                        flexGrow: 1,
                       }}
                     ></Text>
                   )

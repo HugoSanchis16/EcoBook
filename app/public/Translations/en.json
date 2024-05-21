@@ -32,7 +32,8 @@
     "PlaceholderColumns": "How many columns?",
     "titleRows": "Rows",
     "PlaceholderRows": "How many rows?",
-    "PlaceholderOffset": "Position do you want to start?"
+    "PlaceholderOffset": "Position do you want to start?",
+    "DefaultConf": "Default config."
   },
   "Search": {
     "GeneralView": {

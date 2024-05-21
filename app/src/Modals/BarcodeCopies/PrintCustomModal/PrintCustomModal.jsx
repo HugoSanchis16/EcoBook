@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 import FormControl from "../../../Components/Form/FormControl/FormControl";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import BarcodeLayoutToPrint from "../../../Components/BarcodeLayoutToPrint/BarcodeLayoutToPrint";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import useLoaded from "../../../Hooks/useLoaded";
@@ -81,14 +81,17 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
             onClick={hideModal}
           >
             <PDFDownloadLink
-              document={
-                <BarcodeLayoutToPrint
-                  cols={data.cols}
-                  rows={data.rows}
-                  offset={data.offset}
-                  codes={data.codes?.map((code) => code.uniqid)}
-                />
-              }
+              document={useMemo(() => {
+                console.log({ data });
+                return (
+                  <BarcodeLayoutToPrint
+                    cols={data.cols}
+                    rows={data.rows}
+                    offset={data.offset}
+                    codes={data.codes?.map((code) => code.uniqid)}
+                  />
+                );
+              }, [data])}
               fileName={`${ViewStrings.barcodes}${data.codes?.length}-${data.cols}-${data.rows}-${data.offset}.pdf`}
             >
               {({ loading }) =>

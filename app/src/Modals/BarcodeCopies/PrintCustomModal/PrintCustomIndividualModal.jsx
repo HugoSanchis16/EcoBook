@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 import FormControl from "../../../Components/Form/FormControl/FormControl";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import BarcodeLayoutToIndivudualPrint from "../../../Components/BarcodeLayoutToPrint/BarcodeLayoutToIndividualPrint";
 import { validateData } from "../../../Config/GeneralFunctions";
@@ -10,7 +10,7 @@ import { StringsContext } from "../../../Context/strings.context";
 const PrintCustomIndividualModal = ({ show, onClose, uniqid }) => {
   const { strings } = useContext(StringsContext);
   const ViewStrings = strings.PrintModal;
-  const [data, setData] = useState({});
+  const [data, setData] = useState({ copies: 1, rows: 10, cols: 3, offset: 0 });
 
   const handleInput = (e) => {
     const { id, value } = e.target;
@@ -64,7 +64,7 @@ const PrintCustomIndividualModal = ({ show, onClose, uniqid }) => {
                   uniqid={uniqid}
                 />
               }
-              fileName={`${ViewStrings.barcodes}${data.copies}-${data.cols}-${data.rows}-${data.offset}.pdf`}
+              fileName={`Barcodes${data.copies}-${data.cols}-${data.rows}-${data.offset}.pdf`}
             >
               {({ loading }) =>
                 loading ? ViewStrings.Loading : ViewStrings.Download
@@ -75,7 +75,15 @@ const PrintCustomIndividualModal = ({ show, onClose, uniqid }) => {
       }
     >
       <div className="mb-1">
-        <p>{ViewStrings.text}</p>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <span>{ViewStrings.Text}</span>
+          <Button
+            size="sm"
+            onClick={() => setData({ copies: 1, rows: 10, cols: 3, offset: 0 })}
+          >
+            {ViewStrings.DefaultConf}
+          </Button>
+        </div>
         <FormControl
           controlId="copies"
           required

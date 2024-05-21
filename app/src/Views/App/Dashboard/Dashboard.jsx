@@ -94,7 +94,7 @@ const Dashboard = () => {
   };
 
   const handleCloseDeleteCopy = (refresh) => {
-    if (refresh) fetchData();
+    if (refresh) fetchCopies();
     closeDeleteModal();
   };
 
