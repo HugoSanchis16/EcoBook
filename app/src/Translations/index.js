@@ -13,7 +13,7 @@ export const getLanguageSelected = async () => {
       !languageSelected ||
       !langs.some((lang) => lang.key === languageSelected)
     ) {
-      languageSelected = "en";
+      languageSelected = "es";
       localStorage.setItem(StorageKeys.LANGUAGE_SELECTED, languageSelected);
     }
     return languageSelected;

@@ -1,39 +1,35 @@
-import { MdDelete, MdEdit, MdRemoveRedEye } from "react-icons/md";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import { MdDelete } from "react-icons/md";
 import IconButton from "../../../Components/Buttons/IconButton";
 import { getColumnValue } from "../../../Config/GeneralFunctions";
-import { Paths, replacePaths } from "../../../Constants/paths.constants";
-import { Views } from "../../../Constants/views.constants";
-import FormSwitch from "../../../Components/Form/FormSwitch/FormSwitch";
 import { useContext } from "react";
 import { StringsContext } from "../../../Context/strings.context";
 import StarsComponent from "../Copy/CopyInfo/Components/Stars";
 
-export const CopiesColumnsDashboard = () => {
+export const CopiesColumnsDashboard = (openDeleteModal) => {
   const { strings } = useContext(StringsContext);
-  const ViewStrings = strings.Books.AllBooks;
+  const ViewStrings = strings.Dashboard.tableOfCopies;
 
   const columns = [
     {
-      Header: "Code",
+      Header: ViewStrings.code,
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.uniqid}</p>),
       width: 100,
     },
     {
-      Header: "State",
+      Header: ViewStrings.state,
       Cell: (row) =>
         getColumnValue(row, (item) => <StarsComponent state={item.state} />),
       width: 100,
     },
     {
-      Header: "Book",
+      Header: ViewStrings.book,
       Cell: (row) =>
         getColumnValue(row, (item) => <p className="mb-0">{item.bookName}</p>),
       width: 100,
     },
     {
-      Header: "Course",
+      Header: ViewStrings.course,
       Cell: (row) =>
         getColumnValue(row, (item) => (
           <p className="mb-0">{item.courseName}</p>
@@ -41,7 +37,7 @@ export const CopiesColumnsDashboard = () => {
       width: 100,
     },
     {
-      Header: "Subject",
+      Header: ViewStrings.subject,
       Cell: (row) =>
         getColumnValue(row, (item) => (
           <p className="mb-0">{item.subjectName}</p>
@@ -49,10 +45,15 @@ export const CopiesColumnsDashboard = () => {
       width: 100,
     },
     {
-      Header: "Action",
+      Header: ViewStrings.action,
       width: 10,
       Cell: (row) =>
-        getColumnValue(row, (item) => <IconButton Icon={MdDelete} />),
+        getColumnValue(row, (item) => (
+          <IconButton
+            Icon={MdDelete}
+            onClick={() => openDeleteModal(item.guid)}
+          />
+        )),
     },
   ];
   return columns;

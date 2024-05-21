@@ -1,12 +1,15 @@
 import { Button, Modal } from "react-bootstrap";
 import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 import FormControl from "../../../Components/Form/FormControl/FormControl";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import BarcodeLayoutToIndivudualPrint from "../../../Components/BarcodeLayoutToPrint/BarcodeLayoutToIndividualPrint";
 import { validateData } from "../../../Config/GeneralFunctions";
+import { StringsContext } from "../../../Context/strings.context";
 
 const PrintCustomIndividualModal = ({ show, onClose, uniqid }) => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.PrintModal;
   const [data, setData] = useState({});
 
   const handleInput = (e) => {
@@ -36,13 +39,13 @@ const PrintCustomIndividualModal = ({ show, onClose, uniqid }) => {
       header
       customHeader={
         <div className="d-flex align-items-center justify-content-between w-100">
-          <Modal.Title className="ms-2">Customize print</Modal.Title>
+          <Modal.Title className="ms-2">{ViewStrings.title}</Modal.Title>
         </div>
       }
       footer={
         <div className="d-flex justify-content-end gap-2">
           <Button variant="light" size="lm" onClick={hideModal}>
-            Close
+            {ViewStrings.Close}
           </Button>
 
           <Button
@@ -61,10 +64,10 @@ const PrintCustomIndividualModal = ({ show, onClose, uniqid }) => {
                   uniqid={uniqid}
                 />
               }
-              fileName={`Barcodes${data.copies}-${data.cols}-${data.rows}-${data.offset}.pdf`}
+              fileName={`${ViewStrings.barcodes}${data.copies}-${data.cols}-${data.rows}-${data.offset}.pdf`}
             >
               {({ loading }) =>
-                loading ? "Loading document..." : "Download PDF!"
+                loading ? ViewStrings.Loading : ViewStrings.Download
               }
             </PDFDownloadLink>
           </Button>
@@ -72,43 +75,43 @@ const PrintCustomIndividualModal = ({ show, onClose, uniqid }) => {
       }
     >
       <div className="mb-1">
-        <p>Choose how you want to print the Barcodes.</p>
+        <p>{ViewStrings.text}</p>
         <FormControl
           controlId="copies"
           required
-          title="Copies"
+          title={ViewStrings.titleCopies}
           vertical={false}
           showMaxLength={false}
           type="number"
           step={1}
           value={data.copies}
-          placeholder={"How many copies?"}
+          placeholder={ViewStrings.PlaceholderCopies}
           onChange={handleInput}
           min={1}
         ></FormControl>
         <FormControl
           controlId="cols"
           required
-          title="Cols"
+          title={ViewStrings.titleColumns}
           vertical={false}
           showMaxLength={false}
           type="number"
           step={1}
           value={data.cols}
-          placeholder={"How many Columns?"}
+          placeholder={ViewStrings.PlaceholderColumns}
           onChange={handleInput}
           min={1}
         ></FormControl>
         <FormControl
           controlId="rows"
           required
-          title="Rows"
+          title={ViewStrings.titleRows}
           vertical={false}
           showMaxLength={false}
           type="number"
           step={1}
           value={data.rows}
-          placeholder={"How many rows?"}
+          placeholder={ViewStrings.PlaceholderRows}
           onChange={handleInput}
           min={1}
         ></FormControl>
@@ -121,7 +124,7 @@ const PrintCustomIndividualModal = ({ show, onClose, uniqid }) => {
           type="number"
           step={1}
           value={data.offset}
-          placeholder={"Where do I start?"}
+          placeholder={ViewStrings.PlaceholderOffset}
           max={data.cols * data.rows - 1}
           onChange={handleInput}
           min={0}

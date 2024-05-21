@@ -8,11 +8,15 @@ import {
 import { Paths } from "../../../../Constants/paths.constants";
 import { Views } from "../../../../Constants/views.constants";
 import useRequest from "../../../../Hooks/useRequest";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useNotification from "../../../../Hooks/useNotification";
 import useLoaded from "../../../../Hooks/useLoaded";
+import { StringsContext } from "../../../../Context/strings.context";
 
 const ProfileDropdown = () => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.ProfileDropdown;
+
   const request = useRequest();
   const { isMobileView } = useSelector((state) => state.Config);
 
@@ -88,14 +92,14 @@ const ProfileDropdown = () => {
               as={Button}
               onClick={handleOpenProfile}
             >
-              Profile
+              {ViewStrings.Profile}
             </Dropdown.Item>
             <Dropdown.Item
               className="rounded-3"
               as={Button}
               onClick={handleOpenAccount}
             >
-              Account
+              {ViewStrings.Account}
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item
@@ -104,7 +108,7 @@ const ProfileDropdown = () => {
               className="text-danger rounded-3"
               onClick={handleSignOut}
             >
-              Logout
+              {ViewStrings.Logout}
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

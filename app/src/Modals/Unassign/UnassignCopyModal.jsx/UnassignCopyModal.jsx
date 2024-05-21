@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useNotification from "../../../Hooks/useNotification";
@@ -8,9 +8,13 @@ import BarcodeComponent from "./Components/BarcodeComponent";
 import StateByFacesComponent from "./Components/StateByFacesComponent";
 import Observationscomponent from "./Components/ObservationsComponent";
 import { validateData } from "../../../Config/GeneralFunctions";
+import { StringsContext } from "../../../Context/strings.context";
 
 const UnassignCopyModal = ({ show, onClose, data }) => {
   const request = useRequest();
+
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.Unassign.Modal;
 
   const { showNotification: errorNotification } = useNotification();
   const { showNotification: successNotification } = useNotification("success");
@@ -28,7 +32,7 @@ const UnassignCopyModal = ({ show, onClose, data }) => {
         ...localData,
       })
         .then((res) => {
-          successNotification("Book deleted successfully!");
+          successNotification(ViewStrings.messageDeleted);
           onClose(true);
         })
         .catch((err) => errorNotification(err.message));
@@ -58,7 +62,7 @@ const UnassignCopyModal = ({ show, onClose, data }) => {
       footer={
         <div className="d-flex justify-content-end gap-2">
           <Button variant="light" size="lm" onClick={hideModal}>
-            Cancel
+            {ViewStrings.buttonCancel}
           </Button>
           <Button
             onClick={handleSubmit}
@@ -66,7 +70,7 @@ const UnassignCopyModal = ({ show, onClose, data }) => {
             variant="danger"
             size="lm"
           >
-            Confirm
+            {ViewStrings.buttonConfirm}
           </Button>
         </div>
       }

@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import FormControl from "../../../../Components/Form/FormControl/FormControl";
+import { StringsContext } from "../../../../Context/strings.context";
 
 const Observationscomponent = ({ data, setData }) => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.Unassign.Modal;
   const handleText = (e) => {
     const { value } = e.target;
     setData({ ...data, observations: value });
@@ -8,7 +12,7 @@ const Observationscomponent = ({ data, setData }) => {
 
   return (
     <div>
-      <h5 className="mt-3 ">Observations</h5>
+      <h5 className="mt-3 ">{ViewStrings.observations}</h5>
       <div className="d-flex justify-content-center">
         <FormControl
           as="textarea"

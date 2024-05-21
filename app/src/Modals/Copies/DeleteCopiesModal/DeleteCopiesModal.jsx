@@ -6,17 +6,15 @@ import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 import { StringsContext } from "../../../Context/strings.context";
 import { useContext } from "react";
 
-const DeleteBookModal = ({ show, onClose, data }) => {
+const DeleteCopiesModal = ({ show, onClose, data }) => {
   const { strings } = useContext(StringsContext);
-  const ViewStrings = strings.Books.deleteBook;
-
+  const ViewStrings = strings.Copies.deleteCopies;
   const request = useRequest();
 
   const { showNotification: errorNotification } = useNotification();
   const { showNotification: successNotification } = useNotification("success");
-
   const handleSubmit = () => {
-    request("post", getEndpoint(Endpoints.Books.deleteBook.delete), {
+    request("post", getEndpoint(Endpoints.Copies.deleteCopy.delete), {
       guid: data,
     })
       .then((res) => {
@@ -66,4 +64,4 @@ const DeleteBookModal = ({ show, onClose, data }) => {
   );
 };
 
-export default DeleteBookModal;
+export default DeleteCopiesModal;

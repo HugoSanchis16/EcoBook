@@ -49,7 +49,7 @@ class CopyResource
         $itemsArray = [];
         foreach ($copies as $copy) {
 
-            $newItem = self::getCopy($copy, ['uniqid', 'state']);
+            $newItem = self::getCopy($copy, ['guid', 'uniqid', 'state']);
             $book = $copy->Book();
             $subject = $book->subject();
             $course = $subject->course();

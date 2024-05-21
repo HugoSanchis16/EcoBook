@@ -3,8 +3,12 @@ import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useNotification from "../../../Hooks/useNotification";
 import useRequest from "../../../Hooks/useRequest";
 import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
+import { StringsContext } from "../../../Context/strings.context";
+import { useContext } from "react";
 
 const DeleteCourseModal = ({ show, onClose, data }) => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.Courses.deleteCourses;
   const request = useRequest();
 
   const { showNotification: errorNotification } = useNotification();
@@ -14,7 +18,7 @@ const DeleteCourseModal = ({ show, onClose, data }) => {
       guid: data,
     })
       .then((res) => {
-        successNotification("Course deleted successfully!");
+        successNotification(ViewStrings.message);
         onClose(true);
       })
       .catch((err) => {
@@ -39,24 +43,22 @@ const DeleteCourseModal = ({ show, onClose, data }) => {
       header={true}
       customHeader={
         <div className="d-flex align-items-center justify-content-between w-100">
-          <Modal.Title className="ms-2">Comfirm de Action</Modal.Title>
+          <Modal.Title className="ms-2">{ViewStrings.title}</Modal.Title>
         </div>
       }
       footer={
         <div className="d-flex justify-content-end gap-2">
           <Button variant="light" size="lm" onClick={hideModal}>
-            Cancel
+            {ViewStrings.cancel}
           </Button>
           <Button onClick={handleSubmit} variant="danger" size="lm">
-            Confirm
+            {ViewStrings.confirm}
           </Button>
         </div>
       }
     >
       <div className="mb-1">
-        <p style={fontSize}>
-          Are your sure that you want to remove the course?
-        </p>
+        <p style={fontSize}>{ViewStrings.text}</p>
       </div>
     </ModalLayout>
   );

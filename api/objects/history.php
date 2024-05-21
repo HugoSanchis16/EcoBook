@@ -165,6 +165,26 @@ class History
         createException($stmt->errorInfo());
     }
 
+    public static function asignedCopy(PDO $db, int $copyId): int
+    {
+        $query = "
+        SELECT COUNT(*) as total
+        FROM `" . self::$table_name . "` 
+        WHERE copy_id=:copy_id AND finaldate IS NULL";
+
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(":copy_id", $copyId);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return intval($row['total']);
+            }
+            return 0;
+        }
+
+        createException($stmt->errorInfo());
+    }
+
     public static function getCopiesByUserId(PDO $db, string $id): array
     {
         $query = "

@@ -1,10 +1,14 @@
 import { Endpoints, getEndpoint } from "../../Constants/endpoints.contants";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useRequest from "../../Hooks/useRequest";
 import useNotification from "../../Hooks/useNotification";
 import FormSelect from "../Form/FormSelect/FormSelect";
+import { StringsContext } from "../../Context/strings.context";
 
 const CourseFilterSelector = ({ onChange }) => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.Courses;
+
   const request = useRequest();
   const { showNotification: errorNotification } = useNotification();
 
@@ -38,7 +42,7 @@ const CourseFilterSelector = ({ onChange }) => {
       defaultValue="default"
       value={courseSelected}
       options={courses}
-      title="Course:"
+      title={ViewStrings.filterCourse}
       onChange={handleCourseSelected}
     />
   );

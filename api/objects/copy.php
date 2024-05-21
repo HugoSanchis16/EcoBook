@@ -241,8 +241,9 @@ class Copy
     {
         $query = "
         SELECT COUNT(id) as total
-        FROM `" . self::$table_name . "` 
+        FROM `" . self::$table_name . "` c
         WHERE book_id=:book_id
+        AND c.deleted IS NULL
         ";
 
         applySearchOnQuery($query);
@@ -264,7 +265,8 @@ class Copy
     {
         $query = "
         SELECT COUNT(c.id) as total
-        FROM `" . self::$table_name . "` c";
+        FROM `" . self::$table_name . "` c
+        WHERE c.deleted IS NULL";
 
         $stmt = $db->prepare($query);
 
@@ -348,7 +350,7 @@ class Copy
         $query = "
         SELECT COUNT(c.id) as total
         FROM `" . self::$table_name . "` c 
-        WHERE c.state >= 2";
+        WHERE c.state >= 2 AND c.deleted IS NULL";
 
         $stmt = $db->prepare($query);
 
@@ -370,7 +372,8 @@ class Copy
         INNER JOIN book b ON co.book_id = b.id
         INNER JOIN subject s ON b.subject_id = s.id
         INNER JOIN course c ON s.course_id = c.id
-        WHERE b.deleted IS NULL AND co.state < 2";
+        WHERE b.deleted IS NULL AND co.state < 2 
+        AND co.deleted IS NULL";
 
         if (!empty($filters)) {
             $query .= " AND c.id = :course";
@@ -404,7 +407,8 @@ class Copy
         INNER JOIN book b ON co.book_id = b.id
         INNER JOIN subject s ON b.subject_id = s.id
         INNER JOIN course c ON s.course_id = c.id
-        WHERE b.deleted IS NULL AND co.state < 2";
+        WHERE b.deleted IS NULL AND co.state < 2
+        AND co.deleted IS NULL";
 
         if (!empty($filters)) {
             $query .= " AND c.id = :course";
@@ -440,6 +444,7 @@ class Copy
         SELECT COUNT(*) as total
         FROM `" . self::$table_name . "` c 
         WHERE c.state < 2
+        And c.deleted IS NULL
         ";
 
         $stmt = $db->prepare($query);

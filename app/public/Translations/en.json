@@ -19,11 +19,31 @@
       }
     }
   },
+  "PrintModal": {
+    "title": "Custom Printing",
+    "Close": "Close",
+    "Barcodes": "Barcodes",
+    "Loading": "Loading document...",
+    "Download": "Download PDF",
+    "Text": "Choose how you want to print the barcodes.",
+    "titleCopies": "Copies",
+    "PlaceholderCopies": "How many copies?",
+    "titleColumns": "Columns",
+    "PlaceholderColumns": "How many columns?",
+    "titleRows": "Rows",
+    "PlaceholderRows": "How many rows?",
+    "PlaceholderOffset": "Position do you want to start?"
+  },
   "Search": {
     "GeneralView": {
       "title": "Search",
       "searchPlaceholder": "Search..."
     }
+  },
+  "ProfileDropdown": {
+    "Profile": "Profile",
+    "Account": "Account",
+    "Logout": "Logout"
   },
   "Dashboard": {
     "title": "Home",
@@ -47,6 +67,17 @@
       "subtitle": "All copies from the last 12 months",
       "accessor": "copies",
       "emptyGraph": "There is not enough data yet to display the graph."
+    },
+    "tableOfCopies": {
+      "title": "Copies to Withdraw",
+      "placeholder": "Search for the code ...",
+      "code": "Code",
+      "state": "State",
+      "book": "Book",
+      "course": "Course",
+      "subject": "Subject",
+      "action": "Action",
+      "applyButton": "Apply"
     }
   },
   "Assign": {
@@ -82,7 +113,14 @@
   "Unassign": {
     "title": "Unassign",
     "studentName": "Student:",
-
+    "Modal": {
+      "buttonCancel": "Cancel",
+      "buttonConfirm": "Confirm",
+      "messageDeleted": "Book deleted successfully!",
+      "code": "Code",
+      "state": "State",
+      "observations": "Observations"
+    },
     "inputs": {
       "niaInput": {
         "title": "NIA:",
@@ -104,6 +142,36 @@
         "subDescription": "Click the folllowing button to unassign books to another student."
       }
     }
+  },
+  "CopyHistory": {
+    "General": {
+      "title": "General Student Information",
+      "Nia": "NIA",
+      "Name": "Name",
+      "Email": "Email",
+      "phone": "Phone"
+    },
+    "CopyInfo": {
+      "title": "Copy Information",
+      "Code": "Code",
+      "BookName": "Book Name",
+      "ISBN": "ISBN",
+      "Course": "Course",
+      "Subject": "Subject"
+    },
+    "Delivery": {
+      "title": "Delivery Information",
+      "deliveryDate": "Delivery Date",
+      "state": "State"
+    },
+    "Return": {
+      "title": "Return Information",
+      "returnDate": "Return Date",
+      "state": "State",
+      "Observations": "Observations"
+    },
+    "InUse": "In Use",
+    "Close": "Close"
   },
   "Books": {
     "AllBooks": {
@@ -191,6 +259,13 @@
         "isbnError": "ISBN already exists!",
         "bookCreated": "Book Created successfully!"
       }
+    },
+    "deleteBook": {
+      "title": "Confirm Action",
+      "text": "Are you sure you want to delete the book?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "message": "Book deleted successfully!"
     }
   },
   "Students": {
@@ -319,6 +394,13 @@
         "new": "New",
         "inUse": "In use"
       }
+    },
+    "deleteStudent": {
+      "title": "Confirm Action",
+      "text": "Are you sure you want to delete the Student?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "message": "Student deleted successfully!"
     }
   },
   "Copies": {
@@ -391,6 +473,13 @@
         "inputError": "Check all input fields",
         "copyCreated": "Copy created successfully!"
       }
+    },
+    "deleteCopies": {
+      "title": "Confirm Action",
+      "text": "Are you sure you want to delete the copy?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "message": "Copy deleted successfully!"
     }
   },
   "Courses": {
@@ -456,7 +545,16 @@
         "inputError": "Check all input fields",
         "courseCreated": "Course created successfully!"
       }
-    }
+    },
+    "deleteCourses": {
+      "title": "Confirm Action",
+      "text": "Are you sure you want to delete the course?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "message": "Course deleted successfully!"
+    },
+    "filterCourse": "Course:",
+    "filterSeason": "Season:"
   },
   "Subjects": {
     "AllSubjects": {
@@ -517,6 +615,13 @@
       "messages": {
         "subjectUpdated": "Subject updated successfully!"
       }
+    },
+    "deleteSubjects": {
+      "title": "Confirm Action",
+      "text": "Are you sure you want to delete the subject?",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "message": "Subject deleted successfully!"
     }
   },
   "privacyPolicy": {

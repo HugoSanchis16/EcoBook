@@ -19,15 +19,35 @@
       }
     }
   },
+  "PrintModal": {
+    "title": "Impresion Personalizada",
+    "Close": "Cerrar",
+    "Barcodes": "Codigos",
+    "Loading": "Cargando documento...",
+    "Download": "Descargar PDF",
+    "Text": "Elige como quieres imprimir los codigos.",
+    "titleCopies": "Copias",
+    "PlaceholderCopies": "Cuantas copias?",
+    "titleColumns": "Columnas",
+    "PlaceholderColumns": "Cuantas columnas?",
+    "titleRows": "Filas",
+    "PlaceholderRows": "Cuantas filas?",
+    "PlaceholderOffset": "En que posicion quieres empezar?"
+  },
   "Search": {
     "GeneralView": {
       "title": "Buscar",
       "searchPlaceholder": "Buscar..."
     }
   },
+  "ProfileDropdown": {
+    "Profile": "Perfil",
+    "Account": "Cuenta",
+    "Logout": "Cerrar Sesión"
+  },
   "Dashboard": {
     "title": "Inicio",
-    "subtitle": "ESTADÍSTICAS DE DATOS DE LA APLICACIÓN",
+    "subtitle": "ESTADÍSTICAS",
     "titleBadCopies": "Copias Malas",
     "titleGoodCopies": "Copias Buenas",
     "smallPanels": {
@@ -47,6 +67,17 @@
       "subtitle": "Todas las copias de los últimos 12 meses",
       "accessor": "copies",
       "emptyGraph": "Aún no hay suficientes datos para mostrar el gráfico"
+    },
+    "tableOfCopies": {
+      "title": "Copias para retirar",
+      "placeholder": "Buscar el código ...",
+      "code": "Codigo",
+      "state": "Estado",
+      "book": "Libro",
+      "course": "Curso",
+      "subject": "Asignatura",
+      "action": "Acción",
+      "applyButton": "Aplicar"
     }
   },
   "Assign": {
@@ -83,6 +114,14 @@
     "title": "Desasignar",
     "studentName": "Estudiante:",
 
+    "Modal": {
+      "buttonCancel": "Cancelar",
+      "buttonConfirm": "Confirmar",
+      "messageDeleted": "Book deleted successfully!",
+      "code": "Codigo",
+      "state": "Estado",
+      "observations": "Observaciones"
+    },
     "inputs": {
       "niaInput": {
         "title": "NIA:",
@@ -104,6 +143,36 @@
         "subDescription": "Haz clic en el siguiente botón para desasignar libros a otro estudiante."
       }
     }
+  },
+  "CopyHistory": {
+    "General": {
+      "title": "Informacion General del Estudiante",
+      "Nia": "NIA",
+      "Name": "Nombre",
+      "Email": "Correo electrónico",
+      "phone": "Teléfono"
+    },
+    "CopyInfo": {
+      "title": "Información de la Copia",
+      "Code": "Codigo",
+      "BookName": "Nombre del Libro",
+      "ISBN": "ISBN",
+      "Course": "Curso",
+      "Subject": "Asignatura"
+    },
+    "Delivery": {
+      "title": "Información de Entraga",
+      "deliveryDate": "Fecha de entrega",
+      "state": "Estado"
+    },
+    "Return": {
+      "title": "Información de Devolución",
+      "returnDate": "Fecha de devolución",
+      "state": "Estado",
+      "Observations": "Observaciones"
+    },
+    "InUse": "En Uso",
+    "Close": "Cerrar"
   },
   "Books": {
     "AllBooks": {
@@ -191,6 +260,13 @@
         "isbnError": "El ISBN ya existe",
         "bookCreated": "¡Libro creado correctamente!"
       }
+    },
+    "deleteBook": {
+      "title": "Confirma la Acción",
+      "text": "Estas seguro que quieres eliminar el libro?",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "message": "Libro eliminado correctamente!"
     }
   },
   "Students": {
@@ -319,6 +395,13 @@
         "new": "Nuevo",
         "inUse": "En Uso"
       }
+    },
+    "deleteStudent": {
+      "title": "Confirmar Acción",
+      "text": "¿Estás seguro de que quieres eliminar el estudiante?",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "message": "¡Estudiante eliminado correctamente!"
     }
   },
   "Copies": {
@@ -391,6 +474,13 @@
         "inputError": "Verifica todos los campos de entrada",
         "copyCreated": "¡Copia creada correctamente!"
       }
+    },
+    "deleteCopies": {
+      "title": "Confirmar Acción",
+      "text": "¿Estás seguro de que quieres eliminar la copia?",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "message": "¡Copia eliminada correctamente!"
     }
   },
   "Courses": {
@@ -456,7 +546,16 @@
         "inputError": "Verifica todos los campos de entrada",
         "courseCreated": "¡Curso creado correctamente!"
       }
-    }
+    },
+    "deleteCourses": {
+      "title": "Confirmar Acción",
+      "text": "¿Estás seguro de que quieres eliminar el curso?",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "message": "¡Curso eliminado correctamente!"
+    },
+    "filterCourse": "Curso:",
+    "filterSeason": "Temporada:"
   },
   "Subjects": {
     "AllSubjects": {
@@ -517,6 +616,13 @@
       "messages": {
         "subjectUpdated": "¡Materia actualizada correctamente!"
       }
+    },
+    "deleteSubjects": {
+      "title": "Confirmar Acción",
+      "text": "¿Estás seguro de que quieres eliminar la asignatura?",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "message": "¡Asignatura eliminada correctamente!"
     }
   },
   "privacyPolicy": {

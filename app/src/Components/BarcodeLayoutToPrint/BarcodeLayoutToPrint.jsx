@@ -7,7 +7,7 @@ const A4_Sizes = {
   height: 842,
 };
 
-const BarcodeLayoutToPrint = ({ codes, rows = 6, cols = 3, offset = 0 }) => {
+const BarcodeLayoutToPrint = ({ codes, rows = 10, cols = 3, offset = 0 }) => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {

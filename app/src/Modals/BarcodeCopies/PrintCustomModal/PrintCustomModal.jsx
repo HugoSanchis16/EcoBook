@@ -1,7 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 import ModalLayout from "../../../Layouts/ModalLayout/ModalLayout";
 import FormControl from "../../../Components/Form/FormControl/FormControl";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BarcodeLayoutToPrint from "../../../Components/BarcodeLayoutToPrint/BarcodeLayoutToPrint";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import useLoaded from "../../../Hooks/useLoaded";
@@ -9,8 +9,12 @@ import useRequest from "../../../Hooks/useRequest";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useNotification from "../../../Hooks/useNotification";
 import { validateData } from "../../../Config/GeneralFunctions";
+import { StringsContext } from "../../../Context/strings.context";
 
 const PrintCustomModal = ({ show, onClose, bookGuid }) => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.PrintModal;
+
   const [data, setData] = useState({});
   const request = useRequest();
 
@@ -62,13 +66,13 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
       header
       customHeader={
         <div className="d-flex align-items-center justify-content-between w-100">
-          <Modal.Title className="ms-2">Customize print</Modal.Title>
+          <Modal.Title className="ms-2">{ViewStrings.title}</Modal.Title>
         </div>
       }
       footer={
         <div className="d-flex justify-content-end gap-2">
           <Button variant="light" size="lm" onClick={hideModal}>
-            Close
+            {ViewStrings.Close}
           </Button>
           <Button
             disabled={!checkForm()}
@@ -85,10 +89,10 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
                   codes={data.codes?.map((code) => code.uniqid)}
                 />
               }
-              fileName={`Barcodes${data.codes?.length}-${data.cols}-${data.rows}-${data.offset}.pdf`}
+              fileName={`${ViewStrings.barcodes}${data.codes?.length}-${data.cols}-${data.rows}-${data.offset}.pdf`}
             >
               {({ loading }) =>
-                loading ? "Loading document..." : "Download PDF!"
+                loading ? ViewStrings.Loading : ViewStrings.Download
               }
             </PDFDownloadLink>
           </Button>
@@ -96,30 +100,30 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
       }
     >
       <div className="mb-1">
-        <p>Choose how you want to print the Barcodes.</p>
+        <p>{ViewStrings.text}</p>
         <FormControl
           controlId="cols"
           required
-          title="Cols"
+          title={ViewStrings.titleColumns}
           vertical={false}
           showMaxLength={false}
           type="number"
           step={1}
           value={data.cols}
-          placeholder={"How many Columns?"}
+          placeholder={ViewStrings.PlaceholderColumns}
           onChange={handleInput}
           min={1}
         ></FormControl>
         <FormControl
           controlId="rows"
           required
-          title="Rows"
+          title={ViewStrings.titleRows}
           vertical={false}
           showMaxLength={false}
           type="number"
           step={1}
           value={data.rows}
-          placeholder={"How many rows?"}
+          placeholder={ViewStrings.PlaceholderRows}
           onChange={handleInput}
           min={1}
         ></FormControl>
@@ -132,7 +136,7 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
           type="number"
           step={1}
           value={data.offset}
-          placeholder={"Where do I start?"}
+          placeholder={ViewStrings.PlaceholderOffset}
           max={data.cols * data.rows - 1}
           onChange={handleInput}
           min={0}

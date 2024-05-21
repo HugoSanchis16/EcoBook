@@ -3,12 +3,15 @@ import {
   FaFaceFrown,
   FaFaceMeh,
   FaFaceSmile,
-  FaFaceLaughBeam,
   FaFaceGrinStars,
 } from "react-icons/fa6";
 import IconButton from "../../../../Components/Buttons/IconButton";
+import { StringsContext } from "../../../../Context/strings.context";
+import { useContext } from "react";
 
 const StateByFacesComponent = ({ data, setData }) => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.Unassign.Modal;
   const handleState = (state) => {
     setData({ ...data, state });
   };
@@ -16,7 +19,7 @@ const StateByFacesComponent = ({ data, setData }) => {
   return (
     <>
       <div className>
-        <h5 className="m-1">State</h5>
+        <h5 className="m-1">{ViewStrings.state}</h5>
         <div className="border border-gray rounded-3 ">
           <div className="d-flex justify-content-around bg-light p-2">
             <div>
