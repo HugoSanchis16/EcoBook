@@ -307,7 +307,7 @@ class History
     public static function checkIfStudentHaveSubjectAssigned(PDO $db, int $subject_id, int $student_id): bool
     {
         $query = "SELECT id
-        FROM `history`
+        FROM `" . self::$table_name . "`
         WHERE subject_id = :subject_id AND student_id = :student_id  AND finalstate IS null";
 
         $stmt = $db->prepare($query);
@@ -320,6 +320,25 @@ class History
                 return true;
             }
             return false;
+        }
+        createException($stmt->errorInfo());
+    }
+
+    public static function checkIfCopyIsAssigned(PDO $db, int $copy_id): bool
+    {
+        $query = "
+        SELECT * FROM `" . self::$table_name . "` AS h 
+        WHERE copy_id = :copy_id AND h.finaldate IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":copy_id", $copy_id);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return false;
+            }
+            return true;
         }
         createException($stmt->errorInfo());
     }

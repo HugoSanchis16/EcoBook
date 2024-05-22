@@ -491,6 +491,25 @@ class Copy
         createException($stmt->errorInfo());
     }
 
+    public static function checkIfCopyIsGoodCopy(PDO $db, int $uniqid): bool
+    {
+        $query = "
+        SELECT * FROM `" . self::$table_name . "` AS c 
+        WHERE c.state > 1 AND c.deleted IS NULL AND c.uniqid = :uniqid";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":uniqid", $uniqid);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return true;
+            }
+            return false;
+        }
+        createException($stmt->errorInfo());
+    }
+
     private static function getMainObject(PDO $db, array $row): Copy
     {
         $newObj = new Copy($db);

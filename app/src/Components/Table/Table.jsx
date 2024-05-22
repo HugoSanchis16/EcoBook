@@ -116,7 +116,7 @@ const ReactTable = ({
               size={1}
             />
           ),
-        [data]
+        [data, emptyData.text]
       )}
       <CustomPagination
         totalPages={totalPages}

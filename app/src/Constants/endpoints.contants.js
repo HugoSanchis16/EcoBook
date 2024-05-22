@@ -128,6 +128,9 @@ export const Endpoints = {
     create: {
       assign: "/assign/assign",
     },
+    check: {
+      checkAssign: "/assign/assignExplicitBook",
+    },
   },
   unassign: {
     search: {

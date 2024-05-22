@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import {
@@ -8,14 +8,12 @@ import {
 import { replacePaths } from "../../Constants/paths.constants";
 import useQuery from "../../Hooks/useQuery";
 import FormControl from "../Form/FormControl/FormControl";
+import { StringsContext } from "../../Context/strings.context";
 
-const Searcher = ({
-  onChange,
-  borderless,
-  label,
-  autoFocus,
-  placeholder = "Search...",
-}) => {
+const Searcher = ({ onChange, borderless, label, autoFocus, placeholder }) => {
+  const { strings } = useContext(StringsContext);
+  const ViewStrings = strings.General.App;
+
   const searchParams = useQuery();
 
   const { push } = useHistory();
@@ -53,7 +51,7 @@ const Searcher = ({
         title={label}
         onChange={handleInput}
         value={currentValue}
-        placeholder={placeholder}
+        placeholder={placeholder || ViewStrings.search}
         className={`mb-0 ${borderless ? "border-0 shadow-none" : ""}`}
       />
     </Form>

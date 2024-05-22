@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Col, Placeholder, Row } from "react-bootstrap";
 import CustomAreaChart from "../../../Components/Charts/AreaChart";
 import SmallPanel from "../../../Components/Charts/SmallPanel/SmallPanel";
 import { StringsContext } from "../../../Context/strings.context";
@@ -202,11 +202,10 @@ const Dashboard = () => {
                     </div>
                   }
                   emptyData={{
-                    text: "text",
-                    buttonText: "buttonText",
+                    text: ViewStrings.emptyData.text,
                     to: Paths[Views.new_book].path,
-                    description: "description",
-                    subDescription: "subDescription",
+                    description: ViewStrings.emptyData.description,
+                    subDescription: ViewStrings.emptyData.subDescription,
                   }}
                   totalPages={totalPages}
                   fetching={fetching}

@@ -8,7 +8,8 @@
       "Update": "Actualizar",
       "Delete": "Eliminar",
       "Cancel": "Cancelar",
-      "Rank": "Rango"
+      "Rank": "Rango",
+      "search": "Buscar..."
     },
     "Tables": {
       "Actions": "Acciones"
@@ -79,6 +80,11 @@
       "subject": "Asignatura",
       "action": "Acción",
       "applyButton": "Aplicar"
+    },
+    "emptyData": {
+      "text": "Copias óptimas",
+      "description": "No hay copias en mal estado.",
+      "subDescription": "Se mostrarán las copias que esten en mal estado para sacarlas del sistema."
     }
   },
   "Assign": {

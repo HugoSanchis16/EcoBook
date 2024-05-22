@@ -9,7 +9,11 @@ import {
 } from "../../../../Constants/endpoints.contants";
 import useNotification from "../../../../Hooks/useNotification";
 import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
-import { Col, Row } from "react-bootstrap";
+import { Button, Col, ListGroup, Row } from "react-bootstrap";
+import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
+import IconButton from "../../../../Components/Buttons/IconButton";
+import AssignCopiesModal from "../../../../Modals/Copies/AssignCopiesModal.jsx/AssignCopiesModal";
+import useModalManager from "../../../../Hooks/useModalManager";
 
 const AssignmentSection = ({ data, setData, courses }) => {
   const request = useRequest();
@@ -19,7 +23,16 @@ const AssignmentSection = ({ data, setData, courses }) => {
   const { strings: Strings } = useContext(StringsContext);
   const ViewStrings = Strings.Assign.NewAssign;
 
-  const [subjects, setSubjects] = useState([]);
+  const [originalSubjects, setOriginalSubjects] = useState([]);
+  const [pendingSubject, setPendingSubjects] = useState([]);
+  const [assignedSubjects, setAssignedSubjects] = useState([]);
+
+  const {
+    closeModal: closeAssignModal,
+    openModal: openAssignModal,
+    show: showAssignModal,
+    data: assignCopyData,
+  } = useModalManager();
 
   const handleChangeCourse = (e) => {
     const { id, value } = e.target;
@@ -27,7 +40,8 @@ const AssignmentSection = ({ data, setData, courses }) => {
       course: value,
     })
       .then((res) => {
-        setSubjects(res.subjects);
+        setOriginalSubjects(res.subjects);
+        setPendingSubjects(res.subjects);
         setData({
           ...data,
           course: value,
@@ -39,63 +53,93 @@ const AssignmentSection = ({ data, setData, courses }) => {
 
   const handleCleanCourse = () => setData({ ...data, course: null });
 
-  const handleRepeaterCheckbox = (e) => {
-    const { id, checked } = e.target;
-    setData({ ...data, [id]: checked });
+  const handleCloseAssignModal = () => {
+    closeAssignModal();
   };
 
-  const handleSelectedSubjects = (e) => {
-    const { id } = e.target;
-    const dataCopy = { ...data };
-    if (dataCopy.subjects?.includes(id)) {
-      dataCopy.subjects = dataCopy.subjects.filter(
-        (subject_guid) => subject_guid !== id
-      );
-    } else {
-      dataCopy.subjects.push(id);
-    }
-    setData({ ...dataCopy });
+  const SubjectItem = ({ value, label, onClick }) => {
+    return (
+      <ListGroup.Item
+        as={Button}
+        className="text-start"
+        onClick={onClick}
+        key={value}
+      >
+        {label}
+      </ListGroup.Item>
+    );
   };
 
   return (
-    <SectionLayout title={ViewStrings.tileSection.titleAssignament}>
-      <FormSelect
-        options={courses}
-        controlId="course"
-        value={data.course}
-        vertical={false}
-        title={ViewStrings.inputs.courseInput.title}
-        placeholder={ViewStrings.inputs.courseInput.placeholder}
-        onChange={handleChangeCourse}
-        onClean={handleCleanCourse}
-        required
+    <>
+      <AssignCopiesModal
+        show={showAssignModal}
+        onClose={handleCloseAssignModal}
+        data={assignCopyData || {}}
       />
-      <FormSwitch
-        controlId="repeater"
-        type="switch"
-        value={data.repeater}
-        disabled={!data.course}
-        vertical={false}
-        title={ViewStrings.inputs.repeatStudentInput.title}
-        onChange={handleRepeaterCheckbox}
-      />
-      {data.repeater && data.course && (
-        <Row className="border p-2 rounded mx-0">
-          {subjects.map((subject) => (
-            <Col sm={12} key={subject.value}>
-              <FormSwitch
-                controlId={subject.value}
-                value={data.subjects.includes(subject.value)}
-                type="switch"
-                vertical={false}
-                title={subject.label}
-                onChange={handleSelectedSubjects}
-              />
+
+      <SectionLayout title={ViewStrings.tileSection.titleAssignament}>
+        <FormSelect
+          options={courses}
+          controlId="course"
+          value={data.course}
+          vertical={false}
+          title={ViewStrings.inputs.courseInput.title}
+          placeholder={ViewStrings.inputs.courseInput.placeholder}
+          onChange={handleChangeCourse}
+          onClean={handleCleanCourse}
+          required
+        />
+      </SectionLayout>
+      <SectionLayout>
+        {data.course && (
+          <Row>
+            <Col sm={12} md={6}>
+              <h6>Pendientes de asignar</h6>
+              <ListGroup>
+                {pendingSubject.length > 0 ? (
+                  pendingSubject.map((subject, idx) => (
+                    <SubjectItem
+                      {...subject}
+                      onClick={() => {
+                        openAssignModal(subject);
+                      }}
+                    />
+                  ))
+                ) : (
+                  <div className="border rounded p-4 d-flex justify-content-center align-items-center">
+                    <p className="mb-0 text-center">
+                      All subjects already assigned!
+                    </p>
+                  </div>
+                )}
+              </ListGroup>
             </Col>
-          ))}
-        </Row>
-      )}
-    </SectionLayout>
+            <Col sm={12} md={6}>
+              <h6>Asignados</h6>
+              <ListGroup>
+                {assignedSubjects.length ? (
+                  assignedSubjects.map((subject, idx) => (
+                    <SubjectItem
+                      {...subject}
+                      onClick={() => {
+                        openAssignModal(subject);
+                      }}
+                    />
+                  ))
+                ) : (
+                  <div className="border rounded p-4 d-flex justify-content-center align-items-center">
+                    <p className="mb-0 text-center">
+                      Select some subject from left list
+                    </p>
+                  </div>
+                )}
+              </ListGroup>
+            </Col>
+          </Row>
+        )}
+      </SectionLayout>
+    </>
   );
 };
 export default AssignmentSection;

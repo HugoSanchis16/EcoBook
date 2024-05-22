@@ -8,7 +8,8 @@
       "Update": "Update",
       "Delete": "Delete",
       "Cancel": "Cancel",
-      "Rank": "Rank"
+      "Rank": "Rank",
+      "search": "Search..."
     },
     "Tables": {
       "Actions": "Actions"
@@ -79,6 +80,11 @@
       "subject": "Subject",
       "action": "Action",
       "applyButton": "Apply"
+    },
+    "emptyData": {
+      "text": "Optimal copies",
+      "description": "There are no copies in poor condition.",
+      "subDescription": "Copies that are in poor condition will be displayed to be removed from the system."
     }
   },
   "Assign": {
