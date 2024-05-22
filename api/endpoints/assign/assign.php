@@ -15,31 +15,26 @@ try {
         'nia' => 'required|numeric',
         'subjects' => 'required|array',
         "repeater" => "required|bool",
-        "course" => "required|string"
+        "course" => "required|string",
+        "assignedSubjects" => "required|array"
     ]);
 
+    logAPI($input->assignedSubjects);
     $student = Student::getByNia($db, $input->nia);
     if ($student) {
         $course = Course::getByGuid($db, $input->course);
-        $subjects = Subject::getAllSubjectsByCourse($db, $course->id);
-        if ($input->repeater) {
-            $subjects = $input->subjects;
-        }
-
-        foreach ($subjects as $subject) {
-            if (gettype($subject) === "string") $subject = Subject::getByGuid($db, $subject);
-            $copy = Copy::getFirstCopyAvailable($db, $subject->guid);
-            if ($copy) {
-                if (History::checkIfStudentHaveSubjectAssigned($db, $subject->id, $student->id)) continue;
-
-                $newHistory = new History($db);
-                $newHistory->copy_id = $copy->id;
-                $newHistory->subject_id = $subject->id;
-                $newHistory->student_id = $student->id;
-                $newHistory->initialstate = $copy->state;
-                $newHistory->initialdate = newDate();
-                $newHistory->store();
-            } else createException("Some subjects have not enough copies available");
+        foreach ($input->assignedSubjects as $copyObj) {
+            $copy = Copy::getByUniqId($db, $copyObj['copy_uniqid']);
+            $subject = Copy::getNameOfSubjectByCopyUniqid($db, $copyObj['copy_uniqid']);
+            logAPI($subject);
+            if (History::checkIfStudentHaveSubjectAssigned($db, $subject['id'], $student->id)) continue;
+            $newHistory = new History($db);
+            $newHistory->copy_id = $copy->id;
+            $newHistory->subject_id = $subject['id'];
+            $newHistory->student_id = $student->id;
+            $newHistory->initialstate = $copy->state;
+            $newHistory->initialdate = newDate();
+            $newHistory->store();
         }
     } else {
         createException("Nia not exist", 409);

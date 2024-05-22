@@ -25,6 +25,7 @@ const Asign = () => {
 
   const [data, setData] = useState({ repeater: false });
   const [courses, setCourses] = useState([]);
+  const [assignedSubjects, setAssignedSubjects] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -45,6 +46,7 @@ const Asign = () => {
     if (checkForm()) {
       request("post", getEndpoint(Endpoints.assign.create.assign), {
         ...data,
+        assignedSubjects,
       })
         .then(() => {
           successNotification(ViewStrings.messages.Assigndone);
@@ -55,10 +57,11 @@ const Asign = () => {
   };
 
   const checkForm = () => {
-    if (!data) {
+    if (!data || assignedSubjects.length < 1) {
       return false;
     }
     const { nia, course } = data;
+    console.log(assignedSubjects.length);
     return validateData([nia, course]);
   };
 
@@ -72,6 +75,8 @@ const Asign = () => {
               data={data}
               setData={setData}
               courses={courses}
+              setAssignedSubjects={setAssignedSubjects}
+              assignedSubjects={assignedSubjects}
             />
             <div className="d-flex justify-content-end w-100 align-items-center">
               <Button disabled={!checkForm()} onClick={handleSubmit}>

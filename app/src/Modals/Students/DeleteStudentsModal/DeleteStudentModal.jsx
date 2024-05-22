@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import FormControl from "../../../Components/Form/FormControl/FormControl";
 import { Endpoints, getEndpoint } from "../../../Constants/endpoints.contants";
 import useNotification from "../../../Hooks/useNotification";
 import useRequest from "../../../Hooks/useRequest";
@@ -23,7 +22,10 @@ const DeleteStudentModal = ({ show, onClose, data }) => {
         successNotification(ViewStrings.message);
         onClose(true);
       })
-      .catch((err) => errorNotification(err.message));
+      .catch((err) => {
+        errorNotification(err.message);
+        onClose(true);
+      });
   };
 
   const hideModal = () => {

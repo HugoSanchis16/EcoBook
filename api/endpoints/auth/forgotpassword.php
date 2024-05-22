@@ -16,7 +16,6 @@ try {
     ]);
 
     $user = User::getByEmail($db, $input->email);
-    logAPI($user);
     if ($user === false) {
         createException('El email introducido no existe!');
     }

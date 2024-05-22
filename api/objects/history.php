@@ -34,7 +34,7 @@ class History
                 ]
             ),
             array(
-                "from" => $this->student(),
+                "from" => $this->student(false),
                 "what" => [
                     'nia',
                 ]
@@ -110,9 +110,12 @@ class History
         return Subject::get($this->conn, $this->subject_id);
     }
 
-    function student(): Student|null
+    function student(bool $checkdelete): Student|null
     {
-        return Student::get($this->conn, $this->student_id);
+        if ($checkdelete) {
+            return Student::getwithoutDelete($this->conn, $this->student_id);
+        } else
+            return Student::get($this->conn, $this->student_id);
     }
 
     public static function get(PDO $db, int $id): History

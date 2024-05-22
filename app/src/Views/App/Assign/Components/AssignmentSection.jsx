@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import FormSelect from "../../../../Components/Form/FormSelect/FormSelect";
 import SectionLayout from "../../../../Layouts/SectionLayout/SectionLayout";
 import { StringsContext } from "../../../../Context/strings.context";
@@ -8,14 +8,17 @@ import {
   getEndpoint,
 } from "../../../../Constants/endpoints.contants";
 import useNotification from "../../../../Hooks/useNotification";
-import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
 import { Button, Col, ListGroup, Row } from "react-bootstrap";
-import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
-import IconButton from "../../../../Components/Buttons/IconButton";
 import AssignCopiesModal from "../../../../Modals/Copies/AssignCopiesModal.jsx/AssignCopiesModal";
 import useModalManager from "../../../../Hooks/useModalManager";
 
-const AssignmentSection = ({ data, setData, courses }) => {
+const AssignmentSection = ({
+  data,
+  setData,
+  courses,
+  assignedSubjects,
+  setAssignedSubjects,
+}) => {
   const request = useRequest();
 
   const { showNotification: errorNotification } = useNotification();
@@ -25,7 +28,6 @@ const AssignmentSection = ({ data, setData, courses }) => {
 
   const [originalSubjects, setOriginalSubjects] = useState([]);
   const [pendingSubject, setPendingSubjects] = useState([]);
-  const [assignedSubjects, setAssignedSubjects] = useState([]);
 
   const {
     closeModal: closeAssignModal,
@@ -53,8 +55,41 @@ const AssignmentSection = ({ data, setData, courses }) => {
 
   const handleCleanCourse = () => setData({ ...data, course: null });
 
-  const handleCloseAssignModal = () => {
+  const handleCloseAssignModal = (data) => {
+    if (data.value) {
+      const { uniqid, value } = data;
+
+      // Remove pending subject
+      const pendingSubjectsCopy = [...pendingSubject];
+      const index = pendingSubjectsCopy
+        .map((item) => item.value)
+        .indexOf(value);
+      let removedItem = pendingSubjectsCopy.splice(index, 1)[0];
+      setPendingSubjects(pendingSubjectsCopy);
+
+      //Add item to assigned items
+      removedItem.copy_uniqid = uniqid;
+      setAssignedSubjects([...assignedSubjects, removedItem]);
+    }
     closeAssignModal();
+  };
+
+  const removeAssignedItem = (item) => {
+    const { value } = item;
+
+    //Removed assigned subject
+    const assignedSubjectsCopy = [...assignedSubjects];
+    const index = assignedSubjectsCopy.map((item) => item.value).indexOf(value);
+    assignedSubjectsCopy.splice(index, 1);
+    setAssignedSubjects(assignedSubjectsCopy);
+
+    //Add subject to original list
+    const pendingSubjectsCopy = [...pendingSubject];
+    const sIndex = originalSubjects.map((item) => item.value).indexOf(value);
+
+    delete item.copy_uniqid;
+    pendingSubjectsCopy.splice(sIndex, 0, item);
+    setPendingSubjects([...pendingSubjectsCopy]);
   };
 
   const SubjectItem = ({ value, label, onClick }) => {
@@ -91,19 +126,17 @@ const AssignmentSection = ({ data, setData, courses }) => {
           required
         />
       </SectionLayout>
-      <SectionLayout>
-        {data.course && (
+      {data.course && (
+        <SectionLayout>
           <Row>
-            <Col sm={12} md={6}>
+            <Col sm={12} md={6} className="pb-3">
               <h6>Pendientes de asignar</h6>
               <ListGroup>
                 {pendingSubject.length > 0 ? (
                   pendingSubject.map((subject, idx) => (
                     <SubjectItem
                       {...subject}
-                      onClick={() => {
-                        openAssignModal(subject);
-                      }}
+                      onClick={() => openAssignModal(subject)}
                     />
                   ))
                 ) : (
@@ -115,16 +148,14 @@ const AssignmentSection = ({ data, setData, courses }) => {
                 )}
               </ListGroup>
             </Col>
-            <Col sm={12} md={6}>
+            <Col sm={12} md={6} className="pb-3">
               <h6>Asignados</h6>
               <ListGroup>
                 {assignedSubjects.length ? (
                   assignedSubjects.map((subject, idx) => (
                     <SubjectItem
                       {...subject}
-                      onClick={() => {
-                        openAssignModal(subject);
-                      }}
+                      onClick={() => removeAssignedItem(subject)}
                     />
                   ))
                 ) : (
@@ -137,8 +168,8 @@ const AssignmentSection = ({ data, setData, courses }) => {
               </ListGroup>
             </Col>
           </Row>
-        )}
-      </SectionLayout>
+        </SectionLayout>
+      )}
     </>
   );
 };

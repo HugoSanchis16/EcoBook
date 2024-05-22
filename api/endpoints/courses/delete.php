@@ -25,6 +25,10 @@ try {
             if ($asigneeCopies != 0)
                 createException("There are " . $asigneeCopies . " students who have copies of this course");
             else {
+                $copies = Copy::getAllByBookId($db, $book->id);
+                foreach ($copies as $copy) {
+                    $copy->delete();
+                }
                 $course->delete();
                 Subject::deleteByCourse($db, $course->id);
                 $book->delete();

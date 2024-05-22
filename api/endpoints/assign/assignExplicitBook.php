@@ -12,28 +12,32 @@ try {
     checkAuth();
 
     $input = validate($data, [
-        'uniqid' => 'required|numeric'
+        'uniqid' => 'required|numeric',
+        'subject' => 'required|string',
     ]);
 
     $copy = Copy::getByUniqId($db, $input->uniqid);
+    $subject = Subject::getByGuid($db, $input->subject);
+    $book = Book::getBySubject($db, $subject->id);
 
     if ($copy) {
         $isAsigned = History::checkIfCopyIsAssigned($db, $copy->id);
         if (!$isAsigned) {
-            createException("The Copy is Asigned");
+            createException("The Copy is already asigned");
         } else {
-            $isGoodCopy = Copy::checkIfCopyIsGoodCopy($db, $copy->uniqid);
+            $isGoodCopy = Copy::checkIfCopyIsGoodCopy($db, $copy->uniqid, $book[0]->id);
             if (!$isGoodCopy) {
-                createException("This copy is broken");
+                createException("This copy is not available");
             }
         }
-        logAPI($isAsigned);
     } else {
         createException("Copy Not Exist");
     }
 
     $db->commit();
-    Response::sendResponse();
+    Response::sendResponse([
+        "uniqIdOfCopy" => $input->subject
+    ]);
 } catch (\Exception $th) {
     $db->rollBack();
     print_r(json_encode(array("status" => false, "message" => $th->getMessage(), 'code' => $th->getCode())));

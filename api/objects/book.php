@@ -100,10 +100,7 @@ class Book
 
     public static function deleteBySubject(PDO $db, int $subject_id): bool
     {
-        $query = "
-        UPDATE `" . self::$table_name . "` 
-        SET deleted=:deleted
-        WHERE subject_id=:subject_id";
+        $query = "UPDATE `" . self::$table_name . "` SET deleted=:deleted WHERE subject_id=:subject_id";
 
         $stmt = $db->prepare($query);
         $stmt->bindValue(":deleted", newDate());

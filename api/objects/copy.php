@@ -491,15 +491,39 @@ class Copy
         createException($stmt->errorInfo());
     }
 
-    public static function checkIfCopyIsGoodCopy(PDO $db, int $uniqid): bool
+    public static function  getNameOfSubjectByCopyUniqid(PDO $db, int $copyUniqid): array|bool
     {
         $query = "
-        SELECT * FROM `" . self::$table_name . "` AS c 
-        WHERE c.state > 1 AND c.deleted IS NULL AND c.uniqid = :uniqid";
+        SELECT s.id
+        FROM `" . self::$table_name . "` c
+        INNER JOIN book b ON c.book_id = b.id
+        INNER JOIN subject s ON b.subject_id = s.id
+        WHERE c.uniqid = :copyUniqid
+    ";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":copyUniqid", $copyUniqid);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return $row;
+            }
+            return false;
+        }
+        createException($stmt->errorInfo());
+    }
+
+    public static function checkIfCopyIsGoodCopy(PDO $db, int $uniqid, int $book_id): bool
+    {
+        $query = "
+        SELECT * FROM `" . self::$table_name . "` AS c
+        WHERE c.state > 1 AND c.deleted IS NULL AND c.uniqid = :uniqid AND c.book_id = :book_id";
 
         $stmt = $db->prepare($query);
 
         $stmt->bindParam(":uniqid", $uniqid);
+        $stmt->bindParam(":book_id", $book_id);
 
         if ($stmt->execute()) {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

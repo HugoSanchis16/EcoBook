@@ -97,6 +97,22 @@ class Student
     }
 
 
+    public static function getwithoutDelete(PDO $db, int $id): Student
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE id=:id";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
+        }
+        createException("Student not found");
+    }
+
     public static function get(PDO $db, int $id): Student
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE id=:id AND deleted IS NULL";
@@ -105,6 +121,21 @@ class Student
 
         $stmt->bindParam(":id", $id);
 
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
+        }
+        createException("Student not found");
+    }
+
+    public static function getByGuidWithoutDelete(PDO $db, string $guid): Student
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE guid=:guid";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":guid", $guid);
         if ($stmt->execute()) {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 return self::getMainObject($db, $row);
@@ -127,6 +158,7 @@ class Student
         }
         createException("Student not found");
     }
+
     public static function getAll(PDO $db, int $page, int $offset, string $search = ""): array
     {
         $query = "

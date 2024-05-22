@@ -15,8 +15,12 @@ try {
     ]);
 
     $student = Student::getByGuid($db, $input->guid);
-    $student->delete();
-
+    $copiesOfStudent = History::getCopiesByUserId($db, $student->id);
+    if (count($copiesOfStudent) > 0) {
+        createException("This student have copies assigned");
+    } else {
+        $student->delete();
+    }
     $db->commit();
 
     Response::sendResponse([

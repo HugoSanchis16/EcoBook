@@ -53,7 +53,7 @@ class HistoryResource
             $subject = $history->subject();
             $course = $subject->course();
 
-            $student = $history->student();
+            $student = $history->student(true);
             $studentProfile = $student->profile();
 
             $newItem = self::getHistory($history, ["guid", "initialstate", "finalstate", "initialdate", "finaldate", "observations"]);
