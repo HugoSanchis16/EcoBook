@@ -130,7 +130,7 @@ const AssignmentSection = ({
         <SectionLayout>
           <Row>
             <Col sm={12} md={6} className="pb-3">
-              <h6>Pendientes de asignar</h6>
+              <h6>{ViewStrings.tileSection.pendingAssign}</h6>
               <ListGroup>
                 {pendingSubject.length > 0 ? (
                   pendingSubject.map((subject, idx) => (
@@ -142,14 +142,14 @@ const AssignmentSection = ({
                 ) : (
                   <div className="border rounded p-4 d-flex justify-content-center align-items-center">
                     <p className="mb-0 text-center">
-                      All subjects already assigned!
+                      {ViewStrings.tileSection.allsubjectsAssigned}
                     </p>
                   </div>
                 )}
               </ListGroup>
             </Col>
             <Col sm={12} md={6} className="pb-3">
-              <h6>Asignados</h6>
+              <h6>{ViewStrings.tileSection.assigned}</h6>
               <ListGroup>
                 {assignedSubjects.length ? (
                   assignedSubjects.map((subject, idx) => (
@@ -161,7 +161,7 @@ const AssignmentSection = ({
                 ) : (
                   <div className="border rounded p-4 d-flex justify-content-center align-items-center">
                     <p className="mb-0 text-center">
-                      Select some subject from left list
+                      {ViewStrings.tileSection.allpendingAssign}
                     </p>
                   </div>
                 )}

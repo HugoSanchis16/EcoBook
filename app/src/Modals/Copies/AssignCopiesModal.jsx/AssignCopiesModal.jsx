@@ -13,7 +13,7 @@ import useModalManager from "../../../Hooks/useModalManager";
 
 const AssignCopiesModal = ({ show, onClose, data }) => {
   const { strings } = useContext(StringsContext);
-  const ViewStrings = strings.Copies.deleteCopies;
+  const ViewStrings = strings.Assign;
   const request = useRequest();
 
   const [isScanningEnabled, setIsScanningEnabled] = useState(false);
@@ -23,15 +23,13 @@ const AssignCopiesModal = ({ show, onClose, data }) => {
   const { showNotification: successNotification } = useNotification("success");
 
   const [uniqid, setUniqid] = useState("");
+  const [readedUniqid, setReadedUniqid] = useState("");
 
   useEffect(() => {
     if (show) {
       setUniqid("");
     }
-    if (uniqid !== "") {
-      handleSubmit();
-    }
-  }, [show, uniqid]);
+  }, [show]);
 
   const {
     closeModal: closeScanModal,
@@ -39,13 +37,13 @@ const AssignCopiesModal = ({ show, onClose, data }) => {
     show: showScanModal,
   } = useModalManager();
 
-  const handleSubmit = () => {
+  const handleSubmit = (uniqid) => {
     request("post", getEndpoint(Endpoints.assign.check.checkAssign), {
-      uniqid,
+      uniqid: uniqid,
       subject: data.value,
     })
       .then((res) => {
-        successNotification(ViewStrings.message);
+        successNotification(ViewStrings.message.Assigndone);
         onClose({ uniqid, value: data.value });
       })
       .catch((err) => {
@@ -80,8 +78,8 @@ const AssignCopiesModal = ({ show, onClose, data }) => {
     closeScanModal();
     setIsScanningEnabled(false);
     if (uniqid) {
-      console.log(uniqid);
       setUniqid(uniqid);
+      handleSubmit(uniqid);
     }
   };
 
@@ -106,17 +104,25 @@ const AssignCopiesModal = ({ show, onClose, data }) => {
         customHeader={
           <div className="d-flex align-items-center justify-content-between w-100">
             <Modal.Title className="ms-2">
-              Asignar Libro de {data.label}
+              {ViewStrings.AssignModal.title} {data.label}
             </Modal.Title>
             <div className="d-flex align-items-center justify-content-between">
               <IconButton
-                title={scanning ? "scanning" : "scan"}
+                title={
+                  scanning
+                    ? ViewStrings.AssignModal.scanning
+                    : ViewStrings.AssignModal.scan
+                }
                 Icon={MdBarcodeReader}
                 onClick={handleCheck}
               ></IconButton>
               <IconButton
                 Icon={BsFillWebcamFill}
-                title={isScanningEnabled ? "scanning" : "scan"}
+                title={
+                  isScanningEnabled
+                    ? ViewStrings.AssignModal.scanning
+                    : ViewStrings.AssignModal.scan
+                }
                 onClick={handleOpenScanModal}
               />
             </div>
@@ -125,21 +131,21 @@ const AssignCopiesModal = ({ show, onClose, data }) => {
         footer={
           <div className="d-flex justify-content-end gap-2">
             <Button variant="light" size="lm" onClick={hideModal}>
-              {ViewStrings.cancel}
+              {ViewStrings.AssignModal.cancel}
             </Button>
             <Button
               variant="danger"
               size="lm"
               disabled={!uniqid}
-              onClick={handleSubmit}
+              onClick={() => handleSubmit(uniqid)}
             >
-              {ViewStrings.confirm}
+              {ViewStrings.AssignModal.confirm}
             </Button>
           </div>
         }
       >
         <Form.Group className="mb-3">
-          <Form.Label>Codigo del libro</Form.Label>
+          <Form.Label>{ViewStrings.AssignModal.label}</Form.Label>
           <Form.Control
             id="uniqid"
             required
@@ -147,7 +153,7 @@ const AssignCopiesModal = ({ show, onClose, data }) => {
             type="text"
             maxLength={13}
             value={uniqid}
-            placeholder="442325658556"
+            placeholder={ViewStrings.AssignModal.placeholder}
           />
         </Form.Group>
       </ModalLayout>

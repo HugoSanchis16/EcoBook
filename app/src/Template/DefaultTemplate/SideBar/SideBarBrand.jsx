@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import ToggleSideBarButton from "../../../Components/ToggleSideBarButton/ToggleSideBarButton";
 import { Configuration } from "../../../Config/app.config";
-import useSideBar from "../../../Hooks/useSideBar";
 
 import logoMaximisedEn from "../../../Assets/images/Logo/logo-maximised-en.png";
 import logoMaximisedEs from "../../../Assets/images/Logo/logo-maximised-es.png";
@@ -34,7 +33,7 @@ const SideBarBrand = () => {
           <img
             className="img-fluid"
             title={`${Configuration.APP_NAME} logo`}
-            alt="BookBank main logo"
+            alt="ECOBOOK main logo"
             src={isMobileView || expanded ? logoMaximised : logoMinimised}
             style={{
               width: isMobileView || expanded ? "240px" : "35px",
@@ -43,7 +42,7 @@ const SideBarBrand = () => {
                 isMobileView || expanded
                   ? Configuration.theme.general.sidebar.maximisedWidth
                   : "120px",
-              maxHeight: 150,
+              maxHeight: 250,
               transition: ".3s",
             }}
           />

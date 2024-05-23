@@ -80,7 +80,7 @@ const Asign = () => {
             />
             <div className="d-flex justify-content-end w-100 align-items-center">
               <Button disabled={!checkForm()} onClick={handleSubmit}>
-                {GeneralStrings.Create}
+                {ViewStrings.title}
               </Button>
             </div>
           </>

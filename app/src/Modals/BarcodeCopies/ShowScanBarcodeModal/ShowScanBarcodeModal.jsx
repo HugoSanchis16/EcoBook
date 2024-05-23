@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import BarcodeScannerComponent from "react-webcam-barcode-scanner";
+import { StringsContext } from "../../../Context/strings.context";
 
 const ShowScanBarcodeModal = ({
   show,
@@ -8,6 +9,9 @@ const ShowScanBarcodeModal = ({
   isScanningEnabled,
   setIsScanningEnabled,
 }) => {
+  const { strings: Strings } = useContext(StringsContext);
+  const ViewStrings = Strings.BarcodeScanModal;
+
   useEffect(() => {
     if (show) {
       setIsScanningEnabled(true);
@@ -30,7 +34,7 @@ const ShowScanBarcodeModal = ({
     >
       <Modal.Body className="align-items-center">
         <div>
-          <h5 className="secondary text-center ">Scanning Barcode...</h5>
+          <h5 className="secondary text-center ">{ViewStrings.title}</h5>
         </div>
         <div className="d-flex justify-content-center mt-3  ">
           {isScanningEnabled && (
@@ -44,7 +48,7 @@ const ShowScanBarcodeModal = ({
       </Modal.Body>
       <Modal.Footer className="justify-content-center">
         <Button variant="secondary" onClick={() => onClose(false)}>
-          Close
+          {ViewStrings.close}
         </Button>
       </Modal.Footer>
     </Modal>

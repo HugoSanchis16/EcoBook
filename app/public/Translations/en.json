@@ -87,6 +87,10 @@
       "subDescription": "Copies that are in poor condition will be displayed to be removed from the system."
     }
   },
+  "BarcodeScanModal": {
+    "title": "Scanning Barcode...",
+    "close": "Close"
+  },
   "Assign": {
     "NewAssign": {
       "title": "Assign",
@@ -96,7 +100,12 @@
       "scanWebcam": "Scan with webcam",
       "tileSection": {
         "titleIdentification": "Student's Identification",
-        "titleAssignament": "Subjects Assignments"
+        "titleAssignament": "Subjects Assignments",
+        "pendingAssign": "Pending to assign",
+        "asigned": "Assigned",
+        "allsubjectsAssigned": "All subjects already assigned!",
+        "allpendingAssign": "Select some subject from the previous list",
+        "assigned": "Assigned"
       },
       "inputs": {
         "niaInput": {
@@ -115,6 +124,15 @@
         "notCoursesYet": "Not courses available yet. Please create new courses.",
         "Assigndone": "The assignment of the book has been correct"
       }
+    },
+    "AssignModal": {
+      "title": "Assign Book of",
+      "scanning": "Scanning...",
+      "scan": "Scan",
+      "cancel": "Cancel",
+      "confirm": "Confirm",
+      "label": "Book Code",
+      "placeholder": "Book Code..."
     }
   },
   "Unassign": {

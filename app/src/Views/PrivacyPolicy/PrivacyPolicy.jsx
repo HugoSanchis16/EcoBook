@@ -11,17 +11,18 @@ const PrivacyPolicy = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "90vh",
+          height: "70vh",
+          overflowY: "auto",
         }}
       >
         <div
           style={{
             maxWidth: "800px",
-            backgroundColor: "#F5F5F4",
             borderRadius: "20px",
             padding: "20px",
             boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-            overflow: "auto",
+            maxHeight: "100%",
+            overflowY: "auto",
           }}
         >
           <h1 style={{ textAlign: "center", marginBottom: "20px" }}>
@@ -58,7 +59,7 @@ const PrivacyPolicy = () => {
             <h4>{ViewStrings.titles.contact}</h4>
             <p>
               {ViewStrings.paragraphs.contactP1}
-              <b>bookbank@gmail.com</b>
+              <b>ecobook@gmail.com</b>
               {ViewStrings.paragraphs.contactP2}
             </p>
           </div>

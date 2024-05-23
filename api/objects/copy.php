@@ -514,14 +514,15 @@ class Copy
         createException($stmt->errorInfo());
     }
 
-    public static function checkIfCopyIsGoodCopy(PDO $db, int $uniqid, int $book_id): bool
+    public static function checkIfCopyIsGoodCopy(PDO $db, String $uniqid, int $book_id): bool
     {
         $query = "
         SELECT * FROM `" . self::$table_name . "` AS c
         WHERE c.state > 1 AND c.deleted IS NULL AND c.uniqid = :uniqid AND c.book_id = :book_id";
 
         $stmt = $db->prepare($query);
-
+        logAPI($uniqid);
+        logAPI($book_id);
         $stmt->bindParam(":uniqid", $uniqid);
         $stmt->bindParam(":book_id", $book_id);
 
@@ -541,7 +542,7 @@ class Copy
         $newObj->book_id = intval($row['book_id']);
         $newObj->guid = $row['guid'];
         $newObj->uniqid = $row['uniqid'];
-        $newObj->state = $row['state'];
+        $newObj->state = intval($row['state']);
         $newObj->deleted = $row['deleted'];
         return $newObj;
     }

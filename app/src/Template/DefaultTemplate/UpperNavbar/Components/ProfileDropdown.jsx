@@ -79,7 +79,7 @@ const ProfileDropdown = () => {
                 profile.avatar ||
                 `https://www.gravatar.com/avatar/${profile.name}?d=identicon`
               }
-              alt="Profile"
+              alt={ViewStrings.Profile}
               width={25}
               height={25}
               style={{}}

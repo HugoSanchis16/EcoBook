@@ -87,6 +87,10 @@
       "subDescription": "Se mostrarán las copias que esten en mal estado para sacarlas del sistema."
     }
   },
+  "BarcodeScanModal": {
+    "title": "Escaneando Codigo de Barras...",
+    "close": "Cerrar"
+  },
   "Assign": {
     "NewAssign": {
       "title": "Asignar",
@@ -96,7 +100,12 @@
       "scanWebcam": "Escanear con cámara web",
       "tileSection": {
         "titleIdentification": "Identificación del Estudiante",
-        "titleAssignament": "Asignaciones de Asignaturas"
+        "titleAssignament": "Asignación de Materias",
+        "pendingAssign": "Pendientes de asignar",
+        "asigned": "Asignados",
+        "allsubjectsAssigned": "¡Todas las materias ya están asignadas!",
+        "allpendingAssign": "Selecciona alguna materia de la lista de la anterior",
+        "assigned": "Asignados"
       },
       "inputs": {
         "niaInput": {
@@ -115,6 +124,15 @@
         "notCoursesYet": "Aún no hay cursos disponibles. Por favor, crea nuevos cursos.",
         "Assigndone": "La asignación del libro se realizó correctamente"
       }
+    },
+    "AssignModal": {
+      "title": "Asignar Libro de",
+      "scanning": "Escaneando...",
+      "scan": "Escanear",
+      "cancel": "Cancelar",
+      "confirm": "Confirmar",
+      "label": "Codigo del libro",
+      "placeholder": "Codigo del libro..."
     }
   },
   "Unassign": {
