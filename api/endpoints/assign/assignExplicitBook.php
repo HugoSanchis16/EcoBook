@@ -23,15 +23,22 @@ try {
     if ($copy) {
         $isAsigned = History::checkIfCopyIsAssigned($db, $copy->id);
         if (!$isAsigned) {
-            createException("The Copy is already asigned");
+            createException("The Copy is already asigned", 409);
         } else {
             $isGoodCopy = Copy::checkIfCopyIsGoodCopy($db, $copy->uniqid, $book[0]->id);
             if (!$isGoodCopy) {
-                createException("This copy is not available");
+                createException("This copy is not available for this subject", 0);
+            } else {
+                $copies = Copy::getCopiesByBookGuid($db, $book[0]->guid);
+                foreach ($copies as $copy) {
+                    if (History::asignedCopy($db, $copy->id) > 0) {
+                        createException("The student has already been assigned this subject.", 304);
+                    }
+                }
             }
         }
     } else {
-        createException("Copy Not Exist");
+        createException("Copy Not Exist", 404);
     }
 
     $db->commit();

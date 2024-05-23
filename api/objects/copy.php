@@ -535,6 +535,30 @@ class Copy
         createException($stmt->errorInfo());
     }
 
+    public static function getCopiesByBookGuid(PDO $db, string $book_guid): array
+    {
+        $query = "
+        SELECT c.*
+        FROM `" . self::$table_name . "` c
+        INNER JOIN `book` b ON b.id = c.book_id
+        WHERE b.guid =:book_guid
+        ";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":book_guid", $book_guid);
+
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
+
     private static function getMainObject(PDO $db, array $row): Copy
     {
         $newObj = new Copy($db);

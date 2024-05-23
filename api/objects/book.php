@@ -351,7 +351,7 @@ class Book
     {
         $query = "
         SELECT COUNT(h.id) as total
-        FROM `book` b
+        FROM `" . self::$table_name . "` b
         INNER JOIN `copy` c ON c.book_id = b.id
         INNER JOIN `history` h ON h.copy_id = c.id
         WHERE h.finaldate IS NULL AND b.guid=:book_guid

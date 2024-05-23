@@ -43,11 +43,29 @@ const AssignCopiesModal = ({ show, onClose, data }) => {
       subject: data.value,
     })
       .then((res) => {
-        successNotification(ViewStrings.message.Assigndone);
+        successNotification(ViewStrings.NewAssign.messages.Assigndone);
         onClose({ uniqid, value: data.value });
       })
       .catch((err) => {
-        errorNotification(err.message);
+        switch (err.code) {
+          case 409:
+            errorNotification(ViewStrings.NewAssign.messages.copyAsigned);
+            break;
+          case 0:
+            errorNotification(ViewStrings.NewAssign.messages.copyNotAvailable);
+            break;
+          case 304:
+            errorNotification(
+              ViewStrings.NewAssign.messages.subjectAlreadyAsigned
+            );
+            break;
+          case 404:
+            errorNotification(ViewStrings.NewAssign.messages.notExist);
+            break;
+          default:
+            errorNotification(err.message);
+            break;
+        }
         onClose(true);
       });
   };

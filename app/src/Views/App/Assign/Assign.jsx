@@ -49,6 +49,7 @@ const Asign = () => {
         assignedSubjects,
       })
         .then(() => {
+          setAssignedSubjects([]);
           successNotification(ViewStrings.messages.Assigndone);
           setData({ repeater: false });
         })
