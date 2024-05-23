@@ -10,6 +10,7 @@ import { BsFillWebcamFill } from "react-icons/bs";
 import { MdBarcodeReader } from "react-icons/md";
 import ShowScanBarcodeModal from "../../BarcodeCopies/ShowScanBarcodeModal/ShowScanBarcodeModal";
 import useModalManager from "../../../Hooks/useModalManager";
+import FormControl from "../../../Components/Form/FormControl/FormControl";
 
 const AssignCopiesModal = ({ show, onClose, data }) => {
   const { strings } = useContext(StringsContext);
@@ -23,11 +24,11 @@ const AssignCopiesModal = ({ show, onClose, data }) => {
   const { showNotification: successNotification } = useNotification("success");
 
   const [uniqid, setUniqid] = useState("");
-  const [readedUniqid, setReadedUniqid] = useState("");
 
   useEffect(() => {
     if (show) {
       setUniqid("");
+      setScanning(false);
     }
   }, [show]);
 
@@ -43,11 +44,23 @@ const AssignCopiesModal = ({ show, onClose, data }) => {
       subject: data.value,
     })
       .then((res) => {
-        successNotification(ViewStrings.message.Assigndone);
         onClose({ uniqid, value: data.value });
       })
       .catch((err) => {
-        errorNotification(err.message);
+        switch (err.code) {
+          case 406:
+            errorNotification(ViewStrings.NewAssign.messages.alreadyAssigned);
+            break;
+          case 406:
+            errorNotification(ViewStrings.NewAssign.messages.notAvailable);
+            break;
+          case 406:
+            errorNotification(ViewStrings.NewAssign.messages.notExist);
+            break;
+          default:
+            errorNotification(err.message);
+            break;
+        }
         onClose(true);
       });
   };
@@ -144,18 +157,26 @@ const AssignCopiesModal = ({ show, onClose, data }) => {
           </div>
         }
       >
-        <Form.Group className="mb-3">
-          <Form.Label>{ViewStrings.AssignModal.label}</Form.Label>
-          <Form.Control
-            id="uniqid"
+        <Form
+          className="mb-3"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(uniqid);
+          }}
+        >
+          <FormControl
             required
-            onChange={handleText}
-            type="text"
+            controlId="uniqid"
             maxLength={13}
+            showMaxLength={true}
+            vertical={false}
             value={uniqid}
+            title={ViewStrings.AssignModal.label}
             placeholder={ViewStrings.AssignModal.placeholder}
+            onChange={handleText}
+            autoFocus={false}
           />
-        </Form.Group>
+        </Form>
       </ModalLayout>
     </>
   );

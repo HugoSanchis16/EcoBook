@@ -122,7 +122,10 @@
       "messages": {
         "checkInputs": "Check all input fields",
         "notCoursesYet": "Not courses available yet. Please create new courses.",
-        "Assigndone": "The assignment of the book has been correct"
+        "Assigndone": "The assignment of the book has been correct",
+        "alreadyAssigned": "The Copy is already asigned",
+        "notAvailable": "This copy is not available",
+        "notExist": "Copy Not Exist"
       }
     },
     "AssignModal": {

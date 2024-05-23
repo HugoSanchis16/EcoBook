@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { Colors } from "../../Utils/Colors";
 
-const AnimationBalls = ({
-  color = `${Colors.lightYellow}`,
-  size = 15,
-  style,
-}) => {
+const AnimationBalls = ({ color = `${Colors.green}`, size = 15, style }) => {
   const time = 1500; // In milliseconds
 
   const getRandom = () => Math.round(Math.random() * 100 + 25);

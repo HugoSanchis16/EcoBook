@@ -49,7 +49,7 @@ const Asign = () => {
         assignedSubjects,
       })
         .then(() => {
-          successNotification(ViewStrings.messages.Assigndone);
+          successNotification(ViewStrings.messages.AssignGood);
           setData({ repeater: false });
         })
         .catch((err) => errorNotification(err.message));

@@ -23,18 +23,9 @@ const FormControl = ({
   ...props
 }) => {
   const [currentValue, setCurrentValue] = useState(value || "");
-
   useEffect(() => {
     setCurrentValue(value);
   }, [value]);
-
-  const lengthClassName = classNames(
-    "d-flex text-muted justify-content-end align-items-center me-2 fw-bold",
-    {
-      "text-danger": currentValue.length === maxLength,
-      "text-warning": currentValue.length >= maxLength - 5,
-    }
-  );
 
   const handleValue = (e) => {
     const { value } = e.target;
@@ -69,11 +60,6 @@ const FormControl = ({
           onChange={handleValue}
           autoFocus={autoFocus || false}
         />
-        {showMaxLength && (
-          <small className={lengthClassName}>
-            {`${currentValue}`.length}/{maxLength}
-          </small>
-        )}
       </div>
     );
   };

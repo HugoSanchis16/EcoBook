@@ -21,17 +21,18 @@ try {
     $book = Book::getBySubject($db, $subject->id);
 
     if ($copy) {
+        // History::checkIfStudentHaveABookOfACopy($db, $copy->id);
         $isAsigned = History::checkIfCopyIsAssigned($db, $copy->id);
         if (!$isAsigned) {
-            createException("The Copy is already asigned");
+            createException("The Copy is already asigned", 406);
         } else {
             $isGoodCopy = Copy::checkIfCopyIsGoodCopy($db, $copy->uniqid, $book[0]->id);
             if (!$isGoodCopy) {
-                createException("This copy is not available");
+                createException("This copy is not available", 304);
             }
         }
     } else {
-        createException("Copy Not Exist");
+        createException("Copy Not Exist", 400);
     }
 
     $db->commit();

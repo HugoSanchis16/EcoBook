@@ -120,9 +120,12 @@
         }
       },
       "messages": {
-        "checkInputs": "Verifica todos los campos de entrada",
-        "notCoursesYet": "Aún no hay cursos disponibles. Por favor, crea nuevos cursos.",
-        "Assigndone": "La asignación del libro se realizó correctamente"
+        "checkInputs": "Verifique todos los campos de entrada",
+        "notCoursesYet": "Aún no hay cursos disponibles. Por favor, cree nuevos cursos.",
+        "AssignGood": "Todos los libros asignados correctamente",
+        "alreadyAssigned": "La copia ya está asignada",
+        "notAvailable": "Esta copia no está disponible",
+        "notExist": "La copia no existe"
       }
     },
     "AssignModal": {
