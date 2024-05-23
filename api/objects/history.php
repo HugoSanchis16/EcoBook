@@ -326,6 +326,37 @@ class History
         }
         createException($stmt->errorInfo());
     }
+    public static function checkIfStudentHaveABookOfACopy(PDO $db, int $copy_id, int $student_id): bool
+    {
+        //         SELECT c.id
+        // FROM copy c
+        // INNER JOIN book b ON c.book_id = b.id
+        // INNER JOIN subject s ON b.subject_id = s.id
+        // LEFT JOIN history h ON c.id = h.copy_id AND h.student_id = 68
+        // WHERE c.book_id = (
+        //     SELECT book_id
+        //     FROM copy
+        //     WHERE copy_id = 2035
+        // )
+        // AND h.copy_id IS NULL;
+
+        $query = "SELECT id
+        FROM `" . self::$table_name . "`
+        WHERE subject_id = :subject_id AND student_id = :student_id  AND finalstate IS null";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":subject_id", $subject_id);
+        $stmt->bindParam(":student_id", $student_id);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return true;
+            }
+            return false;
+        }
+        createException($stmt->errorInfo());
+    }
 
     public static function checkIfCopyIsAssigned(PDO $db, int $copy_id): bool
     {

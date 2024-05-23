@@ -31,6 +31,7 @@ try {
         $extension = "." . pathinfo($file->fileName, PATHINFO_EXTENSION);
 
         $filename = $user->guid . $extension;
+        logAPI($filename);
 
         $filePath = FileStorage::FilePath($filename);
 

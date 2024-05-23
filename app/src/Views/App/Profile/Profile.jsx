@@ -99,7 +99,7 @@ const Profile = () => {
 
   return (
     <>
-      <GeneralLayout title={ViewStrings.title}>
+      <GeneralLayout showBackButton={true} title={ViewStrings.title}>
         <PanelLayout loaded={loaded}>
           <h5>{ViewStrings.sections.profileImage}</h5>
           <div className="d-flex justify-content-center ">

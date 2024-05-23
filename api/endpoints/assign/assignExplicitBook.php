@@ -21,6 +21,7 @@ try {
     $book = Book::getBySubject($db, $subject->id);
 
     if ($copy) {
+        // History::checkIfStudentHaveABookOfACopy($db, $copy->id);
         $isAsigned = History::checkIfCopyIsAssigned($db, $copy->id);
         if (!$isAsigned) {
             createException("The Copy is already asigned", 409);
