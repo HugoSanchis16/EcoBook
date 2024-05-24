@@ -146,7 +146,7 @@ const Dashboard = () => {
         <Row>
           <Col sm={12} xxl={8}>
             <PanelLayout>
-              <SectionLayout title="Copies count by status">
+              <SectionLayout title={ViewStrings.customPieChart}>
                 <CustomPieChart
                   accessor="uv"
                   data={data?.pieChart}

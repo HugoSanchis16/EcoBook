@@ -81,6 +81,7 @@
       "action": "Action",
       "applyButton": "Apply"
     },
+    "customPieChart": "Copies count by status",
     "emptyData": {
       "text": "Optimal copies",
       "description": "There are no copies in poor condition.",

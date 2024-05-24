@@ -81,6 +81,7 @@
       "action": "Acción",
       "applyButton": "Aplicar"
     },
+    "customPieChart": "Recuento de copias por estado",
     "emptyData": {
       "text": "Copias óptimas",
       "description": "No hay copias en mal estado.",

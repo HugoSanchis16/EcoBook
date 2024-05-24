@@ -17,18 +17,22 @@ try {
     $subject = Subject::getByGuid($db, $input->guid);
     $books = Book::getBySubject($db, $subject->id);
 
-    foreach ($books as $book) {
-        $asigneeCopies = Book::getCountOfCopiesByBookGuid($db, $book->guid);
-        if ($asigneeCopies != 0)
-            createException("There are " . $asigneeCopies . " students who have copies of any book of this subject");
-        else {
-            $copies = Copy::getAllByBookId($db, $book->id);
-            foreach ($copies as $copy) {
-                $copy->delete();
+    if ($books) {
+        foreach ($books as $book) {
+            $asigneeCopies = Book::getCountOfCopiesByBookGuid($db, $book->guid);
+            if ($asigneeCopies != 0)
+                createException("There are " . $asigneeCopies . " students who have copies of any book of this subject");
+            else {
+                $copies = Copy::getAllByBookId($db, $book->id);
+                foreach ($copies as $copy) {
+                    $copy->delete();
+                }
+                $subject->delete();
+                $book->delete();
             }
-            $subject->delete();
-            $book->delete();
         }
+    } else {
+        $subject->delete();
     }
 
     $db->commit();
