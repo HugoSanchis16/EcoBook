@@ -237,7 +237,7 @@ class Copy
 
 
 
-    public static function getAllCount(PDO $db, string $search = "", int $book_id): int
+    public static function getAllCount(PDO $db,  int $book_id, string $search = "",): int
     {
         $query = "
         SELECT COUNT(id) as total
@@ -364,7 +364,7 @@ class Copy
         createException($stmt->errorInfo());
     }
 
-    public static function getAllBadCopiesCountWithCourseFilter(PDO $db, string $search = "", $filters): int
+    public static function getAllBadCopiesCountWithCourseFilter(PDO $db, string $search = "", $filters = []): int
     {
         $query = "
         SELECT COUNT(co.id) as total
@@ -399,7 +399,7 @@ class Copy
         createException($stmt->errorInfo());
     }
 
-    public static function getAllBadCopiesWithCourseFilter(PDO $db, int $page, int $offset, string $search = "", $filters): array
+    public static function getAllBadCopiesWithCourseFilter(PDO $db, int $page, int $offset, string $search = "", $filters = []): array
     {
         $query = "
         SELECT co.*

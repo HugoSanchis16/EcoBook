@@ -27,7 +27,7 @@ try {
     $copies = Copy::getAllByBook($db, $book->id, $input->page, $input->offset, $input->search);
 
     $copiesFormat = CopyResource::getCopiesArray($copies);
-    $copiesCount = Copy::getAllCount($db, $input->search, $book->id);
+    $copiesCount = Copy::getAllCount($db, $book->id, $input->search);
 
     $totalPages = ceil($copiesCount / $input->offset);
 

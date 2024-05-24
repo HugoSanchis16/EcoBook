@@ -7,7 +7,7 @@ header("Content-Type: application/x-www-form-urlencoded");
 <?php
 
 //MIDDLEWARE TO CHANGE
-$middleware = '';
+$middleware = '/Banc-De-Llibres/api';
 $document_root = $_SERVER['DOCUMENT_ROOT'] . $middleware;
 
 //API Config
@@ -15,13 +15,17 @@ define("IS_DEV", FALSE);
 define('LOG_FILE_PATH', "$document_root/logs/bookbank.txt"); // used in helpers utils.php 
 define('LOG_ERROR_FILE_PATH', "$document_root/logs/bookbank_errors.txt"); // used in helpers utils.php 
 define('PUBLIC_API_KEY', 'Another12345Code');
-define('API_URL', 'https://ecobookapi.soulxvintage.es' . $middleware);
+define('API_URL', 'http://tesths.vidavia.net' . $middleware);
 
 //Database Config
-define('DB_HOST', "127.0.0.1");
-define('DB_NAME', 'mvqeywgh_ecobook');
-define('DB_USERNAME', 'mvqeywgh_ecobook');
-define('DB_PASSWORD', 'EcoBook123!');
+define('DB_HOST', "localhost");
+define('DB_NAME', 'banco_libros');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', '');
+// define('DB_HOST', "127.0.0.1");
+// define('DB_NAME', 'mvqeywgh_ecobook');
+// define('DB_USERNAME', 'mvqeywgh_ecobook');
+// define('DB_PASSWORD', 'EcoBook123!');
 
 //SMTP Config
 define('ALLOW_EMAIL_SENDING', true);

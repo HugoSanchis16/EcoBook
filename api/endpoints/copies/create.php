@@ -18,10 +18,14 @@ try {
 
     $book = Book::getByGuid($db, $input->book_guid);
 
-    $copy = new Copy($db);
-    $copy->state = $input->state;
-    $copy->book_id = $book->id;
-    $copy->store();
+    if ($book) {
+        $copy = new Copy($db);
+        $copy->state = $input->state;
+        $copy->book_id = $book->id;
+        $copy->store();
+        $book->stock = $book->stock + 1;
+        $book->update();
+    }
 
     $db->commit();
 

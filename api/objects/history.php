@@ -328,17 +328,6 @@ class History
     }
     public static function checkIfStudentHaveABookOfACopy(PDO $db, int $copy_id, int $student_id): bool
     {
-        //         SELECT c.id
-        // FROM copy c
-        // INNER JOIN book b ON c.book_id = b.id
-        // INNER JOIN subject s ON b.subject_id = s.id
-        // LEFT JOIN history h ON c.id = h.copy_id AND h.student_id = 68
-        // WHERE c.book_id = (
-        //     SELECT book_id
-        //     FROM copy
-        //     WHERE copy_id = 2035
-        // )
-        // AND h.copy_id IS NULL;
 
         $query = "SELECT id
         FROM `" . self::$table_name . "`

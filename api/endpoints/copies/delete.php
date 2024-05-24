@@ -16,10 +16,14 @@ try {
 
     $copy = Copy::getByGuid($db, $input->guid);
     $asigned = History::asignedCopy($db, $copy->id);
+    $book = $copy->book();
 
-    if ($asigned === 0)
+
+    if ($asigned === 0) {
         $copy->delete();
-    else {
+        $book->stock = $book->stock - 1;
+        $book->update();
+    } else {
         createException("This copy is assigned to a student");
     }
 

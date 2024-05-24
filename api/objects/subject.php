@@ -157,7 +157,7 @@ class Subject
         createException("Subject not found");
     }
 
-    public static function getAll(PDO $db, int $page, int $offset, string $search = "", array $filters): array
+    public static function getAll(PDO $db, int $page, int $offset, string $search = "", array $filters = []): array
     {
         $query = "
         SELECT *
@@ -230,7 +230,7 @@ class Subject
         createException($stmt->errorInfo());
     }
 
-    public static function getAllCount(PDO $db, string $search = "", array $filters): int
+    public static function getAllCount(PDO $db, string $search = "", array $filters = []): int
     {
         $query = "
         SELECT COUNT(s.id) as total

@@ -188,7 +188,7 @@ class Book
     }
 
 
-    public static function getAll(PDO $db, int $page, int $offset, string $search = "", $filters): array
+    public static function getAll(PDO $db, int $page, int $offset, string $search = "", $filters = []): array
     {
         $query = "
         SELECT b.*
@@ -221,7 +221,7 @@ class Book
         createException($stmt->errorInfo());
     }
 
-    public static function getAllWithCourseFilter(PDO $db, int $page, int $offset, string $search = "", $filters): array
+    public static function getAllWithCourseFilter(PDO $db, int $page, int $offset, string $search = "", $filters = []): array
     {
         $query = "
         SELECT b.*
@@ -257,14 +257,14 @@ class Book
         createException($stmt->errorInfo());
     }
 
-    public static function getAllCountWithCourseFilter(PDO $db, string $search = "", $filters): int
+    public static function getAllCountWithCourseFilter(PDO $db, string $search = "", $filters = []): int
     {
         $query = "
         SELECT COUNT(b.id) as total
         FROM `" . self::$table_name . "` b
         JOIN subject s ON b.subject_id = s.id
         JOIN course c ON s.course_id = c.id
-        WHERE b.deleted IS NULL";
+        WHERE b.deleted IS NULL AND c.deleted IS NULL";
 
         if (!empty($filters)) {
             $query .= " AND c.id = :course";
@@ -292,7 +292,7 @@ class Book
 
 
 
-    public static function getAllCount(PDO $db, string $search = "", $filters): int
+    public static function getAllCount(PDO $db, string $search = "", $filters = []): int
     {
         $query = "
         SELECT COUNT(b.id) as total
