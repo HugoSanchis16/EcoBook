@@ -65,7 +65,11 @@ const CopyInfo = () => {
       .finally(() => finishFetching());
   };
   return (
-    <GeneralLayout loaded={loaded} showBackButton={true} title={"Copy"}>
+    <GeneralLayout
+      loaded={loaded}
+      showBackButton={true}
+      title={ViewStrings.tit}
+    >
       <PanelLayout loaded={loaded} Tabs={CopyTabs}>
         <SectionLayout title={ViewStrings.title}>
           <InfoProps title={ViewStrings.copyCode} data={data.uniqid} />

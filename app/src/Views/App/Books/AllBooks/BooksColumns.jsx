@@ -40,14 +40,6 @@ export const BooksColumns = (openDeleteModal) => {
       width: 100,
     },
     {
-      Header: ViewStrings.columns.enabled,
-      Cell: (row) =>
-        getColumnValue(row, (item) => (
-          <FormSwitch type="switch" value={item.enabled} disabled />
-        )),
-      width: 50,
-    },
-    {
       Header: ViewStrings.columns.actions,
       width: 10,
       Cell: (row) =>

@@ -143,7 +143,7 @@ class Copy
         $query = "
         SELECT c.*
         FROM `" . self::$table_name . "` c
-        WHERE c.book_id = :book_id
+        WHERE c.book_id = :book_id AND c.deleted IS NULL
         ";
 
         applySearchOnQuery($query);

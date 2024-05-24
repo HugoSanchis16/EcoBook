@@ -94,10 +94,7 @@ const CopyHistory = () => {
           <ReactTable
             emptyData={{
               text: ViewStrings.emptyData.text,
-              buttonText: ViewStrings.emptyData.buttonText,
-              to: Paths[Views.students].path,
               description: ViewStrings.emptyData.description,
-              subDescription: ViewStrings.emptyData.subDescription,
             }}
             totalPages={totalPages}
             fetching={fetching}

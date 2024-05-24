@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite --host",
-    "build": "set GENERATE_SOURCEMAP=false && VITE_API_URL=VITE_API_LIVE_URL && vite build",
+    "build": "set GENERATE_SOURCEMAP=false && set VITE_API_URL=VITE_API_LIVE_URL && vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },

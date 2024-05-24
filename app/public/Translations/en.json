@@ -9,7 +9,8 @@
       "Delete": "Delete",
       "Cancel": "Cancel",
       "Rank": "Rank",
-      "search": "Search..."
+      "search": "Search...",
+      "rows": "rows"
     },
     "Tables": {
       "Actions": "Actions"
@@ -127,7 +128,8 @@
         "copyAsigned": "The Copy is already asigned",
         "copyNotAvailable": "This copy is not available for this subject",
         "subjectAlreadyAsigned": "The student has already been assigned this subject.",
-        "notExist": "Copy Not Exist"
+        "notExist": "Copy Not Exist",
+        "NiaNotExist": "NIA not Exist!"
       }
     },
     "AssignModal": {
@@ -144,6 +146,7 @@
     "title": "Unassign",
     "studentName": "Student:",
     "Modal": {
+      "buttonClose": "Close",
       "buttonCancel": "Cancel",
       "buttonConfirm": "Confirm",
       "messageDeleted": "Book deleted successfully!",
@@ -472,6 +475,7 @@
       }
     },
     "copyInfo": {
+      "tit": "Copy Info",
       "title": "General Info",
       "copyCode": "Copy Code",
       "course": "Course",
@@ -632,6 +636,7 @@
     },
     "EditSubject": {
       "title": "Edit Subject",
+      "subtitle": "Subject Info",
       "inputs": {
         "abbrInput": {
           "title": "Abbreviation:",
@@ -643,7 +648,8 @@
         }
       },
       "messages": {
-        "subjectUpdated": "Subject updated successfully!"
+        "subjectUpdated": "Subject updated successfully!",
+        "checkInputs": "Check all input fields"
       }
     },
     "deleteSubjects": {

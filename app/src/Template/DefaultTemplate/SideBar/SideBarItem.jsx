@@ -52,7 +52,7 @@ const SideBarItem = ({ item }) => {
           />
         )}
         <span className={isMobileView || expanded ? "ms-3" : ""}>
-          {isMobileView || (expanded && ViewStrings[item.title])}
+          {(isMobileView || expanded) && ViewStrings[item.title]}
         </span>
       </Button>
     </div>

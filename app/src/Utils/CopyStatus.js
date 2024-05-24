@@ -1,27 +1,27 @@
 export const CopyStatus = [
   {
     value: 0,
-    label: "Useless",
+    label: "⭐",
     color: "#ff0000",
   },
   {
     value: 1,
-    label: "Bad",
+    label: "⭐⭐",
     color: "#FFC900",
   },
   {
     value: 2,
-    label: "Good",
+    label: "⭐⭐⭐",
     color: "#FFE800",
   },
   {
     value: 3,
-    label: "Very good",
+    label: "⭐⭐⭐⭐",
     color: "#B9FF00",
   },
   {
     value: 4,
-    label: "New",
+    label: "⭐⭐⭐⭐⭐",
     color: "#17FF00",
   },
 ];

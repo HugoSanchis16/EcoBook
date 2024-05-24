@@ -28,7 +28,7 @@ const DeleteCopiesModal = ({ show, onClose, data }) => {
   };
 
   const hideModal = () => {
-    onClose();
+    onClose(true);
   };
 
   const fontSize = {

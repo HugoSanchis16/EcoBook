@@ -10,7 +10,6 @@ class Book
     public string $guid;
     public String $name;
     public String $isbn;
-    public bool $enabled;
     public int $subject_id;
     public int $stock;
     public string $created;
@@ -72,14 +71,13 @@ class Book
 
         $query = "
         UPDATE `" . self::$table_name . "` 
-        SET name=:name, isbn=:isbn, stock=:stock, enabled=:enabled, updated=:updated, deleted=:deleted, searchdata=:searchdata
+        SET name=:name, isbn=:isbn, stock=:stock, updated=:updated, deleted=:deleted, searchdata=:searchdata
         WHERE id=:id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":isbn", $this->isbn);
         $stmt->bindParam(":stock", $this->stock);
-        $stmt->bindParam(":enabled", $this->enabled);
         $stmt->bindValue(":updated", newDate());
         $stmt->bindValue(":deleted", $this->deleted);
         $stmt->bindParam(":id", $this->id);
@@ -377,7 +375,6 @@ class Book
         $newObj->guid = $row['guid'];
         $newObj->name = $row['name'];
         $newObj->isbn = $row['isbn'];
-        $newObj->enabled = $row['enabled'];
         $newObj->subject_id = intval($row['subject_id']);
         $newObj->stock = intval($row['stock']);
         $newObj->created = $row['created'];

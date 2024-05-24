@@ -92,7 +92,7 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
                   />
                 );
               }, [data])}
-              fileName={`${ViewStrings.barcodes}${data.codes?.length}-${data.cols}-${data.rows}-${data.offset}.pdf`}
+              fileName={`Barcodes${data.codes?.length}-${data.cols}-${data.rows}-${data.offset}.pdf`}
             >
               {({ loading }) =>
                 loading ? ViewStrings.Loading : ViewStrings.Download
@@ -103,7 +103,15 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
       }
     >
       <div className="mb-1">
-        <p>{ViewStrings.text}</p>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <span>{ViewStrings.Text}</span>
+          <Button
+            size="sm"
+            onClick={() => setData({ copies: 1, rows: 10, cols: 3, offset: 0 })}
+          >
+            {ViewStrings.DefaultConf}
+          </Button>
+        </div>
         <FormControl
           controlId="cols"
           required

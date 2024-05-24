@@ -29,7 +29,7 @@ class BookResource
         $itemsArray = [];
         foreach ($books as $book) {
 
-            $newItem = self::getBook($book, ['name', 'isbn', 'stock', 'guid', 'enabled']);
+            $newItem = self::getBook($book, ['name', 'isbn', 'stock', 'guid']);
             $subject = $book->subject();
             $newItem->subjectName = $subject->name;
             $itemsArray[] = $newItem;

@@ -17,7 +17,6 @@ import useNotification from "../../../../Hooks/useNotification";
 import useRequest from "../../../../Hooks/useRequest";
 import GeneralLayout from "../../../../Layouts/GeneralLayout/GeneralLayout";
 import PanelLayout from "../../../../Layouts/PanelLayout/PanelLayout";
-import FormSwitch from "../../../../Components/Form/FormSwitch/FormSwitch";
 import { IsbnRegex } from "../../../../Utils/Regex";
 
 const EditBook = () => {
@@ -55,11 +54,6 @@ const EditBook = () => {
   const handleInput = (e) => {
     const { id, value } = e.target;
     setData({ ...data, [id]: value });
-  };
-
-  const handleCheck = (e) => {
-    const { id, checked } = e.target;
-    setData({ ...data, [id]: checked });
   };
 
   const handleSubmit = () => {
@@ -102,14 +96,6 @@ const EditBook = () => {
           title={ViewStrings.inputs.isbnInput.title}
           placeholder={ViewStrings.inputs.isbnInput.placeholder}
           onChange={handleInput}
-        />
-        <FormSwitch
-          controlId="enabled"
-          type="switch"
-          vertical={false}
-          value={data.enabled}
-          title={ViewStrings.inputs.enabledCheck.title}
-          onChange={handleCheck}
         />
         <div className="d-flex justify-content-end w-100 align-items-center">
           <Button disabled={!checkForm()} onClick={handleSubmit}>

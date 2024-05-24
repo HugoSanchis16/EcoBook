@@ -7,6 +7,7 @@ const PanelLayout = ({
   centered,
   style,
   Tabs,
+  container,
   className = "p-2 p-xl-3",
   cardClassName = "p-0",
   onClick = () => {},
@@ -14,6 +15,7 @@ const PanelLayout = ({
   const mainClassNames = classNames(
     "rounded-4 overflow-hidden border-0 position-relative mb-3 bg-white shadow",
     { "rounded-top-0": Tabs },
+    { container },
     cardClassName
   );
 

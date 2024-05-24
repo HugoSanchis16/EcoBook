@@ -66,7 +66,7 @@ const EditSubject = () => {
           push(Paths[Views.subjects].path);
         })
         .catch((err) => errorNotification(err.message));
-    } else errorNotification("Check all input fields");
+    } else errorNotification(ViewStrings.messages.checkInputs);
   };
 
   const checkForm = () => {
@@ -78,7 +78,7 @@ const EditSubject = () => {
     <>
       <GeneralLayout showBackButton title={ViewStrings.title}>
         <PanelLayout loaded={loaded}>
-          <SectionLayout title="Subjects">
+          <SectionLayout title={ViewStrings.subtitle}>
             <FormControl
               controlId="name"
               maxLength={255}

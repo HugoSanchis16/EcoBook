@@ -18,7 +18,7 @@ try {
     ]);
 
     $course = new Course($db);
-    $course->abbr = $input->abbr;
+    $course->abbr = Strtoupper($input->abbr);
     $course->name = $input->name;
     $course->season = $input->season;
     $course->store();

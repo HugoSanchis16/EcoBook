@@ -15,25 +15,39 @@ try {
     ]);
 
     $course = Course::getByGuid($db, $input->guid);
-
     $subjects = Subject::getAllSubjectsByCourse($db, $course->id);
 
-    foreach ($subjects as $subject) {
-        $books = Book::getBySubject($db, $subject->id);
-        foreach ($books as $book) {
-            $asigneeCopies = Book::getCountOfCopiesByBookGuid($db, $book->guid);
-            if ($asigneeCopies != 0)
-                createException("There are " . $asigneeCopies . " students who have copies of this course");
-            else {
-                $copies = Copy::getAllByBookId($db, $book->id);
-                foreach ($copies as $copy) {
-                    $copy->delete();
+    if ($subjects) {
+        foreach ($subjects as $subject) {
+            $books = Book::getBySubject($db, $subject->id);
+            if ($books) {
+                foreach ($books as $book) {
+                    $asigneeCopies = Book::getCountOfCopiesByBookGuid($db, $book->guid);
+                    if ($asigneeCopies != 0)
+                        createException("There are " . $asigneeCopies . " students who have copies of this course");
+                    else {
+                        $copies = Copy::getAllByBookId($db, $book->id);
+                        if ($copies) {
+                            foreach ($copies as $copy) {
+                                $copy->delete();
+                            }
+                            $course->delete();
+                            Subject::deleteByCourse($db, $course->id);
+                            $book->delete();
+                        } else {
+                            $course->delete();
+                            Subject::deleteByCourse($db, $course->id);
+                            $book->delete();
+                        }
+                    }
                 }
+            } else {
                 $course->delete();
                 Subject::deleteByCourse($db, $course->id);
-                $book->delete();
             }
         }
+    } else {
+        $course->delete();
     }
 
     $db->commit();

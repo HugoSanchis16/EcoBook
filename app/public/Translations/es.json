@@ -9,7 +9,8 @@
       "Delete": "Eliminar",
       "Cancel": "Cancelar",
       "Rank": "Rango",
-      "search": "Buscar..."
+      "search": "Buscar...",
+      "rows": "filas"
     },
     "Tables": {
       "Actions": "Acciones"
@@ -127,7 +128,8 @@
         "copyAsigned": "La copia ya está asignada",
         "copyNotAvailable": "Esta copia no está disponible para esta asignatura",
         "subjectAlreadyAsigned": "El estudiante ya tiene asignada esta asignatura.",
-        "notExist": "La copia no existe"
+        "notExist": "La copia no existe",
+        "NiaNotExist": "El NIA no existe!"
       }
     },
     "AssignModal": {
@@ -143,8 +145,8 @@
   "Unassign": {
     "title": "Desasignar",
     "studentName": "Estudiante:",
-
     "Modal": {
+      "buttonClose": "Cerrar",
       "buttonCancel": "Cancelar",
       "buttonConfirm": "Confirmar",
       "messageDeleted": "Book deleted successfully!",
@@ -473,6 +475,7 @@
       }
     },
     "copyInfo": {
+      "tit": "Información de la Copia",
       "title": "Información General",
       "copyCode": "Código de Copia",
       "course": "Curso",
@@ -633,6 +636,7 @@
     },
     "EditSubject": {
       "title": "Editar Asignatura",
+      "subtitle": "Informacion de la Asignatura",
       "inputs": {
         "abbrInput": {
           "title": "Abreviatura:",
@@ -644,7 +648,8 @@
         }
       },
       "messages": {
-        "subjectUpdated": "¡Materia actualizada correctamente!"
+        "subjectUpdated": "¡Materia actualizada correctamente!",
+        "checkInputs": "Verifica todos los campos de entrada"
       }
     },
     "deleteSubjects": {

@@ -47,7 +47,14 @@ const FormToCheckStudent = ({ setData, data, setStep }) => {
           setStep(2);
         })
         .catch((err) => {
-          errorNotification(err.message);
+          switch (err.code) {
+            case 409:
+              errorNotification(ViewStrings.messages.NiaNotExist);
+              break;
+            default:
+              errorNotification(err.message);
+              break;
+          }
         });
     } else {
       errorNotification(ViewStrings.messages.checkInputs);

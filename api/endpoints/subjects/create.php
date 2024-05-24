@@ -22,7 +22,7 @@ try {
     $subject = new Subject($db);
     $subject->name = $input->name;
     $subject->course_id = $course->id;
-    $subject->abbr = $input->abbr;
+    $subject->abbr = Strtoupper($input->abbr);
     $subject->store();
 
     $db->commit();
