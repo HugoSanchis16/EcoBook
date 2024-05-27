@@ -54,6 +54,7 @@ export const Endpoints = {
       getAllAbbr: "/subjects/getAllAbbr",
       edit: "/subjects/get",
       getAllByCourse: "/subjects/getAllByCourse",
+      getAllByCourseThatHaveBooks: "/subjects/getAllByCourseThatHaveCourse",
     },
     editSubject: {
       update: "/subjects/update",
@@ -97,7 +98,7 @@ export const Endpoints = {
       getInfo: "/copies/getInfo",
     },
     historyCopy: {
-      getHistory: "/copies/gethistory",
+      getHistory: "/copies/getHistory",
     },
     deleteCopy: {
       delete: "/copies/delete",

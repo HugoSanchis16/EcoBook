@@ -26,7 +26,7 @@ class Subject
             $this->name,
             $this->abbr,
             array(
-                "from" => $this->course(),
+                "from" => $this->course(false),
                 "what" => [
                     'name',
                     'abbr'
@@ -116,12 +116,12 @@ class Subject
         }
     }
 
-    function course(): Course | bool
+    function course(bool $checkdelete): Course | bool
     {
-        if (isset($this->course_id)) {
+        if ($checkdelete) {
+            return Course::getwithoutDeleted($this->conn, $this->course_id);
+        } else
             return Course::get($this->conn, $this->course_id);
-        }
-        return null;
     }
 
 
@@ -138,6 +138,22 @@ class Subject
                 return self::getMainObject($db, $row);
             }
             return false;
+        }
+        createException("Subject not found");
+    }
+
+    public static function getwithoutDelete(PDO $db, int $id): Subject
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE id=:id";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
         }
         createException("Subject not found");
     }
@@ -284,6 +300,26 @@ class Subject
     public static function getAllSubjectsByCourse(PDO $db, int $course_id): array
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE course_id=:course_id AND deleted IS NULL";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":course_id", $course_id);
+        if ($stmt->execute()) {
+            $arrayToReturn = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $arrayToReturn[] = self::getMainObject($db, $row);
+            }
+            return $arrayToReturn;
+        }
+        createException($stmt->errorInfo());
+    }
+
+    public static function getAllSubjectsByCourseThatHaveBooks(PDO $db, int $course_id): array
+    {
+        $query = "SELECT s.* FROM `" . self::$table_name . "` s
+        INNER JOIN book b ON s.id = b.subject_id
+        WHERE course_id=:course_id AND s.deleted IS NULL
+        AND b.deleted IS NULL";
 
         $stmt = $db->prepare($query);
 

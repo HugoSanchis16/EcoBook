@@ -17,7 +17,7 @@ class SubjectResource
     {
         $itemsArray = [];
         foreach ($subjects as $subject) {
-            $course = $subject->course();
+            $course = $subject->course(false);
 
             $newItem = self::getSubject($subject, ['abbr', 'name', 'guid']);
             $newItem->{"course"} = CourseResource::getCourse($course, ['abbr']);

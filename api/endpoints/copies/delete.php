@@ -16,7 +16,7 @@ try {
 
     $copy = Copy::getByGuid($db, $input->guid);
     $asigned = History::asignedCopy($db, $copy->id);
-    $book = $copy->book();
+    $book = $copy->book(false);
 
 
     if ($asigned === 0) {

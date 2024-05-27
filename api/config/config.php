@@ -11,11 +11,11 @@ $middleware = '/Banc-De-Llibres/api';
 $document_root = $_SERVER['DOCUMENT_ROOT'] . $middleware;
 
 //API Config
-define("IS_DEV", FALSE);
+define("IS_DEV", TRUE);
 define('LOG_FILE_PATH', "$document_root/logs/bookbank.txt"); // used in helpers utils.php 
 define('LOG_ERROR_FILE_PATH', "$document_root/logs/bookbank_errors.txt"); // used in helpers utils.php 
 define('PUBLIC_API_KEY', 'Another12345Code');
-define('API_URL', 'http://tesths.vidavia.net' . $middleware);
+define('API_URL', 'http://local.proyectofinal' . $middleware);
 
 //Database Config
 define('DB_HOST', "localhost");

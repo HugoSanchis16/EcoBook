@@ -82,6 +82,7 @@ const CopyInfo = () => {
           />
         </SectionLayout>
         <SectionLayout title={ViewStrings.barcode}>
+          {console.log(data.uniqid)}
           <BarcodeComponent notitle={true} code={data.uniqid} />
         </SectionLayout>
       </PanelLayout>

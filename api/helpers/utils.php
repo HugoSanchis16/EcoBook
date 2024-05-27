@@ -268,7 +268,15 @@ if (!function_exists('convertSearchValues')) {
                             $split = explode('.', $key);
                             $function = $split[0];
                             $column = $split[1];
-                            $string .= $from->{$function}()->{$column} . " ";
+                            if ($function === 'book') {
+                                // Proporcionar un valor booleano adecuado aquí
+                                $string .= $from->{$function}(false)->{$column} . " ";
+                            } elseif ($function === 'course') {
+                                // Proporcionar un argumento adecuado aquí
+                                $string .= $from->{$function}(false)->{$column} . " ";
+                            } else {
+                                $string .= $from->{$function}()->{$column} . " ";
+                            }
                         } else {
                             $string .= $from->$key . " ";
                         }

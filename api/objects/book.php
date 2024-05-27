@@ -136,6 +136,21 @@ class Book
         }
         createException("Book not found");
     }
+    public static function getWithoutDeleted(PDO $db, int $id): Book
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE id=:id";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
+        }
+        createException("Book not found");
+    }
 
     public static function getByIsbn(PDO $db, string $isbn): Book | bool
     {

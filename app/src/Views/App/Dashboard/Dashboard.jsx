@@ -187,7 +187,7 @@ const Dashboard = () => {
         {/* Big Chart */}
 
         <Row className="d-flex justify-content-center ">
-          <Col sm={12} xxl={4}>
+          <Col sm={12} xxl={6}>
             <PanelLayout>
               <SectionLayout title={ViewStrings.tableOfCopies.title}>
                 <ReactTable
@@ -220,7 +220,7 @@ const Dashboard = () => {
             </PanelLayout>
           </Col>
 
-          <Col sm={12} xxl={8}>
+          <Col sm={12} xxl={6}>
             <PanelLayout>
               <SectionLayout
                 title={ViewStrings.bigChartStudents.title}

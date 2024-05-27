@@ -101,6 +101,22 @@ class Course
         createException("Course not found");
     }
 
+    public static function getwithoutDeleted(PDO $db, int $id): Course|bool
+    {
+        $query = "SELECT * FROM `" . self::$table_name . "` WHERE id=:id";
+
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(":id", $id);
+
+        if ($stmt->execute()) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                return self::getMainObject($db, $row);
+            }
+        }
+        createException("Course not found");
+    }
+
     public static function getByGuid(PDO $db, string $guid): Course
     {
         $query = "SELECT * FROM `" . self::$table_name . "` WHERE guid=:guid AND deleted IS NULL";

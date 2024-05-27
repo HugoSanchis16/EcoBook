@@ -38,7 +38,7 @@ const AssignmentSection = ({
 
   const handleChangeCourse = (e) => {
     const { id, value } = e.target;
-    request("get", getEndpoint(Endpoints.Subjects.allSubjects.getAllByCourse), {
+    request("get", getEndpoint(Endpoints.Subjects.allSubjects.getAllByCourseThatHaveBooks), {
       course: value,
     })
       .then((res) => {

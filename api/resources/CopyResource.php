@@ -50,9 +50,9 @@ class CopyResource
         foreach ($copies as $copy) {
 
             $newItem = self::getCopy($copy, ['guid', 'uniqid', 'state']);
-            $book = $copy->Book();
-            $subject = $book->subject();
-            $course = $subject->course();
+            $book = $copy->Book(false);
+            $subject = $book->subject(false);
+            $course = $subject->course(false);
             $newItem->bookName = $book->name;
             $newItem->subjectName = $subject->abbr;
             $newItem->courseName = $course->abbr;
@@ -63,9 +63,9 @@ class CopyResource
 
     public static function getCopyFormatWithAll(Copy $copy): stdClass
     {
-        $book = $copy->book();
+        $book = $copy->book(false);
         $subject = $book->subject();
-        $course = $subject->course();
+        $course = $subject->course(false);
         $newItem = self::getCopy($copy, ['uniqid', 'state']);
         $newItem->{"book_name"} = $book->name;
         $newItem->{"subject_name"} = $subject->name;

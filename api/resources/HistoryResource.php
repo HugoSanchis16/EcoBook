@@ -18,7 +18,7 @@ class HistoryResource
         $itemsArray = [];
         foreach ($history as $history) {
             $copy = $history->copy();
-            $book = $copy->book();
+            $book = $copy->book(true);
             $newItem = self::getHistory($history, ["guid"]);
             $newItem->{"book_name"} = $book->name;
             $newItem->{"uniqid"} = $copy->uniqid;
@@ -31,9 +31,9 @@ class HistoryResource
         $itemsArray = [];
         foreach ($history as $history) {
             $copy = $history->copy();
-            $subject = $history->subject();
-            $course = $subject->course();
-            $book = $copy->book();
+            $subject = $history->subject(true);
+            $course = $subject->course(true);
+            $book = $copy->book(true);
             $newItem = self::getHistory($history, ["guid", "initialstate", "finalstate", "initialdate", "finaldate"]);
             $newItem->{"book_name"} = $book->name;
             $newItem->{"uniqid"} = $copy->uniqid;
@@ -46,12 +46,12 @@ class HistoryResource
     public static function getCopyHistoryArray(array $history): array
     {
         $itemsArray = [];
+        logAPI($history);
         foreach ($history as $history) {
             $copy = $history->copy();
-            $book = $copy->book();
-
-            $subject = $history->subject();
-            $course = $subject->course();
+            $book = $copy->book(true);
+            $subject = $history->subject(true);
+            $course = $subject->course(true);
 
             $student = $history->student(true);
             $studentProfile = $student->profile();

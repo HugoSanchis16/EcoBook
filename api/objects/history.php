@@ -40,7 +40,7 @@ class History
                 ]
             ),
             array(
-                "from" => $this->subject(),
+                "from" => $this->subject(false),
                 "what" => [
                     'course.season',
                 ]
@@ -105,9 +105,13 @@ class History
     {
         return Copy::get($this->conn, $this->copy_id);
     }
-    function subject(): Subject
+
+    function subject(bool $checkdelete): Subject
     {
-        return Subject::get($this->conn, $this->subject_id);
+        if ($checkdelete) {
+            return Subject::getWithoutDelete($this->conn, $this->subject_id);
+        } else
+            return Subject::get($this->conn, $this->subject_id);
     }
 
     function student(bool $checkdelete): Student|null
@@ -194,7 +198,9 @@ class History
         SELECT h.*
         FROM `" . self::$table_name . "` h 
         INNER JOIN `copy` c ON c.id = h.copy_id
-        WHERE h.student_id = :id AND h.finaldate IS NULL;
+        INNER JOIN `subject` s ON s.id = h.subject_id
+        WHERE h.student_id = :id AND h.finaldate IS NULL
+        AND s.deleted IS NULL;
         ";
 
         $stmt = $db->prepare($query);

@@ -12,20 +12,20 @@ try {
     checkAuth();
 
     $input = validate($data, [
-        "uniqid" => "required|string"
+        'course' => 'required|string',
     ]);
 
-    logAPI($input->uniqid);
+    $course = Course::getByGuid($db, $input->course);
 
-    //check if user exist
-    $copy = Copy::getByUniqId($db, $input->uniqid);
+    $subjects = Subject::getAllSubjectsByCourseThatHaveBooks($db, $course->id);
 
-    $copyFormat = CopyResource::getCopyFormatWithAll($copy);
+    logAPI($subjects);
 
+    $subjectsFinal = SubjectResource::getSubjectsNamesArray($subjects);
 
     $db->commit();
     Response::sendResponse([
-        "data" => $copyFormat
+        "subjects" => $subjectsFinal,
     ]);
 } catch (\Exception $th) {
     $db->rollBack();

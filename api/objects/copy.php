@@ -92,9 +92,12 @@ class Copy
     }
 
 
-    function book(): Book
+    function book(bool $checkdelete): Book
     {
-        return Book::get($this->conn, $this->book_id);
+        if ($checkdelete) {
+            return Book::getWithoutDeleted($this->conn, $this->book_id);
+        } else
+            return Book::get($this->conn, $this->book_id);
     }
 
     public static function get(PDO $db, int $id): Copy

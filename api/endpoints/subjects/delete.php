@@ -11,7 +11,7 @@ try {
     checkAuth();
 
     $input = validate($data, [
-        'guid' => 'required|string',
+        'guid' => 'required|string'
     ]);
 
     $subject = Subject::getByGuid($db, $input->guid);
