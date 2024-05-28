@@ -62,7 +62,6 @@ const Asign = () => {
       return false;
     }
     const { nia, course } = data;
-    console.log(assignedSubjects.length);
     return validateData([nia, course]);
   };
 

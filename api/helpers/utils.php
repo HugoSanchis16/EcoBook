@@ -177,15 +177,16 @@ if (!function_exists('validate')) {
     }
 }
 
+
 if (!function_exists('checkAuth')) {
     function checkAuth($checkToken = true)
     {
         $allheaders = getallheaders();
-        $apikey = isset($allheaders['X-Api-Key']) ? $allheaders['X-Api-Key'] : false;
+
+        $apikey = isset($allheaders['x-api-key']) ? $allheaders['x-api-key'] : false;
 
         if ($apikey !== PUBLIC_API_KEY)
             createException('Api Key not valid', 403);
-
         if ($checkToken) {
             $database = new Database();
             $db = $database->getConnection();
@@ -207,7 +208,7 @@ if (!function_exists('sendEmail')) {
         if (ALLOW_EMAIL_SENDING) {
 
             $mail = new PHPMailer(true);
-            //$mail->SMTPDebug = 3; // SMTP debug output
+            $mail->SMTPDebug = 3; // SMTP debug output
             $mail->isSMTP();
             $mail->Host = SMTP_HOST;
             $mail->SMTPAuth = true;
@@ -216,7 +217,7 @@ if (!function_exists('sendEmail')) {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // Enable implicit TLS encryption
             $mail->Port = 465;
             $mail->CharSet = 'UTF-8';
-            $mail->setFrom('admin@bookbank.com');
+            $mail->setFrom('sender@ecobook.soulxvintage.es');
             $mail->addAddress($to); // Add a recipient
             foreach ($cc as $mailCC) {
                 $mail->addCC($mailCC);
@@ -224,7 +225,12 @@ if (!function_exists('sendEmail')) {
             $mail->isHTML(true); // Set email format to HTML
             $mail->Subject = $subject;
             $mail->Body = $body;
-            $mail->send();
+
+            if ($mail->send()) {
+                echo "<h2> Sent OK</h2>";
+            } else {
+                echo "<h2> ERROR</h2>";
+            }
         }
     }
 }

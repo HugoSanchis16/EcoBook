@@ -46,6 +46,7 @@ const CopyHistory = () => {
 
   const [data, setData] = useState({});
   const [totalPages, setTotalPages] = useState(1);
+  
   useEffect(() => {
     fetchData();
   }, [search]);

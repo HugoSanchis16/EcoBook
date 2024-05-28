@@ -11,7 +11,6 @@ const BarcodeLayoutToPrint = ({ codes, rows = 10, cols = 3, offset = 0 }) => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    console.log({ rows, cols, offset });
     createImage();
   }, [rows, cols, offset]);
 
@@ -34,7 +33,6 @@ const BarcodeLayoutToPrint = ({ codes, rows = 10, cols = 3, offset = 0 }) => {
       return createChunk(pageContent, cols);
     });
     setImages(items);
-    console.log(items);
   };
 
   const createChunk = (array, chunkSize) => {

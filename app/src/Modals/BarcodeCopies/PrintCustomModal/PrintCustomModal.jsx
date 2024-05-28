@@ -82,7 +82,6 @@ const PrintCustomModal = ({ show, onClose, bookGuid }) => {
           >
             <PDFDownloadLink
               document={useMemo(() => {
-                console.log({ data });
                 return (
                   <BarcodeLayoutToPrint
                     cols={data.cols}

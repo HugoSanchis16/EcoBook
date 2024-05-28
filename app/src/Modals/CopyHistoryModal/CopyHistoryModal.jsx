@@ -67,7 +67,7 @@ const CopyHistoryModal = ({ show, onClose, data }) => {
               )
             ) : (
               <span className="bg-info-subtle p-1 rounded-2 ">
-                {ViewStrings.Return.Close}
+                {ViewStrings.InUse}
               </span>
             )
           }
@@ -79,7 +79,7 @@ const CopyHistoryModal = ({ show, onClose, data }) => {
               <StarsComponent state={data?.finalstate} />
             ) : (
               <span className="bg-info-subtle p-1 rounded-2 ">
-                {ViewStrings.Return.Close}
+                {ViewStrings.InUse}
               </span>
             )
           }

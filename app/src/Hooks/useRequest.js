@@ -110,7 +110,6 @@ const useRequest = () => {
           .then(checkResponse)
           .catch(checkError);
       default:
-        console.error("No method selected in useRequest() hook");
         throw new CustomError("No method selected in useRequest() hook");
     }
   };
