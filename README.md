@@ -33,6 +33,6 @@ Este es un proyecto final de grado que consiste en una aplicación web para la g
 1. **Clonar el repositorio**
 
    ```bash
-   git clone https://github.com/tu-usuario/banco-de-libros.git
-   cd banco-de-libros
+   git clone https://github.com/tu-usuario/EcoBook.git
+   cd EcoBook
    ```
